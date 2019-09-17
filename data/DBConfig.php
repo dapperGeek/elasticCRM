@@ -2,12 +2,12 @@
 ob_start();
 session_start();
 	  // $host= "http://192.168.1.156/TenauiService/";
-	  $host= "https://www.elastic25.com/";
+	  $host= "http://localhost/elastic25.com/";
 
 		$DBHOST = "localhost";
 		$DBNAME = "elasticc_25";
-		$DBUSER = "elasticc_25User2";
-		$DBPASS = "M8bWpUpfESpM";
+		$DBUSER = "elasticc_crmUser";
+		$DBPASS = "08KK=(w3N&3v";
 		$metaTags = "";
 		try{
 			$con = new PDO("mysql:host=$DBHOST;dbname=$DBNAME", $DBUSER, $DBPASS,
@@ -23,6 +23,3 @@ session_start();
 
 	include_once("MySQLDatabase.php");
 	$database = new MySQLDatabase($con,$host);
-		
-
-?>
