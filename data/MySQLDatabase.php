@@ -232,21 +232,22 @@ class MySQLDatabase
     public function createTicketNoNew(){
         
         $leadName = strtoupper(date('M'))."-";
-        var_dump($leadName);
+//        var_dump($leadName);
         $lastTicketString = $this->getServiceCallDatabaseLastEntry()['ticketNo'];
         //$engineerName = $this->getSingleUserInformation($engineer)['fullname'];
         // $leadName.= $this->generateRandomString(5);
         //var_dump($lastTicketString);
-        $str_arr = explode ("-", $lastTicketString); 
+        $str_arr = explode ("-", $lastTicketString);
+        $leadFormer = $str_arr[0] . "-";
         // var_dump('0.'.$str_arr[1]); 
         $floatValue = '0.'.$str_arr[1];
-        var_dump((float)$floatValue);
+//        var_dump((float)$floatValue);
         $floatValue1 = (float)$floatValue;
-        $floatValue2 = $floatValue1 + 0.00001;
+        $floatValue2 = $leadFormer == $leadName ? ($floatValue1 + 0.00001) : 0.00001;
         $floatValueString = explode (".", number_format($floatValue2,5,'.',''));
         // var_dump(number_format($floatValue2,5,'.',''));
         $ticketNumber = $leadName.$floatValueString[1];
-        var_dump($ticketNumber);
+//        var_dump($ticketNumber);
         return $ticketNumber;
     }
 
