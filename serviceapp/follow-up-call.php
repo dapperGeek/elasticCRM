@@ -152,10 +152,11 @@
                     $meterReading = $database->test_input($_POST['meterReading']);
 
 
-                     $wd = "<b>Scheduled Date/Time :</b> ".$ticket['schDate']." / ".$ticket['schTime']." \n <b>START TIME:</b> ".$st." / <b>FINISH TIME:</b> ".$et." \n";
+//                     $wd = "<b>Scheduled Date/Time :</b> ".$ticket['schDate']." / ".$ticket['schTime']." \n <b>START TIME:</b> ".$st." / <b>FINISH TIME:</b> ".$et." \n";
                      $wd2 = $database->test_input($_POST['txtWorkDone']);
                      if($wd2 != ""){
-                          $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
+//                          $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
+                          $workDone = $_POST['txtWrkDone2'] . $wd2."\n\n";
                      }else{
                        $workDone = $_POST['txtWrkDone2'];
                      }
