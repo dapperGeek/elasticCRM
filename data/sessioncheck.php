@@ -6,5 +6,3 @@
   }else{
   	$database->redirect_to($host."login");
   }
-
-?>

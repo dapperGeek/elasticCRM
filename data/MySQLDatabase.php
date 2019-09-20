@@ -1094,94 +1094,103 @@ function updateDeliveryTracking($orderID,$ticketNo,$deliveryStatus,$deliveryMode
 
   }
 
+    function setServiceTimes($serviceId, $staffId, $startTime, $finishTime){
+        $sql = "insert into `service_call_times`(`service_call_id`, `staff_id`, `start_time`, `finish_time`)values (?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $serviceId);
+        $handle->bindValue(2, $staffId);
+        $handle->bindValue(3, $startTime);
+        $handle->bindValue(4, $finishTime);
+        $handle->execute();
+    }
   
-function followUpCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT,$meterReading,$colour,$Mono){
-      $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ?, meterReading = ?,colour = ?, Mono = ? where id =?";
-      $handle = $this->db->prepare($sql);
-      $handle->bindValue(1, $paystatus);
-      $handle->bindValue(2, $closeby);
-      $handle->bindValue(3, $closedate );
-      $handle->bindValue(4, $closetime);
-      $handle->bindValue(5, $casestatus);
-      $handle->bindValue(6, $workdone);
-      $handle->bindValue(7, $engineer);
-      $handle->bindValue(8, $issues);
-      $handle->bindValue(9, $schD);
-      $handle->bindValue(10, $schT);
-      $handle->bindValue(11, $meterReading);
-      $handle->bindValue(12, $colour);
-      $handle->bindValue(13, $Mono);
-      $handle->bindValue(14, $id);
-      $handle->execute();
-        $message = "followed up a service call for ".$this->getSingleAccountInformation($aID)['Name']." Machine : ".$this->getSingleMachineInformation($mID)['machine_code'];
-                  $accountName = $this->getSingleAccountInformation($aID)['Name'];
-        $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
-         $engineerEmail = $this->getSingleUserInformation($engineer)['email'];
-         
-         $ticketNo = $this->getSingleTicketInformation($id)['ticketNo'];
-            $sql = "UPDATE machine_in_field SET meterReading = ? WHERE machine_code = ?";
-                     $handle = $this->db->prepare($sql);
-                      $handle->bindValue(1,$meterReading);
-                    $handle->bindValue(2,$this->getSingleMachineInformation($mID)['machine_code']);
-                     $handle->execute();
+    function followUpCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT,$meterReading,$colour,$Mono){
+          $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ?, meterReading = ?,colour = ?, Mono = ? where id =?";
+          $handle = $this->db->prepare($sql);
+          $handle->bindValue(1, $paystatus);
+          $handle->bindValue(2, $closeby);
+          $handle->bindValue(3, $closedate );
+          $handle->bindValue(4, $closetime);
+          $handle->bindValue(5, $casestatus);
+          $handle->bindValue(6, $workdone);
+          $handle->bindValue(7, $engineer);
+          $handle->bindValue(8, $issues);
+          $handle->bindValue(9, $schD);
+          $handle->bindValue(10, $schT);
+          $handle->bindValue(11, $meterReading);
+          $handle->bindValue(12, $colour);
+          $handle->bindValue(13, $Mono);
+          $handle->bindValue(14, $id);
+          $handle->execute();
+            $message = "followed up a service call for ".$this->getSingleAccountInformation($aID)['Name']." Machine : ".$this->getSingleMachineInformation($mID)['machine_code'];
+                      $accountName = $this->getSingleAccountInformation($aID)['Name'];
+            $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
+             $engineerEmail = $this->getSingleUserInformation($engineer)['email'];
+
+             $ticketNo = $this->getSingleTicketInformation($id)['ticketNo'];
+                $sql = "UPDATE machine_in_field SET meterReading = ? WHERE machine_code = ?";
+                         $handle = $this->db->prepare($sql);
+                          $handle->bindValue(1,$meterReading);
+                        $handle->bindValue(2,$this->getSingleMachineInformation($mID)['machine_code']);
+                         $handle->execute();
 
 
-   $email = $engineerEmail;
+       $email = $engineerEmail;
 
- $subject = "Followed up call for $accountName With Ticket No $ticketNo";
+     $subject = "Followed up call for $accountName With Ticket No $ticketNo";
 
-$message = "Dear Customer Care, \n<br> Please be informed that a service call has been followed up by engineer $engineerName for $accountName custormer ticket No $ticketNo. \n<br> Kindly find details in the followed up call. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
-                                    // use actual sendgrid username and password in this section
-  $url = 'https://api.sendgrid.com/'; 
-  $user = 'elastic25'; // place SG username here
-  $pass = 'Bonke@4445'; // place SG password here
+    $message = "Dear Customer Care, \n<br> Please be informed that a service call has been followed up by engineer $engineerName for $accountName custormer ticket No $ticketNo. \n<br> Kindly find details in the followed up call. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
+                                        // use actual sendgrid username and password in this section
+      $url = 'https://api.sendgrid.com/';
+      $user = 'elastic25'; // place SG username here
+      $pass = 'Bonke@4445'; // place SG password here
 
- // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
-    // make the to email be your own address or where ever you would like the contact form info sent
+     // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
+        // make the to email be your own address or where ever you would like the contact form info sent
 
-    $json_string = array(
+        $json_string = array(
 
-      'to' => array('support.ng@tenaui.com','talal@tenaui.com','kolade.bello@tenaui.com','elfarra@tenaui.com'),
-      'category' => 'test_category'
-    );
+          'to' => array('support.ng@tenaui.com','talal@tenaui.com','kolade.bello@tenaui.com','elfarra@tenaui.com'),
+          'category' => 'test_category'
+        );
 
-    $params = array(
-        'api_user'  => "$user",
-        'api_key'   => "$pass",
-        'x-smtpapi' => json_encode($json_string),
-        'to'        => "$email",
-        'replyto'        => "$email",
-        'subject'   => "$subject", // Either give a subject for each submission, or set to $subject
-        'html'      => "<html><head><title>Contact Form</title><body>
-        $message <body></title></head></html>", // Set HTML here.  Will still need to make sure to reference post data names
-        'text'      => "
-       
-        $message",
-        'from'      => $email, // set from address here, it can really be anything
-      );
+        $params = array(
+            'api_user'  => "$user",
+            'api_key'   => "$pass",
+            'x-smtpapi' => json_encode($json_string),
+            'to'        => "$email",
+            'replyto'        => "$email",
+            'subject'   => "$subject", // Either give a subject for each submission, or set to $subject
+            'html'      => "<html><head><title>Contact Form</title><body>
+            $message <body></title></head></html>", // Set HTML here.  Will still need to make sure to reference post data names
+            'text'      => "
+           
+            $message",
+            'from'      => $email, // set from address here, it can really be anything
+          );
 
-        curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-        $request =  $url.'api/mail.send.json';
-        // Generate curl request
-        $session = curl_init($request);
-        // Tell curl to use HTTP POST
-        curl_setopt ($session, CURLOPT_POST, true);
-        // Tell curl that this is the body of the POST
-        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-        // Tell curl not to return headers, but do return the response
-        curl_setopt($session, CURLOPT_HEADER, false);
-        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-        // obtain response
-        $response = curl_exec($session);
-        curl_close($session);
-        // Redirect to thank you page upon successfull completion, will want to build one if you don't alreday have one available
-      $this->createActivityNotifications($message,$mID,$aID);
+    //        curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+    //        $request =  $url.'api/mail.send.json';
+    //        // Generate curl request
+    //        $session = curl_init($request);
+    //        // Tell curl to use HTTP POST
+    //        curl_setopt ($session, CURLOPT_POST, true);
+    //        // Tell curl that this is the body of the POST
+    //        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+    //        // Tell curl not to return headers, but do return the response
+    //        curl_setopt($session, CURLOPT_HEADER, false);
+    //        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    //        // obtain response
+    //        $response = curl_exec($session);
+    //        curl_close($session);
+            // Redirect to thank you page upon successfull completion, will want to build one if you don't alreday have one available
+          $this->createActivityNotifications($message,$mID,$aID);
 
-        // print everything out
-        print_r($response);
-     
+            // print everything out
+    //        print_r($response);
 
-  }
+
+      }
 
    function deleteMachineProduct($id){
         $sql = "delete from service_product where id =?";
@@ -1758,6 +1767,7 @@ $message = "Dear Customer Care, \n<br> Please be informed that a service call ha
 
 
     function getServiceTicket($ticket){
+        //Original query, join statements without query to service schedule times table
         $sql = "select sc.*, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand
         from service_call sc
@@ -1769,15 +1779,39 @@ $message = "Dear Customer Care, \n<br> Please be informed that a service call ha
         right join lga l on l.id = al.lgaID
         right join states s on s.id = l.stateID
         where sc.ticketNo = ?";
+
+
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1,$ticket);
         $handle->execute();
+
         if($handle->rowCount() > 0){
             return $handle->fetch(PDO::FETCH_ASSOC);
         }else{
             return null;
         }
     }
+
+    //
+    function getServiceTimes($ticketId){
+        $myArray = [];
+        $sql = "select * from service_call_times where `service_call_id`=?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$ticketId);
+        $handle->execute();
+
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
+                $myArray[] = $row;
+            }
+            return $myArray;
+        }else{
+            return null;
+        }
+
+    }
+
     function getBillingType($id=""){
         $myArray = array();
         $sql = "";
@@ -2532,9 +2566,6 @@ function checkCodeExist($code){
 
 
      }
-
-
-
 
      function getAllAccountInformation(){
          $myArray = array();
@@ -4252,32 +4283,32 @@ function getGoodsLogAnalysis6($id){
 
   }
 
-function getGoodsLogAnalysis7($id){
-    $yr = date('Y');
-      $myArray = array();
-      $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =7 AND `ocYear` = $yr ";
-      $handle = $this->db->prepare($sql);
-      
-      $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while($row = $handle->fetch(PDO::FETCH_ASSOC))
-            {
-                   $myArray[] = $row;
+    function getGoodsLogAnalysis7($id){
+        $yr = date('Y');
+          $myArray = array();
+          $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =7 AND `ocYear` = $yr ";
+          $handle = $this->db->prepare($sql);
+
+          $handle->execute();
+            if ($handle->rowCount() > 0) {
+                while($row = $handle->fetch(PDO::FETCH_ASSOC))
+                {
+                       $myArray[] = $row;
+                }
+                return $myArray;
+            } else {
+                return false;
             }
-            return $myArray;
-        } else {
-            return false;
-        }
 
 
-  }
+    }
 
-  function getGoodsLogAnalysis8($id){
+    function getGoodsLogAnalysis8($id){
     $yr = date('Y');
       $myArray = array();
       $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =8 AND `ocYear` = $yr ";
       $handle = $this->db->prepare($sql);
-      
+
       $handle->execute();
         if ($handle->rowCount() > 0) {
             while($row = $handle->fetch(PDO::FETCH_ASSOC))
@@ -4290,15 +4321,15 @@ function getGoodsLogAnalysis7($id){
         }
 
 
-  }
+    }
 
 
-  function getGoodsLogAnalysis9($id){
+    function getGoodsLogAnalysis9($id){
     $yr = date('Y');
       $myArray = array();
       $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =9 AND `ocYear` = $yr ";
       $handle = $this->db->prepare($sql);
-      
+
       $handle->execute();
         if ($handle->rowCount() > 0) {
             while($row = $handle->fetch(PDO::FETCH_ASSOC))
@@ -4311,15 +4342,15 @@ function getGoodsLogAnalysis7($id){
         }
 
 
-  }
+    }
 
 
-  function getGoodsLogAnalysis10($id){
+    function getGoodsLogAnalysis10($id){
     $yr = date('Y');
       $myArray = array();
       $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =10 AND `ocYear` = $yr ";
       $handle = $this->db->prepare($sql);
-      
+
       $handle->execute();
         if ($handle->rowCount() > 0) {
             while($row = $handle->fetch(PDO::FETCH_ASSOC))
@@ -4330,17 +4361,14 @@ function getGoodsLogAnalysis7($id){
         } else {
             return false;
         }
+    }
 
-
-  }
-
-
-  function getGoodsLogAvgSold($id){
+    function getGoodsLogAvgSold($id){
     $yr = date('Y');
       $myArray = array();
       $sql = "SELECT AVG(case sold when null then 0 else sold end ) AS totalsold FROM `goodslog` WHERE sold !=0 AND `productID`= $id AND `ocMonth`> 0 AND `ocYear` = $yr";
       $handle = $this->db->prepare($sql);
-      
+
       $handle->execute();
         if ($handle->rowCount() > 0){
             while($row = $handle->fetch(PDO::FETCH_ASSOC))
@@ -4353,15 +4381,15 @@ function getGoodsLogAnalysis7($id){
         }
 
 
-  }
+    }
 
 
-  function getGoodsLogCurrentForstore1($id){
+    function getGoodsLogCurrentForstore1($id){
     $yr = date('Y');
       $myArray = array();
       $sql = "SELECT `remain` FROM `goodslog` WHERE `productID` = $id AND `storeID` = 1 ORDER by id DESC LIMIT 1";
       $handle = $this->db->prepare($sql);
-      
+
       $handle->execute();
         if ($handle->rowCount() > 0) {
             while($row = $handle->fetch(PDO::FETCH_ASSOC))
@@ -4374,32 +4402,26 @@ function getGoodsLogAnalysis7($id){
         }
 
 
-  }
+    }
 
 
-function getGoodsLogCurrentForstore2($id){
-    $yr = date('Y');
-      $myArray = array();
-      $sql = "SELECT `remain` FROM `goodslog` WHERE `productID` = $id AND `storeID` = 2 ORDER by id DESC LIMIT 1";
-      $handle = $this->db->prepare($sql);
-      
-      $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while($row = $handle->fetch(PDO::FETCH_ASSOC))
-            {
-                   $myArray[] = $row;
+    function getGoodsLogCurrentForstore2($id){
+        $yr = date('Y');
+          $myArray = array();
+          $sql = "SELECT `remain` FROM `goodslog` WHERE `productID` = $id AND `storeID` = 2 ORDER by id DESC LIMIT 1";
+          $handle = $this->db->prepare($sql);
+
+          $handle->execute();
+            if ($handle->rowCount() > 0) {
+                while($row = $handle->fetch(PDO::FETCH_ASSOC))
+                {
+                       $myArray[] = $row;
+                }
+                return $myArray;
+            } else {
+                return false;
             }
-            return $myArray;
-        } else {
-            return false;
-        }
-
-
-  }
-
-
-
-  
+    }
 
   function getProductNameByProductType($id){
         $sql = "select * from products where ProductType = ?";
@@ -4413,59 +4435,59 @@ function getGoodsLogCurrentForstore2($id){
     }
 
 
-function getAllContractsByNC(){
-        $myArray = array();
-        $sql = "SELECT * FROM machine_in_field WHERE contractID = 1";
-        $handle =$this->db->prepare($sql);
-        $handle->execute();
-        if($handle->rowCount() > 0){
-            echo $handle->rowCount();
+    function getAllContractsByNC(){
+            $myArray = array();
+            $sql = "SELECT * FROM machine_in_field WHERE contractID = 1";
+            $handle =$this->db->prepare($sql);
+            $handle->execute();
+            if($handle->rowCount() > 0){
+                echo $handle->rowCount();
+        }
+
+
     }
 
 
-}
+    function getAllContractsByFMSA(){
+            $myArray = array();
+            $sql = "SELECT * FROM machine_in_field WHERE contractID = 2";
+            $handle =$this->db->prepare($sql);
+            $handle->execute();
+            if($handle->rowCount() > 0){
+                echo $handle->rowCount();
+        }
 
 
-function getAllContractsByFMSA(){
-        $myArray = array();
-        $sql = "SELECT * FROM machine_in_field WHERE contractID = 2";
-        $handle =$this->db->prepare($sql);
-        $handle->execute();
-        if($handle->rowCount() > 0){
-            echo $handle->rowCount();
     }
 
 
-}
+    function getAllContractsByAMC(){
+            $myArray = array();
+            $sql = "SELECT * FROM machine_in_field WHERE contractID = 3";
+            $handle =$this->db->prepare($sql);
+            $handle->execute();
+            if($handle->rowCount() > 0){
+                echo $handle->rowCount();
+        }
 
 
-function getAllContractsByAMC(){
-        $myArray = array();
-        $sql = "SELECT * FROM machine_in_field WHERE contractID = 3";
-        $handle =$this->db->prepare($sql);
-        $handle->execute();
-        if($handle->rowCount() > 0){
-            echo $handle->rowCount();
     }
 
 
-}
+
+    function getAllContractsByMPS(){
+            $myArray = array();
+            $sql = "SELECT * FROM machine_in_field WHERE contractID = 4";
+            $handle =$this->db->prepare($sql);
+            $handle->execute();
+            if($handle->rowCount() > 0){
+                echo $handle->rowCount();
+        }
 
 
-
-function getAllContractsByMPS(){
-        $myArray = array();
-        $sql = "SELECT * FROM machine_in_field WHERE contractID = 4";
-        $handle =$this->db->prepare($sql);
-        $handle->execute();
-        if($handle->rowCount() > 0){
-            echo $handle->rowCount();
     }
 
-
-}
-
-function closeCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT){
+    function closeCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT){
       $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ? where id =?";
       $handle = $this->db->prepare($sql);
       $handle->bindValue(1, $paystatus);
@@ -4484,17 +4506,10 @@ function closeCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$wo
                   $accountName = $this->getSingleAccountInformation($aID)['Name'];
         $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
          $engineerEmail = $this->getSingleUserInformation($engineer)['email'];
-         
+
          $ticketNo = $this->getSingleTicketInformation($id)['ticketNo'];
-
-
-
-     
-
-  }
+    }
 
 
 
 }
-?>
-   
