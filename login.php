@@ -41,33 +41,37 @@ if(isset($_SESSION['user_id'])){
 <?php
                         $err = "";
 
-                            if(isset($_POST['btnLogin'])){
-                                   $username = $database->test_input($_POST['txtUsername']);
-                                   $password = $database->test_input($_POST['txtPassword']);
+    if(isset($_POST['btnLogin'])){
+           $username = $database->test_input($_POST['txtUsername']);
+           $password = $database->test_input($_POST['txtPassword']);
 
-                                   if($username != "" && $password != ""){
-                                        $login = (array)$database->authenticateStaff($username,$password);
-                                        if($login[0] == 0){
-                                                $err = 'invalid username or password';
-                                            }else if($login[0] > 0){
-                                                    if($login[1] == 0){
-                                                        $err = "your account is not yet activated";
-                                                    }else {
-                                                            $_SESSION['user_id'] = $login[0];
-                                                            setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
-                                                            $database->redirect_to($url);
-                                                    }
-                                            }
-
-
-                                   }else{
-                                        if($username == ""){$err.= "enter username<br/>";}
-                                        if($password == ""){$err.= "enter password";}
-                                   }
+           if($username != "" && $password != ""){
+                $login = (array)$database->authenticateStaff($username,$password);
+                if($login[0] == 0){
+                        $err = 'invalid username or password';
+                    }
+                elseif($login[0] > 0){
+                            // no password error passed
+                            if($login[1] == 0){
+                                $err = "your account is not yet activated";
                             }
-
-
-            ?>
+                            // invalid password error passed
+                            elseif($login[1] === 1){
+                                $err = "Your password is invalid";
+                            }
+                            else {
+                                    $_SESSION['user_id'] = $login[0];
+                                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
+                                    $database->redirect_to($url);
+                            }
+                    }
+           }
+           else{
+                if($username == ""){$err.= "enter username<br/>";}
+                if($password == ""){$err.= "enter password";}
+           }
+    }
+?>
 </head>
 <body class="login-layout-full login">
 <div class="page-brand-info">

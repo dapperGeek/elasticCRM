@@ -24,8 +24,6 @@ function Comma(Num) { //function to add commas to textboxes
     }
 
 </script>
-
-
 <script>
 function validateNumber_Dot(s) {
     var rgx = /^[0-9]*\.?[0-9]*$/;
@@ -98,7 +96,6 @@ function fun_AllowOnlyAmountAndDot(txt)
 
     </script>
 
-
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -127,224 +124,12 @@ function fun_AllowOnlyAmountAndDot(txt)
                         <!-- END LOGO -->
                         <div class="top-menu">
 <!--  TOP NAVIGATION MENU -->
-                              <!--  <div class="hor-menu  hor-menu-light hidden-sm hidden-xs">
-                                        <ul class="nav navbar-nav">
-                                                DOC: Remove data-hover="megamenu-dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover --
-                                                <li class="classic-menu-dropdown active"> <a href="index-2.html"><i class="icon-user fa-fw"></i></a> </li>
-
-
-                                                <li class="mega-menu-dropdown mega-menu-full hover-initialized"> <a class="dropdown-toggle hover-initialized" href="javascript:;">Mega <i class="fa fa-angle-down"></i> </a>
-                                                        <ul class="dropdown-menu">
-                                                                <li>
-                                                                        <!-- Content container to add padding --
-                                                                        <div class="mega-menu-content ">
-                                                                                <div class="row">
-                                                                                        <div class="col-md-3">
-                                                                                                <h4>Pages <span class="label label-warning">14</span></h4>
-                                                                                                <div class="row">
-                                                                                                        <div class="col-md-6">
-                                                                                                                <ul class="mega-menu-submenu">
-                                                                                                                        <li><a href="profile.html">Profile</a></li>
-                                                                                                                        <li><a href="profile_2.html">Profile-2</a></li>
-                                                                                                                        <li><a href="contacts.html">Contacts</a></li>
-                                                                                                                        <li><a href="contacts_2.html">Contacts-2</a></li>
-                                                                                                                        <li><a href="search_results.html">Search results</a></li>
-                                                                                                                        <li></li>
-                                                                                                                        <li></li>
-                                                                                                                </ul>
-                                                                                                        </div>
-                                                                                                        <div class="col-md-6">
-                                                                                                                <ul class="mega-menu-submenu">
-
-                                                                                                                        <li><a href="login.html">Login</a></li>
-                                                                                                                        <li><a href="login_v2.html">Login 2</a></li>
-                                                                                                                        <li><a href="forgot_password.html">Forget password</a></li>
-                                                                                                                        <li><a href="register.html">Register</a></li>
-                                                                                                                        <li><a href="register_v2.html">Register 2</a></li>
-                                                                                                                        <li></li>
-                                                                                                                        <li></li>
-                                                                                                                </ul>
-                                                                                                        </div>
-                                                                                                </div>
-                                                                                        </div>
-
-                                                                                        <div class="col-md-2 b-l b-r b-light">
-                                                                                                <h4>Apps <span class="label label-info">08</span></h4>
-                                                                                                <div class="row">
-                                                                                                        <div class="col-md-12">
-                                                                                                                <ul class="mega-menu-submenu">
-                                                                                                                        <li><a href="projects.html">Projects</a></li>
-                                                                                                                        <li></li>
-                                                                                                                        <li><a href="issue_tracker.html">Issue tracker</a></li>
-                                                                                                                        <li><a href="blog.html">Blog</a></li>
-                                                                                                                        <li><a href="article.html">Article</a></li>
-                                                                                                                        <li><a href="timeline.html">Timeline</a></li>
-                                                                                                                        <li></li>
-                                                                                                                </ul>
-                                                                                                        </div>
-                                                                                                </div>
-                                                                                        </div>
-
-                                                                                        <div class="col-md-3">
-                                                                                                <h3>UI Features <span class="label label-primary">13</span></h3>
-                                                                                                <div class="row">
-                                                                                                        <div class="col-md-6">
-                                                                                                                <ul class="mega-menu-submenu">
-                                                                                                                        <li><a href="ui_colors.html"> Color Library </a></li>
-                                                                                                                        <li><a href="ui_buttons.html"> Buttons </a></li>
-                                                                                                                        <li><a href="ui_icons.html"> Font Icons </a></li>
-                                                                                                                        <li><a href="ui_tabs.html"> Tabs </a></li>
-                                                                                                                        <li></li>
-                                                                                                                        <li><a href="timeline_horizontal.html"> Timeline Horizontal </a></li>
-                                                                                                                        <li></li>
-                                                                                                                </ul>
-                                                                                                        </div>
-                                                                                                        <div class="col-md-6">
-                                                                                                                <ul class="mega-menu-submenu">
-                                                                                                                        <li><a href="ui_grids.html"> Grids </a></li>
-                                                                                                                        <li><a href="ui_panels.html"> Panels UI </a></li>
-                                                                                                                        <li><a href="ui_typography.html"> Typography </a></li>
-                                                                                                                        <li><a href="alerts_Modal_Tooltip.html"> Alerts &amp; Modal </a></li>
-
-                                                                                                                        <li><a href="MediaObjects_Thumbnails.html"> Media Objects </a></li>
-                                                                                                                </ul>
-                                                                                                        </div>
-                                                                                                </div>
-                                                                                        </div>
-
-
-                                                                                        <div class="col-md-4">
-                                                                                                <h4>Analysis</h4>
-                                                                                                <span id="sparkNev"></span>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-                                                                </li>
-                                                        </ul>
-                                                </li>
-                                                <li class="classic-menu-dropdown"> <a data-close-others="true" data-hover="megamenu-dropdown" href="javascript:;" class="hover-initialized"> Classic <i class="fa fa-angle-down"></i> </a>
-                                                        <ul class="dropdown-menu pull-left">
-                                                                <li>
-                                                                        <a href="javascript:;"> <i class="fa fa-bookmark-o"></i> Section 1 </a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="javascript:;"> <i class="fa fa-user"></i> Section 2 </a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="javascript:;"> <i class="fa fa-puzzle-piece"></i> Section 3 </a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="javascript:;"> <i class="fa fa-gift"></i> Section 4 </a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="javascript:;"> <i class="fa fa-table"></i> Section 5 </a>
-                                                                </li>
-                                                                <li class="dropdown-submenu">
-                                                                        <a href="javascript:;"> <i class="fa fa-envelope-o"></i> More options </a>
-                                                                        <ul class="dropdown-menu">
-                                                                                <li> <a href="javascript:;"> Second level link </a> </li>
-
-                                                                                <li> <a href="index-2.html"> Second level link </a> </li>
-                                                                                <li> <a href="index-2.html"> Second level link </a> </li>
-                                                                                <li> <a href="index-2.html"> Second level link </a> </li>
-                                                                        </ul>
-                                                                </li>
-                                                        </ul>
-                                                </li>
-                                        </ul>
-
-                                        <form method="GET" action="http://adminui-v1.0.bittyfox.com/default/aqua-black/search_results.html" class="search-form search-form-expanded">
-                                        <div class="input-group">
-                                                <input name="query" placeholder="Search..." class="form-control" type="text">
-                                                <span class="input-group-btn"> <a class="btn submit" href="javascript:;"> <i class="icon-magnifier"></i> </a> </span>						</div>
-                                </form>
-                                </div>-->
                                 <!--  TOP NAVIGATION MENU -->
 
                                 <ul class="nav navbar-nav pull-right">
-                                       <!-- <li class="dropdown">
-                                                <a href="#" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-envelope"></i> <span class="badge badge-info">6</span> </a>
-                                                <ul class="dropdown-menu dropdown-messages menuBig">
-                                                        <li>
-                                                                <div class="dropdown-messages-box">
-                                                                        <a class="pull-left" href="profile.html"> <img src="assets/images/teem/a7.jpg" class="img-circle" alt="image"> </a>
-                                                                        <div class="media-body"> <small class="pull-right">46h ago</small> <strong>Mike Loreipsum</strong> started following <strong>Olivia Wenscombe</strong>. <br>
-                                                                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small> </div>
-                                                                </div>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li>
-                                                                <div class="dropdown-messages-box">
-                                                                        <a class="pull-left" href="profile.html"> <img src="assets/images/teem/a4.jpg" class="img-circle" alt="image"> </a>
-                                                                        <div class="media-body "> <small class="pull-right text-navy">5h ago</small> <strong> Alex Smith </strong> started following <strong>Olivia Wenscombe</strong>. <br>
-                                                                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small> </div>
-                                                                </div>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li>
-                                                                <div class="dropdown-messages-box">
-                                                                        <a class="pull-left" href="profile.html"> <img src="assets/images/teem/a3.jpg" class="img-circle" alt="image"> </a>
-                                                                        <div class="media-body "> <small class="pull-right">23h ago</small> <strong>Olivia Wenscombe</strong> love <strong>Sophie </strong>. <br>
-                                                                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small> </div>
-                                                                </div>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li>
-                                                                <div class="text-center link-block">
-                                                                        <a href="mailbox.html"> <i class="fa fa-envelope"></i> <strong>Read All Messages</strong> </a>
-                                                                </div>
-                                                        </li>
-                                                </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                                <a href="#" data-toggle="dropdown" class="dropdown-toggle count-info"> <i class="fa fa-bell"></i> <span class="badge badge-primary">8</span> </a>
-                                                <ul class="dropdown-menu dropdown-alerts menuBig">
-                                                        <li>
-                                                                <a href="mailbox.html">
-                                                                        <div> <i class="fa fa-envelope fa-fw"></i> You have 16 messages <span class="pull-right text-muted small">4 minutes ago</span> </div>
-                                                                </a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li>
-                                                                <a href="profile.html">
-                                                                        <div> <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span class="pull-right text-muted small">12 minutes ago</span> </div>
-                                                                </a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li>
-                                                                <a href="grid_options.html">
-                                                                        <div> <i class="fa fa-upload fa-fw"></i> Server Rebooted <span class="pull-right text-muted small">4 minutes ago</span> </div>
-                                                                </a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li>
-                                                                <div class="text-center link-block">
-                                                                        <a href="mailbox.html"> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a>
-                                                                </div>
-                                                        </li>
-                                                </ul>
-                                        </li>
-                                        <!-- START USER LOGIN DROPDOWN -->
                                         <li class="dropdown dropdown-user">
                                                 <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <!-- <img src="assets/images/teem/a10.jpg" class="img-circle" alt=""> --> <span class="username username-hide-on-mobile"> <?php echo $myData['fullname'];?></span> <i class="fa fa-angle-down"></i> </a>
                                                 <ul class="dropdown-menu dropdown-menu-default">
-                                                        <!--<li>
-                                                                <a href="profile.html"> <i class="icon-user"></i> My Profile </a>
-
-                                                        </li>
-                                                        <li>
-                                                                <a href="profile_2.html"> <i class="icon-user"></i> Profile-2 </a>
-                                                        </li>
-                                                        <li>
-                                                                <a href="calendar.html"> <i class="icon-calendar"></i> My Calendar </a>
-                                                        </li>
-                                                        <li>
-                                                                <a href="mailbox.html"> <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger"> 3 </span> </a>
-                                                        </li>
-                                                        <li>
-                                                                <a href="dashboard2.html"> <i class="icon-rocket"></i> My Tasks <span class="badge badge-success"> 7 </span> </a>
-                                                        </li>
-                                                        <li class="divider"> </li> -->
                                                         <li>
                                                                 <a href="#"> <i class="icon-lock"></i> Lock Screen </a>
                                                         </li>
@@ -459,19 +244,11 @@ function fun_AllowOnlyAmountAndDot(txt)
                                                                 <a class="nav-link" href="<?php echo $host;?>view-workshop-machine"> <span class="title">View Workshop</span> </a>
                                                         </li>
 
-                                                       
-                                                        
-
-                                                       
-
                                                     </ul>
                                                 </li>
 
                                         </li>
-
                                                         <?php  } ?>
-
-
 
                                          <?php if($myData['serviceCall'] > 0){?>
                                         <li class="heading">
@@ -650,8 +427,6 @@ function fun_AllowOnlyAmountAndDot(txt)
                                         </li>
                                          <?php if($myData['DepartmentID'] == 5){?>
 
-                                                          
-
                                                                
                                                                <?php }else{?>
 
@@ -667,10 +442,6 @@ function fun_AllowOnlyAmountAndDot(txt)
                                         </li>
                                                            <?php }?>
 
-                                       
-
-
-
                                              <li class="nav-item">
                                                 <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cubes"></i> <span class="title">Goods Transactions</span> <span class="arrow"></span> </a>
                                                 <ul class="sub-menu">
@@ -678,9 +449,6 @@ function fun_AllowOnlyAmountAndDot(txt)
                                                         <li class="nav-item">
                                                                 <a class="nav-link" href="<?php echo $host;?>view-sold-ticket"> <span class="title">Electronic Waybill</span> </a>
                                                         </li>
-
-
-
 
                                                          <?php if($myData['DepartmentID'] == 5){?>
 
@@ -697,9 +465,6 @@ function fun_AllowOnlyAmountAndDot(txt)
                                                         </li>
                                                            <?php }?>
 
-                                                          
-                                                         
-                                                         
                                                          <li class="nav-item">
                                                                 <a class="nav-link" href="<?php echo $host;?>view-goods-recieve-ticket"> <span class="title">Recieve</span> </a>
                                                         </li>
@@ -719,17 +484,11 @@ function fun_AllowOnlyAmountAndDot(txt)
 
                                                        <?php }?>
 
-
-
-                                                      
-
-
-                                                         
                                                          <!--<li class="nav-item">
-                                                                <a class="nav-link" href="<?php echo $host;?>view-goods-recieve-ticket"> <span class="title">Returned</span> </a>
+                                                                <a class="nav-link" href="<?php //echo $host;?>view-goods-recieve-ticket"> <span class="title">Returned</span> </a>
                                                         </li>-->
                                                          <!--<li class="nav-item">
-                                                                <a class="nav-link" href="<?php echo $host;?>add-product-stock"> <span class="title">Add</span> </a>
+                                                                <a class="nav-link" href="<?php //echo $host;?>add-product-stock"> <span class="title">Add</span> </a>
                                                         </li> -->
 
 
@@ -774,10 +533,7 @@ function fun_AllowOnlyAmountAndDot(txt)
                                                                         foreach($cati as $catii){
                                                                 ?>
                                                                 <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
-
-
                                                                  <?php }?>
-
 
                                                             </ul>
                                                         </li>
@@ -799,8 +555,6 @@ function fun_AllowOnlyAmountAndDot(txt)
                                         </li>
 
                                         <?php }?>
-
-
 
 
 
@@ -829,7 +583,26 @@ function fun_AllowOnlyAmountAndDot(txt)
                                                            
                                                             
 
-                                                       <?php }?>
+<?php
+                }
+
+                // IT/Software Developer Section
+
+//                if ($myData['designation'] == 'IT/Software Developer'){
+?>
+                    <li class="heading">
+                        <h3 class="uppercase">
+                            <?php echo $myData['designation']; ?>
+                        </h3>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host;?>users">
+                        <span class="title">Users</span> </a></li>
+<?php
+//                }
+
+?>
 
                                 </ul>
                         </div>

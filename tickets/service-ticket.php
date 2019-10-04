@@ -5,9 +5,10 @@
     $yr_ = date("Y");
 
     $ticketID = $database->test_input($_GET['id']);
+    $ticket = $database->getServiceTicket($ticketID);
 
-
-$ticket = $database->getServiceTicket($ticketID);
+    // get service times
+    $serviceTimes = $database->getServiceTimes($ticket['id']);
 ?>
 <html>
     <head>
@@ -66,7 +67,7 @@ td { border-color: #DDD; }
 html { font: 16px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
 html { background: #999; cursor: default; }
 
-body { box-sizing: border-box; height: 11in; margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; }
+body { box-sizing: border-box; height: auto; margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; }
 body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); }
 
 /* header */
@@ -92,6 +93,7 @@ article address { float: left; font-size: 125%; font-weight: bold; }
 
 /* table meta & balance */
 
+table.meta, table.full {width: 80%; margin: 0 auto; clear: both }
 table.meta, table.balance { float: right; width: 36%; }
 table.meta:after, table.balance:after { clear: both; content: ""; display: table; }
 
@@ -292,32 +294,52 @@ tr:hover .cut { opacity: 1; }
                 </tbody>
             </table>
 
-               <table class="balance2">
+               <table class="full">
                 <tr>
                     <th><span contenteditable>Scheduled Date</span></th>
                     <td><?php echo $ticket['schDate'];?></td>
-                </tr>
-                <tr>
+
                     <th><span contenteditable>Scheduled Time</span></th>
                     <td><span data-prefix>
 
                         </span><?php echo $ticket['schTime'];?></td>
                 </tr>
+            </table>
+
+<?php
+        if ($serviceTimes != null){
+?>
+            <h3 align="center">Time spent on call</h3>
+
+            <table class="full">
+                <thead>
+                <td><span contenteditable>Start Time</span></td>
+                <td><span contenteditable>Finish Time</span></td>
+                </thead>
+
+                <tbody>
+                <?php
+                    for ($i = 0; $i < sizeof($serviceTimes); $i++){
+                ?>
+                    <tr>
+                        <td>
+                            <?php echo $serviceTimes[$i]->start_time ?>
+                        </td>
+                        <td>
+                            <?php echo $serviceTimes[$i]->finish_time ?>
+                        </td>
+                    </tr>
+                <?php
+                    }
+                ?>
+                </tbody>
 
             </table>
-           <table class="balance">
-                <tr>
-                    <th><span contenteditable>Start Time</span></th>
-                    <td><span data-prefix></span></td>
-                </tr>
-                <tr>
-                    <th><span contenteditable>Finish Time</span></th>
-                    <td><span data-prefix>
+<?php
+        }
+?>
 
-                        </span></td>
-                </tr>
 
-            </table>
            <br/>
 
            <table >
@@ -330,7 +352,7 @@ tr:hover .cut { opacity: 1; }
           </tr>
           <tr>
 
-              <td><p style="text-align: left; color: red; font-style: bold"><BR/>CUSTOMER SHOULD RATE THE ENGINEER'S SERVICE</p></td>
+              <td><p style="text-align: left; color: red; font-weight: bold"><BR/>CUSTOMER SHOULD RATE THE ENGINEER'S SERVICE</p></td>
 
           </tr>
       </table>

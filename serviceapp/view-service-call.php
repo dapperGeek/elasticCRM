@@ -1,6 +1,7 @@
   <?php
     include("../data/DBConfig.php");
     include_once("../data/sessioncheck.php");
+    require_once ("../Utils/UtilFunctions.php");
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +50,7 @@
             <li> <a href="index-2.html">Home</a> </li>
             <li> <a>Administrative</a> </li>
             <li> <a>Tickets</a> </li>
-            <li class="active"> <strong>12View All Tickets</strong> </li>
+            <li class="active"> <strong>View All Tickets</strong> </li>
           </ol>
         </div>
         <div class="col-lg-12"> </div>
@@ -103,7 +104,7 @@
                                 ?>
                                      <tr <?php if($majTimeDif >432000 && $majTimeDif < 1036800){echo "class='warning'";}else if($majTimeDif >1036800){echo "class='danger'";} ?>>
                                          <td> <?php echo  $majTimeDif;?></td>
-                                                 <td><a href="<?php echo $host;?>ticket-info/<?php echo $act['ticketNo']?>"><?php echo strtoupper($act['ticketNo']); ?> </a></td>
+                                                 <td><a href="<?php echo $host;?>ticket-info/<?php echo $act['ticketNo']?>" target="_blank"><?php echo strtoupper($act['ticketNo']); ?> </a></td>
                                                  <td><?php echo $act['AccountName'];?></td>
                                                 <td><a href="<?php if($myData['AccessLevel'] == 12){ }else{echo $host;?>machine-info/<?php echo $act['MachineID'];}?>"><?php echo $act['machine_code'];?></a></td>
                                                 <td>
@@ -129,7 +130,7 @@
                                                     <?php if($act['closedBy'] == 0){?>
                                                     <a class="badge badge-warning" href="<?php 
                                                      if($myData['AccessLevel'] == 12){ 
-                                                    echo $host;?>view-service-call/<?php echo '#'; }else{ echo $host;?>follow-up/<?php echo $act['ticketNo'];}?>">FOLLOW-UP</a>
+                                                    echo $host;?>view-service-call/<?php echo '#'; }else{ echo $host;?>follow-up/<?php echo $act['ticketNo'];}?>" target="_blank">FOLLOW-UP</a>
 
 
                                                     <?php }else{?>
@@ -190,7 +191,7 @@
                                 ?>
                                      <tr>
                                          <td><?php echo str_pad($act['id'],5,"0",STR_PAD_LEFT);?></td>
-                                                 <td><a href="<?php echo $host;?>ticket-info/<?php echo $act['ticketNo']?>"><?php echo strtoupper($act['ticketNo']);?></a></td>
+                                                 <td><a href="<?php echo $host;?>ticket-info/<?php echo $act['ticketNo']?>" target="_blank"><?php echo strtoupper($act['ticketNo']);?></a></td>
                                                  <td><?php echo $act['AccountName'];?></td>
                                                 <td><a href="<?php echo $host;?>machine-info/<?php echo $act['MachineID']?>"><?php echo $act['machine_code'];?></a></td>
                                                 <!--<td><?php echo $act['ReportedBy'];?></td>-->
@@ -209,14 +210,14 @@
                                                  <?php echo $act['paymentStatus'];?></span></td>
                                                 <td>
                                                     <?php if($act['closedBy'] == 0){?>
-                                                    <a class="badge badge-warning" href="<?php echo $host;?>follow-up/<?php echo $act['ticketNo'];?>">FOLLOW-UP</a>
+                                                    <a class="badge badge-warning" href="<?php echo $host;?>follow-up/<?php echo $act['ticketNo'];?>" target="_blank">FOLLOW-UP</a>
 
                                                     <?php }else{?>
                                                     <a class="badge badge-info col-lg-12" data-toggle="modal" data-target=".bs-example-modal-lg-2-<?php echo $act['ticketNo'];?>">CLOSED</a>
                                                     <?php }?>
                                                 </td>
                                                 <!--<td><?php echo $act['caseName'];?></td>-->
-                                                 <td><?php echo $act['workDone'];?></td>
+                                                 <td><?php echo UtilFunctions::textSummary($act['workDone']);?></td>
                                                 <!--<?php echo $act['closedDateTime'];?></td>-->
                                                 <td><?php echo  date('d/m/Y', $act['closedTimeStamp']);?></td>
                                                 <!--<td><?php echo $database->time_space($act['closedTimeStamp'],$act['openedTimeStamp']);?></td>-->

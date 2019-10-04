@@ -1,191 +1,670 @@
+<?php
+include("../data/DBConfig.php");
+include_once("../data/sessioncheck.php");
+include_once('../forms/forms.php');
 
-   <!-- <div id="loading-wrapper">
-        <div id="loader"></div>
-    </div> -->
-    <header class="clearfix">
-        <div class="logo">
-            <img src="<?php echo $host;?>img/logo.png" alt="Logo">
+if($myData['changePass'] == 0){
+
+    //  $database->redirect_to($host."change-password");
+}
+?>
+<html lang="en">
+<link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- slimscroll -->
+<link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
+<!-- project -->
+<link href="<?php echo $host;?>assets/css/project.css" rel="stylesheet">
+
+<!-- flotCart css -->
+<link href="<?php echo $host;?>assets/css/flotCart.css" rel="stylesheet">
+
+<!-- jvectormap -->
+<link href="<?php echo $host;?>assets/css/jqvmap.css" rel="stylesheet">
+
+<!-- dataTables -->
+<link href="<?php echo $host;?>assets/css/buttons.dataTables.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/tables.css" rel="stylesheet">
+
+<!-- Fontes -->
+<link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/ameffectsanimation.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
+<!-- animate css -->
+<link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
+<!-- top nev css -->
+<link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
+<!-- adminui main css -->
+<link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
+
+<!-- morris -->
+<link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
+
+<!-- aqua black theme css -->
+<link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
+<!-- media css for responsive  -->
+<link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
+
+<!-- AdminUI demo css-->
+<link href="<?php echo $host;?>assets/css/adminUIdemo.css" rel="stylesheet">
+
+<!-- Header JavaScripts -->
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
+<script type="text/javascript">
+
+    function Comma(Num) { //function to add commas to textboxes
+        Num += '';
+        Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+        Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+        x = Num.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1))
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        return x1 + x2;
+    }
+
+</script>
+<script>
+    function validateNumber_Dot(s) {
+        var rgx = /^[0-9]*\.?[0-9]*$/;
+        return s.match(rgx);
+    }
+
+    function fun_AllowOnlyAmountAndDot(txt)
+    {
+        if(event.keyCode > 47 && event.keyCode < 58 || event.keyCode == 46)
+        {
+            var txtbx=document.getElementById(txt);
+            var amount = document.getElementById(txt).value;
+            var present=0;
+            var count=0;
+
+            if(amount.indexOf(".",present)||amount.indexOf(".",present+1));
+            {
+                // alert('0');
+            }
+
+            /*if(amount.length==2)
+            {
+              if(event.keyCode != 46)
+              return false;
+            }*/
+            do
+            {
+                present=amount.indexOf(".",present);
+                if(present!=-1)
+                {
+                    count++;
+                    present++;
+                }
+            }
+            while(present!=-1);
+            if(present==-1 && amount.length==0 && event.keyCode == 46)
+            {
+                event.keyCode=0;
+                //alert("Wrong position of decimal point not  allowed !!");
+                return false;
+            }
+
+            if(count>=1 && event.keyCode == 46)
+            {
+
+                event.keyCode=0;
+                //alert("Only one decimal point is allowed !!");
+                return false;
+            }
+            if(count==1)
+            {
+                var lastdigits=amount.substring(amount.indexOf(".")+1,amount.length);
+                if(lastdigits.length>=2)
+                {
+                    //alert("Two decimal places only allowed");
+                    event.keyCode=0;
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            event.keyCode=0;
+            //alert("Only Numbers with dot allowed !!");
+            return false;
+        }
+
+    }
+
+</script>
+<script src="<?php echo $host . 'assets/js/tables.js' ?>"></script>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elastic-25</title>
+    <!-- Bootstrap -->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="page-header-fixed ">
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner ">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="<?php echo $host;?>"> <img class="logo-default" alt="logo" src="<?php echo $host;?>assets/images/logo.png"> </a>
         </div>
+        <div class="library-menu"> <span class="one">-</span> <span class="two">-</span> <span class="three">-</span> </div><div class="top-nev-mobile-togal"><i class="glyphicon glyphicon-cog"></i></div>
+        <!-- END LOGO -->
+        <div class="top-menu">
+            <!--  TOP NAVIGATION MENU -->
+            <!--  TOP NAVIGATION MENU -->
 
-        <div class="pull-right">
-            <ul id="header-actions" class="clearfix">
-              <!--  <li class="list-box dropdown">
-                    <a id="drop10" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><span class="info-label">4</span> <i class="icon-circle-check info-icon text-warning"></i></a>
-
-                    <div class="dropdown-menu">
-                        <section class="todo">
-                            <fieldset class="todo-list">
-                                <label class="todo-list-item">
-                                    <input type="checkbox" class="todo-list-cb"><span class="todo-list-mark"></span>
-                                    <span class="todo-list-desc">Fix UI Bug</span> <small class="scheduled">Scheduled for 24th Dec, Assigned to Shawn.</small>
-                                </label>
-
-                                <label class="todo-list-item">
-                                    <input type="checkbox" class="todo-list-cb"><span class="todo-list-mark"></span>
-                                    <span class="todo-list-desc">Send all Documents</span> <small class="scheduled">Scheduled for 24th Dec, Assigned to Leena.</small>
-                                </label>
-
-                                <label class="todo-list-item">
-                                    <input type="checkbox" class="todo-list-cb"> <span class="todo-list-mark"></span>
-                                    <span class="todo-list-desc">Attend Wedding Party</span> <small class="scheduled">Scheduled on 10th Dec, Assigned to Mark.</small>
-                                </label>
-
-                                <label class="todo-list-item">
-                                    <input type="checkbox" class="todo-list-cb" checked="checked"> <span class="todo-list-mark"></span>
-                                    <span class="todo-list-desc">Meet Mr.James</span> <small class="scheduled">Completed on 5th Dec, Assigned to Robin.</small>
-                                </label>
-
-                                <label class="todo-list-item">
-                                    <input type="checkbox" class="todo-list-cb overdue" checked="checked"> <span class="todo-list-mark"></span>
-                                    <span class="todo-list-desc">Read Turning Points</span> <small class="scheduled">Overdue 12 days, Assigned to Wincy.</small>
-                                </label>
-                            </fieldset>
-                        </section>
-                    </div>
-                </li>
-                <li class="list-box dropdown">
-                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><span class="info-label">7</span> <i class="icon-notifications_active info-icon text-success"></i></a>
-                    <ul class="dropdown-menu imp-notify">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-user">
+                    <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle" href="javascript:;"> <!-- <img src="assets/images/teem/a10.jpg" class="img-circle" alt=""> --> <span class="username username-hide-on-mobile"> <?php echo $myData['fullname'];?></span> <i class="fa fa-angle-down"></i> </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <div class="thumb"><img src="img/user4.png" alt="Admin Dashboard"></div>
-                            <div class="details"><strong>Wilson Kewis</strong>
-                                <p>The best dashboard design I have ever seen. Good luck with sales.</p><small class="date">Today at 10:10 pm - 21.12.2016</small></div>
+                            <a href="#"> <i class="icon-lock"></i> Lock Screen </a>
+                        </li>
+
+                        <li>
+                            <a href="change_password.php"> <i class="icon-lock"></i>Change Password</a>
                         </li>
                         <li>
-                            <div class="thumb"><img src="img/user7.png" alt="Admin Dashboard"></div>
-                            <div class="details"><strong>Justin Mezzell</strong>
-                                <p>To keep your account secure, we need to revalidate your account.</p><small class="date">3 days ago at 2:30 pm</small></div>
-                        </li>
-                        <li>
-                            <div class="thumb"><img src="img/user1.png" alt="Admin Dashboard"></div>
-                            <div class="details"><strong>Shawn Ankith</strong>
-                                <p>Contact you via phone with support for recent purchases and product information.</p><small class="date">7 days ago at 5:15 pm</small></div>
-                        </li>
-                    </ul>
-                </li>   -->
-
-                <li class="list-box user-admin dropdown">
-                    <div class="admin-details">
-                        <div class="name"><?php echo $myData['fullname'];?></div>
-                        <div class="designation"><?php echo $myData['designation'];?></div>
-                    </div>
-
-                  <a id="drop4" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-account_circle"></i></a>
-
-                    <ul class="dropdown-menu sm">
-                        <li class="dropdown-content">
-                            <!--<a href="#"><i class="icon-warning2"></i>Update Password<br><span>Your password will expire in 7 days.</span></a>-->
-                            <a href="profile.html">Edit Profile</a>
-                            <a href="forgot-pwd.html">Change Password</a>
-                            <!--<a href="validations.html">Settings</a>-->
-                            <a href="<?php echo $host;?>Logout">Logout</a>
+                            <a href="<?php echo $host;?>Logout"> <i class="icon-key"></i> Log Out </a>
                         </li>
                     </ul>
                 </li>
+                <!-- END USER LOGIN DROPDOWN -->
             </ul>
         </div>
-
-       <!-- <a href="<?php echo $host;?>" class="support">Support</a>
-        <div class="custom-search">
-            <input type="text" class="search-query" placeholder="Search here ..."> <i class="icon-search4"></i></div>          -->
-
-    </header>
-
-    <div class="container-fluid">
-    <?php if(isset($headcheck) && $headcheck == 1){?>
-             <div class="dashboard-wrapper-full">
-    <?php }else{ ?>
-        <div class="dashboard-wrapper">
-        <?php }?>
-            <nav class="navbar navbar-default">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-
-                        <li><a href="<?php echo $host;?>"><i class="icon-home2"></i>Dashboard</a></li>
-
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="icon-notification2"></i>Administrative <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="<?php echo $host;?>view-machine">View Machines</a></li>
-                                <li><a href="<?php echo $host;?>view-account">View Accounts</a></li>
-                                <li> -----------------------------</li>
-                                 <li><a href="<?php echo $host;?>add-account">Add New Account</a></li>
-                                <li><a href="<?php echo $host;?>add-machine">Add New Machine</a></li>
-
-                                <!--<li><a href="calendar.html">Calendar</a></li>
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="invoice.html">Invoice</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="pricing.html">Pricing Plans</a></li>
-                                <li><a href="gallery.html">Gallery</a></li>
-                                <li><a href="timeline.html">Timeline</a></li>-->
-                            </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<div class="clearfix"> </div>
+<div class="page-container">
+    <!-- Start page sidebar wrapper -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar">
+            <ul class="page-sidebar-menu  page-header-fixed ">
+                <li class="sidebar-search-wrapper">
+                    <!-- START RESPONSIVE SEARCH FORM
+                    <form class="sidebar-search  " action="http://adminui-v1.0.bittyfox.com/default/aqua-black/search_results.html" method="POST">
+                            <a href="javascript:;" class="remove"> <i class="icon-close"></i> </a>
+                            <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn"> <a href="javascript:;" class="btn submit"> <i class="icon-magnifier"></i> </a> </span> </div>
+                    </form>
+                    <!-- END RESPONSIVE SEARCH FORM -->
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-th-large"></i><span class="title">Dashboard</span> <span class="arrow"></span> </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="<?php echo $host;?>"> <span class="title">Dashboard</span> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $host;?>reports"> <span class="title">Reports</span> </a>
                         </li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="icon-location3"></i>Contracts <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                             <!-- <li><a href="c3-graphs.html">C3 Graphs</a></li>
-                                  <li><a href="maps.html">Maps</a></li>
-                                <li><a href="flot.html">Flot Graphs</a></li>
-                                <li><a href="morris-graphs.html">Morris Graphs</a></li>
-                                <li><a href="vector-maps.html">Vector Maps</a></li>-->
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="icon-browser"></i>PM Call <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <!--   <li><a href="form-inputs.html">Form Inputs</a></li>
-                               <li><a href="validations.html">Validations</a></li>
-                                <li><a href="editor.html">Editors</a></li>-->
-                            </ul>
-                        </li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="icon-image2"></i>Service Call <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="<?php echo $host;?>service-call">Make a Call</a></li>
-                                <li><a href="<?php echo $host;?>follow-up">Follow-Up Call</a></li>
-                                <li><a href="<?php echo $host;?>view-service-call">View Service Call</a></li>
-                               <!-- <li><a href="components.html">Components</a></li>
-                                <li><a href="modals.html">Modals</a></li>
-                                <li><a href="labels-badges.html">Labels &amp; Badges</a></li>
-                                <li><a href="spinners.html">Spinners</a></li>
-                                <li><a href="notifications.html">Notifications</a></li>
-                                <li><a href="progressbars.html">Progress Bars</a></li>
-                                <li><a href="icons.html">Icons</a></li>
-                                <li><a href="typography.html">Typography</a></li>
-                                <li><a href="custom-panels.html">Panels</a></li>
-                                <li><a href="custom-drag.html">Drag &amp; Drop</a></li>
-                                <li><a href="custom-grid.html">Grid</a></li>
-                                <li><a href="default.html">Default Layout</a></li>
-                                <li><a href="layout-full.html">Layout Without Sidebar</a></li>-->
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $host;?>view-stock-analysis"> <span class="title">Stock Analysis</span> </a>
                         </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="icon-new-message"></i>Billing <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="icon-error_outline"></i>Statistics <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <!--<li><a href="login.html">Login</a></li>
-                                <li><a href="signup.html">Sign Up</a></li>
-                                <li><a href="lock-screen.html">Lock Screen</a></li>
-                                <li><a href="forgot-pwd.html">Forgot Password</a></li>
-                                <li><a href="error.html">Page Not Found</a></li> -->
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $host;?>stock-to-order"> <span class="title">Stock To Order</span> </a>
                         </li>
                     </ul>
-                </div>
-            </nav>
+                </li>
+                <?php if($myData['superAdmin'] > 0){?>
+                    <li class="nav-item ">
+
+                    <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-wrench"></i><span class="title">Settings</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="javascript:;"> PRODUCTS <span class="arrow nav-toggle"></span> </a>
+                                <ul class="sub-menu">
+                                    <?php
+                                    $cati = (array)$database->getProductsCategory();
+                                    foreach($cati as $catii){
+                                        ?>
+                                        <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
+                                    <?php }?>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    </li>
+                <?php }?>
+
+                <?php if($myData['engineer'] > 0){?>
+
+                    <li class="heading">
+                        <h3 class="uppercase">Service Call</h3>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host;?>engineer-view-service-call"> <span class="title">View Call</span> </a>
+                    </li>
+
+
+                <?php } ?>
+
+                <li class="heading">
+                    <h3 class="uppercase">Workshop Inventory</h3>
+                    <h3 class="uppercase"></h3>
+                </li>
+
+                <?php if($myData['serviceCall'] > 0 OR $myData['engineer'] > 0 ){?>
+
+                    <li class="nav-item ">
+
+                    <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cube"></i><span class="title">Workshop</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>add-machine-to-workshop"> <span class="title">Add Machine to Workshop</span> </a>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-workshop-machine"> <span class="title">View Workshop</span> </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    </li>
+                <?php  } ?>
+
+                <?php if($myData['serviceCall'] > 0){?>
+                    <li class="heading">
+                        <h3 class="uppercase">Service Call</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-diamond"></i> <span class="title">Admin Call</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <?php  if($myData['AccessLevel'] == 12){ ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"> <span class="title">Make a Call</span> </a>
+                                </li>
+                            <?php }?>
+
+
+                            <?php  if($myData['AccessLevel'] < 12){ ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>service-call"> <span class="title">Make a Call</span> </a>
+                                </li>
+                            <?php }?>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-service-call"> <span class="title">View Call</span> </a>
+                            </li>
+
+
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> <span class="title">Follow Up</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>pm-view-account"> <span class="title">PM Call</span> </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-envelope-open"></i> <span class="title">Customers</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> <span class="title">Machine Issues</span> <span class="badge badge-danger">0</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> <span class="title">Feedback</span><span class="badge badge-warning">0</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> <span class="title">Request</span><span class="badge badge-success">0</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"> <span class="title">Suggestions</span><span class="badge badge-info">0</span> </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase"></h3>
+                    </li>
+                <?php }?>
+                <?php if($myData['Administrative'] > 0){?>
+
+                    <li class="heading">
+                        <h3 class="uppercase">Administrative</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-layers"></i> <span class="title">Accounts</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-account"> <span class="title">Add Account</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-account"> <span class="title">View Accounts</span> </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-paper-plane"></i> <span class="title">Machines</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-machine"> <span class="title">Add Machine </span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-machine"> <span class="title">View Machines</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="icon-print"></i> <span class="title">POC-Proof Of Concept</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-poc"> <span class="title">Add New POC </span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-poc"> <span class="title">View POC</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                <?php }?>
+                <?php if($myData['purchases'] > 0){?>
+                    <li class="heading">
+                        <h3 class="uppercase">Purchase</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-money"></i> <span class="title">Purchase Info</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>purchase-collected"> <span class="title">Collected</span> </a>
+                            </li>
+                            <?php if($myData['DepartmentID'] == 5){
+
+                                echo "";
+
+                            }else{
+
+
+
+                                ?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>purchase-uncollected"> <span class="title">Uncollected</span> </a>
+                                </li>
+
+                            <?php } ?>
+
+                        </ul>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase"></h3>
+                    </li>
+                <?php }?>
+                <?php if($myData['Billing'] > 0){?>
+                    <li class="heading">
+                        <h3 class="uppercase">Billing</h3>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-bank"></i> <span class="title">Contract Info</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-contract"> <span class="title">Create Contract</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-contract"> <span class="title">View Contract</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-contract-billing"> <span class="title">Contract Billing</span> </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="heading">
+                        <h3 class="uppercase"></h3>
+                    </li>
+                <?php }?>
+                <?php if($myData['warehouse'] > 0){?>
+
+
+
+                    <li class="heading">
+                        <h3 class="uppercase">WareHouse</h3>
+                    </li>
+                    <?php
+                    $store = $database->getStoreIDInfo($myData['storeID']);
+
+                    ?>
+                    <li class="heading">
+                        <h3 class="uppercase"><?php echo $store['1'];?></h3>
+                    </li>
+                    <?php if($myData['DepartmentID'] == 5){?>
+
+
+                    <?php }else{?>
+
+                        <li class="nav-item">
+                            <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cart-arrow-down"></i> <span class="title">Supplier</span> <span class="arrow"></span> </a>
+                            <ul class="sub-menu">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-contract"> <span class="title">View</span> </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    <?php }?>
+
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cubes"></i> <span class="title">Goods Transactions</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-sold-ticket"> <span class="title">Electronic Waybill</span> </a>
+                            </li>
+
+                            <?php if($myData['DepartmentID'] == 5){?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>return-ticket-view"> <span class="title">Credit Note</span> </a>
+                                </li>
+
+
+                            <?php }else{?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>return-ticket"> <span class="title">Credit Note</span> </a>
+
+                                </li>
+                            <?php }?>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-goods-recieve-ticket"> <span class="title">Recieve</span> </a>
+                            </li>
+
+
+                            <?php if($myData['DepartmentID'] == 5){?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>transfer-goods-account"> <span class="title">Transfer</span> </a>
+                                </li>
+
+                            <?php }else{?>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>transfer-goods"> <span class="title">Transfer</span> </a>
+                                </li>
+
+                            <?php }?>
+
+                            <!--<li class="nav-item">
+                                                                <a class="nav-link" href="<?php //echo $host;?>view-goods-recieve-ticket"> <span class="title">Returned</span> </a>
+                                                        </li>-->
+                            <!--<li class="nav-item">
+                                                                <a class="nav-link" href="<?php //echo $host;?>add-product-stock"> <span class="title">Add</span> </a>
+                                                        </li> -->
+
+
+                        </ul>
+
+                    </li>
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-calendar-o"></i> <span class="title">E-BIN Card</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>view-bim"> <span class="title">View BIN</span> </a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-calendar-o"></i> <span class="title">DELIVERY TRACKER</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo $host;?>track-a-delivery"> <span class="title">MANAGE TRACKING</span> </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                                                <a class="nav-link" href="<?php echo $host;?>view-bim"> <span class="title">VIEW DELEIVERY STATUS</span> </a>
+                                                        </li>-->
+                        </ul>
+
+                    </li>
+                    <li class="nav-item ">
+
+                    <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cube"></i><span class="title">Stocks</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="javascript:;"> View All <span class="arrow nav-toggle"></span> </a>
+
+                                <ul class="sub-menu">
+                                    <?php
+                                    $cati = (array)$database->getProductsCategory();
+                                    foreach($cati as $catii){
+                                        ?>
+                                        <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
+                                    <?php }?>
+
+                                </ul>
+                            </li>
+
+                            <?php if ($myData['DepartmentID']== 5) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>add-product-cost"> <span class="title">Add Cost</span> </a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo $host;?>add-product-price"> <span class="title">Add Price</span> </a>
+                                </li>
+                            <?php } ?>
+
+                        </ul>
+                    </li>
+
+                    </li>
+
+                <?php }?>
+
+
+
+                <?php if($myData['AccessLevel'] == 3 OR $myData['username'] == 'adeyinka' OR $myData['changePass'] == 2){?>
+                    <li class="nav-item ">
+
+                    <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cube"></i><span class="title">Stocks</span> <span class="arrow"></span> </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="javascript:;"> View All <span class="arrow nav-toggle"></span> </a>
+                                <ul class="sub-menu">
+                                    <?php
+                                    $cati = (array)$database->getProductsCategory();
+                                    foreach($cati as $catii){
+                                        ?>
+                                        <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
+                                    <?php }?>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    </li>
+
+                <?php }else{?>
+
+
+
+                    <?php
+                }
+
+                // IT/Software Developer Section
+
+                //                if ($myData['designation'] == 'IT/Software Developer'){
+                ?>
+                <li class="heading">
+                    <h3 class="uppercase">
+                        <?php echo $myData['designation']; ?>
+                    </h3>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $host;?>users">
+                        <span class="title">Users</span> </a></li>
+                <?php
+                //                }
+
+                ?>
+
+            </ul>
+        </div>
+    </div>
+    <!-- End page sidebar wrapper -->
+
+    <!-- Start page content wrapper -->
+    <div class="page-content-wrapper">
+
+        <!-- start page content -->
+        <div class="page-content">
+            <div class="row">
+
+                <div class="col-lg-12">
+
+                    <!-- start page main section -->
+                    <div class="widget white-bg box-shadow p-xl">

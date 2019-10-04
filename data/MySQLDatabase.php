@@ -28,15 +28,22 @@ class MySQLDatabase
 
      function authenticateStaff($username, $password){
 
-        $sql = "select * from staff where username =? and password = ?";
+        $sql = "select * from staff where username =?";
          $handle = $this->db->prepare($sql);
          $handle->bindValue(1,$username);
-         $handle->bindValue(2,$password);
          $handle->execute();
          if($handle->rowCount()>0){
             $row = $handle->fetch(PDO::FETCH_ASSOC);
+            $pass = $row['password'];
+
+                if (password_verify($password, $pass)){
                     return array($row['id'],$row['active']);
-            }else{
+                }
+                else{
+                    return array(1,1);
+                }
+            }
+            else{
                 return array(0,0);
             }
 
@@ -2064,7 +2071,6 @@ function updateDeliveryTracking($orderID,$ticketNo,$deliveryStatus,$deliveryMode
     {
         $sql    = "select st.*,
         ds.dptID,ds.dptaccessLevel,ds.designation,d.Department
-
         from staff st
         join dpt_designation ds on st.designationID = ds.id
         join department d on st.DepartmentID = d.id
@@ -2633,7 +2639,6 @@ function checkCodeExist($code){
         } else {
             return false;
         }
-
     }
 
     function getAllIssues(){
@@ -2648,7 +2653,6 @@ function checkCodeExist($code){
         } else {
             return false;
         }
-
     }
 
     function getAllMachineInformation(){
@@ -4443,8 +4447,6 @@ function getGoodsLogAnalysis6($id){
             if($handle->rowCount() > 0){
                 echo $handle->rowCount();
         }
-
-
     }
 
 
@@ -4456,8 +4458,6 @@ function getGoodsLogAnalysis6($id){
             if($handle->rowCount() > 0){
                 echo $handle->rowCount();
         }
-
-
     }
 
 
@@ -4469,11 +4469,7 @@ function getGoodsLogAnalysis6($id){
             if($handle->rowCount() > 0){
                 echo $handle->rowCount();
         }
-
-
     }
-
-
 
     function getAllContractsByMPS(){
             $myArray = array();
@@ -4483,8 +4479,6 @@ function getGoodsLogAnalysis6($id){
             if($handle->rowCount() > 0){
                 echo $handle->rowCount();
         }
-
-
     }
 
     function closeCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT){
@@ -4510,6 +4504,82 @@ function getGoodsLogAnalysis6($id){
          $ticketNo = $this->getSingleTicketInformation($id)['ticketNo'];
     }
 
+  public function getAllUsers(){
+        $allUsers = array();
+        $sql = "SELECT s.id, s.fullname, s.email, s.phoneNo, d.Department, dd.designation
+ from staff s, department d, dpt_designation dd
+where s.DepartmentID = d.id 
+and s.designationID = dd.id
+and s.active = 1
+order by s.fullname";
+        $handle = $this->db->prepare($sql);
+        $handle->execute();
+
+        if ($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
+                $allUsers[] = $row;
+            }
+            return $allUsers;
+        } else {
+            return null;
+        }
+  }
+
+  public function getUser($id){
+        $sql = "SELECT s.id, s.fullname, s.email, s.phoneNo, 
+        d.Department, dd.designation
+        from staff s, department d, dpt_designation dd
+        where s.DepartmentID = d.id 
+        and s.designationID = dd.id
+        and s.id = $id";
+
+      $handle = $this->db->prepare($sql);
+      $handle->execute();
+
+      if ($handle->rowCount() > 0){
+          $row = $handle->fetch(PDO::FETCH_OBJ);
+          return $row;
+      } else {
+          return null;
+      }
+  }
+
+  public function updatePasswords(){
+
+      $sql = "select * from staff where id != null";
+      $handle = $this->db->prepare($sql);
+      $handle->execute();
+      $rows = $handle->rowCount();
+
+      for ($i = 1; $i < 100; $i++){
+          $sql = "select * from staff where id = $i";
+          $handle = $this->db->prepare($sql);
+          $handle->execute();
+
+          if ($handle->rowCount() > 0){
+              $row = $handle->fetch(PDO::FETCH_OBJ);
+              $id = $row->id;
+              $pass = password_hash($row->password, PASSWORD_BCRYPT);
+              $sql1 = "update staff set `password` = '$pass' where id = $id";
+          $handle = $this->db->prepare($sql1);
+          $handle->execute();
+          }
+      }
+
+  }
+
+  public function updatePassword($id, $password){
+    $msg = null;
+    $sql = "update staff set password = ? where id = ?";
+    $handle = $this->db->prepare($sql);
+    $handle->bindValue(1, $password);
+    $handle->bindValue(2, $id);
+    if ($handle->execute()){
+        $msg = 'User password updated successfully';
+    }
+    return $msg;
+  }
 
 
 }

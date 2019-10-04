@@ -50,74 +50,37 @@ if($myData['changePass'] == 0){
         <link href="<?php echo $host;?>assets/css/adminUIdemo.css" rel="stylesheet">
 <?php include("includes/header_.php");?>
         <div class="page-content-wrapper">
-              <?php include("includes/make-purchase.php");?>
+              <?php //include("includes/make-purchase.php");?>
             <div class="page-content">
                    <div class="row">
-
-
-                   
-
-
-
 
           <div class="col-lg-12">
 
     <div class="widget white-bg box-shadow p-xl">
-         
 
-                    <?php 
-
-                  
+                    <?php
 
                       $Department = $myData['Department'];
-
-
-                
-
 
                      if ($myData['AccessLevel'] == "1" AND $myData['username'] == "uju" ) {
 
                         echo "<center><h1>WELCOME TO $Department  </h1></center>";
 
                             include 'font2.php';
-
-                    
                      }
 
                        elseif ($myData['AccessLevel'] == "1") {
 
                         echo "<center><h1>WELCOME TO $Department  </h1></center>";
-
-
-
-                        
-
-                    
                      }
                      else{
-                          
                           include 'font.php';
-
-
-                     
-
                      }
-                    
-
                     ?>
 
 </div>
 
-
 </div>
-
-
-                    
-
-       
-
-
-
 
 <!-- Column Chart
                         <div class="col-lg-6 top15">
@@ -133,32 +96,20 @@ if($myData['changePass'] == 0){
                             </div>
                         </div>  -->
 
-                        
+
 
 </div>
 
 
 <br><br> <br><br>
-<?php   
+<?php
                         if ($myData['DepartmentID'] == "5") {
-                        
-                   
-                        include 'productBelowfourquantity.php'; 
+
+
+                        include 'productBelowfourquantity.php';
        }
-                              
+
                         ?>
-
-
-
-        
-
-
-
-
-
-
-
-
 
                 <!-- start footer -->
                 <div class="footer">
@@ -174,8 +125,7 @@ if($myData['changePass'] == 0){
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+
     <!-- Go top -->
     <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
     <!-- Flot -->
@@ -189,9 +139,6 @@ if($myData['changePass'] == 0){
     <!-- bootstrap js -->
     <script src="<?php echo $host;?>assets/js/vendor/bootstrap.min.js"></script>
     <!--  morris Charts  -->
-
-
-
 
     <!-- dataTables-->
     <script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/jquery.dataTables.js"></script>
@@ -353,14 +300,11 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div>
-            <!--<div class="setings-item viewAllThemes"> <span class="skin-name"> <a href="#"> View All Themes </a> </span> </div>
-            <div class="setings-item gohome "> <span class="skin-name"> <a href="http://adminui-v1.3.bittyfox.com/"> Go to Lending Page </a> </span> </div>-->
+
         </div>
     </div>
 </div>
 <!-- end theme config -->
 
-
-</body>
-
+    </body>
 </html>

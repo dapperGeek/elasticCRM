@@ -120,6 +120,13 @@ RewriteRule ^update-new-pm-visit/([0-9]+)/*$ maintenance/pm-update.php?id=$1 [NC
 
 RewriteRule ^ticket/([A-Za-z0-9-_]+)/([0-9]+)/*$ _warehouse/downloads.php?id=$1&vat=$2 [NC,L,QSA] #PDF version of invoice
 
+
+#Software developer urls
+RewriteRule ^users/*$ userprofile/users.php [NC,L,QSA] #View all users and update user by id
+RewriteRule ^users/([0-9]+)/*$ userprofile/users.php?id=$1 [NC,L,QSA] #View all users and update user by id
+RewriteRule ^users/db/ops*$ userprofile/users.php?db=ops [NC,L,QSA] #View all users and update user by id
+
+
 # php -- BEGIN cPanel-generated handler, do not edit
 # Set the “ea-php56” package as the default “PHP” programming language.
 <IfModule mime_module>

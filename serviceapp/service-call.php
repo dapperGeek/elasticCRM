@@ -313,6 +313,7 @@ if($myData['changePass'] == 0){
             <!-- Go top -->
             <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
             <<a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+
                 <!-- Go top -->
                 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
                 <script src="<?php echo $host;?>assets/js/vendor/jquery.min.js"></script>

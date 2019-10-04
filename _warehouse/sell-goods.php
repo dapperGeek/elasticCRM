@@ -553,9 +553,6 @@ $message = "Dear Customer Care, \n<br> Please be informed that a service call ha
                       } else {
                 zx.style.display = "none";
                 }
-       
-
-
         }
 
 </script>

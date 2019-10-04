@@ -156,13 +156,16 @@
                      $wd2 = $database->test_input($_POST['txtWorkDone']);
                      if($wd2 != ""){
 //                          $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
-                          $workDone = $_POST['txtWrkDone2'] . $wd2."\n\n";
+                          $workDone = $_POST['txtWrkDone2'] . $wd2 . "\n\n";
                      }else{
-                       $workDone = $_POST['txtWrkDone2'];
+                       $workDone = $_POST['txtWrkDone2'] . "\n\n";
                      }
                           //var_dump($workDone);
 
                               //exit;
+
+            // edit to enter service times into table 'service_call_times'
+                    $database->setServiceTimes($serviceID, $user_id, $st, $et);
 
                    $database->followUpCall($serviceID,$paymentStatus,$closeBy,$closeDate,$closeTimeStamp,$CaseStatus,$workDone,$ticket['machine_id'],$ticket['account_id'],$engineer,$issues,$schD[0],$schD[1],$meterReading,$colour,$Mono);   
                        $msg = "This Ticket has been followed Up";
