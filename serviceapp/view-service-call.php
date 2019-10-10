@@ -37,32 +37,9 @@
 <link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
 <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
-<?php include("../includes/header_.php");?>
+<?php include("../includes/header_pg_heading.php");?>
 
-    <!-- End page sidebar wrapper -->
-    <!-- Start page content wrapper -->
-     <div class="page-content-wrapper">
-    <div class="page-content">
-      <div class="row wrapper border-bottom page-heading">
-        <div class="col-lg-12">
-          <h2>View All Tickets </h2>
-          <ol class="breadcrumb">
-            <li> <a href="index-2.html">Home</a> </li>
-            <li> <a>Administrative</a> </li>
-            <li> <a>Tickets</a> </li>
-            <li class="active"> <strong>View All Tickets</strong> </li>
-          </ol>
-        </div>
-        <div class="col-lg-12"> </div>
-      </div>
-      <div class="wrapper-content ">
-
-      <div class="row">
-          <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-
-              <div class="ibox-content collapse in">
-                <div class="widgets-container">  <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab-1" data-toggle="tab" > OPENED CALLS &nbsp;&nbsp; <span class="label label-warning">NEW</span></a></li>
                 <li ><a href="#tab-2" data-toggle="tab" >CLOSED CALLS &nbsp;&nbsp; <span class="label label-success">OLD</span> </a></li>
               </ul>

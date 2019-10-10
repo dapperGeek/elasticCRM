@@ -1,3 +1,11 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Uthman A.B.
+ * Date: 10/3/2019
+ * Time: 12:45 PM
+ */
+?>
 </div>
 <!-- end page main section --->
 </div>
@@ -205,10 +213,3 @@
 
 </body>
 </html>
-<?php
-/**
- * Created by PhpStorm.
- * User: OLUYEMI
- * Date: 10/3/2019
- * Time: 12:45 PM
- */

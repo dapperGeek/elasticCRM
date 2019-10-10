@@ -662,6 +662,20 @@ if($myData['changePass'] == 0){
 
         <!-- start page content -->
         <div class="page-content">
+
+            <div class="row wrapper border-bottom page-heading">
+                <div class="col-lg-12">
+                    <h2>View All Tickets </h2>
+                    <ol class="breadcrumb">
+                        <li> <a href="index-2.html">Home</a> </li>
+                        <li> <a>Administrative</a> </li>
+                        <li> <a>Tickets</a> </li>
+                        <li class="active"> <strong>View All Tickets</strong> </li>
+                    </ol>
+                </div>
+                <div class="col-lg-12"> </div>
+            </div>
+
             <div class="row">
 
                 <div class="col-lg-12">
