@@ -1,7 +1,8 @@
 <?php
 include("../data/DBConfig.php");
 include_once("../data/sessioncheck.php");
-include_once('../includes/forms/forms.php');
+require_once ("../Utils/UtilFunctions.php");
+include_once('../includes/forms.php');
 
 if($myData['changePass'] == 0){
 
@@ -9,6 +10,7 @@ if($myData['changePass'] == 0){
 }
 ?>
 <html lang="en">
+<head>
 <link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
 <!-- slimscroll -->
 <link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
@@ -150,7 +152,6 @@ if($myData['changePass'] == 0){
 </script>
 <script src="<?php echo $host . 'assets/js/tables.js' ?>"></script>
 
-<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

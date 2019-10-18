@@ -76,7 +76,7 @@ if(isset($_SESSION['user_id'])){
 <body class="login-layout-full login">
 <div class="page-brand-info">
     <div class="brand"> <img class="brand-img" src="assets/images/w-logo.png" alt="..."> </div>
-    <p class="font-size-20">Elastic25 is a service application that helps monitor customer service progress and stores proper information of burchases and billing. Log in to have a feel</p>
+    <p class="font-size-20">Elastic25 is a service application that helps monitor customer service progress and stores proper information of purchases and billing. Log in to have a feel</p>
 </div>
 <div class="loginColumns ">
     <div>

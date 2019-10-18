@@ -113,7 +113,7 @@ function fun_AllowOnlyAmountAndDot(txt)
 </head>
 
 <body class="page-header-fixed ">
-        <div class="page-header navbar navbar-fixed-top">
+    <div class="page-header navbar navbar-fixed-top">
                 <!-- BEGIN HEADER INNER -->
                 <div class="page-header-inner ">
                         <!-- BEGIN LOGO -->
@@ -134,9 +134,9 @@ function fun_AllowOnlyAmountAndDot(txt)
                                                                 <a href="#"> <i class="icon-lock"></i> Lock Screen </a>
                                                         </li>
 
-                                                         <li>
-                                                                <a href="change_password.php"> <i class="icon-lock"></i>Change Password</a>
-                                                        </li>
+                        <li>
+                            <a href="<?php echo $host . 'change-password' ; ?>"> <i class="icon-lock"></i>Change Password</a>
+                        </li>
                                                         <li>
                                                                 <a href="<?php echo $host;?>Logout"> <i class="icon-key"></i> Log Out </a>
                                                         </li>
@@ -149,80 +149,75 @@ function fun_AllowOnlyAmountAndDot(txt)
                 </div>
                 <!-- END HEADER INNER -->
         </div>
-        <div class="clearfix"> </div>
-        <div class="page-container">
+    <div class="clearfix"> </div>
+    <div class="page-container">
                 <!-- Start page sidebar wrapper -->
-                <div class="page-sidebar-wrapper">
-                        <div class="page-sidebar">
-                                <ul class="page-sidebar-menu  page-header-fixed ">
-                                        <li class="sidebar-search-wrapper">
-                                                <!-- START RESPONSIVE SEARCH FORM
-                                                <form class="sidebar-search  " action="http://adminui-v1.0.bittyfox.com/default/aqua-black/search_results.html" method="POST">
-                                                        <a href="javascript:;" class="remove"> <i class="icon-close"></i> </a>
-                                                        <div class="input-group">
-                                                                <input type="text" class="form-control" placeholder="Search...">
-                                                                <span class="input-group-btn"> <a href="javascript:;" class="btn submit"> <i class="icon-magnifier"></i> </a> </span> </div>
-                                                </form>
-                                                <!-- END RESPONSIVE SEARCH FORM -->
-                                        </li>
-                                        <li class="nav-item ">
-                                                <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-th-large"></i><span class="title">Dashboard</span> <span class="arrow"></span> </a>
-                                                <ul class="sub-menu">
-                                                        <li class="nav-item active">
-                                                                <a class="nav-link" href="<?php echo $host;?>"> <span class="title">Dashboard</span> </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                                <a class="nav-link" href="<?php echo $host;?>reports"> <span class="title">Reports</span> </a>
-                                                        </li>
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar">
+            <ul class="page-sidebar-menu  page-header-fixed ">
+                <li class="sidebar-search-wrapper">
+
+                </li>
+                <li class="nav-item ">
+                <a class="nav-link nav-toggle" href="javascript:;">
+                    <i class="fa fa-th-large"></i><span class="title">Dashboard</span> <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?php echo $host;?>"> <span class="title">Dashboard</span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $host;?>reports"> <span class="title">Reports</span> </a>
+                </li>
 
 
-                                                        <li class="nav-item">
-                                                                <a class="nav-link" href="<?php echo $host;?>view-stock-analysis"> <span class="title">Stock Analysis</span> </a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                                <a class="nav-link" href="<?php echo $host;?>stock-to-order"> <span class="title">Stock To Order</span> </a>
-                                                        </li>
-                                                </ul>
-                                        </li>
-                                        <?php if($myData['superAdmin'] > 0){?>
-                                         <li class="nav-item ">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $host;?>view-stock-analysis"> <span class="title">Stock Analysis</span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $host;?>stock-to-order"> <span class="title">Stock To Order</span> </a>
+                </li>
+                </ul>
+                </li>
+                <?php if($myData['superAdmin'] > 0){?>
+                <li class="nav-item ">
 
-                                                <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-wrench"></i><span class="title">Settings</span> <span class="arrow"></span> </a>
-                                                    <ul class="sub-menu">
-                                                        <li class="nav-item"> <a class="nav-link" href="javascript:;"> PRODUCTS <span class="arrow nav-toggle"></span> </a>
-                                                            <ul class="sub-menu">
-                                                                <?php
-                                                                        $cati = (array)$database->getProductsCategory();
-                                                                        foreach($cati as $catii){
-                                                                ?>
-                                                                <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
-                                                                 <?php }?>
-                                                            </ul>
-                                                        </li>
+                <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-wrench"></i><span class="title">Settings</span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="javascript:;"> PRODUCTS <span class="arrow nav-toggle"></span> </a>
+                <ul class="sub-menu">
+                    <?php
+                            $cati = (array)$database->getProductsCategory();
+                            foreach($cati as $catii){
+                    ?>
+                    <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
+                     <?php }?>
+                </ul>
+                </li>
 
-                                                    </ul>
-                                                </li>
+                </ul>
+                </li>
 
-                                        </li>
-                                        <?php }?>
+                </li>
+                <?php }?>
 
-                                        <?php if($myData['engineer'] > 0){?>
+                <?php if($myData['engineer'] > 0){?>
 
-                                        <li class="heading">
-                                                <h3 class="uppercase">Service Call</h3>
-                                        </li>
+                <li class="heading">
+                <h3 class="uppercase">Service Call</h3>
+                </li>
 
-                                                          <li class="nav-item">
-                                                                <a class="nav-link" href="<?php echo $host;?>engineer-view-service-call"> <span class="title">View Call</span> </a>
-                                                        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $host;?>engineer-view-service-call"> <span class="title">View Call</span> </a>
+                </li>
 
 
-                                                    <?php } ?>
+                <?php } ?>
 
-                                                         <li class="heading">
-                                                             <h3 class="uppercase">Workshop Inventory</h3>
-                                                <h3 class="uppercase"></h3>
-                                        </li>
+                <li class="heading">
+                 <h3 class="uppercase">Workshop Inventory</h3>
+                <h3 class="uppercase"></h3>
+                </li>
 
 
                                          
@@ -605,7 +600,7 @@ function fun_AllowOnlyAmountAndDot(txt)
 ?>
 
                                 </ul>
-                        </div>
-                </div>
+        </div>
+    </div>
                 <!-- End page sidebar wrapper -->
                 <!-- Start page content wrapper -->

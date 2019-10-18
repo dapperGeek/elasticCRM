@@ -15,8 +15,9 @@ RewriteRule ^logout/*$ logout.php [NC,L,QSA] #logout
 
 RewriteRule ^reports/*$ reports.php [NC,L,QSA] #login
 
+RewriteRule ^change-password/*$ userprofile/change-password.php [NC,L,QSA] #Change Password
 
-RewriteRule ^add-machine/*$ serviceapp/add-machine.php [NC,L,QSA] #Add Machines 
+RewriteRule ^add-machine/*$ serviceapp/add-machine.php [NC,L,QSA] #Add Machines
 RewriteRule ^view-machine/*$ serviceapp/view-machine.php [NC,L,QSA] #view Machines
 
 RewriteRule ^add-machine-to-workshop/*$ serviceapp/add-machine-to-workshop.php [NC,L,QSA] #Add Workshop Machines  

@@ -1,11 +1,11 @@
 <?php
 include("../data/DBConfig.php");
 include_once("../data/sessioncheck.php");
-include_once('../includes/forms/forms.php');
+include_once('../includes/forms.php');
 
 if($myData['changePass'] == 0){
 
-    //  $database->redirect_to($host."change-password");
+      $database->redirect_to($host."change-password");
 }
 ?>
 <html lang="en">
@@ -189,7 +189,7 @@ if($myData['changePass'] == 0){
                         </li>
 
                         <li>
-                            <a href="change_password.php"> <i class="icon-lock"></i>Change Password</a>
+                            <a href="<?php echo $host . 'change-password' ; ?>"> <i class="icon-lock"></i>Change Password</a>
                         </li>
                         <li>
                             <a href="<?php echo $host;?>Logout"> <i class="icon-key"></i> Log Out </a>

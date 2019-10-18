@@ -451,10 +451,14 @@
                 <span class="fa fa-home m-r-xs"></span>
                 <label>Designation:</label> <?php echo $myData['designation'];?>
             </li>
-           <!-- <li>
+            <li>
+                <span class="fa fa-lock m-r-xs"></span>
+                <label>Security:</label> <a href="<?php echo $host . 'change-password' ?>">Update Login Password</a>
+            </li>
+            <li>
                 <span class="fa fa-phone m-r-xs"></span>
-                <label>Contact:</label> <?php echo $myData['phone'];?>
-            </li> -->
+                <label>Contact:</label> <?php echo $myData['phoneNo'];?>
+            </li>
         </ul>
 
     </div>

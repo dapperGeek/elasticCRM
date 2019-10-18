@@ -104,7 +104,7 @@
                                                 <td><a href="<?php if($myData['AccessLevel'] == 12){ }else{echo $host;?>machine-info/<?php echo $act['MachineID'];}?>"><?php echo $act['machine_code'];?></a></td>
                                                 <td>
                                                   <div style="height: 10px;" class="progress progress-striped active">
-                    <div style="width: <?php echo $database->getPercentage($majTimeDif);?>%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" class="progress-bar progress-bar-<?php echo $database->getSecondsColor( $majTimeDif);?>"> <span class="sr-only"> 80% Complete (danger) </span> </div>
+                    <div style="width: <?php echo $database->getPercentage($majTimeDif);?>" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" class="progress-bar progress-bar-<?php echo $database->getSecondsColor( $majTimeDif);?>"> <span class="sr-only"> 80% Complete (danger) </span> </div>
                   </div>
 
 
