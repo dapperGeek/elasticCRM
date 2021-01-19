@@ -1,0 +1,133 @@
+ErrorDocument 404 404.php
+
+AddDefaultCharset UTF-8
+Options +FollowSymlinks
+RewriteEngine On
+
+# Make all PHP code look like HTML  --- Rule 1
+#  AddType application/x-httpd-php .htm .html    # USE TO MAKE HTML WORK AS PHP FILE
+
+
+
+RewriteRule ^login/*$ login.php [NC,L,QSA] #login
+RewriteRule ^logout/*$ logout.php [NC,L,QSA] #logout
+
+RewriteRule ^reports/*$ reports.php [NC,L,QSA] #login
+
+RewriteRule ^change-password/*$ userprofile/change-password.php [NC,L,QSA] #Change Password
+
+RewriteRule ^add-machine/*$ serviceapp/add-machine.php [NC,L,QSA] #Add Machines 
+RewriteRule ^view-machine/*$ serviceapp/view-machine.php [NC,L,QSA] #view Machines
+
+RewriteRule ^add-machine-to-workshop/*$ serviceapp/add-machine-to-workshop.php [NC,L,QSA] #Add Workshop Machines  
+RewriteRule ^view-workshop-machine/*$ serviceapp/view-workshop-machine.php [NC,L,QSA] #view Workshop Machines
+
+RewriteRule ^add-machine-to-showroom/*$ serviceapp/add-machine-to-showroom.php [NC,L,QSA] #Add Showroom Machines
+RewriteRule ^view-showroom-machine/*$ serviceapp/view-showroom-machine.php [NC,L,QSA] #view Workshop Machines
+
+RewriteRule ^add-account/*$ serviceapp/add-account.php [NC,L,QSA] #Add Acocunt
+RewriteRule ^add-poc/*$ serviceapp/add-poc.php [NC,L,QSA] #Add Acocunt
+RewriteRule ^edit-account/([0-9]+)/*$ serviceapp/edit-account.php?id=$1 [NC,L,QSA] #edit Account
+RewriteRule ^view-account/*$ serviceapp/view-account.php [NC,L,QSA] #Add Account
+RewriteRule ^view-poc/*$ serviceapp/view-poc.php [NC,L,QSA] #Add Account
+
+RewriteRule ^view-service-call/*$ serviceapp/view-service-call.php [NC,L,QSA] #Add Account
+RewriteRule ^engineer-view-service-call/*$ serviceapp/engineer-view-service-call.php [NC,L,QSA] #Add Account
+RewriteRule ^service-call/*$ serviceapp/service-call.php [NC,L,QSA] #Add Account
+
+RewriteRule ^ticket-info/([A-Za-z0-9-_]+)/*$ tickets/service-ticket.php?id=$1 [NC,L,QSA] #view ticket Information
+
+RewriteRule ^workshop-ticket-info/([A-Za-z0-9-_]+)/*$ tickets/workshop-ticket.php?id=$1 [NC,L,QSA] #view ticket Information
+
+
+RewriteRule ^purchase-invoice/([A-Za-z0-9-_]+)/*$ tickets/purchase-invoice.php?id=$1 [NC,L,QSA] #view Purchase Invoice
+RewriteRule ^ticket-pop/([A-Za-z0-9-_]+)/*$ tickets/ticket-pop.php?id=$1 [NC,L,QSA] #view Purchase Invoice
+
+
+RewriteRule ^machine-info/([0-9]+)/*$ serviceapp/machine-info.php?id=$1 [NC,L,QSA] #view machine Information
+RewriteRule ^account-info/([0-9]+)/*$ serviceapp/account-info.php?id=$1 [NC,L,QSA] #view account Information
+RewriteRule ^purchase-item/([0-9]+)/*$ serviceapp/purchase-item.php?id=$1 [NC,L,QSA] #view account Information
+
+RewriteRule ^edit-machine/([0-9]+)/*$ serviceapp/edit-machine.php?id=$1 [NC,L,QSA] #edit machine Information
+RewriteRule ^edit-account/([0-9]+)/*$ serviceapp/edit-account.php?id=$1 [NC,L,QSA] #edit account Information
+
+RewriteRule ^view-contract/*$ billing/view-contract.php [NC,L,QSA] #View Contract Information
+RewriteRule ^view-contract-billing/*$ billing/view-contract-billing.php [NC,L,QSA] #View Contract Billing
+RewriteRule ^contract-details/([0-9]+)/*$ billing/contract-details.php?id=$1 [NC,L,QSA] #View Contract details
+RewriteRule ^generate-billing/([0-9]+)/*$ billing/generate-billing.php?id=$1 [NC,L,QSA] #start generating billing
+RewriteRule ^mps-billing/([0-9]+)/*$ billing/mps-billing.php?id=$1 [NC,L,QSA] #start generating billing
+
+RewriteRule ^add-mps/*$ contracts/add-mps-info.php [NC,L,QSA] #View Contract Information
+RewriteRule ^contracts/([A-Za-z-_]+)/([0-9]+)/*$ contracts/contracts.php?type=$1&id=$2 [NC,L,QSA] #start generating billing
+RewriteRule ^contracts/([A-Za-z-_]+)/*$ contracts/contracts.php?type=$1 [NC,L,QSA]
+RewriteRule ^follow-up/([A-Za-z0-9-_]+)/*$ serviceapp/follow-up-call.php?id=$1 [NC,L,QSA] #view Purchase Invoice
+
+RewriteRule ^workshop-follow-up/([A-Za-z0-9-_]+)/*$ serviceapp/workshop-follow-up.php?id=$1 [NC,L,QSA] #view workshop-follow-up
+
+
+RewriteRule ^edit-purchase/([A-Za-z0-9-_]+)/*$ purchase/edit-purchase.php?id=$1 [NC,L,QSA] #view Purchase Invoice
+
+RewriteRule ^purchase-collected/*$ purchase/purchase-collected.php [NC,L,QSA] #View Purchase collected
+RewriteRule ^purchase-uncollected/*$ purchase/purchase-uncollected.php [NC,L,QSA] #View Purchase collected
+
+RewriteRule ^add-contract/*$ billing/add-contract.php [NC,L,QSA] #Create New Contract
+
+
+RewriteRule ^view-products/([0-9]+)/*$ settings/products.php?id=$1 [NC,L,QSA] #View Products
+RewriteRule ^add-product-to-stock/*$ _warehouse/recieve-goods.php [NC,L,QSA] #Add Product Stocks
+RewriteRule ^receive-goods-warehouse/*$ _warehouse/recieve-goods-warehouse.php [NC,L,QSA] #Receive goodd from other warehouse.
+
+
+
+RewriteRule ^view-goods-recieve-ticket/*$ _warehouse/view-recieve-tickets.php [NC,L,QSA] #Add Product Stocks
+RewriteRule ^view-sold-ticket/*$ _warehouse/view-sold-tickets.php [NC,L,QSA] #Add Product Stocks
+
+RewriteRule ^return-ticket/*$ _warehouse/return-ticket.php [NC,L,QSA] #return-ticket
+
+
+RewriteRule ^view-bim/*$ _warehouse/view-bim.php [NC,L,QSA] #Add Product Stocks
+RewriteRule ^sell-goods/*$ _warehouse/sell-goods.php [NC,L,QSA] #sell goods
+RewriteRule ^add-product-cost/*$ _warehouse/add-product-cost.php [NC,L,QSA] #add product cost
+RewriteRule ^transfer-goods/*$ _warehouse/transfer-goods.php [NC,L,QSA] #sell goods
+
+RewriteRule ^add-product-price/*$ _warehouse/add-product-price.php [NC,L,QSA] #add product price
+
+RewriteRule ^goods-recieved-ticket/([0-9]+)/*$ _warehouse/goods-recieved-ticket.php?id=$1 [NC,L,QSA] #start generating billing
+RewriteRule ^goods-sold-ticket/([0-9]+)/*$ _warehouse/goods-sold-ticket.php?id=$1 [NC,L,QSA] #start generating billing
+RewriteRule ^goods-sold-invoice/([0-9]+)/*$ _warehouse/goods-sold-invoice.php?id=$1 [NC,L,QSA] #generate pro-forma invoice
+
+RewriteRule ^transfer-goods-account/*$ _warehouse/transfer-goods-account.php [NC,L,QSA] #tran goods
+
+RewriteRule ^return-ticket-view/*$ _warehouse/return-ticket-view.php [NC,L,QSA] #tran goods
+
+
+RewriteRule ^view-stock-analysis/*$ _warehouse/stock_analysis.php [NC,L,QSA] #Stocks analysis
+
+RewriteRule ^stock-to-order/*$ _warehouse/stock_to_order.php [NC,L,QSA] #Stocks to order
+
+RewriteRule ^track-a-delivery/*$ _warehouse/track_delivery.php [NC,L,QSA] #Track a delivery
+
+RewriteRule ^view-delivery-status/*$ _warehouse/view_delivery_status.php [NC,L,QSA] #View Delivery Status
+
+RewriteRule ^update-way-bill/([0-9]+)/*$ _warehouse/update_way_bill.php?id=$1 [NC,L,QSA] #Update Way Bill
+
+RewriteRule ^test/*$ _warehouse/test_page.php [NC,L,QSA] #Test Page
+
+RewriteRule ^pm-view-account/*$ maintenance/view-account.php [NC,L,QSA] #View Account
+RewriteRule ^pm-view-account-details/([0-9]+)/*$ maintenance/pm-account-info.php?id=$1 [NC,L,QSA] #view Preventive Maintenance account Information
+RewriteRule ^update-new-pm-visit/([0-9]+)/*$ maintenance/pm-update.php?id=$1 [NC,L,QSA] #Update new PM visit
+
+#Software developer urls
+RewriteRule ^users/*$ userprofile/users.php [NC,L,QSA] #View all users and update user by id
+RewriteRule ^users/([0-9]+)/*$ userprofile/users.php?id=$1 [NC,L,QSA] #View all users and update user by id
+RewriteRule ^users/db/ops*$ userprofile/users.php?db=ops [NC,L,QSA] #View all users and update user by id
+
+
+RewriteRule ^ticket/([A-Za-z0-9-_]+)/([0-9]+)/*$ _warehouse/downloads.php?id=$1&vat=$2 [NC,L,QSA] #PDF version of invoice
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php72” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php72 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

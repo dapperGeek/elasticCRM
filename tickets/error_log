@@ -1,0 +1,35 @@
+[26-Jul-2019 08:00:33 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[26-Jul-2019 08:43:59 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[26-Jul-2019 08:45:15 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[26-Jul-2019 11:15:18 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[26-Jul-2019 15:29:12 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-Jul-2019 11:28:18 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-Jul-2019 12:22:56 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-Jul-2019 12:26:05 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-Jul-2019 12:28:23 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[29-Jul-2019 08:45:54 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[29-Jul-2019 09:47:11 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-Nov-2019 13:13:39 Africa/Lagos] PHP Parse error:  syntax error, unexpected 'Content' (T_STRING), expecting ')' in /home/elastic2/public_html/data/MySQLDatabase.php on line 344
+[21-Nov-2019 13:13:42 Africa/Lagos] PHP Parse error:  syntax error, unexpected 'Content' (T_STRING), expecting ')' in /home/elastic2/public_html/data/MySQLDatabase.php on line 344
+[21-Nov-2019 13:17:02 Africa/Lagos] PHP Parse error:  syntax error, unexpected 'Content' (T_STRING), expecting ')' in /home/elastic2/public_html/data/MySQLDatabase.php on line 344
+[18-May-2020 09:04:26 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[18-May-2020 12:32:10 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[18-May-2020 13:08:13 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[18-May-2020 13:49:08 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[18-May-2020 14:29:57 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[19-May-2020 08:52:59 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[19-May-2020 10:38:43 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[20-May-2020 12:20:59 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[20-May-2020 14:45:22 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 08:39:12 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 08:53:14 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 09:25:24 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 11:55:39 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 11:55:54 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 13:08:57 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[21-May-2020 13:44:33 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[22-May-2020 08:24:09 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[22-May-2020 11:29:11 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-May-2020 09:58:55 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-May-2020 10:41:44 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+[27-May-2020 10:42:14 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0

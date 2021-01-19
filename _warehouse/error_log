@@ -1,0 +1,228 @@
+[10-Aug-2020 13:52:40 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[10-Aug-2020 13:52:40 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[11-Aug-2020 09:09:53 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[11-Aug-2020 09:09:53 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[12-Aug-2020 10:23:49 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[12-Aug-2020 10:23:49 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[12-Aug-2020 14:58:13 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[12-Aug-2020 14:58:13 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[12-Aug-2020 17:05:26 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[12-Aug-2020 17:05:26 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[13-Aug-2020 11:55:42 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[13-Aug-2020 11:55:42 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[13-Aug-2020 15:17:39 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[13-Aug-2020 15:17:39 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[14-Aug-2020 08:54:19 Africa/Lagos] PHP Fatal error:  Switch statements may only contain one default clause in /home/elastic2/public_html/MPDF/mpdf.php on line 1422
+[14-Aug-2020 09:05:07 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[14-Aug-2020 09:05:07 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[14-Aug-2020 09:17:34 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[14-Aug-2020 09:17:34 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[15-Aug-2020 10:20:00 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[15-Aug-2020 10:20:00 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[15-Aug-2020 11:49:51 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[15-Aug-2020 11:49:51 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/transfer-goods-account.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[15-Aug-2020 11:59:23 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[15-Aug-2020 11:59:23 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[15-Aug-2020 13:53:32 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[15-Aug-2020 13:53:32 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[18-Aug-2020 10:32:22 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[18-Aug-2020 10:32:22 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/MySQLDatabase.php on line 33
+[18-Aug-2020 12:11:53 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[18-Aug-2020 12:11:53 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[18-Aug-2020 17:15:47 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[18-Aug-2020 17:15:47 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[19-Aug-2020 09:07:58 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store' in 'field list' in /home/elastic2/public_html/data/MySQLDatabase.php:648
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(648): PDOStatement->execute()
+#1 /home/elastic2/public_html/_warehouse/transfer-goods.php(228): MySQLDatabase->getProductStoreQty('2431', NULL)
+#2 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 648
+[19-Aug-2020 11:22:17 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[19-Aug-2020 11:22:17 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[20-Aug-2020 09:14:57 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[20-Aug-2020 09:14:57 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[20-Aug-2020 11:43:14 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[20-Aug-2020 11:43:14 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[20-Aug-2020 14:25:59 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[20-Aug-2020 14:25:59 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[21-Aug-2020 17:12:44 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[21-Aug-2020 17:12:44 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/stock_analysis.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[21-Aug-2020 17:12:56 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[21-Aug-2020 17:12:56 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/stock_analysis.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[24-Aug-2020 09:01:44 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[24-Aug-2020 09:01:44 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[24-Aug-2020 10:02:41 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[24-Aug-2020 10:02:41 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[24-Aug-2020 10:31:01 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[24-Aug-2020 10:31:01 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[24-Aug-2020 16:43:54 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[24-Aug-2020 16:43:54 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Aug-2020 09:10:02 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Aug-2020 09:10:02 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Aug-2020 10:51:42 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Aug-2020 10:51:42 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Aug-2020 11:20:00 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Aug-2020 11:20:00 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Aug-2020 11:23:19 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Aug-2020 11:23:19 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Aug-2020 11:37:17 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Aug-2020 11:37:17 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Aug-2020 12:46:53 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Aug-2020 12:46:53 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[26-Aug-2020 15:00:44 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[26-Aug-2020 15:00:44 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[27-Aug-2020 12:27:32 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[27-Aug-2020 12:27:32 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[02-Sep-2020 10:07:23 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[02-Sep-2020 10:07:23 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[02-Sep-2020 10:12:29 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[02-Sep-2020 10:12:29 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[02-Sep-2020 14:29:04 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[02-Sep-2020 14:29:04 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Sep-2020 10:50:40 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Sep-2020 10:50:40 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Sep-2020 12:50:55 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Sep-2020 12:50:55 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/transfer-goods-account.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Sep-2020 13:24:23 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Sep-2020 13:24:23 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[04-Sep-2020 15:40:29 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[04-Sep-2020 15:40:29 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/transfer-goods-account.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[04-Sep-2020 16:15:42 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[04-Sep-2020 16:15:42 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/return-ticket-view.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[04-Sep-2020 16:15:59 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[04-Sep-2020 16:15:59 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[04-Sep-2020 16:16:32 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[04-Sep-2020 16:16:32 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/transfer-goods-account.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[04-Sep-2020 16:39:18 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[04-Sep-2020 16:39:18 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/transfer-goods-account.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[07-Sep-2020 09:57:50 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[07-Sep-2020 09:57:50 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[07-Sep-2020 10:24:04 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[07-Sep-2020 10:24:04 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[07-Sep-2020 11:20:46 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[07-Sep-2020 11:20:46 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[07-Sep-2020 17:00:11 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[07-Sep-2020 17:00:11 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[08-Sep-2020 11:47:12 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[08-Sep-2020 11:47:12 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[08-Sep-2020 12:31:56 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[08-Sep-2020 12:31:56 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[08-Sep-2020 13:04:52 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[08-Sep-2020 13:04:52 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[09-Sep-2020 15:52:10 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[09-Sep-2020 15:52:10 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[10-Sep-2020 10:18:27 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[10-Sep-2020 10:18:27 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[10-Sep-2020 11:08:16 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[10-Sep-2020 11:08:16 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[11-Sep-2020 12:06:17 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[11-Sep-2020 12:06:17 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[11-Sep-2020 12:07:13 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[11-Sep-2020 12:07:13 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[11-Sep-2020 12:10:02 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[11-Sep-2020 12:10:02 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[14-Sep-2020 16:34:20 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[14-Sep-2020 16:34:20 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[14-Sep-2020 17:48:31 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[14-Sep-2020 17:48:31 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[15-Sep-2020 09:38:01 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[15-Sep-2020 09:38:01 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[15-Sep-2020 12:24:45 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[15-Sep-2020 12:24:45 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[16-Sep-2020 17:07:45 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[16-Sep-2020 17:07:45 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[19-Sep-2020 13:10:36 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[19-Sep-2020 13:10:36 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[21-Sep-2020 14:50:14 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[21-Sep-2020 14:50:15 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[21-Sep-2020 15:00:46 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[21-Sep-2020 15:00:46 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[21-Sep-2020 17:21:08 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[21-Sep-2020 17:21:08 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[22-Sep-2020 10:28:56 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[22-Sep-2020 10:28:56 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[22-Sep-2020 10:39:44 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[22-Sep-2020 10:39:44 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[22-Sep-2020 12:08:51 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[22-Sep-2020 12:08:51 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[22-Sep-2020 17:35:02 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'S OWN DIGITAL LAB','21/09/2020','22/09/2020','TENAUI MAIN WAREHOUSE','pc','GR...' at line 1 in /home/elastic2/public_html/_warehouse/return-ticket.php:104
+Stack trace:
+#0 /home/elastic2/public_html/_warehouse/return-ticket.php(104): PDO->query('INSERT INTO cre...')
+#1 {main}
+  thrown in /home/elastic2/public_html/_warehouse/return-ticket.php on line 104
+[23-Sep-2020 04:05:13 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[23-Sep-2020 04:05:13 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/stock_analysis.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[23-Sep-2020 04:05:49 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[23-Sep-2020 04:05:49 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/stock_analysis.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[25-Sep-2020 09:09:02 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[25-Sep-2020 09:09:02 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[26-Sep-2020 11:52:37 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store' in 'field list' in /home/elastic2/public_html/data/MySQLDatabase.php:648
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(648): PDOStatement->execute()
+#1 /home/elastic2/public_html/_warehouse/transfer-goods.php(228): MySQLDatabase->getProductStoreQty('2431', NULL)
+#2 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 648
+[26-Sep-2020 11:53:13 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store' in 'field list' in /home/elastic2/public_html/data/MySQLDatabase.php:648
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(648): PDOStatement->execute()
+#1 /home/elastic2/public_html/_warehouse/transfer-goods.php(228): MySQLDatabase->getProductStoreQty('2431', NULL)
+#2 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 648
+[26-Sep-2020 11:53:47 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store' in 'field list' in /home/elastic2/public_html/data/MySQLDatabase.php:648
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(648): PDOStatement->execute()
+#1 /home/elastic2/public_html/_warehouse/transfer-goods.php(228): MySQLDatabase->getProductStoreQty('2431', NULL)
+#2 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 648
+[26-Sep-2020 11:55:27 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[26-Sep-2020 11:55:27 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[26-Sep-2020 12:01:13 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[26-Sep-2020 12:01:13 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[28-Sep-2020 14:26:36 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[28-Sep-2020 14:26:36 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[29-Sep-2020 09:45:39 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[29-Sep-2020 09:45:39 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[29-Sep-2020 12:13:14 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[29-Sep-2020 12:13:14 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[29-Sep-2020 14:18:17 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[29-Sep-2020 14:18:17 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[30-Sep-2020 09:13:26 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[30-Sep-2020 09:13:26 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[02-Oct-2020 15:20:41 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[02-Oct-2020 15:20:41 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[02-Oct-2020 16:59:32 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[02-Oct-2020 16:59:32 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[02-Oct-2020 17:37:40 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[02-Oct-2020 17:37:40 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Oct-2020 11:45:06 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Oct-2020 11:45:06 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Oct-2020 11:58:45 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Oct-2020 11:58:45 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Oct-2020 13:22:22 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Oct-2020 13:22:22 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[03-Oct-2020 13:52:22 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[03-Oct-2020 13:52:22 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[05-Oct-2020 08:40:06 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'store' in 'field list' in /home/elastic2/public_html/data/MySQLDatabase.php:648
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(648): PDOStatement->execute()
+#1 /home/elastic2/public_html/_warehouse/transfer-goods.php(228): MySQLDatabase->getProductStoreQty('2431', NULL)
+#2 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 648
+[05-Oct-2020 09:07:48 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[05-Oct-2020 09:07:48 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[05-Oct-2020 10:46:25 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[05-Oct-2020 10:46:25 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[05-Oct-2020 11:11:21 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[05-Oct-2020 11:11:21 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[05-Oct-2020 15:54:17 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[05-Oct-2020 15:54:17 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[06-Oct-2020 09:41:40 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[06-Oct-2020 09:41:40 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[06-Oct-2020 10:26:02 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[06-Oct-2020 10:26:02 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[06-Oct-2020 11:09:00 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[06-Oct-2020 11:09:00 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[06-Oct-2020 17:05:26 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[06-Oct-2020 17:05:26 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+[06-Oct-2020 17:23:03 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
+[06-Oct-2020 17:23:03 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/_warehouse/view-recieve-tickets.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21

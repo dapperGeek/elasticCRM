@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="681bc4df-b221-4c16-a245-3ffc1f2fc882" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Legacy Code" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1iXg0CnZQkZObZPY5srrZTxy3yZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\elastic25.com\includes" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\elastic25.com\includes" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="681bc4df-b221-4c16-a245-3ffc1f2fc882" name="Default Changelist" comment="" />
+      <created>1568647345382</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1568647345382</updated>
+      <workItem from="1568647347030" duration="4152000" />
+      <workItem from="1568702862457" duration="8696000" />
+      <workItem from="1568793641727" duration="14744000" />
+      <workItem from="1568876247972" duration="24458000" />
+      <workItem from="1568963510958" duration="22598000" />
+      <workItem from="1569056260805" duration="6887000" />
+      <workItem from="1569245526672" duration="1339000" />
+      <workItem from="1569310144170" duration="3284000" />
+      <workItem from="1569395783918" duration="6327000" />
+      <workItem from="1569483360444" duration="3940000" />
+      <workItem from="1569493966545" duration="801000" />
+      <workItem from="1569497238087" duration="2205000" />
+      <workItem from="1569569734638" duration="1194000" />
+      <workItem from="1569574179217" duration="3371000" />
+      <workItem from="1569659211134" duration="6984000" />
+      <workItem from="1569830137457" duration="5102000" />
+      <workItem from="1570010887179" duration="3778000" />
+      <workItem from="1570086667839" duration="26727000" />
+      <workItem from="1570174580727" duration="21711000" />
+      <workItem from="1570442724547" duration="2714000" />
+      <workItem from="1570609456725" duration="5771000" />
+      <workItem from="1570693139178" duration="6779000" />
+      <workItem from="1570779383422" duration="2554000" />
+      <workItem from="1570874280840" duration="2246000" />
+      <workItem from="1570975648513" duration="568000" />
+      <workItem from="1570978422153" duration="758000" />
+      <workItem from="1571480058202" duration="1492000" />
+      <workItem from="1571501346090" duration="347000" />
+      <workItem from="1602059143442" duration="347000" />
+      <workItem from="1602060106431" duration="1329000" />
+      <workItem from="1602079177486" duration="3733000" />
+      <workItem from="1602151437624" duration="5273000" />
+      <workItem from="1602276465454" duration="4010000" />
+      <workItem from="1602490479985" duration="598000" />
+      <workItem from="1602491891814" duration="824000" />
+      <workItem from="1602498970477" duration="52000" />
+      <workItem from="1602835956366" duration="21654000" />
+      <workItem from="1602939082843" duration="1265000" />
+      <workItem from="1603108797907" duration="3866000" />
+      <workItem from="1603710207271" duration="25813000" />
+      <workItem from="1604316179778" duration="992000" />
+      <workItem from="1604477082141" duration="19073000" />
+      <workItem from="1604653290529" duration="5298000" />
+      <workItem from="1604993497244" duration="11000" />
+      <workItem from="1605008227407" duration="2701000" />
+      <workItem from="1605516648401" duration="20867000" />
+      <workItem from="1605769771374" duration="113000" />
+      <workItem from="1606251222847" duration="2449000" />
+      <workItem from="1606290126785" duration="647000" />
+      <workItem from="1606302805842" duration="2846000" />
+      <workItem from="1606325103429" duration="3342000" />
+      <workItem from="1606372817030" duration="4217000" />
+      <workItem from="1606465730803" duration="18579000" />
+      <workItem from="1606746646736" duration="4837000" />
+      <workItem from="1606752279333" duration="20775000" />
+      <workItem from="1609762531061" duration="1197000" />
+      <workItem from="1610015964402" duration="4051000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/Legacy Code" />
+    </ignored-roots>
+  </component>
+</project>
