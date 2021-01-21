@@ -1,12 +1,12 @@
 <?php
 include("../data/DBConfig.php");
 include_once("../data/sessioncheck.php");
-$id = $database->test_input($_GET['id']);
-$grt = $database->getIndGoodsRecieved($id);
-if(empty($grt))
-{
-    $database->redirect_to($host."view-goods-recieve-ticket");
-}
+    $id = $database->test_input($_GET['id']);
+    $grt = $database->getIndGoodsRecieved($id);
+    if(empty($grt))
+    {
+        $database->redirect_to($host."view-goods-recieve-ticket");
+    }
 ?>
 
 <table width="80%" align="center"  border=0>
@@ -44,10 +44,11 @@ if(empty($grt))
     </tr>
 
     <?php
-    $myCollect = (array)$database->getAllGoodsAddedForRecieve($id);
-    $N = 1;
-    foreach($myCollect as $mc){
-        ?>
+        $myCollect = (array)$database->getAllGoodsAddedForRecieve($id);
+        $N = 1;
+        foreach($myCollect as $mc)
+        {
+    ?>
         <tr>
             <th><?php echo $N;?></th>
             <td colspan="2" align="center"><?php echo $mc['productName'];?> </td>
@@ -57,7 +58,10 @@ if(empty($grt))
 
         </tr>
 
-        <?php $N++;}?>
+        <?php 
+            $N++;
+            }
+        ?>
     <tr>
         <th colspan="7" style="text-align: center">RECEIVED BY : <?php echo $grt['fullname'];?></th>
     </tr>
