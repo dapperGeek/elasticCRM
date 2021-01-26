@@ -37,7 +37,6 @@ class MySQLDatabase
 
     function authenticateStaff($username, $password)
     {
-
         $sql = "select * from staff where username =?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $username);
@@ -343,11 +342,11 @@ class MySQLDatabase
         }
     }
 
-    function checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD)
+    function checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $user_id, $CaseStatus, $schD)
     {
         $found = false;
 
-        $checkSql = "SELECT * from service_call ORDER BY ID DESC LIMIT 1";
+        $checkSql = "SELECT * from service_call ORDER BY ID DESC LIMIT 20";
         $handle = $this->db->prepare($checkSql);
         $handle->execute();
         $row = $handle->fetch(PDO::FETCH_ASSOC);
@@ -365,9 +364,9 @@ class MySQLDatabase
 
     function createServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT)
     {
-        $duplicate = $this->checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD);
+        $duplicate = $this->checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $user_id, $CaseStatus, $schD);
         
-         if (!$duplicate)
+        if ($duplicate == false)
          {
         $sql = "insert into `service_call` (ticketNo, account_id, machine_id, ReportedBy,engineer,cost,paymentStatus,issues,purchase,openedBy,openedDateTime,openedTimeStamp,closedBy,CaseStatus,schDate,schTime)
             values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -479,6 +478,42 @@ class MySQLDatabase
         // print everything out
         // print_r($response);
          }
+    }
+
+    function updateServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT, $callID = 0)
+    {
+        $sql = "update `service_call` set `account_id` = ?, `machine_id` = ?  , `ReportedBy` = ?, `engineer` = ?, `cost` = ?, `paymentStatus` = ?, `issues` = ?, `purchase` = ?, `openedBy` = ?, `openedDateTime` = ?, `openedTimeStamp` = ?, `closedBy` = ?, `CaseStatus` = ?, `schDate` = ?, `schTime` = ? where `id` = ?";
+
+        $purchase = 0;
+        $ticket = $this->createTicketNoNew();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $accountID);
+        $handle->bindValue(2, $machineID);
+        $handle->bindValue(3, $reportedBy);
+        $handle->bindValue(4, $eng);
+        $handle->bindValue(5, $cost);
+        $handle->bindValue(6, $payStatus);
+        $handle->bindValue(7, $issues);
+        $handle->bindValue(8, $purchase);
+        $handle->bindValue(9, $user_id);
+        $handle->bindValue(10, $user_id);
+        $handle->bindValue(11, date("l jS \of F Y h:i:s A"));
+        $handle->bindValue(12, time());
+        $handle->bindValue(13, 0);
+        $handle->bindValue(14, $CaseStatus);
+        $handle->bindValue(15, $schD);
+        $handle->bindValue(16, $schT);
+        $handle->execute();
+        $accountName = $this->getSingleAccountInformation($accountID)['Name'];
+        $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
+        $message = "added a new service call for   : <a href='" . $this->host . "machine-info/" . $machineID . "'></a>" . $machineName . "</a> assigned to <a href='" . $this->host . "account-info/" . $accountID . "'>" . $accountName . "</a>";
+
+        $ticketUrl = $this->host . 'ticket-info/' . $ticket;
+
+        return 'SERVICE CALL HAS BEEN LOGGED WITH TICKET NUMBER :<a href="' . $ticketUrl . '" class="btn btn-success">' . $ticket . '</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
+
+        // print everything out
+        // print_r($response);
     }
 
     function getLastServiceCall()
@@ -646,8 +681,8 @@ class MySQLDatabase
         $mainID = 0;
 
         // Checks for duplicate Goods received transaction
-        $duplicate = $this->checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$save,$invoiceDate,$transType);
-        if (!$duplicate)
+        $duplicate = $this->checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$invoiceDate,$transType);
+        if ($duplicate == false)
         {
             $sql = "INSERT INTO goods_recieved (supplierID,invoiceNo,FileReference,storeID,doneBy,saved,TicketNo,invoiceDate,DateCreated,lastModified,transType,serialNumber)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -670,21 +705,21 @@ class MySQLDatabase
             $mainID = $this->db->lastInsertId();
             return $mainID;
         }
-        
     }
 
     // Checks for duplicate Goods received transaction
-    public function checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$save,$invoiceDate,$transType)
+    public function checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$invoiceDate,$transType)
     {
         $found = false;
         $userID = $_SESSION['user_id'];
 
-        $checkSql = "SELECT * from goods_recieved ORDER BY ID DESC LIMIT 1";
+        $checkSql = "SELECT * from goods_recieved ORDER BY ID DESC LIMIT 20";
         $handle = $this->db->prepare($checkSql);
         $handle->execute();
         $row = $handle->fetch(PDO::FETCH_ASSOC);
 
-        if($row['supplierID'] == $supplier && $row['FileReference'] == $fileRef && $row['invoiceNo'] == $invoiceNo
+        if($row['supplierID'] == $supplier && $row['FileReference'] == $fileRef 
+            && $row['invoiceNo'] == $invoiceNo
             && $row['storeID'] == $storeID && $row['doneBy'] == $userID
             && $row['invoiceDate'] == $invoiceDate && $row['transType'] == $transType)
         {
@@ -1326,16 +1361,8 @@ class MySQLDatabase
         $handle->bindValue(13, $Mono);
         $handle->bindValue(14, $id);
         $handle->execute();
-
-        $followUpSql = "insert into `follow-ups`(`service-call`,`work-done`, `start-time`, `stop-time`, `engineer`, `date-time`)values(?,?,?,?,?)";
-        $followHandle = $this->db->prepare($followUpSql);
-        $followHandle->bindValue(1, $id);
-        $followHandle->bindValue(2, $wd2);
-        $followHandle->bindValue(3, $st);
-        $followHandle->bindValue(4, $et);
-        $followHandle->bindValue(5, $engineer);
-        $followHandle->bindValue(6, $schD);        
-        $followHandle->execute();
+        
+        $this->addFollowUp($id, $wd2, $st, $et, $engineer, $schD);
         
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
@@ -1405,6 +1432,42 @@ class MySQLDatabase
         // print everything out
         print_r($response);
     }
+    
+    function addFollowUp($callID, $workDone, $startTime, $stopTime, $engineer, $date)
+    {
+         $followUpSql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
+        $followHandle = $this->db->prepare($followUpSql);
+        $followHandle->bindValue(1, $callID);
+        $followHandle->bindValue(2, $workDone);
+        $followHandle->bindValue(3, $startTime);
+        $followHandle->bindValue(4, $stopTime);
+        $followHandle->bindValue(5, $engineer);
+        $followHandle->bindValue(6, $date);        
+        $followHandle->execute();
+    }
+    
+    function getFollowUps($callID, $limit = 0)
+    {
+        $followArr = [];
+        $sql = $limit == 0 
+                ? "select * from `follow-ups` where `service-call` = $callID  order by `id` desc"
+                : "select * from `follow-ups` where `service-call` = $callID  order by `id` desc limit 1";
+        $handle = $this->db->prepare($sql);
+        $handle->execute();
+        
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $followArr[] = $row;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        return $followArr;
+    }
 
     function deleteMachineProduct($id)
     {
@@ -1416,19 +1479,19 @@ class MySQLDatabase
         $this->createActivityNotifications($message);
     }
     
-    function updateFollowUp($id, $work, $st, $et, $eng, $day)
-    {
-        $sql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
-        $handle = $this->db->prepare($sql);
-        $handle->bindValue(1, $id);
-        $handle->bindValue(2, $work);
-        $handle->bindValue(3, $st);
-        $handle->bindValue(4, $et);
-        $handle->bindValue(5, $eng);
-        $handle->bindValue(6, $day);
-        $handle->execute();
-        
-    }
+//    function updateFollowUp($id, $work, $st, $et, $eng, $day)
+//    {
+//        $sql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
+//        $handle = $this->db->prepare($sql);
+//        $handle->bindValue(1, $id);
+//        $handle->bindValue(2, $work);
+//        $handle->bindValue(3, $st);
+//        $handle->bindValue(4, $et);
+//        $handle->bindValue(5, $eng);
+//        $handle->bindValue(6, $day);
+//        $handle->execute();
+//        
+//    }
 
     function getMachineActivities($id)
     {
@@ -1437,12 +1500,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -1642,7 +1709,7 @@ class MySQLDatabase
     function getAllServiceCallForFollowUp()
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -1652,16 +1719,20 @@ class MySQLDatabase
         join area_location al on al.id = mif.areaID
         join lga l on l.id = al.lgaID
         join states s on s.id = l.stateID
-      left JOIN casestatus cs on cs.id = sc.CaseStatus order by sc.id asc";
+      left JOIN casestatus cs on cs.id = sc.CaseStatus order by id desc";
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -1669,7 +1740,7 @@ class MySQLDatabase
     function getAccountServiceCallForFollowUp()
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -1681,16 +1752,20 @@ class MySQLDatabase
         join states s on s.id = l.stateID
       left JOIN casestatus cs on cs.id = sc.CaseStatus 
       where mif.account_id = 265
-       order by sc.id asc";
+       order by sc.id desc";
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -2027,7 +2102,6 @@ class MySQLDatabase
             }
             return $myArray;
         }
-
     }
 
     function getPurchaseTicketForServiceCall($serviceCallID)
@@ -2037,8 +2111,10 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $serviceCallID);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
@@ -2047,7 +2123,7 @@ class MySQLDatabase
 
     function getServiceTicket($ticket)
     {
-        $sql = "select sc.*, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand
         from service_call sc
         right join accounts ac on ac.id = sc.account_id
@@ -2061,9 +2137,12 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $ticket);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $handle->fetch(PDO::FETCH_ASSOC);
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -2242,9 +2321,11 @@ class MySQLDatabase
         $a = array(365 * 24 * 60 * 60 => 'year', 30 * 24 * 60 * 60 => 'month', 7 * 24 * 60 * 60 => 'week', 24 * 60 * 60 => 'day', 60 * 60 => 'hr', 60 => 'min', 1 => 'second');
         $a_plural = array('year' => 'years', 'month' => 'months', 'week' => 'weeks', 'day' => 'days', 'hr' => 'hrs', 'min' => 'mins', 'second' => 'seconds');
 
-        foreach ($a as $secs => $str) {
+        foreach ($a as $secs => $str) 
+        {
             $d = $etime / $secs;
-            if ($d >= 1) {
+            if ($d >= 1)
+            {
                 $r = round($d);
                 return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str);
             }
@@ -4614,12 +4695,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4632,12 +4717,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4650,12 +4739,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4892,6 +4985,9 @@ class MySQLDatabase
         $handle->bindValue(10, $schT);
         $handle->bindValue(11, $id);
         $handle->execute();
+        
+        $this->addFollowUp($id, $workdone, $schT, $closetime, $engineer, $schD);
+        
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
         $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
@@ -4912,12 +5008,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->execute();
 
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_OBJ)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
                 $allUsers[] = $row;
             }
             return $allUsers;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -4934,10 +5034,13 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->execute();
 
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             $row = $handle->fetch(PDO::FETCH_OBJ);
             return $row;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }

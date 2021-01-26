@@ -62,20 +62,7 @@
 
                                         <div class="col-lg-12">
                                             <h4 style="text-align: center">Work Done Description</h4>
-        <?php
-            $followUps = $database->getFollowUps($act['callID']);
-            if($followUps != false)
-            {
-                foreach ($followUps as $followUp)
-                {
-                    echo nl2br($followUp['work-done']) . '<hr>';
-                }
-            }
-            else
-            {
-                echo "No Follow-Up Updated Yet";
-            }
-        ?>
+                                            <p style="text-align: center"><?php echo nl2br($act['workDone']);?></p>
                                         </div>
 
                                         <div class="col-lg-12">

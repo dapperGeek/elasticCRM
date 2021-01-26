@@ -190,20 +190,19 @@
                     $issues = $database->test_input($_POST['issues']);
                 }
             }
-            var_dump($issues);
-            var_dump($engineer);
-            var_dump($user_id);
-
-            //exit;
 
             $serviceID = $ticket['id'];
             $paymentStatus = $database->test_input($_POST['txtPayStatus']);
             $CaseStatus = $database->test_input($_POST['txtCaseStatus']);
-            if($CaseStatus == 8 || $CaseStatus == 9){$closeBy = $user_id; $closeDate = date("l jS \of F Y h:i:s A");$closeTimeStamp = time();}
+            if($CaseStatus == 8 || $CaseStatus == 9)
+            {
+                $closeBy = $user_id; 
+                $closeDate = date("l jS \of F Y h:i:s A");
+                $closeTimeStamp = time();
+            }
             $st = $database->test_input($_POST['txtST']);
             $et = $database->test_input($_POST['txtET']);
             $meterReading = $database->test_input($_POST['meterReading']);
-
 
             $wd = "<b>Scheduled Date/Time :</b> ".$ticket['schDate']." / ".$ticket['schTime']." \n <b>START TIME:</b> ".$st." / <b>FINISH TIME:</b> ".$et." \n";
             $wd2 = $database->test_input($_POST['txtWorkDone']);
@@ -216,13 +215,12 @@
                 $workDone = $_POST['txtWrkDone2'];
             }
 
-
             $database->closeCall($serviceID,$paymentStatus,$closeBy,$closeDate,$closeTimeStamp,$CaseStatus,$workDone,$ticket['machine_id'],$ticket['account_id'],$engineer,$issues,$schD[0],$schD[1],$meterReading,$colour,$Mono);
             $msg = "This Ticket has been followed Up";
-
         }
-
     }
+    
+    $followUps = $database->getFollowUps($ticket['callID']);
 ?>
 
         <div class="row wrapper border-bottom page-heading">
@@ -342,12 +340,6 @@
                                 <br>
                                 <br>
 
-
-
-
-
-
-
                                 <input type="hidden" id="dtp_input3" value="" />
 
                             </div>
@@ -395,9 +387,18 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">&nbsp;</label>
                                 <div class="col-sm-10">
-                                    <input type="hidden" name="txtWrkDone2" value="<?php echo $ticket['workDone'];?>" />
+<!--                                <input type="hidden" name="txtWrkDone2" value="<?php echo $ticket['workDone'];?>" />-->
 
-                                    <?php echo nl2br($ticket['workDone']); ?>
+                    <?php 
+//                        echo nl2br($ticket['workDone']); 
+                        if($followUps != false)
+                        {
+                            foreach ($followUps as $followUp)
+                            {
+                                echo nl2br($followUp['work-done']) . '<hr>';
+                            }
+                        }
+                    ?>
                                 </div>
                             </div>
                             <hr/>
@@ -917,21 +918,16 @@
 
 
         <?php
-        if (isset($_POST['closeCall'])) {
-            $supplyTicket = $_POST['supplyTicket'];
-            $openedDateTime = $_POST['openedDateTime'];
-            $closedDateTime = $_POST['closedDateTime'];
+            if (isset($_POST['closeCall'])) 
+            {
+                $supplyTicket = $_POST['supplyTicket'];
+                $openedDateTime = $_POST['openedDateTime'];
+                $closedDateTime = $_POST['closedDateTime'];
 
-
-            $database->updateBackdatedCall($supplyTicket,$openedDateTime,$closedDateTime);
-
-            $msg = "This Ticket has been backdated";
-
-
-        }
-
+                $database->updateBackdatedCall($supplyTicket,$openedDateTime,$closedDateTime);
+                $msg = "This Ticket has been backdated";
+            }
         ?>
-
 
         <form action="" method="POST">
             <div class="form-group">
@@ -983,7 +979,7 @@
 </div>
 <!-- Go top -->
 <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
-<<a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+<a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
 <!-- Go top -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -1,13 +1,14 @@
 <?php
-$pageHeader = 'createServiceCall';
-include("../includes/header_with_pageHeading.php");
-$stores = $database->getAllStores();
+    $callID = addslashes($_GET['id']);
+    $pageHeader = isset(filter_input($_GET['id'])) ? 'editServiceCall' : 'createServiceCall';
+    include("../includes/header_with_pageHeading.php");
+    $stores = $database->getAllStores();
 
-$yr_ = date("Y");
-if($myData['changePass'] == 0)
-{
-    //  $database->redirect_to($host."change-password");
-}
+    $yr_ = date("Y");
+//    if($myData['changePass'] == 0)
+//    {
+//        //  $database->redirect_to($host."change-password");
+//    }
 ?>
 
     <div class="row">
@@ -143,8 +144,22 @@ if($myData['changePass'] == 0)
 
                         <div class="form-group">
                             <div class="col-lg-12 col-sm-offset-2">
-
+                                
+                    <?php
+                            if(isset($callID))
+                            {
+                    ?>
+                                <button class="btn aqua" name="btnUpdateCall" class="btn btn-success col-lg-12">UPDATE SERVICE CALL</button>
+                    <?php
+                            }
+                            else
+                            {
+                    ?>
                                 <button class="btn aqua" name="btnRegisterCall" class="btn btn-success col-lg-12">PROCESS SERVICE CALL</button>
+                    <?php
+                            }
+                    ?>
+
                             </div>
                         </div>
 

@@ -174,6 +174,14 @@ include_once("../data/sessioncheck.php");
     }
 
     @page { margin: 0; }
+    .follow-divs {
+        clear:both;
+        width: 95%;
+        font-size: 13px;
+        font-family: Arial;
+        padding: 5px 4px;
+        margin: 10px 0px;
+    }
 </style>
 <header>
     <h1>SERVICE TICKET</h1>
@@ -262,7 +270,6 @@ include_once("../data/sessioncheck.php");
                     $i++; 
                 }  
             ?>
-
         </tr>
 
         </tbody>
@@ -273,9 +280,9 @@ include_once("../data/sessioncheck.php");
             <td>
                 <span id="prefix" contenteditable>
                     <?php 
-                    echo $cost = $ticket['cost'] == '0' || $ticket['cost'] == '000' 
-                            ? '₦0' 
-                            : $database->convertToMoney($ticket['cost']);
+                        echo $cost = $ticket['cost'] == '0' || $ticket['cost'] == '000' 
+                        ? '₦0' 
+                        : $database->convertToMoney($ticket['cost']);
                     ?>
                 </span>
             </td>
@@ -283,9 +290,26 @@ include_once("../data/sessioncheck.php");
     </table>
     <p>&nbsp;</p>
 
-    <u>Work Description/Solution Provided</u>
-    <textarea class="inventory"  rows="12"  style=" width:100%; border: solid"><?php echo strip_tags(nl2br($ticket['workDone']));?>
-               </textarea>
+    <div style="clear:both; width: 95%">
+        Work Description/Solution Provided
+    </div>
+    <div class="follow-divs">
+       <?php
+            $followUps = $database->getFollowUps($ticket['callID']);
+
+            if($followUps != false)
+            {
+                foreach ($followUps as $followUp)
+                {
+                    echo nl2br($followUp['work-done']) . '<hr>';
+                }
+            }
+            else
+            {
+                echo "No Follow-Up Updated Yet";
+            }
+        ?>
+    </div>
 
     <table class="inventory">
         <thead>
