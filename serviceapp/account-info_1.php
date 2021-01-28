@@ -13,7 +13,9 @@
             $database->redirect_to($host."view-machine");
         }
     }
+
 ?>
+
         <div class="row wrapper border-bottom page-heading">
             <div class="col-lg-12">
                 <h2><?php echo $machineInfo['Name'];?> </h2>
@@ -202,6 +204,8 @@
                                     </table>
 
                                     </div>
+
+
                     </div>
                 </div>
                 <div class="tab-pane" id="tab-3">
