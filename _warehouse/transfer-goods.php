@@ -239,7 +239,7 @@ if($myData['storeID']== 0){
                                     if($vamp != $ptype){
                                     ?>
                                     </optgroup>
-                                    <optgroup label="<?php echo $dpt['type'];?>">
+                                    <optgroup label="<?ph0000000000000ap echo $dpt['type'];?>">
                                         <?php
                                         $vamp = $ptype; }
                                         $qty = $database->getProductStoreQty($dpt['id'],$myData['storeID']);
@@ -264,9 +264,6 @@ if($myData['storeID']== 0){
                             <div class="col-md-2">
                                 <button class="btn  blue btn-block btn-outline " onclick="addRow();">Add Item</button>
                             </div>
-
-
-
                         </div>
                         <hr>        <form action="" method="post">
                             <div class="borderedTable">
@@ -281,18 +278,17 @@ if($myData['storeID']== 0){
                                                     <!--  <input type="text" class="form-control m-b"  value="" required data-validation-required-message="Customer Name is required"> -->
 
                                                     <select required class="form-control m-b" name="txtSupplier">
-                                                    <?php    //$Stores = $database->getStoreName();
-                                                        $Stores = $database->getStoreNameTransferOption($store[0]);
-
-                                                        foreach ($Stores as $Store)
-                                                        {
-                                                    ?>
-                                                            <option value="<?php echo $Store['storeName'];?>">
-                                                                <?php echo $Store['storeName'];?>
-                                                            </option>
-                                                    <?php 
-                                                        } 
-                                                    ?>
+                                                <?php    //$Stores = $database->getStoreName();
+                                                    $Stores = $database->getStoreNameTransferOption($store[0]);
+                                                    foreach ($Stores as $Store)
+                                                    {
+                                                ?>
+                                                        <option value="<?php echo $Store['storeName'];?>">
+                                                            <?php echo $Store['storeName'];?>
+                                                        </option>
+                                                <?php    
+                                                    } 
+                                                ?>
 
                                                     </select>
                                                 </div>

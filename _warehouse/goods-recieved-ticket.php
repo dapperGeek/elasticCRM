@@ -23,7 +23,6 @@ include_once("../data/sessioncheck.php");
             <b>TICKET NO:</b> <?php echo $grt['TicketNo'];?><br/>
             <b>SERIAL NO:</b> <?php echo $grt['serialNumber'];?><br/>
             <b>STORE:</b> <?php echo $grt['storeName'];?><br/>
-
         </td>
         <td align="right"><img src="../img/tenaui-logo.jpg" width="100" height="100"></td>
     </tr>
@@ -58,10 +57,10 @@ include_once("../data/sessioncheck.php");
 
         </tr>
 
-        <?php 
-            $N++;
-            }
-        ?>
+    <?php 
+           $N++;
+        }
+    ?>
     <tr>
         <th colspan="7" style="text-align: center">RECEIVED BY : <?php echo $grt['fullname'];?></th>
     </tr>

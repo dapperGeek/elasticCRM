@@ -1450,9 +1450,10 @@ class MySQLDatabase
     {
         $followArr = [];
         $sql = $limit == 0 
-                ? "select * from `follow-ups` where `service-call` = $callID  order by `id` desc"
-                : "select * from `follow-ups` where `service-call` = $callID  order by `id` desc limit 1";
+                ? "select * from `follow-ups` where `service-call` = ? order by `id` desc"
+                : "select * from `follow-ups` where `service-call` = ? order by `id` desc limit 1";
         $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $callID);
         $handle->execute();
         
         if ($handle->rowCount() > 0)
@@ -5154,8 +5155,10 @@ class MySQLDatabase
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_OBJ)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
                 $thisName = str_replace(' ', '/', $row->Name);
                 $name = preg_split('~/~', $thisName);
                 $name = ucwords(strtolower($name[0]));
