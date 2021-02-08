@@ -1,5 +1,6 @@
 <?php
-    if (file_exists("data/DBConfig.php")){
+    if (file_exists("data/DBConfig.php"))
+    {
         include("data/DBConfig.php");
         include_once("data/sessioncheck.php");
         require_once ("Utils/UtilFunctions.php");
@@ -8,7 +9,8 @@
         include_once ('Utils/ViewLoader.php');
         include_once ('Utils/Constants.php');
     }
-    else{
+    else
+    {
         include("../data/DBConfig.php");
         include_once("../data/sessioncheck.php");
         require_once ("../Utils/UtilFunctions.php");

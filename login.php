@@ -1,14 +1,19 @@
-<?php include("data/DBConfig.php");?>
-<?php
-$url = "";
-        if(isset($_GET['url'])){
-                $url = $_GET['url'];
-        }else{
-                $url = $host;
-        }
-if(isset($_SESSION['user_id'])){
-                $database->redirect_to($url);
-            }
+<?php 
+    include("data/DBConfig.php");
+    $url = "";
+    if(isset($_GET['url']))
+    {
+        $url = $_GET['url'];
+    }
+    else
+    {
+        $url = $host;
+    }
+    
+    if(isset($_SESSION['user_id']))
+    {
+        $database->redirect_to($url);
+    }
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,40 +44,54 @@ if(isset($_SESSION['user_id'])){
 <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
 <?php
-                        $err = "";
+    $err = "";
 
-                if(isset($_POST['btnLogin'])){
-                   $username = $database->test_input($_POST['txtUsername']);
-                   $password = $database->test_input($_POST['txtPassword']);
-        
-                   if($username != "" && $password != ""){
-                        $login = (array)$database->authenticateStaff($username,$password);
-                        if($login[0] == 0){
-                                $err = 'invalid username or password';
-                            }
-                        elseif($login[0] > 0){
-                                    // no password error passed
-                                    if($login[1] == 0){
-                                        $err = "your account is not yet activated";
-                                    }
-                                    // invalid password error passed
-                                    elseif($login[1] === 1){
-                                        $err = "Your password is invalid";
-                                    }
-                                    else {
-                                            $_SESSION['user_id'] = $login[0];
-                                            setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
-                                            $database->redirect_to($url);
-                                        }
-                                }
-                       }
-                       else{
-                            if($username == ""){$err.= "enter username<br/>";}
-                            if($password == ""){$err.= "enter password";}
-                       }
+    if(isset($_POST['btnLogin']))
+    {
+       $username = $database->test_input($_POST['txtUsername']);
+       $password = $database->test_input($_POST['txtPassword']);
+
+       if($username != "" && $password != "")
+       {
+            $login = (array)$database->authenticateStaff($username,$password);
+            if($login[0] == 0)
+            {
+                $err = 'invalid username or password';
+            }
+            elseif($login[0] > 0)
+            {
+                // no password error passed
+                if($login[1] == 0)
+                {
+                    $err = "your account is not yet activated";
                 }
-
-            ?>
+                // invalid password error passed
+                elseif($login[1] === 1)
+                {
+                    $err = "Your password is invalid";
+                }
+                else 
+                {
+                    //Get all user attributes and set $_session variables
+                    $data = $database->getMyUserInformation($login[0]);
+                    $_SESSION['user_id'] = $login[0];
+                    $_SESSION['department'] = $data['Department'];
+                    $_SESSION['access'] = $data['AccessLevel'];
+                    $_SESSION['storeID'] = $data['storeID'];
+                    $_SESSION['dptID'] = $data['DepartmentID'];
+                    
+                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
+                    $database->redirect_to($url);
+                }
+            }
+        }
+        else
+        {
+             if($username == ""){$err.= "enter username<br/>";}
+             if($password == ""){$err.= "enter password";}
+        }
+    }
+?>
 </head>
 <body class="login-layout-full login">
 <div class="page-brand-info">

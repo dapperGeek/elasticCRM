@@ -6,7 +6,8 @@
  * Time: 12:19 PM
  */
 
-if (file_exists("data/DBConfig.php")){
+if (file_exists("data/DBConfig.php"))
+{
     include("data/DBConfig.php");
     include_once("data/sessioncheck.php");
     require_once ("Utils/UtilFunctions.php");
@@ -14,7 +15,8 @@ if (file_exists("data/DBConfig.php")){
     include_once ('Utils/PageHeaders.php');
     include_once ('Utils/ViewLoader.php');
 }
-else{
+else
+{
     include("../data/DBConfig.php");
     include_once("../data/sessioncheck.php");
     require_once ("../Utils/UtilFunctions.php");

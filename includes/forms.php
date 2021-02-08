@@ -7,7 +7,6 @@
  */
 
     $err = $msg = '';
-
     $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 
 //    month variables
@@ -15,7 +14,8 @@
     $lastMonthDouble = date('m', strtotime('last month'));
 
 // IT/Admin update user password form script
-    if (isset($_POST['update-pass'])){
+    if (isset($_POST['update-pass']))
+    {
         $password = password_hash($database->test_input($_POST['password']), PASSWORD_BCRYPT);
         $id = $_POST['id'];
         $update_pass = $database->updatePassword($id, $password);
@@ -23,35 +23,41 @@
     }
 
     // User password update script
-    if(isset($_POST['btnEditPassword'])){
+    if(isset($_POST['btnEditPassword']))
+    {
         $pass1 = $database->test_input($_POST['txtpass1']);
         $pass2 = $database->test_input($_POST['txtpass2']);
         $pass3 = $database->test_input($_POST['txtpass3']);
 
-
-        if($pass1 != "" && $pass2 != "" && $pass3 != ""){
+        if($pass1 != "" && $pass2 != "" && $pass3 != "")
+        {
             if($pass2 == $pass3){
-                if(password_verify($pass1, $myData['password'])){
+                if(password_verify($pass1, $myData['password']))
+                {
                     $database->updateStaffUserPassword($myData['id'],$pass2);
-                    $msg = "Password successfully changed! You will now be  logged out";}
-                else{
+                    $msg = "Password successfully changed! You will now be  logged out";
+                }
+                else
+                {
                     $err = "Old password does not match";
                 }
-
-            }else{
+            }
+            else
+            {
                 $err = "passwords do not match";
             }
-
-        }else{
+        }
+        else
+        {
             if($pass1 == ""){$err.= "<li>Enter old password</li>";}
             if($pass2 == ""){$err.= "<li>Enter new password</li>";}
             if($pass3 == ""){$err.= "<li>re-enter old password</li>";}
         }
-
     }
 
     // implementation of advanced search for the service calls
-    if (isset($_POST['btnFilterCalls'])){
+    if (isset($_POST['btnFilterCalls']))
+    {
         $curYear = date('Y');
         $days30 = array(4, 6, 9, 11);
         $lastDay = in_array($lastMonth, $days30) ? 30 : 31;
@@ -66,8 +72,8 @@
         $quarter = '';
         $index = ($period - 5) < 10 ? 0 . ($period - 5) : ($period - 5);
 
-
-        switch ($period){
+        switch ($period)
+        {
             case 0:
                 $quarterStart = "$yearInReview-01-01";
                 $quarterEnd = "$yearInReview-12-30";
@@ -103,14 +109,21 @@
                 $quarter = 'This month';
                 break;
         }
-
         $serviceCalls = $database->getAdvancedServiceCallSearch($quarterStart, $quarterEnd, $eng);
     }
-    else{
-        // get all service calls if no search is done
-        $serviceCalls = $myData['typeID'] == 0
-           ? $database->getAllServiceCallForFollowUp()
-           : $database->getAccountServiceCallForFollowUp() ;
+    else
+    {
+        if ($_SESSION['dptID'] == 6 && $_SESSION['access'] < 8)
+        {
+            $serviceCalls = $database->getAllServiceCallForFollowUp($_SESSION['user_id']);
+        }
+        else
+        {
+            // get all service calls if no search is done
+            $serviceCalls = $myData['typeID'] == 0
+               ? $database->getAllServiceCallForFollowUp()
+               : $database->getAccountServiceCallForFollowUp() ;
+        }
     }
 
     // implementation of advanced search for the service calls

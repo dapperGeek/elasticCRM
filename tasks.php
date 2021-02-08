@@ -10,7 +10,7 @@
 // include("data/MySQLDatabase.php");
 
 //    $database->updatePasswords();
- echo password_hash('Tenaui20201*', PASSWORD_BCRYPT);
+ echo password_hash('busiyou', PASSWORD_BCRYPT);
 //    $state = file_exists(dirname(__FILE__) . '/index.php') ? 'True' : 'False';
 //    echo '<br>' . $state . '<br>';
 //

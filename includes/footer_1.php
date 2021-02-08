@@ -237,6 +237,8 @@
                 extend: "print",
                 className: 'btn purple  btn-outline'
             }]
+
+
         });
 
         $('#soldTicketsTable').DataTable({
@@ -290,7 +292,7 @@
             }],
             "pageLength": 50
         });
-        
+
         $('#example7').DataTable({
 
             dom: 'Bfrtip',

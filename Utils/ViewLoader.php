@@ -8,14 +8,15 @@
 
 class ViewLoader{
 
-    public static function loadView($department){
+    public static function loadView($department)
+    {
         $dept = strtolower(str_replace(' ', '_', $department));
-        if (file_exists("views/$dept.php")){
+        if (file_exists("views/$dept.php"))
+        {
             $view = "views/$dept.php" ;
         }
-        
-        else{
-
+        else
+        {
             $view = file_exists('../font.php') ? '../font.php' : 'font.php';
         }
         return include("$view");

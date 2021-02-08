@@ -1707,22 +1707,43 @@ class MySQLDatabase
         return implode(", ", $times);
     }
 
-    function getAllServiceCallForFollowUp()
+    function getAllServiceCallForFollowUp($id = 0)
     {
         $myArray = array();
-        $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
-      mif.contactName1, mif.contactEmail1, mif.contactPhone1,
-        mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
-      JOIN machine_in_field mif on mif.id = sc.machine_id
-      JOIN accounts ac on ac.id = sc.account_id
-      join contracts ct on ct.id = mif.contractID
-        join products p on p.id = mif.machine_type
-        join area_location al on al.id = mif.areaID
-        join lga l on l.id = al.lgaID
-        join states s on s.id = l.stateID
-      left JOIN casestatus cs on cs.id = sc.CaseStatus order by id desc";
+        $handle = null;
+        
+        switch ($id)
+        {
+            case 0:
+                $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state, mif.contactName1, mif.contactEmail1, mif.contactPhone1,
+                    mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
+                    JOIN machine_in_field mif on mif.id = sc.machine_id
+                    JOIN accounts ac on ac.id = sc.account_id
+                    join contracts ct on ct.id = mif.contractID
+                    join products p on p.id = mif.machine_type
+                    join area_location al on al.id = mif.areaID
+                    join lga l on l.id = al.lgaID
+                    join states s on s.id = l.stateID
+                    left JOIN casestatus cs on cs.id = sc.CaseStatus order by sc.id desc";
+                $handle = $this->db->prepare($sql);
+                break;
 
-        $handle = $this->db->prepare($sql);
+            default:
+                $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state, mif.contactName1, mif.contactEmail1, mif.contactPhone1,
+mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
+                    JOIN machine_in_field mif on mif.id = sc.machine_id
+                    JOIN accounts ac on ac.id = sc.account_id
+                    join contracts ct on ct.id = mif.contractID
+                    join products p on p.id = mif.machine_type
+                    join area_location al on al.id = mif.areaID
+                    join lga l on l.id = al.lgaID
+                    join states s on s.id = l.stateID
+                    left JOIN casestatus cs on cs.id = sc.CaseStatus where sc.engineer = ? order by sc.id desc";
+                $handle = $this->db->prepare($sql);
+                $handle->bindValue(1, $id);
+                break;
+        }
+       
         $handle->execute();
         if ($handle->rowCount() > 0)
         {
@@ -2403,20 +2424,21 @@ class MySQLDatabase
         $handle->bindValue(1, $companyName);
         $handle->bindValue(2, $companyID);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             $row = $handle->fetch(PDO::FETCH_ASSOC);
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
     }
 
     public function getMyUserInformation($id)
     {
         $sql = "select st.*,
-        ds.dptID,ds.dptaccessLevel,ds.designation,d.Department
-
+        ds.dptID,ds.dptaccessLevel as AccessLevel,ds.designation,d.Department
         from staff st
         join dpt_designation ds on st.designationID = ds.id
         join department d on st.DepartmentID = d.id
@@ -2425,12 +2447,14 @@ class MySQLDatabase
         $handle->bindValue(1, $id);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
-        } else {
+        }
+        else
+        {
             return false;
         }
-
     }
 
     function getArrayStates()
