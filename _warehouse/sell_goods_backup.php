@@ -122,18 +122,15 @@ if($myData['storeID']== 0){
                             //}
 
                         }
-                        else if ($myData['storeID'] == 3 )
+                        else if ($database->checkInvoiceNo($invoiceNo) && $myData['storeID'] == 3 )
                         {
-                            $invoiceNo = "SOF";
+//                            $invoiceNo = "SOF";
                             $database->SellProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,1,1, $amount);
                             unset($_POST);
                             $database->showMsg('', "SALES HAS BEEN MADE SUCCESSFULLY", 2);
-
                             $lastSellProductStockEntry = (array)$database->getLastSellProductStock();
-
                             foreach($lastSellProductStockEntry as $entry)
                             {
-
                                 $lastSellProductStockOrderId = $entry['id'];
                                 $lastSellProductStockOrderTicketNo = $entry['TicketNo'];
                             }
@@ -146,7 +143,6 @@ if($myData['storeID']== 0){
                             $eachUnitPrice  = $_SESSION['unitPrice'];
 
                             //Send email
-
                             $email = "abuja_office_accounts@tenaui.com";
                             $subject = "SOF from ABUJA With Ticket No $lastSellProductStockOrderTicketNo";
 
@@ -165,9 +161,7 @@ if($myData['storeID']== 0){
                             else
                             { 
                                 $table.= "<h2>ELECTRONIC SOF</h2>"; 
-
                             }
-
                             $table.="</th>
     </tr>
   <tr>
@@ -296,17 +290,14 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                         else
                         {
                             $database->showMsg('', "INVOICE NUMBER ALREADY EXIST", 1);
-                            
                     }
                     }
                     else
                     {
-
                         $database->showMsg('', 'All fields are required to create a supply ticket', 1);
                     }
                 }
-
-                ?>
+            ?>
 
                 <h1 style="text-align: center"><span class="btn btn-warning">SELL GOODS TICKET FOR WARE HOUSE   -   <?php echo strtoupper($store[1]);?></span></h1>
                 <h4 style="text-align: center">GOODS BEEN SOLD BY <?php echo strtoupper($myData['fullname']); ?></h4>
@@ -327,7 +318,8 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                         let productID =  document.getElementById('nProduct');
                         let storeID =  document.getElementById('txtStoreID').value;
                         let id = productID.value;
-                        if(id > 0 && storeID == 3){
+                        if(id > 0 && storeID == 3)
+                        {
                             let nID = '<input type="hidden" name="txtProduct[]" value="'+id+'" /> ';
                             let selectText =  productID.options[productID.selectedIndex].text;
                             let productname =  selectText.substr(selectText.indexOf("---- ")+4,selectText.length);
@@ -450,9 +442,9 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
 
             function removeRow(id)
             {
-                let storeID =  document.getElementById('txtStoreID').value;
+                let storeID =  parseInt(document.getElementById('txtStoreID').value);
                 let col = storeID === 3 ? 6 : 4;
-                        var index, table = document.getElementById('table');
+                var index, table = document.getElementById('table');
                 
                 for(var i = 1; i < table.rows.length; i++)
                 {
@@ -606,22 +598,25 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                                        value="" class="form-control" id="nQty" placeHolder="QTY" required onKeyPress="return isNumberKey(event)" value="1">
 
                             </div>
-                            <?php if($myData['storeID'] == 3 ){  ?>
+                            <?php 
+                                if($myData['storeID'] == 3 )
+                                {
+                            ?>
                                 <div class="col-md-1">
 
                                     <input type="text" name="nProductPrice"
                                            value="" class="form-control" id="nProductPrice" placeHolder="Unit Price" onkeyup = "javascript:this.value=Comma(this.value);" required onKeyPress="return isNumberKey(event)" value="1">
-
                                 </div>
-                            <?php }  ?>
+                            <?php 
+                                } 
+                            ?>
                             <div class="col-md-2">
                                 <button class="btn  blue btn-block btn-outline" onclick="addRow();">Add Item</button>
                             </div>
 
-
-
                         </div>
-                        <hr>        <form action="" method="post">
+                        <hr>        
+                        <form action="" method="post">
                             <div class="borderedTable">
                                 <div class="table-scrollable">
 
@@ -634,7 +629,6 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                                                     <input type="text" class="form-control m-b" name="txtSupplier" value="<?php if(isset($_POST['txtSupplier'])){echo $_POST['txtSupplier'];}?>" required data-validation-required-message="Customer Name is required">
                                                 </div>
                                             </div>
-                                            <?php if($myData['storeID'] != 3 ){  ?>
 
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">INVOICE NO</label>
@@ -643,20 +637,8 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                                                     </div>
                                                 </div>
 
-                                            <?php   }else { ?>
-
-                                                <input type="hidden" class="form-control m-b" name="txtInvoiceNo" value="SOF" required data-validation-required-message="Invoice No is required">
-
-                                            <?php }  ?>
-
                                             <div class="form-group">
-                                                <?php if($myData['storeID'] != 3 ){ ?>
                                                     <label class="col-sm-3 control-label">INVOICE DATE</label>
-                                                <?php } else {  ?>
-
-                                                    <label class="col-sm-3 control-label">SOF DATE</label>
-
-                                                <?php   }    ?>
                                                 <div class="col-sm-9">
 
                                                     <div class="col-md-4">

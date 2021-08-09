@@ -652,6 +652,10 @@ space class
     margin-right:10px !important;
 }
 
+.margin-left-10 {
+    margin-left:10px !important;
+}
+
 .no-margins {
     margin:0 !important;
 }
@@ -1751,7 +1755,7 @@ Contact Page
     text-align: center;
     width: 100%;
     border: 1px solid #e7eaec;
-    border-top: : 0;
+    border-top: 0;
     margin-bottom: 20px;
 }
 
@@ -3293,7 +3297,7 @@ Page Sidebar
 
 .page-sidebar-closed .page-sidebar .sidebar-search.open .input-group .input-group-btn .btn.submit {
     margin-bottom: 0;
-    margin-top: 1;
+    margin-top: 2px;
 }
 
 .page-sidebar-closed .page-sidebar .sidebar-search .input-group .input-group-btn .btn.submit {
@@ -3429,7 +3433,8 @@ scrollup
     left: 16px;
     top: 13px;
     font-size: 19px;
-    opacity:.4 -webkit-transition:all .3s ease;
+    opacity:.4;
+    -webkit-transition:all .3s ease;
      -moz-transition: all .3s ease;
      -ms-transition: all .3s ease;
      -o-transition: all .3s ease;

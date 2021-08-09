@@ -203,21 +203,19 @@ if($ticket == null){
                             </tr>
 
                             <?php
-                            $values = (array)$database->getContractBillingMeterReading($ticket['id'],$ticketID,$moment);
-                            $ii = 1;
-                            $monoCount = 0;
-                            $colorCount = 0;
-                            $totalRental = 0;
-                            $totalMono_ = 0;
-                            $totalColor_ = 0;
-
-                            foreach($values as $value){
-
-                                ?>
-
+                                $values = (array)$database->getContractBillingMeterReading($ticket['id'],$ticketID,$moment);
+                                $ii = 1;
+                                $monoCount = 0;
+                                $colorCount = 0;
+                                $totalRental = 0;
+                                $totalMono_ = 0;
+                                $totalColor_ = 0;
+                                foreach($values as $value)
+                                {
+                            ?>
                                 <tr>
                                     <td align="center" width="50"><?php echo $ii;?></td>
-                                    <td  ><?php echo $value['Model'];?></td>
+                                    <td><?php echo $value['Model'];?></td>
                                     <td align="center"><?php echo $value['serialNo'];?></td>
                                     <td align="center"  ><?php echo $value['machine_code'];?></td>
                                     <td align="center" colspan="2"><?php echo $value['department'];?></td>

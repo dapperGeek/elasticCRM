@@ -70,7 +70,8 @@ $storeID = $myData['storeID'];
                 <?php
 
                 $GetStoreID = $myData['storeID'];
-                if(isset($_POST['btnSubmitNewProduct'])){
+                if(isset($_POST['btnSubmitNewProduct']))
+                {
 
                     $supplier = $database->test_input($_POST['txtSupplier']);
                     $invoiceNo = $database->test_input($_POST['txtInvoiceNo']);
@@ -93,26 +94,28 @@ $storeID = $myData['storeID'];
                     }
 
                     if(isset($_POST['txtProduct']) && !empty($_POST['txtProduct']) && $invoiceNo != ""){
-                        if($database->checkAllInvoiceNo($invoiceNo)){
+                        if($database->checkAllInvoiceNo($invoiceNo))
+                        {
                             $myValue = $database->UpdateCreditNote($qty,$invoiceNo,$product,$GetStoreID);
                             //unset($_POST);
 
                             $ticketGen = $database->createTicketNo();
-                            for($i=0;$i<count($product);$i++){
+                            for($i=0;$i<count($product);$i++)
+                            {
                                 if($product[$i]!="" && $qty[$i]!="")
                                 {
                                     $insertReturnItem = $con->query("INSERT INTO creditnote (productId,productName,Code,invoiceNo,custormerName,invoiceDate,returnDate,store,unit,ticketGen,returned) VALUES('$product[$i]','$product[$i]','Code','$invoiceNo','$supplier','$invoiceDate','$invoiceReturnDate','$store[1]','pc','GRT-$ticketGen','$qty[$i]')");
                                 }
                             }
-
-
-
                             $database->showMsg('', "CREDIT NOTE HAS BEEN MADE SUCCESSFULLY", 2);
-
-
-                        }else{$database->showMsg('', "INVOICE NUMBER DOES NOT EXIST..., PLEASE CONTACT YOUR DEVELOPER., Thank You", 1);}
-
-                    }else{
+                        }
+                        else
+                        {
+                            $database->showMsg('', "INVOICE NUMBER DOES NOT EXIST..., PLEASE CONTACT YOUR DEVELOPER., Thank You", 1);
+                        }
+                    }
+                    else
+                    {
 
                         $database->showMsg('', 'All fields are required to create a return ticket', 1);
                     }
@@ -464,16 +467,15 @@ $storeID = $myData['storeID'];
                                     <table id="example7"  class="display nowrap table  responsive nowrap table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>OrderID</th>
+                                            <th>Order ID</th>
                                             <th>Ticket#</th>
                                             <th>Customer Name</th>
                                             <th>Product Name</th>
                                             <th>Returned</th>
                                             <th>Code</th>
-                                            <th>InvoiceNo</th>
+                                            <th>Invoice No.</th>
                                             <th>Invoice Date</th>
                                             <th>Return Date</th>
-
                                             <th>Store</th>
                                             <!-- <th>Uint</th> -->
                                             <th>Action</th>
@@ -483,18 +485,17 @@ $storeID = $myData['storeID'];
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>OrderID</th>
+                                            <th>Order ID</th>
                                             <th>Ticket#</th>
                                             <th>Customer Name</th>
                                             <th>Product Name</th>
                                             <th>Returned</th>
                                             <th>Code</th>
-                                            <th>InvoiceNo</th>
+                                            <th>Invoice No</th>
                                             <th>Invoice Date</th>
                                             <th>Return Date</th>
-
-                                            <th>Store</th><!--
-                                                <th>Uint</th> -->
+                                            <th>Store</th>
+                                            <!--<th>Uint</th> -->
                                             <th>Action</th>
                                         </tr>
                                         </tfoot>

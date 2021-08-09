@@ -20,15 +20,19 @@ if(!isset($_GET['id'])){
                     <?php include("add-product.php");?>
 
                     <div class="row col-lg-12">
-                        <?php
-                        if($myData['superAdmin'] > 0){
-
-                            if($myData['AccessLevel'] == 12){
-                                echo '';}
-                            else{
-                                echo '<a class="btn btn-success pull-right" data-toggle="modal" data-target=".bs-example-modal-lg-2-add">ADD NEW PRODUCT</a>';}
+                    <?php
+                        if($myData['superAdmin'] > 0 || ($_SESSION['dptID'] == 4 && $_SESSION['access'] >= 8))
+                        {
+                            if($myData['AccessLevel'] == 12)
+                            {
+                                echo '';
+                            }
+                            else
+                            {
+                                echo '<a class="btn btn-success pull-right" data-toggle="modal" data-target=".bs-example-modal-lg-2-add">ADD NEW PRODUCT</a>';
+                            }
                         }
-                        ?>
+                    ?>
 
                     </div>
 
@@ -111,8 +115,10 @@ if(!isset($_GET['id'])){
                         <div class="table-responsive">
                             <table id="example7" style="font-size: 12px"  class="display nowrap table  responsive nowrap table-bordered">
                                 <?php
-                                if (isset($_POST['btnFilterStoreStock']) AND $storeID != 0){
-                                    ?>
+                                    // If the stock filtering search is active
+                                    if (isset($_POST['btnFilterStoreStock']) AND $storeID != 0)
+                                    {
+                                ?>
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -120,21 +126,29 @@ if(!isset($_GET['id'])){
                                         <th>Product Name</th>
                                         <th>Code</th>
                                         <!--                                        <th>Price</th>-->
-                                        <?php if ($myData['DepartmentID']== 5) { ?>
+                                        <?php
+                                            // show costs column for accounting department
+                                            if ($myData['DepartmentID']== 5)
+                                            {
+                                        ?>
                                             <th>Cost</th>
                                         <?php } ?>
                                         <th>Quantity</th>
                                         <th>Date Time</th>
-                                        <?php if($myData['superAdmin'] > 0){?>
+                                        <?php
+                                            if($myData['superAdmin'] > 0)
+                                            {?>
                                             <th>Action</th>
                                         <?php }?>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    if($products != null){
-                                        foreach($products as $prod){
-                                            ?>
+                                        if($products != null)
+                                        {
+                                            foreach($products as $prod)
+                                            {
+                                    ?>
                                             <tr <?php if($prod['active'] == 0){"class='danger'";}?>>
                                                 <td> <?php echo str_pad($prod['id'],5,"0",STR_PAD_LEFT);?></td>
                                                 <td><?php echo $prod['type'];?></td>
@@ -146,13 +160,19 @@ if(!isset($_GET['id'])){
                                                 <?php } ?>
                                                 <td><?php echo $prod['quantity']." ".$prod['unitName'];?></td>
                                                 <td><?php echo date("d-M-Y h:i:s A");?></td>
-                                                <?php if($myData['superAdmin'] > 0){
-                                                    if($myData['AccessLevel'] == 12){echo ' <td>
-                                                                              <a class="badge badge-info col-lg-12" data-toggle="modal" data-target=".bs-example-modal-lg-2-">EDIT</a> </td>';}else{?>
-
+                                                <?php
+                                                    if($myData['superAdmin'] > 0)
+                                                    {
+                                                        if($myData['AccessLevel'] == 12)
+                                                        {
+                                                            echo ' <td><a class="badge badge-info col-lg-12" data-toggle="modal" data-target=".bs-example-modal-lg-2-">EDIT</a> </td>';
+                                                        }
+                                                        else
+                                                        {
+                                                ?>
                                                         <td>
                                                             <a class="badge badge-info col-lg-12" data-toggle="modal" data-target=".bs-example-modal-lg-2-<?php echo $prod['id'];?>">EDIT</a> </td>
-                                                        <?php
+                                                 <?php
                                                     }
                                                     include('edit-product.php');
                                                 }
@@ -173,24 +193,27 @@ if(!isset($_GET['id'])){
 
                                     <?php
                                 }
-                                else{
-                                    ?>
-
+                                else
+                                { // show all unfiltered products when filtering is not activated
+                            ?>
                                     <thead>
                                     <tr>
                                         <th>ID</th>
                                         <?php
-                                            if (!isset($category_id) OR $category_id == 0){
+                                            if (!isset($category_id) OR $category_id == 0)
+                                            {
                                         ?>
                                                 <th>Category</th>
-
                                         <?php
                                             }
                                         ?>
                                         <th>Product Name</th>
                                         <th>Code</th>
                                         <!--                                        <th>Price</th>-->
-                                        <?php if ($myData['DepartmentID']== 5) { ?>
+                                        <?php
+                                            if ($myData['DepartmentID']== 5)
+                                            {
+                                        ?>
                                             <th>Cost</th>
                                         <?php } ?>
                                         <th>Main Warehouse</th>
@@ -199,7 +222,11 @@ if(!isset($_GET['id'])){
                                         <th>Used</th>
                                         <th>Total</th>
                                         <th>Date Time</th>
-                                        <?php if($myData['superAdmin'] > 0){?>
+                                        <?php
+                                            // Show the product details and stock edit action column for admin users with edit privileges
+                                            if($myData['superAdmin'] > 0)
+                                            {
+                                        ?>
                                             <th>Action</th>
                                         <?php }?>
                                     </tr>
@@ -207,7 +234,7 @@ if(!isset($_GET['id'])){
                                     <tbody>
                                     <?php
             // Set category id depending search is active or not
-            $searchID = isset($categoryID) ? $categoryID : $category_id;
+            $searchID = $categoryID ?? $category_id;
             $products = (array)$database->getProductsByCategory($searchID);
             if($products != null){
 
@@ -218,11 +245,11 @@ if(!isset($_GET['id'])){
                         <td> <?php echo str_pad($prod['id'],5,"0",STR_PAD_LEFT);?></td>
 
                         <?php
-                        if (!isset($category_id) OR $category_id == 0){
-                            ?>
-                            <td><?php echo $prod['type'];?></td>
-                            <?php
-                        }
+                            if (!isset($category_id) OR $category_id == 0){
+                                ?>
+                                <td><?php echo $prod['type'];?></td>
+                                <?php
+                            }
                         ?>
 
                         <td><?php echo $prod['productName'];?></td>
@@ -238,10 +265,8 @@ if(!isset($_GET['id'])){
                 <td><?php echo ($prod['store1']+$prod['store2']+$prod['store3']+$prod['damaged'])." ".$prod['unitName'] ;?></td>
                 <td><?php echo date("d-M-Y h:i:s A");?></td>
                         <?php if($myData['superAdmin'] > 0){
-                            if($myData['AccessLevel'] == 12){echo ' <td>
-                                                      <a class="badge badge-info col-lg-12" data-toggle="modal" data-target=".bs-example-modal-lg-2-">EDIT</a> </td>';}
+                            if($_SESSION['access'] <= 6){echo '';}
                             else{?>
-
                 <td>
 
                     <table>
@@ -302,8 +327,6 @@ if(!isset($_GET['id'])){
 </div>
 </div>
 </div>
-</div>
-</div>
 
 <!-- start footer -->
 
@@ -346,10 +369,6 @@ if(!isset($_GET['id'])){
         // Flexible table
 
         $('#example').DataTable();
-
-        // Scroll Horizontal example
-
-
 
         // Individual column searching
 

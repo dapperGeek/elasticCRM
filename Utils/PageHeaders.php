@@ -8,37 +8,111 @@
 
 class PageHeaders
 {
-    function common(){
+    private static function myHeaders($index)
+    {
+        $pageHeader = [
+           0 => 'createServiceCall',
+           1 => 'editServiceCall',
+           2 => 'viewServiceCall',
+           3 => 'viewSoldTickets',
+           4 => 'viewStock',
+           5 => 'allContracts',
+           6 => 'viewPmAccounts',
+           7 => 'followUpCall',
+           8 => 'addShowroomMachine',
+           9 => 'viewShowroomMachine',
+           10 => 'viewStockAnalysis',
+           11 => 'addMachine'
+        ];
+        return $pageHeader[$index];
+    }
+
+    static function common()
+    {
         return "<ol class=\"breadcrumb\">
                         <li> <a href=\"index.php\">Home</a> </li>";
+    }
+
+    public static function getTitle($page)
+    {
+        $pageTitle = '';
+        switch ($page)
+        {
+            case self::myHeaders(0):
+                $pageTitle = 'Create Service Call';
+                break;
+            case self::myHeaders(1):
+                $pageTitle = 'Update Service Call';
+                break;
+            case self::myHeaders(2):
+                $pageTitle = 'View All Service Calls';
+                break;
+            case self::myHeaders(3):
+                $pageTitle = 'All Sold Tickets';
+                break;
+            case self::myHeaders(4):
+                $pageTitle = 'View Stock';
+                break;
+            case self::myHeaders(5):
+                $pageTitle = 'All Contracts';
+                break;
+            case self::myHeaders(6):
+                $pageTitle = 'All PM Accounts';
+                break;
+            case self::myHeaders(7):
+                $pageTitle = 'Follow-up Service Call';
+                break;
+            case self::myHeaders(8):
+                $pageTitle = 'Add Showroom Machine';
+                break;
+            case self::myHeaders(9):
+                $pageTitle = 'View Showroom Machine';
+                break;
+            case self::myHeaders(10):
+                $pageTitle = 'Stock Analysis';
+                break;
+            case self::myHeaders(11):
+                $pageTitle = 'Add Machine';
+                break;
+            default:
+                $pageTitle = 'Elastic-25+';
+                break;
+        }
+        return 'Elastic-25+|| ' . $pageTitle;
     }
 
     public static function getHeading($page)
     {
         $heading = '';
-         switch ($page)
-         {
-             case 'createServiceCall':
-                 $heading = self::common() . "
+        switch ($page)
+        {
+            case self::myHeaders(0):
+                $heading = self::common() . "
                         <li> <a>Account</a> </li>
                     <li class=\"active\"> <strong>Service Call </strong> </li>
                 </ol>" ;
                  break;
-             case 'viewServiceCall':
+             case self::myHeaders(1):
+                 $heading = self::common() . "
+                        <li> <a>Account</a> </li>
+                    <li class=\"active\"> <strong>Update Service Call</strong> </li>
+                </ol>" ;
+                 break;
+             case self::myHeaders(2):
                  $heading = self::common() . "
                         <li> <a>Administrative</a> </li>
                         <li> <a>Tickets</a> </li>
                         <li class=\"active\"> <strong>View All Tickets</strong> </li>
                     </ol>" ;
                  break;
-             case 'viewSoldTickets':
+             case self::myHeaders(3):
                  $heading = self::common() . "
                         <li> <a>Goods Sold Tickets</a> </li>
                         <li class=\"active\"> <strong>All Goods Left</strong> </li>
                         </ol>
                         ";
                  break;
-             case 'viewStock':
+             case self::myHeaders(4):
                  $heading = self::common() . "
                         <li> <a>Settings</a> </li>
                         <li> <a>Products</a> </li>
@@ -46,7 +120,7 @@ class PageHeaders
                         </o>
                         ";
                  break;
-             case 'allContracts';
+             case self::myHeaders(5):
                 $type = strtoupper($_GET['type']);
 
                 $heading = self::common() . "
@@ -55,7 +129,7 @@ class PageHeaders
                         </ol>
                         ";
                  break;
-             case 'viewPmAccounts';
+             case self::myHeaders(6):
                 $heading = '<h2>View All Customer Accounts for Preventive Maintenance</h2>'
                     . self::common() . "
                     <li> <a>Preventive Maintenance</a> </li>
@@ -63,7 +137,7 @@ class PageHeaders
                     <li class=\"active\"> <strong>View Accounts</strong> </li>
                     </ol>";
                  break;
-             case 'followUpCall';
+             case self::myHeaders(7):
                 $heading = '<h2>Follow Up Call</h2>'
                     . self::common() . "
                     <li> <a>Service Calls</a> </li>
@@ -71,22 +145,36 @@ class PageHeaders
                     <li class=\"active\"> <strong>Follow Up Call</strong> </li>
                     </ol>";
                  break;
-             case 'addShowroomMachine';
+             case self::myHeaders(8):
                 $heading = '<h2>Showroom Inventory</h2>'
                     . self::common() . "
                     <li> <a>Showroom</a> </li>
                     <li class=\"active\"> <strong>Add Machine To Showroom</strong> </li>
                     </ol>";
                  break;
-             case 'viewShowroomMachine';
+             case self::myHeaders(9):
                 $heading = '<h2>Showroom Inventory</h2>'
                     . self::common() . "
                     <li> <a>Showroom</a> </li>
                     <li class=\"active\"> <strong>View Showroom Machines</strong> </li>
                     </ol>";
                  break;
+             case self::myHeaders(10):
+                $heading = '<h2>View Stock Analysis</h2>'
+                    . self::common() . "
+                    <li> <a>Settings</a> </li>
+                    <li> <a>Products</a> </li>
+                    <li class=\"active\"><strong>Stock Analysis</strong></li>
+                    </ol>";
+                 break;
+             case self::myHeaders(11):
+                $heading = '<h2>Add Machine Information</h2>'
+                    . self::common() . "
+                   <li> <a>Account</a> </li>
+                    <li class=\"active\"> <strong>Add Machine </strong> </li>
+                    </ol>";
+                 break;
          }
-
          return $heading;
     }
 }

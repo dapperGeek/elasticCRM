@@ -6,145 +6,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add Contracts</title>
-<!-- Bootstrap -->
-<link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
-<!-- slimscroll -->
-<link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
-<!-- Fontes -->
-<link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
-<!-- all buttons css -->
-<link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
-<!-- animate css -->
-<link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
-<!-- top nev css -->
-<link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
-<!-- adminui main css -->
-<link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
-<!-- aqua black theme css -->
-<link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
-<!-- media css for responsive  -->
-<link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
-<!-- icheck -->
-<link href="<?php echo $host;?>assets/css/skins/all.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Contracts</title>
+    <!-- Bootstrap -->
+    <link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- slimscroll -->
+    <link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
+    <!-- Fontes -->
+    <link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
+    <!-- all buttons css -->
+    <link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
+    <!-- animate css -->
+    <link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
+    <!-- top nev css -->
+    <link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
+    <!-- adminui main css -->
+    <link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
+    <!-- aqua black theme css -->
+    <link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
+    <!-- media css for responsive  -->
+    <link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
+    <!-- icheck -->
+    <link href="<?php echo $host;?>assets/css/skins/all.css" rel="stylesheet">
     <link href="<?php echo $host;?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-    	<link rel="stylesheet" type="text/css" href="<?php echo $host;?>assets/css/select2.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $host;?>assets/css/bootstrap-select.min.css" />
-
-
+    <link rel="stylesheet" type="text/css" href="<?php echo $host;?>assets/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $host;?>assets/css/bootstrap-select.min.css" />
 <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
 </head>
 <?php include("../includes/header_.php");?>
 <script type="text/javascript">
-            var parent = <?php echo $database->getArrayAllAccounts();?>;
-            var gchild = <?php echo $database->getArrayOfMachines();?>;
+    var parent = <?php echo $database->getArrayAllAccounts();?>;
+    var gchild = <?php echo $database->getArrayOfMachines();?>;
 
-            function LoadChild() {
-                var i = document.getElementById("parent").selectedIndex;
-                var dp2 = document.getElementById("gchild");
-                var count2 = gchild[i - 1].length;
+    function LoadChild()
+    {
+        var i = document.getElementById("parent").selectedIndex;
+        var dp2 = document.getElementById("gchild");
+        var count2 = gchild[i - 1].length;
 
-                var html2 = "";
-                for (var k = 0; k < count2; k++) {
-                    html2 += "<option value=\"" + gchild[i - 1][k][0] + "\">" + gchild[i - 1][k][1] + "</option>";
-                }
+        var html2 = "";
+        for (var k = 0; k < count2; k++)
+        {
+            html2 += "<option value=\"" + gchild[i - 1][k][0] + "\">" + gchild[i - 1][k][1] + "</option>";
+        }
 
-                dp2.innerHTML = html2;
-            }
-        </script>
+        dp2.innerHTML = html2;
+    }
+</script>
 <?php
-                             $msg = ""; $err = "";
+    $msg = ""; $err = "";
 
-                                    if(isset($_POST['btnCreateContract'])){
-                                        $accID = $database->test_input($_POST['txtAccount']);
-                                        $machineID = $_POST['txtMachine'];
-                                        $rentalCharge = $database->test_input($_POST['txtRentalCharge']);
-                                        $contractType = $database->test_input($_POST['txtContractType']);
-                                        $cummul = $database->test_input($_POST['txtContractType2']);
-                                        ////////////////////////////////////////////////////////
-                                        $volmono = $database->test_input($_POST['txtVolMono']);
-                                        $costmono = $database->test_input($_POST['txtCostMono']);
-                                        $excostmono = $database->test_input($_POST['txtExCostMono']);
-                                        $exvolmono = $database->test_input($_POST['txtExVolMono']);
-                                        /////////////////////////////////////////////////////////
-                                        $volcolor = $database->test_input($_POST['txtVolColor']);
-                                        $costcolor = $database->test_input($_POST['txtCostColor']);
-                                        $excostcolor = $database->test_input($_POST['txtExCostColor']);
-                                        $exvolcolor = $database->test_input($_POST['txtExVolColor']);
+    if(isset($_POST['btnCreateContract']))
+    {
+        $accID = $database->test_input($_POST['txtAccount']);
+        $machineID = $_POST['txtMachine'];
+        $rentalCharge = $database->test_input($_POST['txtRentalCharge']);
+        $contractType = $database->test_input($_POST['txtContractType']);
+        $cummul = $database->test_input($_POST['txtContractType2']);
+        $volmono = $database->test_input($_POST['txtVolMono']);
+        $costmono = $database->test_input($_POST['txtCostMono']);
+        $excostmono = $database->test_input($_POST['txtExCostMono']);
+        $exvolmono = $database->test_input($_POST['txtExVolMono']);
+        $volcolor = $database->test_input($_POST['txtVolColor']);
+        $costcolor = $database->test_input($_POST['txtCostColor']);
+        $excostcolor = $database->test_input($_POST['txtExCostColor']);
+        $exvolcolor = $database->test_input($_POST['txtExVolColor']);
 
-                                        $duration = $database->test_input($_POST['txtContractDuration']);
-                                        $cs = $database->test_input($_POST['txtCS']);
-                                        $billingType = $database->test_input($_POST['txtBillingType']);
+        $duration = $database->test_input($_POST['txtContractDuration']);
+        $cs = $database->test_input($_POST['txtCS']);
+        $billingType = $database->test_input($_POST['txtBillingType']);
 
-                                        if($accID!= "" && $machineID != "" && $rentalCharge != "" && $contractType != "" && $volmono!= "" && $costmono != "" && $excostmono != "" && $exvolmono != ""
-                                            && $volcolor != "" && $costcolor != "" && $excostcolor != "" && $exvolcolor != "" && $duration != "" && $cs != "" && $billingType!=""
-                                        ){
-                                            $valID = 0;
-                                            $machineNames = "";
-                                                if(isset($_POST['txtMachine'])){
-                                                    if (is_array($_POST['txtMachine'])) {
-                                                            foreach($_POST['txtMachine'] as $value){
-                                                                $validate = $database->validateExistingMachineContract($value);
-                                                                if($validate == 1){
-                                                                    $machine_ = $database->getSingleMachineInformation($value)['machine_code'];
-                                                                    $machineNames = $machineNames.", ".$machine_;
-                                                                }
-                                                                $valID = $valID + $validate;
-                                                            }
-                                                        }else {
-                                                             $validate = $database->validateExistingMachineContract($_POST['txtMachine']);
-                                                             if($validate == 1){
-                                                                    $machine_ = $database->getSingleMachineInformation($_POST['txtMachine'])['machine_code'];
-                                                                    $machineNames = $machineNames.", ".$machine_;
-                                                                }
-                                                             $valID = $valID + $validate;
-                                                          }
-                                                    }
+        if($accID!= "" && $machineID != "" && $rentalCharge != "" && $contractType != "" && $volmono!= "" && $costmono != "" && $excostmono != "" && $exvolmono != ""
+            && $volcolor != "" && $costcolor != "" && $excostcolor != "" && $exvolcolor != "" && $duration != "" && $cs != "" && $billingType!=""
+        )
+        {
+            $valID = 0;
+            $machineNames = "";
+            if(isset($_POST['txtMachine']))
+            {
+                if (is_array($_POST['txtMachine'])) 
+                {
+                    foreach($_POST['txtMachine'] as $value)
+                    {
+                        $validate = $database->validateExistingMachineContract($value);
+                        if($validate == 1)
+                        {
+                            $machine_ = $database->getSingleMachineInformation($value)['machine_code'];
+                            $machineNames = $machineNames.", ".$machine_;
+                        }
+                        $valID = $valID + $validate;
+                    }
+                }
+                else
+                {
+                    $validate = $database->validateExistingMachineContract($_POST['txtMachine']);
+                    if($validate == 1)
+                    {
+                        $machine_ = $database->getSingleMachineInformation($_POST['txtMachine'])['machine_code'];
+                        $machineNames = $machineNames.", ".$machine_;
+                    }
+                    $valID = $valID + $validate;
+                }
+            }
 
-                                                    if($valID > 0){
-                                                        $err = $machineNames." has already been registered for a contract previously";
+            if($valID > 0)
+            {
+                $err = $machineNames." has already been registered for a contract previously";
+            }
+            else
+            {
+                $countValue = count($_POST['txtMachine']);
+                $c_volmono = $countValue * $volmono;
+                $c_volcolor = $countValue * $volcolor;
+                $c_exvolmono = $countValue * $exvolmono;
+                $c_exvolcolor = $countValue * $exvolcolor;
+                $contractID = $database->createContractTicket($accID,$contractType,$costmono,$c_volmono,$costcolor,$c_volcolor,$c_exvolmono,$excostmono,$c_exvolcolor,$excostcolor,$duration,$billingType,$cs,$cummul);
 
-                                                    }else{
-                                                        $countValue = count($_POST['txtMachine']);
-
-
-                                                        $c_volmono = $countValue * $volmono;
-                                                        $c_volcolor = $countValue * $volcolor;
-                                                        $c_exvolmono = $countValue * $exvolmono;
-                                                        $c_exvolcolor = $countValue * $exvolcolor;
-                                                        $contractID = $database->createContractTicket($accID,$contractType,$costmono,$c_volmono,$costcolor,$c_volcolor,$c_exvolmono,$excostmono,$c_exvolcolor,$excostcolor,$duration,$billingType,$cs,$cummul);
-
-                                                         if (is_array($_POST['txtMachine'])) {
-
-                                                                foreach($_POST['txtMachine'] as $value){
-                                                                    $database->inputMachineContract($contractID,$accID,$value,$rentalCharge,$costmono,$volmono,$costcolor,$volcolor,$exvolmono,$excostmono,$exvolcolor,$excostcolor,$duration,$billingType);
-                                                                }
-                                                        }else {
-                                                                    $database->inputMachineContract($contractID,$accID,$_POST['txtMachine'],$rentalCharge,$costmono,$volmono,$costcolor,$volcolor,$exvolmono,$excostmono,$exvolcolor,$excostcolor,$duration,$billingType);
-                                                          }
-                                                          $msg= "CONTRACT SUCCESSFULLY CREATED";
-                                                          unset($_POST);
-                                                    }
-
-
-
-                                        }else{
-                                            $err = "ALL FIELDS ARE REQUIRED";
-                                        }
-
-
-
-
-
-                                       }
-
-
-                            ?>
+                if (is_array($_POST['txtMachine']))
+                {
+                    foreach($_POST['txtMachine'] as $value)
+                    {
+                        $database->inputMachineContract($contractID,$accID,$value,$rentalCharge,$costmono,$volmono,$costcolor,$volcolor,$exvolmono,$excostmono,$exvolcolor,$excostcolor,$duration,$billingType);
+                    }
+                }
+                else
+                {
+                    $machine = $database->test_input($_POST['txtMachine']);
+                    $database->inputMachineContract($contractID,$accID,$machine,$rentalCharge,$costmono,$volmono,$costcolor,$volcolor,$exvolmono,$excostmono,$exvolcolor,$excostcolor,$duration,$billingType);
+                }
+                $msg = "CONTRACT SUCCESSFULLY CREATED";
+                unset($_POST);
+            }
+        }
+        else
+        {
+            $err = "ALL FIELDS ARE REQUIRED";
+        }
+    }
+?>
 
 <div class="page-content-wrapper animated fadeInRight">
   <div class="page-content" >
@@ -160,33 +163,31 @@
     </div>
     <div class="wrapper-content ">
       <div class="row">
-
-
         <div class="col-lg-12 top20 bottom20">
           <div class="widgets-container">
-
             <form method="post" class="form-horizontal">
-             <div class="form-group">
+                <div class="form-group">
                   <label class="col-sm-2 control-label">&nbsp;</label>
                  <div class="col-sm-10">
-                   <?php if(isset($err) && $err != ""){$database->showMsg('',$err,1);}?>
-                            <?php if(isset($msg) && $msg != ""){$database->showMsg('',$msg,2);}?>
+                <?php 
+                    if(isset($err) && $err != ""){$database->showMsg('',$err,1);}
+                    if(isset($msg) && $msg != ""){$database->showMsg('',$msg,2);}
+                ?>
                 </div>
-
-             </div>
-              <div class="form-group">
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">ACCOUNT NAME</label>
                 <div class="col-sm-10">
-                                       <select class="form-control m-b" id="parent" name="txtAccount" onChange="LoadChild();" required data-validation-required-message="Account is required">
-                                                            <option value="" disabled selected hidden>- select -</option>
-                                                            <script type="text/javascript">
-                                                                // document.writeln('Parent Lenght: '+parent.lenght);
-                                                                for (var i = 0; i < parent.length; i++) {
-                                                                    document.write('<option value="' + parent[i][0] + '">' + parent[i][1] + '</option>');
-                                                                }
-                                                            </script>
-
-                                                        </select>
+                    <select class="form-control m-b" id="parent" name="txtAccount" onChange="LoadChild();" required data-validation-required-message="Account is required">
+                        <option value="" disabled selected hidden>- select -</option>
+        <script type="text/javascript">
+            // document.writeln('Parent Lenght: '+parent.lenght);
+            for (var i = 0; i < parent.length; i++)
+            {
+                document.write('<option value="' + parent[i][0] + '">' + parent[i][1] + '</option>');
+            }
+        </script>
+                    </select>
                 </div>
               </div>
               <hr>
@@ -204,25 +205,27 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">CONTRACT TYPE</label>
                 <div class="col-sm-2">
-                  <select class="form-control" name="txtContractType">
-                                                <option value="">--select--</option>
-                                                <?php
-                                                     $myMachines = (array)$database->getAllContracts();
-                                                     foreach ($myMachines as $machine) {
-                                                ?>
-                                                    <option value="<?php echo $machine['id'];?>"
-                                                    <?php if(isset($_POST['txtContractType']) && $_POST['txtContractType'] == $machine['id']){echo "selected";}?>><?php echo $machine['c_name'];?></option>
-                                                <?php }?>
-                                                </select>
-              </div>
-              <label class="col-sm-2 control-label">TYPE 2</label>
-                <div class="col-sm-2">
-                  <select class="form-control" name="txtContractType2">
-                                                <option value="0">INDIVIDUAL BILLING</option>
-                                                <option value="1">CUMMULATIVE BILLING</option>
-
-                                                </select>
-              </div>
+                    <select class="form-control" name="txtContractType">
+                        <option value="">--select--</option>
+                            <?php
+                                 $myMachines = (array)$database->getAllContracts();
+                                 foreach ($myMachines as $machine)
+                                 {
+                            ?>
+                        <option value="<?php echo $machine['id'];?>"
+                                <?php if(isset($_POST['txtContractType']) && $_POST['txtContractType'] == $machine['id']){echo "selected";}?>>
+                                    <?php echo $machine['c_name'];?>
+                        </option>
+                            <?php }?>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">TYPE 2</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="txtContractType2">
+                            <option value="0">INDIVIDUAL BILLING</option>
+                            <option value="1">CUMMULATIVE BILLING</option>
+                        </select>
+                    </div>
                <label class="col-sm-2 control-label">RENTAL CHARGE</label>
                                    <div class="col-sm-2">
 

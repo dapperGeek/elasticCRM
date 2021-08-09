@@ -3,15 +3,16 @@
 require_once "Mail.php"; // PEAR Mail package
 require_once('Mail/mime.php'); // PEAR Mail_Mime package
 
-if (file_exists('../Utils/SendGrid.php'))
-{
-    require_once '../Utils/SendGrid.php';
-    require_once '../Utils/UtilFunctions.php';
-}
-else{
-    require_once 'Utils/SendGrid.php';
-    require_once 'Utils/UtilFunctions.php';
-}
+    if (file_exists('../Utils/SendGrid.php'))
+    {
+        require_once '../Utils/SendGrid.php';
+        require_once '../Utils/UtilFunctions.php';
+    }
+    else
+    {
+        require_once 'Utils/SendGrid.php';
+        require_once 'Utils/UtilFunctions.php';
+    }
 
 class MySQLDatabase
 {
@@ -37,7 +38,6 @@ class MySQLDatabase
 
     function authenticateStaff($username, $password)
     {
-
         $sql = "select * from staff where username =?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $username);
@@ -69,7 +69,8 @@ class MySQLDatabase
 
     function returnSalesStageColor($stage)
     {
-        if ($stage < 30) {
+        if ($stage < 30)
+        {
             return "danger";
         } else if ($stage >= 30 && $stage <= 59) {
             return "warning";
@@ -85,18 +86,19 @@ class MySQLDatabase
     public function getDailySales($day, $month, $year)
     {
         $sql = "select SUM(lp.qty * lp.Amount) as Amount, ocDay,
-                 ld.ocMonth, ocYear from service_product lp
-                 join machine_demand ld on lp.leadDemandID = ld.id
-                 where ld.orderCollect = 1
+                ld.ocMonth, ocYear from service_product lp
+                join machine_demand ld on lp.leadDemandID = ld.id
+                where ld.orderCollect = 1
                 and ld.ocDay = ?
-                 and ld.ocMonth = ?
-                 and ocYear = ?";
+                and ld.ocMonth = ?
+                and ocYear = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $day);
         $handle->bindValue(2, $month);
         $handle->bindValue(3, $year);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
         }
     }
@@ -122,7 +124,6 @@ class MySQLDatabase
     public function purchaseListForMachineCollectedAllRange($from, $to)
     {
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount, ac.Name from `machine_demand` md
-
         join accounts ac on ac.id = md.accountID
         join service_product sp on md.id = sp.leadDemandID
         where md.orderCollect = 1 and (ocDMY between ? and ?) group by md.id ORDER BY md.id desc";
@@ -343,17 +344,17 @@ class MySQLDatabase
         }
     }
 
-    function checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD)
+    function checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $user_id, $CaseStatus, $schD)
     {
         $found = false;
 
-        $checkSql = "SELECT * from service_call ORDER BY ID DESC LIMIT 1";
+        $checkSql = "SELECT * from service_call ORDER BY ID DESC LIMIT 20";
         $handle = $this->db->prepare($checkSql);
         $handle->execute();
         $row = $handle->fetch(PDO::FETCH_ASSOC);
 
         if($row['account_id'] == $accountID && $row['machine_id'] == $machineID
-            && $row['reportedBy'] == $reportedBy && $row['engineer'] == $eng 
+            && $row['reportedBy'] == $reportedBy && $row['engineer'] == $eng
             && $row['openedBy'] == $user_id
             && $row['caseStatus'] == $CaseStatus && $row['$schDate'] == $schD
             && $row['cost'] == $cost && $row['paymentStatus'] == $payStatus)
@@ -365,13 +366,12 @@ class MySQLDatabase
 
     function createServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT)
     {
-        $duplicate = $this->checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD);
-        
-        if (!$duplicate)
+        $duplicate = $this->checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $user_id, $CaseStatus, $schD);
+
+        if ($duplicate == false)
         {
             $sql = "insert into `service_call` (ticketNo, account_id, machine_id, ReportedBy,engineer,cost,paymentStatus,issues,purchase,openedBy,openedDateTime,openedTimeStamp,closedBy,CaseStatus,schDate,schTime)
             values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
             $purchase = 0;
             $ticket = $this->createTicketNoNew();
             $handle = $this->db->prepare($sql);
@@ -434,7 +434,6 @@ class MySQLDatabase
             // make the to email be your own address or where ever you would like the contact form info sent
 
             $json_string = array(
-
                 'to' => array($engineerEmail, 'talal@tenaui.com', 'elfarra@tenaui.com', 'sameh@tenaui.com'
                 ),
                 'category' => 'test_category'
@@ -449,9 +448,9 @@ class MySQLDatabase
                 'subject' => "$subject", // Either give a subject for each submission, or set to $subject
                 'html' => "<html lang='en'><head><title>Contact Form</title></head><body>
             $message </body></html>", // Set HTML here.  Will still need to make sure to reference post data names
-                'text' => "$message",
-                'from' => $email, // set from address here, it can really be anything
-            );
+            'text' => "$message",
+            'from' => $email, // set from address here, it can really be anything
+        );
 
             $request = $url . 'api/mail.send.json';
             // Generate curl request
@@ -469,7 +468,7 @@ class MySQLDatabase
             // obtain response
             curl_exec($session);
             curl_close($session);
-            // Redirect to thank you page upon successfull completion, will want to build one if you don't already have one available
+            // Redirect to thank you page upon successful completion, will want to build one if you don't already have one available
 
             $this->createActivityNotifications($message, $machineID, $accountID);
             $ticketUrl = $this->host . 'ticket-info/' . $ticket;
@@ -479,6 +478,49 @@ class MySQLDatabase
             // print everything out
             // print_r($response);
         }
+    }
+
+    function getServiceCall($callID)
+    {
+        $myArray = [];
+        $sql = "SELECT * FROM `service_call` WHERE `id` = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $callID);
+        $handle->execute();
+        if ($handle->rowCount() > 0)
+        {
+           $row = $handle->fetch(PDO::FETCH_OBJ);
+           $myArray = $row;
+        }
+       return $myArray;
+    }
+
+    function updateServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT, $callID,$ticketNo)
+    {
+        $sql = "update `service_call` set `account_id` = ?, `machine_id` = ?  , `ReportedBy` = ?, `engineer` = ?, `cost` = ?, `paymentStatus` = ?, `issues` = ?, `openedBy` = ?,  `CaseStatus` = ?, `schDate` = ?, `schTime` = ? where `id` = ?";
+
+        $purchase = 0;
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $accountID);
+        $handle->bindValue(2, $machineID);
+        $handle->bindValue(3, $reportedBy);
+        $handle->bindValue(4, $eng);
+        $handle->bindValue(5, $cost);
+        $handle->bindValue(6, $payStatus);
+        $handle->bindValue(7, $issues);
+        $handle->bindValue(8, $user_id);
+        $handle->bindValue(9, $CaseStatus);
+        $handle->bindValue(10, $schD);
+        $handle->bindValue(11, $schT);
+        $handle->bindValue(12, $callID);
+        $handle->execute();
+        $accountName = $this->getSingleAccountInformation($accountID)['Name'];
+        $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
+        $message = "Updated service call for   : <a href='" . $this->host . "machine-info/" . $machineID . "'></a>" . $machineName . "</a> assigned to <a href='" . $this->host . "account-info/" . $accountID . "'>" . $accountName . "</a>";
+
+        $ticketUrl = $this->host . 'ticket-info/' . $ticketNo;
+
+        return 'SERVICE CALL HAS BEEN UPDATED FOR TICKET NUMBER :<a href="' . $ticketUrl . '" class="btn btn-success">' . $ticketNo . '</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
     }
 
     function getLastServiceCall()
@@ -597,7 +639,7 @@ class MySQLDatabase
 
         if (count($product) > 0)
         {
-            if ($scID > 0) 
+            if ($scID > 0)
             {
                 $this->updateFollowUpPurchase($scID);
             }
@@ -616,7 +658,7 @@ class MySQLDatabase
 
     function SellProductStock($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate, $sold, $receivingStoreId, $productAmounts = 0)
     {
-        if (count($product) > 0) 
+        if (count($product) > 0)
         {
             $this->SellNewStockToProduct($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate, $sold, $receivingStoreId, $productAmounts);
             //  $this->addMachineDemandProduct($scID,$product,$qty,$amount,$machineID,$accountID,$discount);
@@ -629,11 +671,11 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $inv_num);
         $handle->execute();
-        if ($handle->rowCount() > 0) 
+        if ($handle->rowCount() > 0)
         {
             return false;
-        } 
-        else 
+        }
+        else
         {
             return true;
         }
@@ -646,8 +688,8 @@ class MySQLDatabase
         $mainID = 0;
 
         // Checks for duplicate Goods received transaction
-        $duplicate = $this->checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$save,$invoiceDate,$transType);
-        if (!$duplicate)
+        $duplicate = $this->checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$invoiceDate,$transType);
+        if ($duplicate == false)
         {
             $sql = "INSERT INTO goods_recieved (supplierID,invoiceNo,FileReference,storeID,doneBy,saved,TicketNo,invoiceDate,DateCreated,lastModified,transType,serialNumber)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -670,21 +712,21 @@ class MySQLDatabase
             $mainID = $this->db->lastInsertId();
             return $mainID;
         }
-        
-        }
+    }
 
     // Checks for duplicate Goods received transaction
-    public function checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$save,$invoiceDate,$transType)
+    public function checkDuplicateGROrder($supplier,$invoiceNo,$fileRef,$storeID,$invoiceDate,$transType)
     {
         $found = false;
         $userID = $_SESSION['user_id'];
 
-        $checkSql = "SELECT * from goods_recieved ORDER BY ID DESC LIMIT 1";
+        $checkSql = "SELECT * from goods_recieved ORDER BY ID DESC LIMIT 20";
         $handle = $this->db->prepare($checkSql);
         $handle->execute();
         $row = $handle->fetch(PDO::FETCH_ASSOC);
 
-        if($row['supplierID'] == $supplier && $row['FileReference'] == $fileRef && $row['invoiceNo'] == $invoiceNo
+        if($row['supplierID'] == $supplier && $row['FileReference'] == $fileRef
+            && $row['invoiceNo'] == $invoiceNo
             && $row['storeID'] == $storeID && $row['doneBy'] == $userID
             && $row['invoiceDate'] == $invoiceDate && $row['transType'] == $transType)
         {
@@ -1027,8 +1069,8 @@ class MySQLDatabase
         if ($handle->rowCount() > 0)
         {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
-        } 
-        else 
+        }
+        else
         {
             return false;
         }
@@ -1123,7 +1165,7 @@ class MySQLDatabase
         $count = count($product);
         $grt = $this->getIndGoodsRecieved($mainID);
         $productsData = (array)$this->getAllGoodsAddedForRecieve($mainID);
-        
+
         if ($count > 0 && !empty($product) && $mainID > 0)
         {
             for ($i = 0; $i < $count; $i++)
@@ -1134,7 +1176,7 @@ class MySQLDatabase
                 $remain = $currentQty + $added;
                 //$this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added);
                 $this->addGoodsRecievedGoods($mainID, $productID, $currentQty, $added, 0, 0);
-                
+
                 if ($save == 1)
                 {
                     //$this->GoodsLog($productID,$added,0,0,0,$remain,$storeID,$invoiceNo);
@@ -1142,15 +1184,15 @@ class MySQLDatabase
                     $this->UpdateStoreQty($productID, $storeID, $remain);
                 }
             }
-            
+
             // Implement notification emails to team
             SendGrid::stockEmails($grt, $productsData);
-            
+
             // Show success message
             $this->showMsg('Success', 'Items successfully received <a href="' . $this->host . 'goods-recieved-ticket/' . $mainID . '"class="btn btn-success">CLICK HERE TO OPEN TICKET</a>', 2);
 
-    }
-        else 
+        }
+        else
         {
             $this->showMsg('Error', 'Duplicate Received Ticket Exists', 1);
         }
@@ -1165,36 +1207,36 @@ class MySQLDatabase
         exit;*/
         // var_dump($product);
         $mainID = $this->AddStockItems($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate, $sold_);
-        
+
         $count = count($product);
-        if ($count > 0 && !empty($product)) 
+        if ($count > 0 && !empty($product))
         {
-            for ($i = 0; $i < $count; $i++) 
+            for ($i = 0; $i < $count; $i++)
             {
                 $productID = $product[$i];
                 $added = $qty[$i];
                 $productAmount = $productAmounts[$i];
                 $currentQty = $this->getProductStoreQty($productID, $storeID);
                 $remain = $currentQty - $added;
-                if ($sold == 1) 
+                if ($sold == 1)
                 {
                     $this->addGoodsRecievedGoods($mainID, $productID, $currentQty, $added, 0, 0, $productAmount);
                 }
-                else if ($sold == 2) 
+                else if ($sold == 2)
                 {
                     $this->addGoodsRecievedGoods($mainID, $productID, $currentQty, $added, 0, 0, $productAmount);
                     $this->updateGoodsTransferStatus($mainID, $storeID, $receivingStoreId, $invoiceNo);
                 }
-                
+
                 // $this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added);
-                if ($save == 1) 
+                if ($save == 1)
                 {
                     // $product,$added,$transfered,$sold,$returned,$remain,$storeID
-                    if ($sold == 1) 
+                    if ($sold == 1)
                     {
                         $this->GoodsLog($productID, 0, 0, $added, 0, 0, $remain, $storeID, $invoiceNo, "");
                     }
-                    else if ($sold == 2) 
+                    else if ($sold == 2)
                     {
                         $this->GoodsLog($productID, 0, $added, 0, 0, 0, $remain, $storeID, $invoiceNo, "");
                     }
@@ -1208,12 +1250,12 @@ class MySQLDatabase
             //$message = "added a new purchase for a machine : ".$machineName. " assigned to ".$accountName;
             //$this->createActivityNotifications($message);
         }
-        
+
         // Get transaction details
         $grt = $this->getIndGoodsRemoved($mainID);
         // Get product/item details
         $productsData = (array) $this->getAllGoodsAddedForRecieve($mainID);
-        
+
         // Implement notification emails to team
         SendGrid::stockEmails($grt, $productsData);
     }
@@ -1307,7 +1349,7 @@ class MySQLDatabase
 
     }
 
-    function followUpCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $meterReading, $colour, $Mono, $st, $et, $wd2)
+    function followUpCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $meterReading, $colour, $Mono, $st, $et, $wd2= "")
     {
         $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ?, meterReading = ?,colour = ?, Mono = ? where id =?";
         $handle = $this->db->prepare($sql);
@@ -1327,16 +1369,8 @@ class MySQLDatabase
         $handle->bindValue(14, $id);
         $handle->execute();
 
-        $followUpSql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
-        $followHandle = $this->db->prepare($followUpSql);
-        $followHandle->bindValue(1, $id);
-        $followHandle->bindValue(2, $wd2);
-        $followHandle->bindValue(3, $st);
-        $followHandle->bindValue(4, $et);
-        $followHandle->bindValue(5, $engineer);
-        $followHandle->bindValue(6, $schD);        
-        $followHandle->execute();
-        
+        $this->addFollowUp($id, $workdone, $st, $et, $engineer, $schD, $meterReading, $colour, $Mono);
+
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
         $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
@@ -1349,11 +1383,9 @@ class MySQLDatabase
         $handle->bindValue(2, $this->getSingleMachineInformation($mID)['machine_code']);
         $handle->execute();
 
-
+        // Send Email
         $email = $engineerEmail;
-
         $subject = "Followed up call for $accountName With Ticket No $ticketNo";
-
         $message = "Dear Customer Care, \n<br> Please be informed that a service call has been followed up by engineer $engineerName for $accountName customer ticket No $ticketNo. \n<br> Kindly find details in the followed up call. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
         // use actual sendgrid username and password in this section
         $url = SendGrid::$url;
@@ -1406,6 +1438,46 @@ class MySQLDatabase
         print_r($response);
     }
 
+    function  addFollowUp($callID, $workDone, $startTime, $stopTime, $engineer, $date, $mReading, $colour, $mono)
+    {
+        $followUpSql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`, `meter_reading`, `colour`, `mono`)values(?,?,?,?,?,?,?,?,?)";
+        $followHandle = $this->db->prepare($followUpSql);
+        $followHandle->bindValue(1, $callID);
+        $followHandle->bindValue(2, $workDone);
+        $followHandle->bindValue(3, $startTime);
+        $followHandle->bindValue(4, $stopTime);
+        $followHandle->bindValue(5, $engineer);
+        $followHandle->bindValue(6, $date);
+        $followHandle->bindValue(7, $mReading);
+        $followHandle->bindValue(8, $colour);
+        $followHandle->bindValue(9, $mono);
+        $followHandle->execute();
+    }
+
+    function getFollowUps($callID, $limit = 0)
+    {
+        $followArr = [];
+        $sql = $limit == 0
+            ? "select * from `follow-ups` where `service-call` = ? order by `id` desc"
+            : "select * from `follow-ups` where `service-call` = ? order by `id` desc limit 1";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $callID);
+        $handle->execute();
+
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $followArr[] = $row;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        return $followArr;
+    }
+
     function deleteMachineProduct($id)
     {
         $sql = "delete from service_product where id = ?";
@@ -1416,6 +1488,20 @@ class MySQLDatabase
         $this->createActivityNotifications($message);
     }
 
+//    function updateFollowUp($id, $work, $st, $et, $eng, $day)
+//    {
+//        $sql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
+//        $handle = $this->db->prepare($sql);
+//        $handle->bindValue(1, $id);
+//        $handle->bindValue(2, $work);
+//        $handle->bindValue(3, $st);
+//        $handle->bindValue(4, $et);
+//        $handle->bindValue(5, $eng);
+//        $handle->bindValue(6, $day);
+//        $handle->execute();
+//
+//    }
+
     function getMachineActivities($id)
     {
         $myArray = array();
@@ -1423,12 +1509,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -1625,11 +1715,15 @@ class MySQLDatabase
         return implode(", ", $times);
     }
 
-    function getAllServiceCallForFollowUp()
+    function getAllServiceCallForFollowUp($id = 0)
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
-      mif.contactName1, mif.contactEmail1, mif.contactPhone1,
+        $handle = null;
+
+        switch ($id)
+        {
+            case 0:
+                $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state, mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
       JOIN accounts ac on ac.id = sc.account_id
@@ -1638,16 +1732,41 @@ class MySQLDatabase
         join area_location al on al.id = mif.areaID
         join lga l on l.id = al.lgaID
         join states s on s.id = l.stateID
-      left JOIN casestatus cs on cs.id = sc.CaseStatus order by sc.id asc";
+                    left JOIN casestatus cs on cs.id = sc.CaseStatus 
+                    where sc.active = ? order by sc.id desc";
+                $handle = $this->db->prepare($sql);
+                $handle->bindValue(1, 1);
+                break;
 
-        $handle = $this->db->prepare($sql);
+            default:
+                $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state, mif.contactName1, mif.contactEmail1, mif.contactPhone1,
+mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
+                    JOIN machine_in_field mif on mif.id = sc.machine_id
+                    JOIN accounts ac on ac.id = sc.account_id
+                    join contracts ct on ct.id = mif.contractID
+                    join products p on p.id = mif.machine_type
+                    join area_location al on al.id = mif.areaID
+                    join lga l on l.id = al.lgaID
+                    join states s on s.id = l.stateID
+                    left JOIN casestatus cs on cs.id = sc.CaseStatus 
+                    where sc.engineer = ? AND sc.active = ? order by sc.id desc";
+                $handle = $this->db->prepare($sql);
+                $handle->bindValue(1, $id);
+                $handle->bindValue(2, 1);
+                break;
+        }
+
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -1655,7 +1774,7 @@ class MySQLDatabase
     function getAccountServiceCallForFollowUp()
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -1667,16 +1786,20 @@ class MySQLDatabase
         join states s on s.id = l.stateID
       left JOIN casestatus cs on cs.id = sc.CaseStatus 
       where mif.account_id = 265
-       order by sc.id asc";
+       order by sc.id desc";
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -1684,7 +1807,7 @@ class MySQLDatabase
     function getAdvancedServiceCallSearch($start, $end, $eng)
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, mif.machine_code, mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -1720,8 +1843,8 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
-        
-        if ($handle->rowCount() > 0) 
+
+        if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
             {
@@ -2013,7 +2136,6 @@ class MySQLDatabase
             }
             return $myArray;
         }
-
     }
 
     function getPurchaseTicketForServiceCall($serviceCallID)
@@ -2023,8 +2145,10 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $serviceCallID);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
@@ -2033,7 +2157,7 @@ class MySQLDatabase
 
     function getServiceTicket($ticket)
     {
-        $sql = "select sc.*, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand
         from service_call sc
         right join accounts ac on ac.id = sc.account_id
@@ -2047,9 +2171,12 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $ticket);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $handle->fetch(PDO::FETCH_ASSOC);
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -2133,7 +2260,6 @@ class MySQLDatabase
 
     function getPurchaseTicket2($sql, $ticket)
     {
-
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $ticket);
         $handle->execute();
@@ -2184,17 +2310,49 @@ class MySQLDatabase
 
     function secondsToTime($seconds)
     {
+        $seconds = str_replace('-', '', $seconds);
+//        $weeks = floor($seconds / 604800);
+//        $seconds -= $weeks * 604800;
+//        $days = floor($seconds / 86400);
+//        $seconds -= $days * 86400;
         $hours = floor($seconds / 3600);
         $seconds -= $hours * 3600;
         $minutes = floor($seconds / 60);
         $seconds -= $minutes * 60;
+//        $dWeeks = $weeks != 0 ? "$weeks weeks, " : '';
+//        $dDays = $days != 0 ? "$days days, " : '';
+        $dHours = $hours != 0 ? "$hours hours, " : '';
+        $dSeconds = $seconds != 0 ? "$seconds seconds." : '';
 
-        return "<b>$hours hrs, $minutes mins </b>";
+        return "<b>$dHours $dSeconds</b>";
+    }
 
-        // $dtF = new \DateTime('@0');
-        // $dtT = new \DateTime("@$seconds");
-        // return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
-        // return $dtF->diff($dtT)->format('%a days, %h hours');
+    function secondsToHours($seconds)
+    {
+        $seconds = str_replace('-', '', $seconds);
+        $hours = floor($seconds / 3600);
+        $seconds -= $hours * 3600;
+        $minutes = floor($seconds / 60);
+        $seconds -= $minutes * 60;
+        $dHours = $hours != 0 ? "$hours hours" : '';
+
+        return "<b>$dHours</b>";
+    }
+
+    function secondsToDays($seconds)
+    {
+        $seconds = str_replace('-', '', $seconds);
+        $days = floor($seconds / 86400);
+        $seconds -= $days * 86400;
+        $hours = floor($seconds / 3600);
+        $seconds -= $hours * 3600;
+        $minutes = floor($seconds / 60);
+        $seconds -= $minutes * 60;
+//        $dWeeks = $weeks != 0 ? "$weeks weeks, " : '';
+        $dDays = $days == 0 ? '' : ($days == 1 ? "$days day" : "$days days");
+        $dHours = $hours == 0 ? '' : ($hours == 1 ? "$hours hour" : "$hours hours");
+
+        return $days >= 1 ? "<b>$dDays</b>" : "<b>$dHours</b>";
     }
 
     function getSecondsColor($secs)
@@ -2228,10 +2386,11 @@ class MySQLDatabase
         $a = array(365 * 24 * 60 * 60 => 'year', 30 * 24 * 60 * 60 => 'month', 7 * 24 * 60 * 60 => 'week', 24 * 60 * 60 => 'day', 60 * 60 => 'hr', 60 => 'min', 1 => 'second');
         $a_plural = array('year' => 'years', 'month' => 'months', 'week' => 'weeks', 'day' => 'days', 'hr' => 'hrs', 'min' => 'mins', 'second' => 'seconds');
 
-        foreach ($a as $secs => $str) 
+        foreach ($a as $secs => $str)
         {
             $d = $etime / $secs;
-            if ($d >= 1) {
+            if ($d >= 1)
+            {
                 $r = round($d);
                 return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str);
             }
@@ -2308,20 +2467,21 @@ class MySQLDatabase
         $handle->bindValue(1, $companyName);
         $handle->bindValue(2, $companyID);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             $row = $handle->fetch(PDO::FETCH_ASSOC);
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
     }
 
     public function getMyUserInformation($id)
     {
         $sql = "select st.*,
-        ds.dptID,ds.dptaccessLevel,ds.designation,d.Department
-
+        ds.dptID,ds.dptaccessLevel as AccessLevel,ds.designation,d.Department
         from staff st
         join dpt_designation ds on st.designationID = ds.id
         join department d on st.DepartmentID = d.id
@@ -2330,12 +2490,14 @@ class MySQLDatabase
         $handle->bindValue(1, $id);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
-        } else {
+        }
+        else
+        {
             return false;
         }
-
     }
 
     function getArrayStates()
@@ -2424,14 +2586,14 @@ class MySQLDatabase
 
     public function showMsg($header, $msg, $num)
     {
-        if ($num == 1) 
+        if ($num == 1)
         {
             echo '<div class="alert alert-danger alert-transparent no-margin">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="icon-cross2"></i>
                 <strong>' . $header . '</strong> ' . $msg . '.
             </div>';
-        } 
-        else if ($num == 2) 
+        }
+        else if ($num == 2)
         {
             echo '<div class="alert alert-success alert-transparent no-margin">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-"></i></button><i class="icon-cross2"></i>
@@ -3177,24 +3339,23 @@ class MySQLDatabase
     function getLeadMPSOrderOnLeadDemand($id)
     {
         $myArray = array();
-        $sql = "SELECT mps.id,mps.productID, p.productName, p.Code, p.color, p.ProductType, mps.product_qty, mps.rentalCharge,
-                    mps.cost_mono, mps.cost_color, mps.min_vol_mono, mps.min_vol_color,mps.contract_duration,mps.billingType,ld.ticketNo,
-                    ld.orderCollect, ld.orderCollectedDate, ld.ocDay, ld.ocMonth,ld.ocYear, st.salestype, st.st, ld.description, mps.accesories
-                    FROM mps_info mps
-                    JOIN products p ON mps.productID = p.id
-                    JOIN lead_demand ld on mps.lead_demand_id = ld.id
-                    JOIN sales_type st on ld.sales_type_id = st.id
-                    where mps.id = ?";
+        $sql = "SELECT mps.id,mps.productID, p.productName, p.Code, p.color, p.ProductType, mps.product_qty, mps.rentalCharge, mps.cost_mono, mps.cost_color, mps.min_vol_mono, mps.min_vol_color,mps.contract_duration,mps.billingType,ld.ticketNo, ld.orderCollect, ld.orderCollectedDate, ld.ocDay, ld.ocMonth,ld.ocYear, st.salestype, st.st, ld.description, mps.accesories
+        FROM mps_info mps
+        JOIN products p ON mps.productID = p.id
+        JOIN lead_demand ld on mps.lead_demand_id = ld.id
+        JOIN sales_type st on ld.sales_type_id = st.id
+        where mps.id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
         }
-
     }
 
     // function getContractValue($id){
@@ -3428,6 +3589,50 @@ class MySQLDatabase
         $handle->bindValue(1, $id);
         $handle->execute();
         return $row = $handle->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function engineerRankings()
+    {
+        $myArray = [];
+        $dayOne = strtotime(date('Y') . '-01-01');
+        $resolved = 8;
+        $install = 17;
+        $preventive = 47;
+
+        $sql = "SELECT st.id, st.fullname, "
+            . "(select SUM(closedTimeStamp-openedTimeStamp) from service_call "
+            . "where engineer = st.id and CaseStatus = ? "
+            . "and openedTimeStamp > $dayOne)as totalTimeDiff, "
+            . "(select COUNT(*) from service_call where engineer = st.id "
+            . "and openedTimeStamp > $dayOne)as totalCalls,"
+            . "(select COUNT(*) from service_call where engineer = st.id "
+            . "and issues LIKE '%$install%' and openedTimeStamp > $dayOne)as installCalls,"
+            . "(select COUNT(*) from service_call where engineer = st.id "
+            . "and issues LIKE '%$preventive%' "
+            . "and openedTimeStamp > $dayOne)as preventiveCalls,"
+            . "(select COUNT(*) from service_call "
+            . "where engineer = st.id and CaseStatus = ? "
+            . "and openedTimeStamp > $dayOne)as totalResolved "
+            . "from staff st "
+            . "join service_call sc on st.id = sc.engineer "
+            . "where sc.CaseStatus = ? and sc.openedTimeStamp > ?"
+            . "and st.active = ? group by st.id ORDER BY st.fullname ASC";
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $resolved);
+        $handle->bindValue(2, $resolved);
+        $handle->bindValue(3, $resolved);
+        $handle->bindValue(4, $dayOne);
+        $handle->bindValue(5, 1);
+        $handle->execute();
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $myArray[] = $row;
+            }
+            return $myArray;
+        }
     }
 
     function updateContract($id, $contractType, $cumulative, $rentalCharge, $volMono, $costMono, $exVolMono, $exCostMono, $costColor, $exVolColor, $exCostColor, $conStart, $contractDuration, $volColor, $billingType)
@@ -4076,16 +4281,10 @@ class MySQLDatabase
 
 
                 $UpadteProduct = $this->db->query("UPDATE products SET store$GetStoreID=store$GetStoreID +$qty[$i] WHERE id=$product[$i]");
-
-
                 ///echo "<div class='alert alert-success'>
                 // <strong></strong>CREDIT NOTE HAS BEEN MADE SUCCESSFULLY</div>";
-
-
             }
-
         }
-
     }
 
 
@@ -4544,13 +4743,17 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             // var_dump($row);
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4601,12 +4804,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4619,12 +4826,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4637,12 +4848,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4863,7 +5078,7 @@ class MySQLDatabase
         }
     }
 
-    function closeCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT)
+    function closeCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $mReading, $colour, $mono, $wd = '')
     {
         $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ? where id =?";
         $handle = $this->db->prepare($sql);
@@ -4879,6 +5094,9 @@ class MySQLDatabase
         $handle->bindValue(10, $schT);
         $handle->bindValue(11, $id);
         $handle->execute();
+
+        $this->addFollowUp($id, $workdone, $schT, $closetime, $engineer, $schD, $mReading, $colour, $mono);
+
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
         $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
@@ -4899,12 +5117,16 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->execute();
 
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_OBJ)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
                 $allUsers[] = $row;
             }
             return $allUsers;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -4921,10 +5143,13 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->execute();
 
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             $row = $handle->fetch(PDO::FETCH_OBJ);
             return $row;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -5038,8 +5263,10 @@ class MySQLDatabase
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_OBJ)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
                 $thisName = str_replace(' ', '/', $row->Name);
                 $name = preg_split('~/~', $thisName);
                 $name = ucwords(strtolower($name[0]));
@@ -5243,8 +5470,6 @@ class MySQLDatabase
                 $myArray[] = $row->productName . ' : ' . $row->Code;
             }
         }
-
         return $myArray;
     }
-
 }

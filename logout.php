@@ -6,4 +6,4 @@ session_destroy();
 unset($_COOKIE["i_am2309384384304302349438933"]);
 setcookie("i_am2309384384304302349438933",'',time() - (8640000 * 10),"/");
 include("data/DBConfig.php");
- header('location:'.$host);
+header('location:'.$host);

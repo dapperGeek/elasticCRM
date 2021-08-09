@@ -11,7 +11,7 @@ include_once("../data/sessioncheck.php");
 
 <table width="80%" align="center"  border=0>
     <tr>
-        <th colspan="2"><h2> GOODS RECEIVED TICKET</h2></th>
+        <th colspan="2"><h2>GOODS RECEIVED TICKET</h2></th>
     </tr>
     <tr>
         <td>
@@ -39,7 +39,6 @@ include_once("../data/sessioncheck.php");
         <th>QTY</th>
         <th>CODE</th>
         <th colspan="2">REMARKS</th>
-
     </tr>
 
     <?php
@@ -54,7 +53,6 @@ include_once("../data/sessioncheck.php");
             <td align="center"><?php echo sprintf('%u %s', $mc['AddedQty'], $mc['unitName']);?></td>
             <td align="center"><?php echo $mc['Code'];?></td>
             <td colspan="2"></td>
-
         </tr>
 
     <?php 

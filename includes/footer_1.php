@@ -237,8 +237,6 @@
                 extend: "print",
                 className: 'btn purple  btn-outline'
             }]
-
-
         });
 
         $('#soldTicketsTable').DataTable({
@@ -509,6 +507,22 @@
 
     });
 </script>
+<script>
+    $(function () {
+        $('#myForm').validator();
+    });
 
+    $(document).ready(function(){
+        var callbacks_list = $('.demo-callbacks ul');
+        $('input.iCheck').on('ifCreated ifClicked ifChanged ifChecked ifUnchecked ifDisabled ifEnabled ifDestroyed', function(event){
+            callbacks_list.prepend('<li><span>#' + this.id + '</span> is ' + event.type.replace('if', '').toLowerCase() + '</li>');
+        }).iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%'
+        });
+    });
+
+</script>
 </body>
 </html>

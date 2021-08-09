@@ -26,7 +26,7 @@
 
 //        Get MPS Accounts details
     $analytic = $database->mpsAnalytics();
-    $data = json_encode($analytic);
+    $mpsChartsData = json_encode($analytic);
 
     $getPmsSchedules = $database->pmsSchedules();
     $upcomingSchedules = isset($getPmsSchedules[UtilFunctions::$newSchedule])
@@ -43,7 +43,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-    <title><?php echo isset($title) ? $title : 'Elastic-25' ?></title>
+    <title><?php  echo isset($pageHeader) ? PageHeaders::getTitle($pageHeader) : 'Elastic-25+'; ?></title>
     <!-- morris -->
     <link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -95,8 +95,8 @@
     <link rel="stylesheet" href="<?php echo $host;?>assets/css/ion.rangeSlider.css" />
     <link rel="stylesheet" href="<?php echo $host;?>assets/css/ion.rangeSlider.skinFlat.css" />
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
 
     <!-- Header JavaScripts -->
     <?php include('headerJS.php') ?>

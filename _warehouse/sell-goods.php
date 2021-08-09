@@ -56,143 +56,132 @@ if($myData['storeID']== 0){
         <div class="row wrapper border-bottom page-heading">
             <div class="col-lg-12">
 
-<?php
-    if(isset($_POST['btnSubmitNewProduct']))
-    {
-        $supplier = $database->test_input($_POST['txtSupplier']);
-        $deliveryMode = $database->test_input($_POST['delivery-option']);
+                <?php
+                if(isset($_POST['btnSubmitNewProduct'])){
 
-        $deliveryStatus = isset($_POST['delivery-option']) && $deliveryMode == 'in-house-customer-pickup' 
-                ? 'DELIVERED' 
-                :  $database->test_input($_POST['txtDelStatus']);
-        $invoiceNo = $database->test_input($_POST['txtInvoiceNo']);
-        $fileRef = $database->test_input($_POST['txtFileReference']);
-        $storeID = $database->test_input($_POST['txtStore']);
-        $DriversName1 = $database->test_input($_POST['txtRoadTenauiDriversName']);
-        $DriversNumber1 = $database->test_input($_POST['txtRoadTenauiDriversNumber']);
-        $tenauiDriversVehicleNumber = $database->test_input($_POST['txtRoadTenauiDriversVehicleNumber']);
-        $logisticCompanyName = $database->test_input($_POST['txtLogisticName']);
-        $deliveryWayBillNumber1 = $database->test_input($_POST['txtLogisticWayBillNumber']);
-        $logisticCoyPhoneNum = $database->test_input($_POST['txtLogisticPhoneNumber']);
-        $contactNameAir = $database->test_input($_POST['txtAirContactName']);
-        $wayBillNumberAir = $database->test_input($_POST['txtAirWayBillNumber']);
-        $phoneNumberAir = $database->test_input($_POST['txtAirPhoneNumber']);
-        $driverName2 = $database->test_input($_POST['txtInterBusDriverName']);
-        $driverNumber2 = $database->test_input($_POST['txtInterBusDriverPhoneNumber']);
-        $departureLocation = $database->test_input($_POST['txtParkAddress']);
-        $inHouseCustomerName = $database->test_input($_POST['txtInHouseCustomerName']);
-        $inHouseCustomerNumber = $database->test_input($_POST['txtInHouseCustomerPhoneNumber']);
-        $inHouseCustomerAddress = $database->test_input($_POST['txtInHouseCustomerAddr']);
-
-        $productInputTotalPrice = $database->test_input($_POST['productInputTotalPrice']);
-
-        $_SESSION['product_total_price'] = $productInputTotalPrice;
-
-        $senderName = $database->test_input($_POST['txtSenderName']);
-        $save = 1;
-        $invoiceDate = str_pad($_POST['txtDay'],2,"0",STR_PAD_LEFT)."/".str_pad($_POST['txtMonth'],2,"0",STR_PAD_LEFT)."/".$_POST['txtYear'];
-        $product = $qty = $unitPrice = $amount = array();
+                    $supplier = $database->test_input($_POST['txtSupplier']);
+                    $deliveryMode = $database->test_input($_POST['delivery-option']);
                     
-        if(isset($_POST['txtProduct']))
-        {
-            $product = $_POST['txtProduct'];
-            $qty = $_POST['txtProductQty'];
-            $amount = $_POST['txtProductAmount'];
-            $unitPrice = $_POST['txtUnitPrice'];
-        }
-        
-        $_SESSION['amount'] = $amount;
-        $_SESSION['unitPrice'] = $unitPrice;
+                    $deliveryStatus = isset($_POST['delivery-option']) && $deliveryMode == 'in-house-customer-pickup' 
+                            ? 'DELIVERED' 
+                            :  $database->test_input($_POST['txtDelStatus']);
+                    $invoiceNo = $database->test_input($_POST['txtInvoiceNo']);
+                    $fileRef = $database->test_input($_POST['txtFileReference']);
+                    $storeID = $database->test_input($_POST['txtStore']);
+                    $DriversName1 = $database->test_input($_POST['txtRoadTenauiDriversName']);
+                    $DriversNumber1 = $database->test_input($_POST['txtRoadTenauiDriversNumber']);
+                    $tenauiDriversVehicleNumber = $database->test_input($_POST['txtRoadTenauiDriversVehicleNumber']);
+                    $logisticCompanyName = $database->test_input($_POST['txtLogisticName']);
+                    $deliveryWayBillNumber1 = $database->test_input($_POST['txtLogisticWayBillNumber']);
+                    $logisticCoyPhoneNum = $database->test_input($_POST['txtLogisticPhoneNumber']);
+                    $contactNameAir = $database->test_input($_POST['txtAirContactName']);
+                    $wayBillNumberAir = $database->test_input($_POST['txtAirWayBillNumber']);
+                    $phoneNumberAir = $database->test_input($_POST['txtAirPhoneNumber']);
+                    $driverName2 = $database->test_input($_POST['txtInterBusDriverName']);
+                    $driverNumber2 = $database->test_input($_POST['txtInterBusDriverPhoneNumber']);
+                    $departureLocation = $database->test_input($_POST['txtParkAddress']);
+                    $inHouseCustomerName = $database->test_input($_POST['txtInHouseCustomerName']);
+                    $inHouseCustomerNumber = $database->test_input($_POST['txtInHouseCustomerPhoneNumber']);
+                    $inHouseCustomerAddress = $database->test_input($_POST['txtInHouseCustomerAddr']);
+
+                    $productInputTotalPrice = $database->test_input($_POST['productInputTotalPrice']);
+
+                    $_SESSION['product_total_price'] = $productInputTotalPrice;
+
+                    $senderName = $database->test_input($_POST['txtSenderName']);
+                    $save = 1;
+                    $invoiceDate = str_pad($_POST['txtDay'],2,"0",STR_PAD_LEFT)."/".str_pad($_POST['txtMonth'],2,"0",STR_PAD_LEFT)."/".$_POST['txtYear'];
+                    $product = $qty = $unitPrice = $amount = array();
+                    if(isset($_POST['txtProduct'])){
+                        $product = $_POST['txtProduct'];
+                        $qty = $_POST['txtProductQty'];
+                        $amount = $_POST['txtProductAmount'];
+                        $unitPrice = $_POST['txtUnitPrice'];
+                    }
+                    $_SESSION['amount'] = $amount;
+                    $_SESSION['unitPrice'] = $unitPrice;
 //                    var_dump($amount) ; echo '</br>';
-        // exit;
+                    // exit;
 
-        if(isset($_POST['txtProduct']) && !empty($_POST['txtProduct']) && $invoiceNo != "" && $fileRef !="")
-        {
-            if($database->checkInvoiceNo($invoiceNo) &&  $myData['storeID'] != 3 )
-            {
-                $database->SellProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,1,1, array());
-                unset($_POST);
-                $database->showMsg('', "SALES HAS BEEN MADE SUCCESSFULLY", 2);
+                    if(isset($_POST['txtProduct']) && !empty($_POST['txtProduct']) && $invoiceNo != "" && $fileRef !=""){
+                        if($database->checkInvoiceNo($invoiceNo) &&  $myData['storeID'] != 3 )
+                        {
+                            $database->SellProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,1,1, array());
+                            unset($_POST);
+                            $database->showMsg('', "SALES HAS BEEN MADE SUCCESSFULLY", 2);
 
-                $lastSellProductStockEntry = (array)$database->getLastSellProductStock();
+                            $lastSellProductStockEntry = (array)$database->getLastSellProductStock();
 
-                foreach($lastSellProductStockEntry as $entry){
+                            foreach($lastSellProductStockEntry as $entry){
 
-                    $lastSellProductStockOrderId = $entry['id'];
-                    $lastSellProductStockOrderTicketNo = $entry['TicketNo'];
-                }
+                                $lastSellProductStockOrderId = $entry['id'];
+                                $lastSellProductStockOrderTicketNo = $entry['TicketNo'];
+                            }
 
-                $msg = $database->createDeliveryTracking($lastSellProductStockOrderId,$lastSellProductStockOrderTicketNo,$deliveryStatus,$deliveryMode,$DriversName1,$DriversNumber1,$tenauiDriversVehicleNumber,$logisticCompanyName,$deliveryWayBillNumber1,$logisticCoyPhoneNum,$contactNameAir,$wayBillNumberAir,$phoneNumberAir,$driverName2,$driverNumber2,$departureLocation,$senderName,$inHouseCustomerName,$inHouseCustomerNumber,$inHouseCustomerAddress);
-                //}
+                            $msg = $database->createDeliveryTracking($lastSellProductStockOrderId,$lastSellProductStockOrderTicketNo,$deliveryStatus,$deliveryMode,$DriversName1,$DriversNumber1,$tenauiDriversVehicleNumber,$logisticCompanyName,$deliveryWayBillNumber1,$logisticCoyPhoneNum,$contactNameAir,$wayBillNumberAir,$phoneNumberAir,$driverName2,$driverNumber2,$departureLocation,$senderName,$inHouseCustomerName,$inHouseCustomerNumber,$inHouseCustomerAddress);
+                            //}
 
-            }
-            else if ($myData['storeID'] == 3 )
-            {
-                $invoiceNo = "SOF";
-                $database->SellProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,1,1, $amount);
-                unset($_POST);
-                $database->showMsg('', "SALES HAS BEEN MADE SUCCESSFULLY", 2);
+                        }
+                        else if ($database->checkInvoiceNo($invoiceNo) && $myData['storeID'] == 3 )
+                        {
+//                            $invoiceNo = "SOF";
+                            $database->SellProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,1,1, $amount);
+                            unset($_POST);
+                            $database->showMsg('', "SALES HAS BEEN MADE SUCCESSFULLY", 2);
+                            $lastSellProductStockEntry = (array)$database->getLastSellProductStock();
+                            foreach($lastSellProductStockEntry as $entry)
+                            {
+                                $lastSellProductStockOrderId = $entry['id'];
+                                $lastSellProductStockOrderTicketNo = $entry['TicketNo'];
+                            }
+                            
+                            $grt = $database->getIndGoodsRemoved($lastSellProductStockOrderId);
+                            //var_dump($grt);
+                            //exit;
+                            $totalAmount = $_SESSION['product_total_price'];
+                            $eachAmount   =  $_SESSION['amount'];
+                            $eachUnitPrice  = $_SESSION['unitPrice'];
 
-                $lastSellProductStockEntry = (array)$database->getLastSellProductStock();
+                            //Send email
+                            $email = "abuja_office_accounts@tenaui.com";
+                            $subject = "SOF from ABUJA With Ticket No $lastSellProductStockOrderTicketNo";
 
-                foreach($lastSellProductStockEntry as $entry)
-                {
-                    $lastSellProductStockOrderId = $entry['id'];
-                    $lastSellProductStockOrderTicketNo = $entry['TicketNo'];
-                }
+                            $html ="<p name='mydata'> good \n";
+                            //$html.= htmlspecialchars($data)."\n";
+                            $html.= "</p>";
 
-                $grt = $database->getIndGoodsRemoved($lastSellProductStockOrderId);
-                //var_dump($grt);
-                //exit;
-                $totalAmount = $_SESSION['product_total_price'];
-                $eachAmount   =  $_SESSION['amount'];
-                $eachUnitPrice  = $_SESSION['unitPrice'];
-
-                //Send email
-
-                $email = "abuja_office_accounts@tenaui.com";
-                $subject = "SOF from ABUJA With Ticket No $lastSellProductStockOrderTicketNo";
-
-                $html ="<p name='mydata'> good \n";
-                //$html.= htmlspecialchars($data)."\n";
-                $html.= "</p>";
-
-                $table = "<table width='80%' align='center'  border=0>
+                            $table = "<table width='80%' align='center'  border=0>
     <tr>
         <th colspan='2'>";
 
-                if ($grt['invoiceNo'] == "TRANSFER")
-                {
-                    $table.= "<h2>TRANSFER TICKET</h2>";
-                }
-                else
-                { 
-                    $table.= "<h2>ELECTRONIC SOF</h2>"; 
-
-                }
-
-                $table.="</th>
+                            if ($grt['invoiceNo'] == "TRANSFER")
+                            {
+                                $table.= "<h2>TRANSFER TICKET</h2>";
+                            }
+                            else
+                            { 
+                                $table.= "<h2>ELECTRONIC SOF</h2>"; 
+                            }
+                            $table.="</th>
     </tr>
-    
-    <tr>
-        <td>
-            <b>DATE:</b>".$grt['invoiceDate']. "<br/>
-            <b>CUSTOMER NAME:</b>".$grt['supplierID']. "<br/>
-            <b>DELIVERY ADDRESS:</b>".$grt['FileReference']."<br/>
-            <b>ORDER ID:</b>".str_pad($grt['id'],5,"0",STR_PAD_LEFT)."<br/>
-            <b>TICKET NO:</b>".$grt['TicketNo']."<br/>
-            <b>SERIAL NO:</b>".$grt['serialNumber']."<br/>
-            <b>STORE:</b>".$grt['storeName']."<br/>
-        </td>
-    
-        <td align='right'><img src='http://elastic250.com/img/tenaui-logo.jpg' width='100' height='100'></td>
-    </tr>
+  <tr>
+    <td>
+        <b>DATE:</b>".$grt['invoiceDate']. "<br/>
+        <b>CUSTOMER NAME:</b>".$grt['supplierID']. "<br/>
+        <b>DELIVERY ADDRESS:</b>".$grt['FileReference']."<br/>
+        <b>ORDER ID:</b>".str_pad($grt['id'],5,"0",STR_PAD_LEFT)."<br/>
+        <b>TICKET NO:</b>".$grt['TicketNo']."<br/>
+        <b>SERIAL NO:</b>".$grt['serialNumber']."<br/>
+        <b>STORE:</b>".$grt['storeName']."<br/>
+      </td>
+    <td align='right'><img src='http://elastic250.com/img/tenaui-logo.jpg' width='100' height='100'></td>
+  </tr>
 </table>";
 
-    $table.= "<table border=1 style='width:80%;font-size:13px' align='center' cellpadding='2' cellspacing='0'>
+                            $table.= "<table border=1 style='width:80%;font-size:13px' align='center' cellpadding='2' cellspacing='0'>
 
  <tr>
-    <th colspan='8' style='background-color: #CCCCCC;text-align: center'> COMMODITY DESCRIPTION</th>
+          <th colspan='8' style='background-color: #CCCCCC;text-align: center'> COMMODITY DESCRIPTION</th>
  </tr>
        <tr>
            <th>S/N</th>
@@ -204,117 +193,113 @@ if($myData['storeID']== 0){
            <th colspan='2'>AMOUNT</th>
 
       </tr>";
-            
-            $myCollect = (array)$database->getAllGoodsAddedForRecieve($lastSellProductStockOrderId);
-            $N = 1;
-            $j =0;
-           
-            foreach($myCollect as $mc)
-            {
-                $table.= " <tr>
-                <th>".$N."</th>
-                <td colspan='2' align='center'>".$mc['productName']."</td>
-                <td  align='center'>".$mc['Code']."</td>
-                <td align='center'>".$mc['AddedQty']."</td>
-                <td align='center'>". number_format(UtilFunctions::removeComma($eachUnitPrice[$j]), 2)."</td>
-                <td align='center'>".$mc['unitName']."</td>
-                <td align='center' colspan='2'><b>N<b>".number_format(UtilFunctions::removeComma($eachAmount[$j]), 2)."</td>
-                </tr>";
+                            $myCollect = (array)$database->getAllGoodsAddedForRecieve($lastSellProductStockOrderId);
+                            $N = 1;
+                            $j =0;
+                            foreach($myCollect as $mc)
+                            {
+                                $table.= " <tr>
+           <th>".$N."</th>
+              <td colspan='2' align='center'>".$mc['productName']."</td>
+              <td  align='center'>".$mc['Code']."</td>
+              <td align='center'>".$mc['AddedQty']."</td>
+              <td align='center'>". number_format(UtilFunctions::removeComma($eachUnitPrice[$j]), 2)."</td>
+              <td align='center'>".$mc['unitName']."</td>
+              
+           <td align='center' colspan='2'><b>N<b>".number_format(UtilFunctions::removeComma($eachAmount[$j]), 2)."</td>
 
-                $N++;
-                $j++;
-            }
+      </tr>";
 
-            $table.= 
-                "<tr>
-                    <th colspan='7' style='text-align: center'><b>TOTAL</b></th>
-                    <th><b>N<b>" .number_format(UtilFunctions::removeComma($totalAmount), 2) . "</th>
-                </tr>
+                                $N++;
+                                $j++;
+                            }
+
+                            $table.= "<tr>
+          <th colspan='7' style='text-align: center'><b>TOTAL</b></th>
+          <th><b>N<b>" .number_format(UtilFunctions::removeComma($totalAmount), 2)
+                                . "</th>
+        </tr>
         
-                <tr>
-                  <th colspan='8' style='text-align: center'>&nbsp;</th>
-                </tr>
-                
-                <tr>
-                  <th colspan='8' style='text-align: center'>PREPARE BY :".$grt['fullname']."</th>
-                </tr>
-                
-                <tr>
-                  <th colspan='8' style='text-align: center'>&nbsp;</th>
-                </tr>
-            </table>";
+        <tr>
+          <th colspan='8' style='text-align: center'>&nbsp;</th>
+        </tr>
+        <tr>
+          <th colspan='8' style='text-align: center'>PREPARE BY :".$grt['fullname']."</th>
+        </tr>
+        <tr>
+          <th colspan='8' style='text-align: center'>&nbsp;</th>
+        </tr>
+  </table>";
 
                 // use actual sendgrid username and password in this section
-            $url = SendGrid::$url;
-            $user = SendGrid::$username; // place SG username here
-            $pass = SendGrid::$password; // place SG password here
-            $userId = $_SESSION['user_id'];
-//                $copyEmails = array('talal@tenaui.com','islamyoussry@tenaui.com','kemi@tenaui.com','rukayat@tenaui.com','uthman@tenaui.com');
-            $copyEmails = array('uthman@tenaui.com');
-            $myUserDetails = $database->getSingleUserInformation($userId);
-            $ccEmail = 'uthman@tenaui.com';
+                $url = SendGrid::$url;
+                $user = SendGrid::$username; // place SG username here
+                $pass = SendGrid::$password; // place SG password here
+                $userId = $_SESSION['user_id'];
+                $copyEmails = array('talal@tenaui.com','islamyoussry@tenaui.com','kemi@tenaui.com','uthman@tenaui.com','rukayat@tenaui.com');
+                $myUserDetails = $database->getSingleUserInformation($userId);
+                $ccEmail = 'islamyoussry@tenaui.com';
 
-            $devEmail = 'uthmanb@outlook.com';
-            $devCopyEmails = array('uthmanb@outlook.com', 'budrhymes@gmail.com');
+                $devEmail = 'uthmanb@outlook.com';
+                $devCopyEmails = array('uthmanb@outlook.com', 'budrhymes@gmail.com');
 
-            //exit;
-            // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
-            // make the to email be your own address or where ever you would like the contact form info sent
+                //exit;
+                // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
+                // make the to email be your own address or where ever you would like the contact form info sent
 
-            $json_string = array(
-                'to' => $copyEmails,
-                'category' => 'test_category'
-            );
+                $json_string = array(
+                    'to' => $copyEmails,
+                    'category' => 'test_category'
+                );
 
-            $params = array(
-                'api_user'  => "$user",
-                'api_key'   => "$pass",
-                'x-smtpapi' => json_encode($json_string),
-                'to'        => "$ccEmail",
-                'replyto'   => "$email",
-                'cc'        => "$ccEmail",
-                'subject'   => "$subject", // Either give a subject for each submission, or set to $subject
-                'html'      => "<html lang='en'><head><meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\"><title>$subject</title></head><body>
+                $params = array(
+                    'api_user'  => "$user",
+                    'api_key'   => "$pass",
+                    'x-smtpapi' => json_encode($json_string),
+                    'to'        => "$ccEmail",
+                    'replyto'   => "$email",
+                    'cc'        => "$ccEmail",
+                    'subject'   => "$subject", // Either give a subject for each submission, or set to $subject
+                    'html'      => "<html lang='en'><head><meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\"><title>$subject</title></head><body>
 $table </body></html>", // Set HTML here.  Will still need to make sure to reference post data names
-                'text'      => "$table",
-                'from'      => $email, // set from address here, it can really be anything
-            );
+                    'text'      => "$table",
+                    'from'      => $email, // set from address here, it can really be anything
+                );
 
-            $request =  $url.'api/mail.send.json';
-            // Generate curl request
-            $session = curl_init($request);
-            // set the curl SSL version
-            curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-            // Tell curl to use HTTP POST
-            curl_setopt ($session, CURLOPT_POST, true);
-            // Tell curl that this is the body of the POST
-            curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-            // Tell curl not to return headers, but do return the response
-            curl_setopt($session, CURLOPT_HEADER, false);
-            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-            // obtain response
-            curl_exec($session);
-            curl_close($session);
+                            $request =  $url.'api/mail.send.json';
+                            // Generate curl request
+                            $session = curl_init($request);
+                            // set the curl SSL version
+                            curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+                            // Tell curl to use HTTP POST
+                            curl_setopt ($session, CURLOPT_POST, true);
+                            // Tell curl that this is the body of the POST
+                            curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+                            // Tell curl not to return headers, but do return the response
+                            curl_setopt($session, CURLOPT_HEADER, false);
+                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                            // obtain response
+                            curl_exec($session);
+                            curl_close($session);
 
-            // print everything out
-            // print_r($response);
+                            // print everything out
+                            // print_r($response);
 
-            $msg = $database->createDeliveryTracking($lastSellProductStockOrderId,$lastSellProductStockOrderTicketNo,$deliveryStatus,$deliveryMode,$DriversName1,$DriversNumber1,$tenauiDriversVehicleNumber,$logisticCompanyName,$deliveryWayBillNumber1,$logisticCoyPhoneNum,$contactNameAir,$wayBillNumberAir,$phoneNumberAir,$driverName2,$driverNumber2,$departureLocation,$senderName,$inHouseCustomerName,$inHouseCustomerNumber,$inHouseCustomerAddress);
-            }
-                else
-                {
-                    $database->showMsg('', "INVOICE NUMBER ALREADY EXIST", 1);
-
+                            $msg = $database->createDeliveryTracking($lastSellProductStockOrderId,$lastSellProductStockOrderTicketNo,$deliveryStatus,$deliveryMode,$DriversName1,$DriversNumber1,$tenauiDriversVehicleNumber,$logisticCompanyName,$deliveryWayBillNumber1,$logisticCoyPhoneNum,$contactNameAir,$wayBillNumberAir,$phoneNumberAir,$driverName2,$driverNumber2,$departureLocation,$senderName,$inHouseCustomerName,$inHouseCustomerNumber,$inHouseCustomerAddress);
+                        }
+                        else
+                        {
+                            $database->showMsg('', "INVOICE NUMBER ALREADY EXIST", 1);
+                        }
+                    }
+                    else
+                    {
+                        $database->showMsg('', 'All fields are required to create a supply ticket', 1);
+                    }
                 }
-        }
-        else
-        {
-            $database->showMsg('', 'All fields are required to create a supply ticket', 1);
-        }
-    }
+            ?>
 
-?>
-        <h1 style="text-align: center"><span class="btn btn-warning">SELL GOODS TICKET FOR WARE HOUSE   -   <?php echo strtoupper($store[1]);?></span></h1>
+                <h1 style="text-align: center"><span class="btn btn-warning">SELL GOODS TICKET FOR WARE HOUSE   -   <?php echo strtoupper($store[1]);?></span></h1>
                 <h4 style="text-align: center">GOODS BEEN SOLD BY <?php echo strtoupper($myData['fullname']); ?></h4>
 
             </div>
@@ -322,137 +307,138 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
         <div class="wrapper-content ">
             <div class="row">
 
-        <script>
-            let displaySubTotal = 0;
-            let DiscountVal = 0;
-            let totalProductPrice = 0;
-            let count = 0;
+                <script>
+                    let displaySubTotal = 0;
+                    let DiscountVal = 0;
+                    let totalProductPrice = 0;
+                    let count = 0;
 
-            function addRow(){
+                    function addRow(){
 
-                let productID =  document.getElementById('nProduct');
-                let storeID =  document.getElementById('txtStoreID').value;
-                let id = productID.value;
-                if(id > 0 && storeID == 3){
-                    let nID = '<input type="hidden" name="txtProduct[]" value="'+id+'" /> ';
-                    let selectText =  productID.options[productID.selectedIndex].text;
-                    let productname =  selectText.substr(selectText.indexOf("---- ")+4,selectText.length);
-                    let qty_ = document.getElementById('nQty').value;
-                    let unitName = document.getElementById('nPrice').value;
-                    let unitPrice_ = document.getElementById('nProductPrice').value;
-                    let productcode = selectText.substr(0,selectText.indexOf("----"));
-                    totalProductPrice += (qty_* removeComma(unitPrice_));
+                        let productID =  document.getElementById('nProduct');
+                        let storeID =  document.getElementById('txtStoreID').value;
+                        let id = productID.value;
+                        if(id > 0 && storeID == 3)
+                        {
+                            let nID = '<input type="hidden" name="txtProduct[]" value="'+id+'" /> ';
+                            let selectText =  productID.options[productID.selectedIndex].text;
+                            let productname =  selectText.substr(selectText.indexOf("---- ")+4,selectText.length);
+                            let qty_ = document.getElementById('nQty').value;
+                            let unitName = document.getElementById('nPrice').value;
+                            let unitPrice_ = document.getElementById('nProductPrice').value;
+                            let productcode = selectText.substr(0,selectText.indexOf("----"));
+                            totalProductPrice += (qty_* removeComma(unitPrice_));
 
-                    let nQty = '<input type="hidden" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductQty[]" class="form-control required" value="'+qty_+'" />';
+                            let nQty = '<input type="hidden" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductQty[]" class="form-control required" value="'+qty_+'" />';
 
-                    let nQtyDisabled = '<input type="text" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductQty2[]" class="form-control required" value="'+qty_+'" disabled/>';
+                            let nQtyDisabled = '<input type="text" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductQty2[]" class="form-control required" value="'+qty_+'" disabled/>';
 
-                    let nUnitPrice = '<input type="hidden" placeholder="UNITPRICE." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtUnitPrice[]" class="form-control required" value="'+unitPrice_ +'" />';
+                            let nUnitPrice = '<input type="hidden" placeholder="UNITPRICE." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtUnitPrice[]" class="form-control required" value="'+unitPrice_ +'" />';
 
-                    var nUnitPriceDisabled = '<input type="text" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtUnitPrice2[]" class="form-control required" value="'+unitPrice_ +'" disabled/>';
+                            var nUnitPriceDisabled = '<input type="text" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtUnitPrice2[]" class="form-control required" value="'+unitPrice_ +'" disabled/>';
 
-                    var nProductAmount = '<input type="hidden" placeholder="PRICE." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductAmount[]" class="form-control required" value="'+ Comma(qty_ * removeComma(unitPrice_)) +'" />';
+                            var nProductAmount = '<input type="hidden" placeholder="PRICE." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductAmount[]" class="form-control required" value="'+ Comma(qty_ * removeComma(unitPrice_)) +'" />';
 
-                    var nProductAmountDisabled = '<input type="text" placeholder="PRICE." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductAmount2[]" class="form-control required" value="'+ Comma(qty_ * removeComma(unitPrice_)) +'" disabled />';
+                            var nProductAmountDisabled = '<input type="text" placeholder="PRICE." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductAmount2[]" class="form-control required" value="'+ Comma(qty_ * removeComma(unitPrice_)) +'" disabled />';
 
-                    var nPrice = '<input type="text" placeholder="UNITS" name="txtProductPcs[]" class="form-control required" value="'+unitName+'" />';
+                            var nPrice = '<input type="text" placeholder="UNITS" name="txtProductPcs[]" class="form-control required" value="'+unitName+'" />';
 
-                    var cal =   unitName;
+                            var cal =   unitName;
 
                     var Action = "<input type='button' class='btn btn-outline btn-round dark btn-sm black' onclick='removeRow("+ (qty_ * removeComma(unitPrice_)) +");' value='Remove Row'/>";
-                    var table = document.getElementById('table');
-                    //var table = document.getElementById('tableDeliveryData');
-                    var newRow = table.insertRow(1);
-                    var cel1 = newRow.insertCell(0);
-                    var cel2 = newRow.insertCell(1);
-                    var cel3 = newRow.insertCell(2);
-                    var cel4 = newRow.insertCell(3);
-                    var cel5 = newRow.insertCell(4);
-                    var cel6 = newRow.insertCell(5);
-                    var cel7 = newRow.insertCell(6);
+                            var table = document.getElementById('table');
+                            //var table = document.getElementById('tableDeliveryData');
+                            var newRow = table.insertRow(1);
+                            var cel1 = newRow.insertCell(0);
+                            var cel2 = newRow.insertCell(1);
+                            var cel3 = newRow.insertCell(2);
+                            var cel4 = newRow.insertCell(3);
+                            var cel5 = newRow.insertCell(4);
+                            var cel6 = newRow.insertCell(5);
+                            var cel7 = newRow.insertCell(6);
 
-                    cel1.innerHTML = productcode+nID;
-                    cel2.innerHTML = productname;
+                            cel1.innerHTML = productcode+nID;
+                            cel2.innerHTML = productname;
 
-                    cel3.innerHTML = nQtyDisabled+nQty;
-                    cel4.innerHTML = cal;
-                    cel5.innerHTML = nUnitPriceDisabled + nUnitPrice;
-                    cel6.innerHTML = nProductAmountDisabled + nProductAmount;
-                    cel7.innerHTML = Action;
+                            cel3.innerHTML = nQtyDisabled+nQty;
+                            cel4.innerHTML = cal;
+                            cel5.innerHTML = nUnitPriceDisabled + nUnitPrice;
+                            cel6.innerHTML = nProductAmountDisabled + nProductAmount;
+                            cel7.innerHTML = Action;
 
                     if(count < 1)
                     {
-                        var totalLabel = '<input type="text" placeholder="ALL GOODS TOTAL PRICE" required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  class="form-control required" value="ALL GOODS TOTAL PRICE" disabled/>';
+                                var totalLabel = '<input type="text" placeholder="ALL GOODS TOTAL PRICE" required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  class="form-control required" value="ALL GOODS TOTAL PRICE" disabled/>';
 
-                        var nProductTotalPrice = '<input type="text" placeholder="ALL GOODS TOTAL PRICE" required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtTotalPrice" id="txtTotalPrice" class="form-control required" value="'+ Comma(totalProductPrice) +'" disabled />';
+                                var nProductTotalPrice = '<input type="text" placeholder="ALL GOODS TOTAL PRICE" required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtTotalPrice" id="txtTotalPrice" class="form-control required" value="'+ Comma(totalProductPrice) +'" disabled />';
 
-                        var newRow2 = table.insertRow(2);
-                        var cel6 = newRow2.insertCell(0);
-                        var cel7 = newRow2.insertCell(1);
-                        var cel8 = newRow2.insertCell(2);
-                        var cel9 = newRow2.insertCell(3);
-                        var cel10 = newRow2.insertCell(4);
-                        var cel11 = newRow2.insertCell(5);
+                                var newRow2 = table.insertRow(2);
+                                var cel6 = newRow2.insertCell(0);
+                                var cel7 = newRow2.insertCell(1);
+                                var cel8 = newRow2.insertCell(2);
+                                var cel9 = newRow2.insertCell(3);
+                                var cel10 = newRow2.insertCell(4);
+                                var cel11 = newRow2.insertCell(5);
 
-                        cel10.innerHTML = totalLabel;
-                        cel11.innerHTML = nProductTotalPrice;
-                        document.getElementById('productInputTotalPrice').value = Comma(parseInt(totalProductPrice));
+                                cel10.innerHTML = totalLabel;
+                                cel11.innerHTML = nProductTotalPrice;
+                                document.getElementById('productInputTotalPrice').value = Comma(parseInt(totalProductPrice));
                     }
                     else
                     {
-                        //console.log(totalProductPrice);
-                        // table.deleteRow(index);
-                        //cel10.innerHTML = totalProductPrice;
-                        document.getElementById('txtTotalPrice').value = Comma(parseInt(totalProductPrice));
-                        document.getElementById('productInputTotalPrice').value = Comma(parseInt(totalProductPrice));
-                    }
+                                //console.log(totalProductPrice);
+                                // table.deleteRow(index);
+                                //cel10.innerHTML = totalProductPrice;
+                                document.getElementById('txtTotalPrice').value = Comma(parseInt(totalProductPrice));
+                                document.getElementById('productInputTotalPrice').value = Comma(parseInt(totalProductPrice));
+                            }
 
-                    count++;
+                            count++;
 
-                    document.getElementById('nPrice').value = "";
-                    document.getElementById('nQty').value = "";
-                    document.getElementById('nProductPrice').value = "";
-                    document.getElementById('nProduct').value = 0;
+                            document.getElementById('nPrice').value = "";
+                            document.getElementById('nQty').value = "";
+                            document.getElementById('nProductPrice').value = "";
+                            document.getElementById('nProduct').value = 0;
 
                 } 
                 else if (id > 0 && storeID != 3)
                 {
-                    var nID = '<input type="hidden" name="txtProduct[]" value="'+id+'" /> ';
-                    var selectText =  productID.options[productID.selectedIndex].text;
-                    var productname =  selectText.substr(selectText.indexOf("---- ")+4,selectText.length);
-                    var qty_ = document.getElementById('nQty').value;
-                    var unitName = document.getElementById('nPrice').value;
-                    var productcode = selectText.substr(0,selectText.indexOf("----"));
-                    var nQty = '<input type="text" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductQty[]" class="form-control required" value="'+qty_+'" />';
-                    var nPrice = '<input type="text" placeholder="UNITS" name="txtProductPcs[]" class="form-control required" value="'+unitName+'" />';
-                    var cal =   unitName;
-                    var Action = "<input type='button' class='btn btn-outline btn-round dark btn-sm black' onclick='removeRow("+20+");' value='Remove Row'/>";
-                    var table = document.getElementById('table');
-                    //var table = document.getElementById('tableDeliveryData');
-                    var newRow = table.insertRow(1);
-                    var cel1 = newRow.insertCell(0);
-                    var cel2 = newRow.insertCell(1);
-                    var cel3 = newRow.insertCell(2);
-                    var cel4 = newRow.insertCell(3);
-                    var cel5 = newRow.insertCell(4);
+                            var nID = '<input type="hidden" name="txtProduct[]" value="'+id+'" /> ';
+                            var selectText =  productID.options[productID.selectedIndex].text;
+                            var productname =  selectText.substr(selectText.indexOf("---- ")+4,selectText.length);
+                            var qty_ = document.getElementById('nQty').value;
+                            var unitName = document.getElementById('nPrice').value;
+                            var productcode = selectText.substr(0,selectText.indexOf("----"));
+                            var nQty = '<input type="text" placeholder="QTY." required  onkeyup = "javascript:this.value=Comma(this.value);" onKeyPress="return isNumberKey(event)"  name="txtProductQty[]" class="form-control required" value="'+qty_+'" />';
+                            var nPrice = '<input type="text" placeholder="UNITS" name="txtProductPcs[]" class="form-control required" value="'+unitName+'" />';
+                            var cal =   unitName;
+                            var Action = "<input type='button' class='btn btn-outline btn-round dark btn-sm black' onclick='removeRow("+20+");' value='Remove Row'/>";
+                            var table = document.getElementById('table');
+                            //var table = document.getElementById('tableDeliveryData');
+                            var newRow = table.insertRow(1);
+                            var cel1 = newRow.insertCell(0);
+                            var cel2 = newRow.insertCell(1);
+                            var cel3 = newRow.insertCell(2);
+                            var cel4 = newRow.insertCell(3);
+                            var cel5 = newRow.insertCell(4);
 
-                    cel1.innerHTML = productcode+nID;
-                    cel2.innerHTML = productname;
+                            cel1.innerHTML = productcode+nID;
+                            cel2.innerHTML = productname;
 
-                    cel3.innerHTML = nQty;
-                    cel4.innerHTML = cal;
-                    cel5.innerHTML = Action;
+                            cel3.innerHTML = nQty;
+                            cel4.innerHTML = cal;
+                            cel5.innerHTML = Action;
 
-                    document.getElementById('nPrice').value = "";
-                    document.getElementById('nQty').value = "";
-                    document.getElementById('nProduct').value = 0;
-                }
-                else
-                {
-                    alert("PLEASE SELECT A PRODUCT");
-                }
+                            document.getElementById('nPrice').value = "";
+                            document.getElementById('nQty').value = "";
+                            document.getElementById('nProduct').value = 0;
+                        }
+                        else
+                        {
+                            alert("PLEASE SELECT A PRODUCT");
+                        }
 
-            }
+                    }
 
             function removeRow(id)
             {
@@ -464,18 +450,18 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                 {
                     table.rows[i].cells[col].onclick = function()
                     {
-                        var c = confirm("do you want to delete this row ?");
+                                var c = confirm("do you want to delete this row ?");
 
                         if(c === true)
                         {
                             totalProductPrice -= id;
                             index = this.parentElement.rowIndex;;
-                            table.deleteRow(index);
+                                    table.deleteRow(index);
                             document.getElementById('txtTotalPrice').value = addComma(totalProductPrice);
+                                }
+                            };
                         }
-                    };
-                }
-            }
+                    }
 
             function updateDiscount(val)
             {
@@ -496,78 +482,77 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                 amountedTotal(disVal);
             }
 
-            function selectionChange(info){
-                var np =  document.getElementById('nPrice');
-                if(info > 0){np.readOnly = true;}else{np.readOnly = false;}
-                info = info.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                np.value = info;
-                // alert(info);
-            }
+                    function selectionChange(info){
+                        var np =  document.getElementById('nPrice');
+                        if(info > 0){np.readOnly = true;}else{np.readOnly = false;}
+                        info = info.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        np.value = info;
+                        // alert(info);
+                    }
 
-            function addComma(x){
-                // var part = x.toString().split(".");
-                // part[0] = part[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                // return part.join(".");
-                return x.toLocaleString();
-            }
+                    function addComma(x){
+                        // var part = x.toString().split(".");
+                        // part[0] = part[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        // return part.join(".");
+                        return x.toLocaleString();
+                    }
 
-            var currentValue = 0;
-            function handleClick(myRadio) {
-                //alert('Old value: ' + currentValue);
-                //alert('New value: ' + myRadio.value);
-                var x = document.getElementById("tableDeliveryDataTenauiDriver");
-                var y = document.getElementById("tableDeliveryThirdPartyLogistic");
-                var z = document.getElementById("tableDeliveryAir");
-                var xy = document.getElementById("tableInterStateBus");
-                var zx = document.getElementById("tableInHousePickUp");
-                currentValue = myRadio.value;
-                if (x.style.display === "none" && currentValue == "by-road-tenaui-driver") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-
-
-                if (x.style.display === "block" && currentValue == "by-road-tenaui-driver") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
+                    var currentValue = 0;
+                    function handleClick(myRadio) {
+                        //alert('Old value: ' + currentValue);
+                        //alert('New value: ' + myRadio.value);
+                        var x = document.getElementById("tableDeliveryDataTenauiDriver");
+                        var y = document.getElementById("tableDeliveryThirdPartyLogistic");
+                        var z = document.getElementById("tableDeliveryAir");
+                        var xy = document.getElementById("tableInterStateBus");
+                        var zx = document.getElementById("tableInHousePickUp");
+                        currentValue = myRadio.value;
+                        if (x.style.display === "none" && currentValue == "by-road-tenaui-driver") {
+                            x.style.display = "block";
+                        } else {
+                            x.style.display = "none";
+                        }
 
 
-                if (y.style.display === "none" && currentValue == "third-party-logistic-company") {
-                    y.style.display = "block";
-                } else {
-                    y.style.display = "none";
-                }
-
-                if (z.style.display === "none" && currentValue == "airways") {
-                    z.style.display = "block";
-                } else {
-                    z.style.display = "none";
-                }
-
-                if (xy.style.display === "none" && currentValue == "inter-state-bus") {
-                    xy.style.display = "block";
-                } else {
-                    xy.style.display = "none";
-                }
-
-                if (zx.style.display === "none" && currentValue == "in-house-customer-pickup") {
-                    zx.style.display = "block";
-                } else {
-                    zx.style.display = "none";
-                }
+                        if (x.style.display === "block" && currentValue == "by-road-tenaui-driver") {
+                            x.style.display = "block";
+                        } else {
+                            x.style.display = "none";
+                        }
 
 
+                        if (y.style.display === "none" && currentValue == "third-party-logistic-company") {
+                            y.style.display = "block";
+                        } else {
+                            y.style.display = "none";
+                        }
 
-            }
+                        if (z.style.display === "none" && currentValue == "airways") {
+                            z.style.display = "block";
+                        } else {
+                            z.style.display = "none";
+                        }
 
-        </script>
+                        if (xy.style.display === "none" && currentValue == "inter-state-bus") {
+                            xy.style.display = "block";
+                        } else {
+                            xy.style.display = "none";
+                        }
+
+                        if (zx.style.display === "none" && currentValue == "in-house-customer-pickup") {
+                            zx.style.display = "block";
+                        } else {
+                            zx.style.display = "none";
+                        }
+
+
+
+                    }
+
+                </script>
 
                 <div class="col-lg-12 top20 bottom20">
                     <div class="widgets-container">
-                        
 
                         <div class="form-group">
                             <label class="col-lg-2 control-label">CONSUMABLE & SPARE PARTS</label>
@@ -613,22 +598,25 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                                        value="" class="form-control" id="nQty" placeHolder="QTY" required onKeyPress="return isNumberKey(event)" value="1">
 
                             </div>
-                            <?php if($myData['storeID'] == 3 ){  ?>
+                            <?php 
+                                if($myData['storeID'] == 3 )
+                                {
+                            ?>
                                 <div class="col-md-1">
 
                                     <input type="text" name="nProductPrice"
                                            value="" class="form-control" id="nProductPrice" placeHolder="Unit Price" onkeyup = "javascript:this.value=Comma(this.value);" required onKeyPress="return isNumberKey(event)" value="1">
-
                                 </div>
-                            <?php }  ?>
+                            <?php 
+                                } 
+                            ?>
                             <div class="col-md-2">
                                 <button class="btn  blue btn-block btn-outline" onclick="addRow();">Add Item</button>
                             </div>
 
-
-
                         </div>
-                        <hr>        <form action="" method="post">
+                        <hr>        
+                        <form action="" method="post">
                             <div class="borderedTable">
                                 <div class="table-scrollable">
 
@@ -641,8 +629,7 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                                                     <input type="text" class="form-control m-b" name="txtSupplier" value="<?php if(isset($_POST['txtSupplier'])){echo $_POST['txtSupplier'];}?>" required data-validation-required-message="Customer Name is required">
                                                 </div>
                                             </div>
-                                            <?php if($myData['storeID'] != 3 ){  ?>
-
+                                           
                                                 <div class="form-group">
                                                     <label class="col-sm-3 control-label">INVOICE NO</label>
                                                     <div class="col-sm-9">
@@ -650,20 +637,8 @@ $table </body></html>", // Set HTML here.  Will still need to make sure to refer
                                                     </div>
                                                 </div>
 
-                                            <?php   }else { ?>
-
-                                                <input type="hidden" class="form-control m-b" name="txtInvoiceNo" value="SOF" required data-validation-required-message="Invoice No is required">
-
-                                            <?php }  ?>
-
                                             <div class="form-group">
-                                                <?php if($myData['storeID'] != 3 ){ ?>
                                                     <label class="col-sm-3 control-label">INVOICE DATE</label>
-                                                <?php } else {  ?>
-
-                                                    <label class="col-sm-3 control-label">SOF DATE</label>
-
-                                                <?php   }    ?>
                                                 <div class="col-sm-9">
 
                                                     <div class="col-md-4">

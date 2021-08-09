@@ -12,7 +12,7 @@ require_once("../data/DBConfig.php");
     $id = $database->test_input($_POST['accountID']);
     $contractType = $database->test_input($_POST['contractType']);
     $cumulative = $database->test_input($_POST['cumulative']);
-    $rentalCharge = $database->test_input($_POST['rentalCharge']);
+    $rentalCharge = $database->test_input($database->RemoveComma($_POST['rentalCharge']));
     $volMono = $database->test_input($_POST['volMono']);
     $costMono = $database->test_input($_POST['costMono']);
     $exVolMono = $database->test_input($_POST['exVolMono']);

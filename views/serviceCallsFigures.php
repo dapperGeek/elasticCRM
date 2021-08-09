@@ -14,20 +14,98 @@
     {
         include ("../includes/mains.php");
     }
+    
+    if ($_SESSION['access'] >= 8 || ($_SESSION['dptID'] == 3 && $_SESSION['access'] >= 8))
+    {
 ?>
-<div class="col-lg-12">
+<div class="col-lg-6">
+        
+    <centre>
+        <h2 class="margin-bottom-10">
+            <?php echo 'Engineers\' Call Details for ' . date('Y') ?>
+        </h2>
+    </centre>
+    <div class="row col-lg-12">
+        <table class="table table-bordered" id="engCalls">
+        <thead>
+            <tr>
+                <th>Engineer</th>
+                <th>Resolved Calls</th>
+                <th>Open Calls</th>
+                <th>Install.</th>
+                <th>Prev.</th>
+                <th>Toner</th>
+                <th>Corrective</th>
+                <th>Average Resolution Time (Days)</th>
+            </tr>
+        </thead>
+        <tfoot style="background-color: #49b6d6">
+            <tr>
+                <th>Engineer</th>
+                <th>Resolved Calls</th>
+                <th>Open Calls</th>
+                <th>Install.</th>
+                <th>Prev.</th>
+                <th>Toner</th>
+                <th>Corrective</th>
+                <th>Average Resolution Time (Days)</th>
+            </tr>
+        </tfoot>
+        <tbody>
+    <?php
+        $engineerRankings = $database->engineerRankings();
+         
+        foreach ($engineerRankings as $engRank)
+        {
+            if ($engRank['id'] == 82)
+            {
+                continue;
+            }
+            $corrective = $engRank['totalResolved'] - 
+                    ($engRank['installCalls'] + $engRank['preventiveCalls'] + $engRank['tonerCalls']);
+    ?>
+            <tr>
+                <td><?php echo ucwords(strtolower($engRank['fullname'])); ?></td>
+            
+                <td><?php echo $engRank['totalResolved']; ?></td>
+            
+                <td><?php echo ($engRank['totalCalls'] - $engRank['totalResolved']); ?></td>
+            
+                <td><?php echo $engRank['installCalls']; ?></td>
+            
+                <td><?php echo $engRank['preventiveCalls']; ?></td>
+            
+                <td><?php echo $engRank['tonerCalls']; ?></td>
+
+                <td><?php echo $corrective ; ?></td>
+            
+                <td>
+                    <?php 
+                        $duration = $database->secondsToDays(str_replace('-', '', $engRank['totalTimeDiff'])/$engRank['totalResolved']);
+                        echo $duration ;
+                    ?>
+                </td>
+            </tr>  
+    <?php
+        }
+    ?>
+        </tbody>
+    </table>
+    </div>
+</div>
+<?php
+    }
+?>
+
+<div class="col-lg-6">
 
         <h2 class="margin-bottom-10"><center>Service Calls Summary</center></h2>
 <?php
         $serviceCalls = $database->getAllServiceCall(date('F'));
         $delayedCalls = UtilFunctions::getDelayedCalls($serviceCalls);
-    //                echo '<pre>';
-    //                echo time();
-    //                print_r($times);
-    //                echo  '</pre>';
-    ?>
+?>
     <!--            Total monthly calls logged -->
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-6">
         <div class="widget widget-stats orange-bg">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-volume-control-phone fa-fw"></i></div>
             <div class="stats-title">TOTAL CALLS <?php echo strtoupper(date('F')) ?></div>
@@ -44,7 +122,7 @@
     </div>
 
     <!--        Monthly calls resolved-->
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-6">
         <div class="widget widget-stats green-bg">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-phone-square fa-fw"></i></div>
             <div class="stats-title">RESOLVED CALLS </div>
@@ -61,8 +139,8 @@
     <!-- end Monthly calss resolved -->
 
     <!-- Monthly calls delayed -->
-    <div class="col-md-4 col-sm-4">
-        <div class="widget widget-stats aqua-bg ">
+    <div class="col-md-6 col-sm-6">
+        <div class="widget widget-stats aqua-bg">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-tags fa-fw"></i></div>
             <div class="stats-title">DELAYED CALLS</div>
             <div class="stats-number">
@@ -80,7 +158,7 @@
     <!-- end Monthly calls delayed -->
 
     <!-- begin Total calls logged -->
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-6">
         <div class="widget widget-stats purple-bg">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-volume-control-phone fa-fw"></i></div>
             <div class="stats-title">TOTAL CALLS LOGGED</div>
@@ -97,7 +175,7 @@
     <!-- end col-3 -->
 
     <!-- Total calls resolved -->
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-6">
         <div class="widget widget-stats black-bg">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-phone-square fa-fw"></i></div>
             <div class="stats-title">TOTAL CALLS RESOLVED</div>
@@ -112,7 +190,7 @@
         </div>
     </div>
 
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-6">
         <?php
         $color = "red";
         $icon = "level-down";

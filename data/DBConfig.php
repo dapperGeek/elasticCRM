@@ -1,16 +1,13 @@
 <?php
-ob_start();
-if (!isset($_SESSION)) 
-{
+    ob_start();
     session_start();
-}
-    // $host= "http://192.168.1.156/TenauiService/";
+
     $host= "http://localhost/elastic25.com/";
 
     $DBHOST = "localhost";
     $DBNAME = "elasticc_25";
     $DBUSER = "geek0";
-    $DBPASS = 'd3Vp@$$w0Rd!';
+    $DBPASS = 'T#@C0d3G3n13!';
     $metaTags = "";
 //		$con = "";
     try

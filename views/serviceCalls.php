@@ -18,6 +18,8 @@
     
     $closedView = file_exists('serviceapp/followup/closed.php')
             ? 'serviceapp/followup/closed.php' : '../serviceapp/followup/closed.php';
+    $dltTicketView = file_exists('views/modals/delete-ticket.php')
+        ? 'views/modals/delete-ticket.php' : '../views/modals/delete-ticket.php';
 ?>
 
 <div class="row">
@@ -62,7 +64,6 @@
     {
 ?>
         <form method="post">
-
         <div class="col-lg-12">
             <div class="col-lg-2 col-sm-12 margin-bottom-5">
                 <h3>Advanced Filter</h3>
@@ -102,14 +103,13 @@
                     <option value="0">Year</option>
                     <?php
                         $curYear = date('Y');
-
                         for ($i = 2016; $i <= $curYear; $i++)
                         {
-                            ?>
+                    ?>
                             <option value="<?php echo $i ?>">
                                 <?php echo $i; ?>
                             </option>
-                            <?php
+                    <?php
                         }
                     ?>
                 </select>
@@ -128,8 +128,6 @@
 <?php    
     }
 ?>
-
-
 </div>
 <ul class="nav nav-tabs">
     <li class="active"><a href="#tab-1" data-toggle="tab" > OPENED CALLS &nbsp;&nbsp; <span class="label label-warning">NEW</span></a></li>
@@ -140,7 +138,6 @@
         <div class="panel-body">
 
             <div class="table-responsive">
-                <!--<table id="example7" style="font-size: 12px;"  class="display nowrap table  responsive nowrap table-bordered">-->
 
             <table id="supportCalls" class="display  table  responsive  table-bordered" style="font-size: 12px; table-layout: fixed; word-wrap:break-word">
                 <thead>
@@ -165,7 +162,7 @@
                         <th>Case Status</th>
                     </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                     <?php
                         if($serviceCalls != null)
                         {
@@ -176,8 +173,8 @@
                                 {
                                     $majTimeDif = $database->returnTimeDiff(time(),$act['openedTimeStamp']);
                     ?>
-                        <tr 
-                            <?php 
+                        <tr
+                            <?php
                                 if($majTimeDif >432000 && $majTimeDif < 1036800)
                                 {
                                     echo "class='warning'";
@@ -185,8 +182,8 @@
                                 else if($majTimeDif >1036800)
                                 {
                                     echo "class='danger'";
-                                    
-                                } 
+
+                                }
                             ?>
                         >
                             <td style="display:none">
@@ -194,30 +191,45 @@
                             </td>
                             <td>
                                 <a href="<?php echo $host;?>ticket-info/<?php echo $act['ticketNo']?>" target="_blank"><?php echo strtoupper($act['ticketNo']); ?> </a>
+                                <?php
+                                    if ($_SESSION['dptID'] == 2 || $_SESSION['dptID'] == 3)
+                                    {
+                                ?>
+                                    <p>&nbsp;</p>
+                                    <p>
+                                        <a title="Edit Call" style="cursor: pointer; text-decoration: none" class="fa fa-edit pull-left" href="<?php echo $host . UtilFunctions::appURLs('edit-call') . $act['id']; ?>"></a>
+                                        <a title="Delete Call" style="cursor: pointer; text-decoration: none" class="pull-left fa fa-trash" data-toggle="modal" data-target=".delete-ticket-modal-<?php echo $act['callID'];?>"></a>
+                                        <?php include("$dltTicketView") ?>
+                                    </p>
+                                <?php
+                                    }
+                                ?>
                             </td>
                             <td>
                             <?php echo $act['AccountName'];?>
                                 </td>
                                 <td>
                                 <a href="<?php if($myData['AccessLevel'] == 12)
-                                {
-                                }
-                                else
-                                {
-                                    echo $host;?>machine-info/<?php echo $act['MachineID'];
-                                }
+                                    {
+                                    }
+                                    else
+                                    {
+                                        echo $host;?>machine-info/<?php echo $act['MachineID'];
+                                    }
                             ?>">
                                     <?php echo $act['machine_code'];?>
                                 </a>
                             </td>
+                                <!--Time taken-->
                             <td>
                                 <div style="height: 10px;" class="progress progress-striped active">
                                     <div style="width: <?php echo $database->getPercentage($majTimeDif);?>" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" class="progress-bar progress-bar-<?php echo $database->getSecondsColor( $majTimeDif);?>">
-                                        <span class="sr-only"> 80% Complete (danger) </span> 
+                                        <span class="sr-only"> 80% Complete (danger) </span>
                                     </div>
                                 </div>
                                 <?php echo $database->secondsToTime( $majTimeDif);?>
                             </td>
+                                <!--Assigned engineer-->
                             <td>
                                 <?php echo $database->getMyUserInformation($act['engineer'])['fullname'] ?>
                             </td>
@@ -228,7 +240,7 @@
                                 <?php echo $act['openedDateTime'];?>
                             </td>
                             <!--<td>-->
-                                <?php 
+                                <?php
 //                                    if ($act['purchase']==1)
 //                                    {
 //                                        $ticketNo_ = $database->getServiceProductOrderCall($act['id'])[0]['ticketNo'];
@@ -237,9 +249,9 @@
 //                                    echo $followUps[0]['work-done'];
                                 ?>
                             <!--</td>-->
-                            <td> 
+                            <td>
                                 <span class="badge badge-
-                                    <?php 
+                                    <?php
                                         if($act['paymentStatus']=='PAID')
                                             {
                                             echo 'success';
@@ -263,7 +275,7 @@
                                     {
                                 ?>
                             <td>
-                                <?php 
+                                <?php
                                     if($act['closedBy'] == 0)
                                     {
                                 ?>
@@ -271,13 +283,13 @@
                                                         echo $host;?>view-service-call/<?php echo '#'; }else{ echo $host;?>follow-up/<?php echo $act['ticketNo'];}?>" target="_blank">FOLLOW-UP</a>
 
 
-                                <?php 
+                                <?php
                                     }
                                     else
                                     {
                                 ?>
                                         <a class="badge badge-info col-lg-12" data-toggle="modal" data-target=".bs-example-modal-lg-2-<?php echo $act['ticketNo'];?>">CLOSED</a>
-                                <?php 
+                                <?php
                                         }
                                 ?>
                             </td>
@@ -287,8 +299,8 @@
                             <td>
                                 <?php echo $act['caseName'];?>
                             </td>
-                                <?php 
-                                    include($closedView);
+                                <?php
+                                    include("$closedView");
                                 ?>
                         </tr>
                     <?php
@@ -303,7 +315,7 @@
                                 <center><strong>NO DATA FOUND</strong></center>
                             </td>
                         </tr>
-                    <?php 
+                    <?php
                         }
                     ?>
                     </tbody>
@@ -327,12 +339,13 @@
                         <th>Machine</th>
                         <th>Engineer</th>
                         <th>Open Date</th>
+                        <th>Closed Date</th>
+                        <th>Lasted</th>
                         <th>Issues</th>
                         <th>Contract Type</th>
                         <th>Cost</th>
                         <th>Closed By</th>
                         <th style="width:20%">Work Done</th>
-                        <th>Closed Date</th>
                         <th>Closed By</th>
                     </tr>
                     </thead>
@@ -361,6 +374,9 @@
                                             echo $database->getMyUserInformation($act['engineer'])['fullname'] ?>
                                     </td>
                                     <td><?php echo  date('d/m/Y', $act['openedTimeStamp']);?></td>
+                                    <td><?php echo  date('d/m/Y', $act['closedTimeStamp']);?></td>
+                                    <td>
+                                        <?php echo $database->secondsToTime($database->returnTimeDiff($act['closedTimeStamp'],$act['openedTimeStamp'])) ;?></td>
                                     <td>
                                         <?php 
                                             $issues = explode(",",$act['issues']);
@@ -408,18 +424,18 @@
                                         <?php echo UtilFunctions::textSummary($followUps[0]['work-done']);?>
                                     </td>
                                     <!--<?php echo $act['closedDateTime'];?></td>-->
-                                    <td><?php echo  date('d/m/Y', $act['closedTimeStamp']);?></td>
-                                    <!--<td><?php echo $database->time_space($act['closedTimeStamp'],$act['openedTimeStamp']);?></td>-->
+                                    <!--<td></td>-->
                                     <td><?php echo $database->getMyUserInformation($act['closedBy'])['fullname'];?></td>
 
-                                    <?php include($closedView);?>
+                                    <?php include("$closedView");?>
                                 </tr>
-                                <?php
+                <?php
                             }
                         }
                     }
-                    else{
-                        ?>
+                    else
+                    {
+                ?>
                         <tr>
                             <td colspan="12">
                                 <center><strong>NO DATA FOUND</strong></center>
@@ -428,8 +444,6 @@
                         <?php
                             }
                         ?>
-
-
                     </tbody>
                 </table>
             </div>

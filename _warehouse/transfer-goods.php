@@ -270,7 +270,8 @@ if($myData['storeID']== 0){
                                 <div class="table-scrollable">
 
                                     <div class="row">
-                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3">
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 control-label">TRANSFER TO STORE:</label>
@@ -355,7 +356,6 @@ if($myData['storeID']== 0){
                                 <table id="table" class="table table-striped table-bordered table-advance table-hover">
 
                                     <thead>
-
                                     <tr>
                                         <th> <i class="fa fa-briefcase"></i> CODE </th>
                                         <th class="hidden-xs"> <i class="fa fa-user"></i> PRODUCT NAME </th>
@@ -367,9 +367,6 @@ if($myData['storeID']== 0){
                                     </tr>
                                     </thead>
                                     <tbody>
-
-
-
                                     </tbody>
                                 </table>
                                 <br/>

@@ -1,26 +1,5 @@
 $(document).ready(function () {
 
-    // $('.edit-stock').submit(function (event) {
-    //     event.preventDefault();
-    //     event.stopImmediatePropagation();
-    //
-    //     let mainStore =$('input[name="main_store"]').val();
-    //     let mainSwitch =$('input[name="main_switch"]').val();
-    //     let mainEdit =$('input[name="main_update"]').val();
-    //
-    //     let officeStore =$('input[name="office_store"]').val();
-    //     let officeSwitch =$('input[name="office_switch"]').val();
-    //     let officeEdit =$('input[name="office_update"]').val();
-    //
-    //     let abjStore =$('input[name="abj_store"]').val();
-    //     let abjSwitch =$('input[name="abj_switch"]').val();
-    //     let abjEdit =$('input[name="abj_update"]').val();
-    //
-    //     let alertString = 'Main: ' + mainStore + '\n' + 'Sign:' + mainSwitch + '\n' + 'update: ' + mainEdit;
-    //
-    //     alert(alertString);
-    // });
-
     $('.savepass').submit(function(event){
         event.preventDefault();
 

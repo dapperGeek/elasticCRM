@@ -6,9 +6,9 @@
 ?>
     <div class="row wrapper border-bottom page-heading">
         <div class="col-lg-12">
-            <?php
+        <?php
             echo PageHeaders::getHeading($pageHeader);
-            ?>
+        ?>
         </div>
         <div class="col-lg-12"> </div>
     </div>

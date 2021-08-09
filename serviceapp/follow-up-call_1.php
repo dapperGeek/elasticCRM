@@ -22,7 +22,8 @@
         }
     }
 
-    if(isset($_POST['btncollectOrder'])){
+    if(isset($_POST['btncollectOrder']))
+    {
         $oID = $database->test_input($_POST['txtOrderID']);
         $ocDay = $database->test_input($_POST['txtDay']);
         $ocMonth = $database->test_input($_POST['txtMonth']);
@@ -34,7 +35,8 @@
         $msg = 'ORDER SUCCESSFULLY COLLECTED';
     }
 
-    if(isset($_POST['btnRegisterPurchase'])){
+    if(isset($_POST['btnRegisterPurchase']))
+    {
         $discount = $database->test_input($_POST['range']);
         $product=$qty=$amount=array();
         if(isset($_POST['txtProduct'])){
@@ -55,7 +57,8 @@
         }
     }
 
-    if(isset($_POST['btnRegisterPurchaseSpare'])){
+    if(isset($_POST['btnRegisterPurchaseSpare']))
+    {
         $discount = $database->test_input($_POST['range']);
         $product=$qty=$amount=array();
         if(isset($_POST['txtProductnSparePart'])){
@@ -122,6 +125,7 @@
                 $closeDate = date("l jS \of F Y h:i:s A");
                 $closeTimeStamp = time();
             }
+            
             $st = $database->test_input($_POST['txtST']);
             $et = $database->test_input($_POST['txtET']);
 
@@ -131,15 +135,15 @@
 
 
             $wd = "<b>Scheduled Date/Time :</b> ".$ticket['schDate']." / ".$ticket['schTime']." \n <b>START TIME:</b> ".$st." / <b>FINISH TIME:</b> ".$et." \n";
-            $wd2 = $database->test_input($_POST['txtWorkDone']);
-            if($wd2 != "")
-            {
-                $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
-            }
-            else
-            {
-                $workDone = $_POST['txtWrkDone2'];
-            }
+            $workDone = $database->test_input($_POST['txtWorkDone']);
+//            if($wd2 != "")
+//            {
+//                $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
+//            }
+//            else
+//            {
+//                $workDone = $_POST['txtWrkDone2'];
+//            }
             //var_dump($workDone);
             //exit;
 
@@ -190,42 +194,38 @@
                     $issues = $database->test_input($_POST['issues']);
                 }
             }
-//            var_dump($issues);
-//            var_dump($engineer);
-//            var_dump($user_id);
-
-            //exit;
 
             $serviceID = $ticket['id'];
             $paymentStatus = $database->test_input($_POST['txtPayStatus']);
             $CaseStatus = $database->test_input($_POST['txtCaseStatus']);
-            if($CaseStatus == 8 || $CaseStatus == 9){$closeBy = $user_id; $closeDate = date("l jS \of F Y h:i:s A");$closeTimeStamp = time();}
+            if($CaseStatus == 8 || $CaseStatus == 9)
+            {
+                $closeBy = $user_id; 
+                $closeDate = date("l jS \of F Y h:i:s A");
+                $closeTimeStamp = time();
+            }
             $st = $database->test_input($_POST['txtST']);
             $et = $database->test_input($_POST['txtET']);
-
-            //        $meterReading = $database->test_input($_POST['meterReading']);
-
+            $meterReading = $database->test_input($_POST['meterReading']);
 
             $wd = "<b>Scheduled Date/Time :</b> ".$ticket['schDate']." / ".$ticket['schTime']." \n <b>START TIME:</b> ".$st." / <b>FINISH TIME:</b> ".$et." \n";
-            $wd2 = $database->test_input($_POST['txtWorkDone']);
-            if($wd2 != "")
-            {
-                $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
-            }
-            else
-            {
-                $workDone = $_POST['txtWrkDone2'];
-            }
-
+            $workDone = $database->test_input($_POST['txtWorkDone']);
+//            if($wd2 != "")
+//            {
+//                $workDone = $_POST['txtWrkDone2'].$wd.$wd2."\n\n";
+//            }
+//            else
+//            {
+//                $workDone = $_POST['txtWrkDone2'];
+//            }
 
             $database->closeCall($serviceID,$paymentStatus,$closeBy,$closeDate,$closeTimeStamp,$CaseStatus,$workDone,$ticket['machine_id'],$ticket['account_id'],$engineer,$issues,$schD[0],$schD[1],$meterReading,$colour,$Mono);
             $msg = "This Ticket has been followed Up";
-
         }
-
     }
+    
+    $followUps = $database->getFollowUps($ticket['callID']);
 ?>
-
         <div class="row wrapper border-bottom page-heading">
             <div class="col-lg-12">
                 <h2> Follow Up Call for <?php echo $ticket['ticketNo'];?> | <span class="btn btn-primary"><?php echo $ticket['machine_code'];?></span> |
@@ -343,12 +343,6 @@
                                 <br>
                                 <br>
 
-
-
-
-
-
-
                                 <input type="hidden" id="dtp_input3" value="" />
 
                             </div>
@@ -396,9 +390,18 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">&nbsp;</label>
                                 <div class="col-sm-10">
-                                    <input type="hidden" name="txtWrkDone2" value="<?php echo $ticket['workDone'];?>" />
+<!--                                <input type="hidden" name="txtWrkDone2" value="<?php echo $ticket['workDone'];?>" />-->
 
-                                    <?php echo nl2br($ticket['workDone']); ?>
+                    <?php 
+//                        echo nl2br($ticket['workDone']); 
+                        if($followUps != false)
+                        {
+                            foreach ($followUps as $followUp)
+                            {
+                                echo nl2br($followUp['work-done']) . '<hr>';
+                            }
+                        }
+                    ?>
                                 </div>
                             </div>
                             <hr/>
@@ -786,11 +789,14 @@
                                     <?php
                                     $amounted2 = 0;
                                     $amount_ = 0;
-                                    if($ticket['purchase'] == 1){
+                                    if($ticket['purchase'] == 1)
+                                    {
                                         $n = 1;
                                         $machineDemands = (array)$database->getPurchaseTicketForServiceCall($ticket['id']);
-                                        foreach($machineDemands as $demand){
-                                            if($demand['sales_type_id'] == 1) {
+                                        foreach($machineDemands as $demand)
+                                        {
+                                            if($demand['sales_type_id'] == 1)
+                                            {
                                                 ?>
 
                                                 <table style="font-size: 12px" class="table table-striped table-bordered table-advance table-hover">
@@ -801,7 +807,10 @@
                                                         </th>
                                                         <th colspan="3">
 
-                                                            <?php if($demand['orderCollect']== 0){?>
+                                                        <?php 
+                                                            if($demand['orderCollect']== 0)
+                                                            {
+                                                        ?>
                                                                 <div class="btn-group">
                                                                     <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" type="button">ACTIONS &nbsp;<i class="fa fa-angle-down"></i> </button>
                                                                     <ul role="menu" class="dropdown dropdown-menu">
@@ -819,19 +828,22 @@
                                                                 <!-- Large modal -->
 
                                                                 <?php
-
                                                                 $accName =  $ticket['AccountName'];
                                                                 $m_code = $ticket['machine_code'];
                                                                 $m_machineID = $ticket['machine_id'];
                                                                 $m_accountID = $ticket['account_id'];
 
-                                                                include("followup/collect-purchase-order.php");?>
-                                                            <?php   }else{;?>
+                                                                include("followup/collect-purchase-order.php");
+                                                            }
+                                                            else
+                                                            {
+                                                        ?>
                                                                 <div class="btn-group">
                                                                     <a href="<?php echo $host;?>purchase-invoice/<?php echo $demand['ticketNo'];?>" class="btn btn-success"><i class="fa fa-cube"></i>&nbsp;VIEW SUPPLY TICKET</a>
                                                                 </div>
-                                                            <?php }?>
-
+                                                        <?php 
+                                                            }
+                                                        ?>
                                                         </th>
                                                     </tr>
                                                     <tr>
@@ -849,7 +861,8 @@
                                                     $vatN = 0;
                                                     $vatv_ = "NO VAT";
                                                     $salesorder = (array)$database->getPurchaseProductOrderCall($demand['id']);
-                                                    foreach ($salesorder as $order) {
+                                                    foreach ($salesorder as $order)
+                                                    {
                                                         ?>
                                                         <tr>
                                                             <td><?php echo $order['productName'];?><?php if($order['ProductType']>1){echo " - ".$order['color'];}?></td>
@@ -860,9 +873,9 @@
                                                                 $amount_ = $order['qty'] * $order['Amount'];
                                                                 echo $database->convertToMoney($amount_);?></td>
                                                         </tr>
-
-
-                                                        <?php $n++;$amounted += $amount_; $amounted2 += $amount_;}?>
+                                                <?php 
+                                                    $n++;$amounted += $amount_; $amounted2 += $amount_;}
+                                                ?>
                                                     <tr>
                                                         <td colspan="4"><p style="text-align: right">AMOUNT</p></td>
                                                         <td><?php echo $database->convertToMoney($amounted);?></td>
@@ -873,78 +886,71 @@
                                                         <?php $added = $amounted + $vatN;?>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="4"><p style="text-align: right">DISCOUNT <?php echo $demand['discount'];?>%</p></td>
-                                                        <td><?php
+                                                        <td colspan="4"><p style="text-align: right">
+                                                            DISCOUNT <?php echo $demand['discount'];?>%</p></td>
+                                                        <td>
+                                                            <?php
                                                             $disc = (($demand['discount']/100) *  $added);
                                                             echo $database->convertToMoney($disc);
-
-                                                            ?></td>
+                                                            ?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4"><p style="text-align: right">TOTAL</p></td>
-                                                        <td><?php
+                                                        <td>
+                                                    <?php
                                                             $dis = $added - $disc;
                                                             echo $database->convertToMoney($dis);
-
-                                                            ?></td>
+                                                    ?>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table><br/>
-                                            <?php }}}?>
-
+                                            <?php 
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                     <br/>
-
-
-
             </form>
-
         </div>
         <br/>
 
-        <h1  class="text-primary" style="text-align:center;">Backdate Call for <?php  echo $supplyTicket = $ticket['ticketNo'];
-
+        <h1  class="text-primary" style="text-align:center;">
+            Backdate Call for <?php  echo $supplyTicket = $ticket['ticketNo'];
             $getSupplyTicket = $database->getServiceCallTickectNo($supplyTicket);
-
-            foreach ($getSupplyTicket as $getSupplyTicketID) {
-
+            foreach ($getSupplyTicket as $getSupplyTicketID)
+            {
                 $openedDateTime = $getSupplyTicketID['openedDateTime'];
-
                 $closedDateTime = $getSupplyTicketID['closedDateTime'];
-
             }
-
-            ?></h1>
-
-
+        ?>
+        </h1>
 
         <?php
-        if (isset($_POST['closeCall'])) {
-            $supplyTicket = $_POST['supplyTicket'];
-            $openedDateTime = $_POST['openedDateTime'];
-            $closedDateTime = $_POST['closedDateTime'];
-
-
-            $database->updateBackdatedCall($supplyTicket,$openedDateTime,$closedDateTime);
-
-            $msg = "This Ticket has been backdated";
-
-
-        }
-
+            if (isset($_POST['closeCall'])) 
+            {
+                $supplyTicket = $_POST['supplyTicket'];
+                $openedDateTime = $_POST['openedDateTime'];
+                $closedDateTime = $_POST['closedDateTime'];
+                $database->updateBackdatedCall($supplyTicket,$openedDateTime,$closedDateTime);
+                $msg = "This Ticket has been backdated";
+            }
         ?>
-
 
         <form action="" method="POST">
             <div class="form-group">
                 <label class="col-sm-2 control-label">Ticket No</label>
                 <div class="col-sm-10">
-                    <input type="text" name="supplyTicket" value="<?php echo $ticket['ticketNo'];?>" class="form-control" readonly="readonly"> </div>
+                    <input type="text" name="supplyTicket" value="<?php echo $ticket['ticketNo'];?>" class="form-control" readonly="readonly">
+            </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Open Date</label>
                 <div class="col-sm-10">
-                    <input type="text" name="openedDateTime" value="<?php echo $openedDateTime;?>" class="form-control"> </div>
+                    <input type="text" name="openedDateTime" value="<?php echo $openedDateTime;?>" class="form-control">
+            </div>
             </div>
 
 
@@ -964,27 +970,17 @@
 
         </form>
     </div>
-
 </div>
-
 </div>
-
 
 <!--All form elements  End -->
-
 </div>
-
-
-
 </div>
-
-
-
 </div>
 </div>
 <!-- Go top -->
 <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
-<<a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+<a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
 <!-- Go top -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -1065,7 +1061,6 @@
             style: 'btn-danger',
             size: 4
         });
-
     });
 </script>
 <script type="text/javascript">
@@ -1119,7 +1114,5 @@
 
     });
 </script>
-
 </body>
-
 </html>

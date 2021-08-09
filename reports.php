@@ -2,206 +2,110 @@
     include("data/DBConfig.php");
     include_once("data/sessioncheck.php");
 
-if($myData['changePass'] == 0){
-
-    //  $database->redirect_to($host."change-password");
-}
+    if($myData['changePass'] == 0)
+    {
+        //  $database->redirect_to($host."change-password");
+    }
 ?>
-    <script src="<?php echo $host;?>amcharts/amcharts.js" type="text/javascript"></script>
-        <script src="<?php echo $host;?>amcharts/serial.js" type="text/javascript"></script>
-<script>
-            var chart;
-            var chartData = [];
-            var chartCursor;
-
-
-
-            AmCharts.ready(function () {
-                // generate some data first
-                var chartData= [
-                <?php
-                    $yr = date('Y');
-
-                    for($i = 1; $i < 13; $i++){
-                        $j = cal_days_in_month(CAL_GREGORIAN, $i, $yr);
-                        $j = $j + 1;
-                            for($k = 1; $k < $j; $k++){
-                               $r = $database->getDailySales($k,$i,$yr);
-                        ?>
-                        {
-                            <?php $myDate =  $myDate = $yr."-".$i."-".$k;  ?>
-                            "date": "<?php echo $myDate; ?>",
-                            "value": <?php if($r['Amount'] ==''){echo 0;}else{echo $r['Amount'];}?>
-                        },
-
-                    <?php }
-                    }
-
-                ?>
-                ];
-
-               /* var chartData= [
-                {
-                    "date": "2009-10-02",
-                    "value": 5
-                },
-                {
-                    "date": "2009-10-03",
-                    "value": 15
-                },
-                {
-                    "date": "2009-10-05",
-                    "value": 17
-                },
-                {
-                    "date": "2009-10-06",
-                    "value": 15
-                },
-                {
-                    "date": "2009-10-09",
-                    "value": 19
-                },
-
-            ]; */
-
-
-
-                // SERIAL CHART
-                chart = new AmCharts.AmSerialChart();
-
-                chart.dataProvider = chartData;
-                chart.categoryField = "date";
-                chart.balloon.bulletSize = 5;
-
-                // listen for "dataUpdated" event (fired when chart is rendered) and call zoomChart method when it happens
-                chart.addListener("dataUpdated", zoomChart);
-
-                // AXES
-                // category
-                var categoryAxis = chart.categoryAxis;
-                categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-                categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
-                categoryAxis.dashLength = 1;
-                categoryAxis.minorGridEnabled = true;
-                categoryAxis.twoLineMode = true;
-                categoryAxis.dateFormats = [{
-                    period: 'fff',
-                    format: 'JJ:NN:SS'
-                }, {
-                    period: 'ss',
-                    format: 'JJ:NN:SS'
-                }, {
-                    period: 'mm',
-                    format: 'JJ:NN'
-                }, {
-                    period: 'hh',
-                    format: 'JJ:NN'
-                }, {
-                    period: 'DD',
-                    format: 'DD'
-                }, {
-                    period: 'WW',
-                    format: 'DD'
-                }, {
-                    period: 'MM',
-                    format: 'MMM'
-                }, {
-                    period: 'YYYY',
-                    format: 'YYYY'
-                }];
-
-                categoryAxis.axisColor = "#DADADA";
-
-                // value
-                var valueAxis = new AmCharts.ValueAxis();
-                valueAxis.axisAlpha = 0;
-                valueAxis.dashLength = 1;
-                chart.addValueAxis(valueAxis);
-
-                // GRAPH
-                var graph = new AmCharts.AmGraph();
-                graph.title = "red line";
-                graph.valueField = "value";
-                graph.bullet = "round";
-                graph.bulletBorderColor = "#FFFFFF";
-                graph.bulletBorderThickness = 2;
-                graph.bulletBorderAlpha = 1;
-                graph.lineThickness = 2;
-                graph.lineColor = "#5fb503";
-                graph.negativeLineColor = "#ff0000";
-                graph.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
-                chart.addGraph(graph);
-
-                // CURSOR
-                chartCursor = new AmCharts.ChartCursor();
-                chartCursor.cursorPosition = "mouse";
-                chartCursor.pan = true; // set it to fals if you want the cursor to work in "select" mode
-                chart.addChartCursor(chartCursor);
-
-                // SCROLLBAR
-                var chartScrollbar = new AmCharts.ChartScrollbar();
-                chart.addChartScrollbar(chartScrollbar);
-
-                chart.creditsPosition = "bottom-right";
-
-                // WRITE
-                chart.write("chartdiv");
-            });
-
-            // this method is called when chart is first inited as we listen for "dataUpdated" event
-            function zoomChart() {
-                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
-            }
-
-            // changes cursor mode from pan to select
-            function setPanSelect() {
-                if (document.getElementById("rb1").checked) {
-                    chartCursor.pan = false;
-                    chartCursor.zoomable = true;
-                } else {
-                    chartCursor.pan = true;
-                }
-                chart.validateNow();
-            }
-
-        </script>
-
-
-
-
-
-
-
 
 <html lang="en">
 <!-- fullcalendar -->
-<link href='<?php echo $host;?>assets/css/fullcalendar.css' rel='stylesheet' />
-<link href='<?php echo $host;?>assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-<link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
-	<!-- Bootstrap -->
-	<link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo $host;?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-	<link rel="stylesheet" type="text/css" href="<?php echo $host;?>assets/css/daterangepicker.css" />
-	<!-- slimscroll -->
-	<link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
-	<!-- Fontes -->
-	<link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
-	<link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
-	<!-- all buttons css -->
-	<link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
-	<!-- animate css -->
-<link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
-<!-- top nev css -->
-<link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
+    <link href='<?php echo $host;?>assets/css/fullcalendar.css' rel='stylesheet' />
+    <link href='<?php echo $host;?>assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $host;?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="<?php echo $host;?>assets/css/daterangepicker.css" />
+    <!-- slimscroll -->
+    <link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
+    <!-- Fontes -->
+    <link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
+    <!-- all buttons css -->
+    <link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
+    <!-- animate css -->
+    <link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
+    <!-- top nev css -->
+    <link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
 <!-- adminui main css -->
-	<link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
-	<!-- aqua black theme css -->
-	<link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
-	<!-- media css for responsive  -->
-	<link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
+    <link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
+    <!-- aqua black theme css -->
+    <link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
+    <!-- media css for responsive  -->
+    <link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
 
 <?php include("includes/header_.php");?>
+
+<!-- Chart code -->
+<script>
+    am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+    var data = [];
+    var value = 50;
+    for(var i = 0; i < 300; i++)
+    {
+      var date = new Date();
+      date.setHours(0,0,0,0);
+      date.setDate(i);
+      value -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+      data.push({date:date, value: value});
+    }
+
+    //chart.data = data;
+    chart.data = [
+                    <?php
+                        $yr = date('Y');
+
+                        for($i = 1; $i <= 12; $i++)
+                        {
+                            $j = cal_days_in_month(CAL_GREGORIAN, $i, $yr);
+                            $j = $j;
+                            for($k = 1; $k <= $j; $k++)
+                            {
+                               $r = $database->getDailySales($k,$i,$yr);
+                    ?>
+                        {
+                            <?php $myDate =  $yr."-".$i."-".$k;  ?>
+                            "date": "<?php echo $myDate; ?>",
+                            "value": <?php echo $r['Amount'] == '' ? 0 : $r['Amount'] ?>
+                        },
+                    <?php 
+                            }
+                        }
+                    ?>
+                ];
+
+    // Create axes
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.minGridDistance = 60;
+
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+    // Create series
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.valueY = "value";
+    series.dataFields.dateX = "date";
+    series.tooltipText = "{value}"
+
+    series.tooltip.pointerOrientation = "vertical";
+
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.snapToSeries = series;
+    chart.cursor.xAxis = dateAxis;
+
+    //chart.scrollbarY = new am4core.Scrollbar();
+    chart.scrollbarX = new am4core.Scrollbar();
+
+    }); // end am4core.ready()
+</script>
+
         <div class="page-content-wrapper">
               <?php include("includes/make-purchase.php");?>
             <div class="page-content">
@@ -297,7 +201,7 @@ if($myData['changePass'] == 0){
             <div style="margin-left:35px;">
                 <h2>DAILY SALES GRAPH</h2>
 		</div>
-             <div id="chartdiv" style="width: 100%; height: 400px;"></div>
+             <div id="chartdiv" style="width: 100%; height: 500px;"></div>
               <div style="margin-left:35px; text-align: right">
                 <span style=" text-align: right; font-size: medium"><input type="radio" name="group" id="rb1" onclick="setPanSelect()">Select
             <input type="radio" checked="true" name="group" id="rb2" onclick="setPanSelect()">Pan</span>
@@ -311,31 +215,26 @@ if($myData['changePass'] == 0){
 <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
 <script src="https://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
 
-<!-- <?php 
+<!-- 
+    <?php 
+        for($i = 1; $i < 13; $i++)
+        {
+            $jd=gregoriantojd($i,1,$yr);
+            $monthly = jdmonthname($jd,0);
 
- for($i = 1; $i < 13; $i++){
+            $r = $database->getMonthlySales($i,$yr);
 
-    $jd=gregoriantojd($i,1,$yr);
-     $monthly = jdmonthname($jd,0);
-
- $r = $database->getMonthlySales($i,$yr);
-
- if($r['Amount'] ==''){echo 0 . "<br>";}else{
-        echo "<h1>";
-    echo $r['Amount'] . $i."<br>";
-
-      echo "</h1>";
-
-}
-
- }
-
-
-
-
-
-
-
+            if($r['Amount'] =='')
+            {
+                echo 0 . "<br>";
+            }
+            else
+            {
+                echo "<h1>";
+                echo $r['Amount'] . $i."<br>";
+                echo "</h1>";
+            }
+        }
 ?> -->
 
 <?php ?>
@@ -373,31 +272,24 @@ if($myData['changePass'] == 0){
             },
 
             "data": [
-                <?php
-                    $yr = date('Y');
-
-                   for($i = 1; $i < 13; $i++){
-
-                        $jd=gregoriantojd($i,1,$yr);
-                        $monthly = jdmonthname($jd,0);
-
-                        $r = $database->getMonthlySales($i,$yr);
-
-                          
-                        ?>
+                    <?php
+                        $yr = date('Y');
+                        for($i = 1; $i < 13; $i++)
                         {
-                            
+                            $jd=gregoriantojd($i,1,$yr);
+                            $monthly = jdmonthname($jd,0);
+                            $r = $database->getMonthlySales($i,$yr);
+                    ?>
+                        {
                             "label": "<?php echo $monthly; ?>",
                             "value": <?php if($r['Amount'] ==''){echo 0;}else{echo $r['Amount'];}?>
                         },
-
-                    <?php }
-                    
-
-                ?>
-            ]
-        }
-    });
+                    <?php 
+                        }
+                    ?>
+                    ]
+                }
+            });
     revenueChart.render();
 });
 </script>
@@ -416,8 +308,6 @@ if($myData['changePass'] == 0){
                 </div>
             </div>
 </div>-->
-
-
 </div>
 <br>
 <br>
@@ -448,13 +338,7 @@ if($myData['changePass'] == 0){
                         </div>
 
                      </form>
-
-
-				<hr>
-
-
-
-
+                    <hr>
              </div>
              <!--page title end-->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -480,36 +364,29 @@ if($myData['changePass'] == 0){
             </thead>
             <tbody>
 
-                <?php
+            <?php
                 $from = 20170601;
                 $to =  date("Y").date('m').date('d');
                 $totalMyAmount = 0;
-                        if(isset($_POST['btnprev'])){
-
-                                $from = explode('-', $database->test_input($_POST['txtFrom']));
-                                $to = explode('-', $database->test_input($_POST['txtTo']));
-
-                                $from = $from[2].str_pad($from[1],2,"0",STR_PAD_LEFT).str_pad($from[0],2,"0",STR_PAD_LEFT);
-                                $to = $to[2].str_pad($to[1],2,"0",STR_PAD_LEFT).str_pad($to[0],2,"0",STR_PAD_LEFT);
-
-
-
-
-
-
-                        $myOrder = (array)$database->purchaseListForMachineCollectedAllRange($from,$to);
-
-                          if($myOrder != null){
-                                              //  echo count($myOrder);
-                                                foreach($myOrder as $mo){
-                                                    $vat = 0;
-                                                    $vatv_ = "NO VAT";
-
-                ?>
-                       <tr>
+                if(isset($_POST['btnprev']))
+                {
+                    $from = explode('-', $database->test_input($_POST['txtFrom']));
+                    $to = explode('-', $database->test_input($_POST['txtTo']));
+                    $from = $from[2].str_pad($from[1],2,"0",STR_PAD_LEFT).str_pad($from[0],2,"0",STR_PAD_LEFT);
+                    $to = $to[2].str_pad($to[1],2,"0",STR_PAD_LEFT).str_pad($to[0],2,"0",STR_PAD_LEFT);
+                    $myOrder = (array)$database->purchaseListForMachineCollectedAllRange($from,$to);
+                    if($myOrder != null)
+                    {
+                        //  echo count($myOrder);
+                        foreach($myOrder as $mo)
+                        {
+                            $vat = 0;
+                            $vatv_ = "NO VAT";
+            ?>
+            <tr>
                 <td class="t_center"><?php echo str_pad($mo['id'],5,"0",STR_PAD_LEFT);?></td>
                 <td><?php echo $mo['Name'];?></td>
-                <td><?php echo $mo['paymentmode'];?></td>
+                <td><?php echo $mo['paymentMode'];?></td>
                 <td class="hidden-mobile"><a href="<?php echo $host;?>purchase-invoice/<?php echo $mo['ticketNo'];?>" target="_blank" ><?php echo $mo['ticketNo'];?></a></td>
                 <td><?php echo $mo['orderCollectedDate'];?></td>
                 <td><?php echo $database->convertToMoney($mo['myAmount']);?></td>
@@ -519,41 +396,42 @@ if($myData['changePass'] == 0){
                             $added = $mo['myAmount'] + $vat;
                     ?>
                 </td>
-                <td><?php
+                <td>
+                    <?php
                            $discount = ($mo['discount']/100) * $added;
                            echo $mo['discount']."% - ".$database->convertToMoney($discount);
-                        ?>
+                    ?>
                 </td>
-
-                   <td>
-                       <?php
-                            $finalAmount = $added - $discount;
-                            echo $database->convertToMoney($finalAmount);
-                            $totalMyAmount = $totalMyAmount +  $finalAmount;
-                        ?>
-                   </td>
+                <td>
+                    <?php
+                         $finalAmount = $added - $discount;
+                         echo $database->convertToMoney($finalAmount);
+                         $totalMyAmount = $totalMyAmount +  $finalAmount;
+                     ?>
+                </td>
                 <td class="action-table">
                     <a data-toggle="modal" data-target="#myModal<?php echo $mo['ticketNo'];?>"><img src="<?php echo $host;?>images/icon/table_view.png" alt=""></a>
                     <div id="myModal<?php echo $mo['ticketNo'];?>"  tabindex="-1" role="dialog" style="width: 100%"  class="modal large col-lg-12"aria-labelledby="myModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content">
-                                                                                <div class="modal-header">
-
-                                                                                <?php include("../_tickets/ticket-pop.php");?>
-
-                                                                                 </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Dismiss</button>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                </td>
- </tr>
-
-                <?php }}}?>
+                            <div class="modal-header">
+                                <?php include("../_tickets/ticket-pop.php");?>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    Dismiss
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+         </tr>
+                <?php 
+                                }
+                            }
+                        }
+                ?>
                  <tr>
                      <th colspan="8">
                          <p style="text-align: right">TOTAL:</p>
@@ -563,26 +441,15 @@ if($myData['changePass'] == 0){
                      </th>
                      <td></td>
                  </tr>
-
-
             </tbody>
           </table>
 
-
-
               <div class="clearfix"></div>
               </div>
-
-
                     </div>
                   </div>
                  </div>
                  </div>
-
-
-
-
-
             <div class="ibox float-e-margins">
               <div id="demo2" class="ibox-content collapse in">
                 <div class="demo-container">
@@ -595,18 +462,6 @@ if($myData['changePass'] == 0){
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -628,46 +483,43 @@ if($myData['changePass'] == 0){
 <!-- Sparkline -->
 <script src="<?php echo $host;?>assets/js/vendor/jquery.sparkline.min.js"></script>
 <!-- main js -->
-		<script src="<?php echo $host;?>assets/js/main.js"></script>
-		<script type="text/javascript">
+<script src="<?php echo $host;?>assets/js/main.js"></script>
+<script type="text/javascript">
     $('.form_datetime').datetimepicker({
         //language:  'fr',
         weekStart: 1,
         todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    forceParse: 0,
-        showMeridian: 1
-    });
-  $('.form_date').datetimepicker({
-
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+            showMeridian: 1
+        });
+    $('.form_date').datetimepicker({
         weekStart: 1,
         todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0
-    });
-  $('.form_time').datetimepicker({
-
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+        });
+    $('.form_time').datetimepicker({
         weekStart: 1,
         todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 1,
-    minView: 0,
-    maxView: 1,
-    forceParse: 0
-    });
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+        });
 
-        $(function () {
+    $(function () {
             $('#datetimepicker12').datetimepicker({
                 inline: true,
                 sideBySide: true
             });
-
        $('input[name="daterange"]').daterangepicker();
 
         $('input[name="dateTimeRange"]').daterangepicker({
@@ -680,10 +532,3 @@ if($myData['changePass'] == 0){
 
     });
 </script>
-
-
-
-
-
-
-

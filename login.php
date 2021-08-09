@@ -79,8 +79,9 @@
                     $_SESSION['access'] = $data['AccessLevel'];
                     $_SESSION['storeID'] = $data['storeID'];
                     $_SESSION['dptID'] = $data['DepartmentID'];
-                    
-                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
+
+                    $sessionDuration = time() + (60 * 60 * 24 * 5);
+                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], $sessionDuration, "/");
                     $database->redirect_to($url);
                 }
             }

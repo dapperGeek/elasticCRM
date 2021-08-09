@@ -35,7 +35,13 @@ class UtilFunctions
     }
 
     public static function getPercentage($arg1, $arg2){
-        return (($arg1 / $arg2) * 100) . '%' ;
+        $percen = 0;
+        try {
+            $percen = ($arg1 / $arg2) * 100 ;
+        } catch (DivisionByZeroError $e) {
+            $e->getTrace();
+        }
+        return $percen . '%';
     }
 
     public static function getDelayedCalls($serviceCalls){
@@ -56,6 +62,16 @@ class UtilFunctions
 
     public static function removeComma($value){
         return str_replace(',', '', $value);
+    }
+
+    public static function appURLs($key)
+    {
+        $urls = [
+            'view-calls' => 'view-service-call',
+            'make-call' => 'service-call',
+            'edit-call' => 'service-call/'
+        ];
+        return $urls[$key];
     }
 
     public static function prettyDate($dateString){

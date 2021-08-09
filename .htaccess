@@ -1,3 +1,4 @@
+
 ErrorDocument 404 404.php
 
 AddDefaultCharset UTF-8
@@ -6,8 +7,6 @@ RewriteEngine On
 
 # Make all PHP code look like HTML  --- Rule 1
 #  AddType application/x-httpd-php .htm .html    # USE TO MAKE HTML WORK AS PHP FILE
-
-
 
 RewriteRule ^login/*$ login.php [NC,L,QSA] #login
 RewriteRule ^logout/*$ logout.php [NC,L,QSA] #logout
@@ -33,16 +32,15 @@ RewriteRule ^view-poc/*$ serviceapp/view-poc.php [NC,L,QSA] #Add Account
 
 RewriteRule ^view-service-call/*$ serviceapp/view-service-call.php [NC,L,QSA] #Add Account
 RewriteRule ^engineer-view-service-call/*$ serviceapp/engineer-view-service-call.php [NC,L,QSA] #Add Account
-RewriteRule ^service-call/*$ serviceapp/service-call.php [NC,L,QSA] #Add Account
+RewriteRule ^service-call/*$ serviceapp/service-call.php [NC,L,QSA] #Add Service Call
+RewriteRule ^service-call/([0-9]+)/*$ serviceapp/service-call.php?id=$1 [NC,L,QSA] #Edit Service Call
 
 RewriteRule ^ticket-info/([A-Za-z0-9-_]+)/*$ tickets/service-ticket.php?id=$1 [NC,L,QSA] #view ticket Information
 
 RewriteRule ^workshop-ticket-info/([A-Za-z0-9-_]+)/*$ tickets/workshop-ticket.php?id=$1 [NC,L,QSA] #view ticket Information
 
-
 RewriteRule ^purchase-invoice/([A-Za-z0-9-_]+)/*$ tickets/purchase-invoice.php?id=$1 [NC,L,QSA] #view Purchase Invoice
 RewriteRule ^ticket-pop/([A-Za-z0-9-_]+)/*$ tickets/ticket-pop.php?id=$1 [NC,L,QSA] #view Purchase Invoice
-
 
 RewriteRule ^machine-info/([0-9]+)/*$ serviceapp/machine-info.php?id=$1 [NC,L,QSA] #view machine Information
 RewriteRule ^account-info/([0-9]+)/*$ serviceapp/account-info.php?id=$1 [NC,L,QSA] #view account Information
@@ -72,18 +70,14 @@ RewriteRule ^purchase-uncollected/*$ purchase/purchase-uncollected.php [NC,L,QSA
 
 RewriteRule ^add-contract/*$ billing/add-contract.php [NC,L,QSA] #Create New Contract
 
-
 RewriteRule ^view-products/([0-9]+)/*$ settings/products.php?id=$1 [NC,L,QSA] #View Products
 RewriteRule ^add-product-to-stock/*$ _warehouse/recieve-goods.php [NC,L,QSA] #Add Product Stocks
 RewriteRule ^receive-goods-warehouse/*$ _warehouse/recieve-goods-warehouse.php [NC,L,QSA] #Receive goodd from other warehouse.
-
-
 
 RewriteRule ^view-goods-recieve-ticket/*$ _warehouse/view-recieve-tickets.php [NC,L,QSA] #Add Product Stocks
 RewriteRule ^view-sold-ticket/*$ _warehouse/view-sold-tickets.php [NC,L,QSA] #Add Product Stocks
 
 RewriteRule ^return-ticket/*$ _warehouse/return-ticket.php [NC,L,QSA] #return-ticket
-
 
 RewriteRule ^view-bim/*$ _warehouse/view-bim.php [NC,L,QSA] #Add Product Stocks
 RewriteRule ^sell-goods/*$ _warehouse/sell-goods.php [NC,L,QSA] #sell goods
@@ -121,7 +115,6 @@ RewriteRule ^update-new-pm-visit/([0-9]+)/*$ maintenance/pm-update.php?id=$1 [NC
 RewriteRule ^users/*$ userprofile/users.php [NC,L,QSA] #View all users and update user by id
 RewriteRule ^users/([0-9]+)/*$ userprofile/users.php?id=$1 [NC,L,QSA] #View all users and update user by id
 RewriteRule ^users/db/ops*$ userprofile/users.php?db=ops [NC,L,QSA] #View all users and update user by id
-
 
 RewriteRule ^ticket/([A-Za-z0-9-_]+)/([0-9]+)/*$ _warehouse/downloads.php?id=$1&vat=$2 [NC,L,QSA] #PDF version of invoice
 

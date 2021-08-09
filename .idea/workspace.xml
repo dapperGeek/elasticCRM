@@ -1,17 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="681bc4df-b221-4c16-a245-3ffc1f2fc882" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="681bc4df-b221-4c16-a245-3ffc1f2fc882" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/billing/add-contract_1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings/delete-call-action.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/modals/delete-ticket.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/mpsNumbersChart_1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/mpsNumbersTable_1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/serviceCallsFigures_1.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/serviceCalls_1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/PageHeaders.php" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/PageHeaders.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/UtilFunctions.php" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/UtilFunctions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_warehouse/goods-recieved-ticket.php" beforeDir="false" afterPath="$PROJECT_DIR$/_warehouse/goods-recieved-ticket.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_warehouse/return-ticket.php" beforeDir="false" afterPath="$PROJECT_DIR$/_warehouse/return-ticket.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_warehouse/sell-goods.php" beforeDir="false" afterPath="$PROJECT_DIR$/_warehouse/sell-goods.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_warehouse/sell_goods_backup.php" beforeDir="false" afterPath="$PROJECT_DIR$/_warehouse/sell_goods_backup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_warehouse/stock_analysis.php" beforeDir="false" afterPath="$PROJECT_DIR$/_warehouse/stock_analysis.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_warehouse/transfer-goods.php" beforeDir="false" afterPath="$PROJECT_DIR$/_warehouse/transfer-goods.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/ajax.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/billing/add-contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/billing/add-contract.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/billing/mps-billing.php" beforeDir="false" afterPath="$PROJECT_DIR$/billing/mps-billing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/billing/view-contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/billing/view-contract.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/DBConfig.php" beforeDir="false" afterPath="$PROJECT_DIR$/data/DBConfig.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MySQLDB_backup.php" beforeDir="false" afterPath="$PROJECT_DIR$/data/MySQLDB_backup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/MySQLDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/data/MySQLDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/edit_contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/edit_contract.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/footer_1.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/footer_1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/forms.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/forms.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/headerJS.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/headerJS.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/header_with_pageHeading.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/header_with_pageHeading.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/topHeader.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/topHeader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/logout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/reports.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/add-machine.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/add-machine.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/add-machine_.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/add-machine_.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/follow-up-call.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/follow-up-call.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/follow-up-call_1.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/follow-up-call_1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/followup/closed_1.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/followup/closed_1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/service-call.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/service-call.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/view-machine.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/view-machine.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/view-service-call.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/view-service-call.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/view-service-call_.php" beforeDir="false" afterPath="$PROJECT_DIR$/serviceapp/view-service-call_.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceapp/view-service-call_old.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/edit-product.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/edit-product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/product-action.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/product-action.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/products.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/products_old.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/products_old.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks.php" beforeDir="false" afterPath="$PROJECT_DIR$/tasks.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tickets/service-ticket_.php" beforeDir="false" afterPath="$PROJECT_DIR$/tickets/service-ticket_.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/mpsNumbersChart.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/mpsNumbersChart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/sales.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/sales.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/serviceCalls.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/serviceCalls.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/serviceCallsFigures.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/serviceCallsFigures.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -36,7 +93,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Legacy Code" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -53,8 +110,14 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/settings" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -62,26 +125,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\elastic25.com\includes" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\elastic25.com\settings" />
+      <recent name="C:\xampp\htdocs\elastic25.com\includes" />
+      <recent name="C:\xampp\htdocs\elastic25.com\Utils" />
+      <recent name="C:\xampp\htdocs\elastic25.com\serviceapp" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\elastic25.com\views\modals" />
+      <recent name="C:\xampp\htdocs\elastic25.com\views" />
       <recent name="C:\xampp\htdocs\elastic25.com\includes" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -149,11 +205,46 @@
       <workItem from="1606752279333" duration="20775000" />
       <workItem from="1609762531061" duration="1197000" />
       <workItem from="1610015964402" duration="4051000" />
+      <workItem from="1611058186502" duration="2591000" />
+      <workItem from="1612349503213" duration="3658000" />
+      <workItem from="1613992393461" duration="1534000" />
+      <workItem from="1614172576202" duration="1467000" />
+      <workItem from="1614242780857" duration="8490000" />
+      <workItem from="1614329261252" duration="7202000" />
+      <workItem from="1615796221519" duration="2466000" />
+      <workItem from="1615882516810" duration="2435000" />
+      <workItem from="1616661495609" duration="161000" />
+      <workItem from="1616661776551" duration="4367000" />
+      <workItem from="1616667502998" duration="12966000" />
+      <workItem from="1616751290396" duration="15910000" />
+      <workItem from="1616835952638" duration="7462000" />
+      <workItem from="1616951477423" duration="591000" />
+      <workItem from="1617006137350" duration="1495000" />
+      <workItem from="1617092416764" duration="41895000" />
+      <workItem from="1617735732741" duration="36873000" />
+      <workItem from="1618217479596" duration="23936000" />
+      <workItem from="1618488823372" duration="1195000" />
+      <workItem from="1618651060337" duration="2086000" />
+      <workItem from="1618823034257" duration="680000" />
+      <workItem from="1618823779126" duration="3133000" />
+      <workItem from="1618904950071" duration="594000" />
+      <workItem from="1619083913933" duration="594000" />
+      <workItem from="1619424065393" duration="599000" />
+      <workItem from="1619511075916" duration="588000" />
+      <workItem from="1619610133091" duration="1197000" />
+      <workItem from="1619769115674" duration="4652000" />
+      <workItem from="1620117879486" duration="6647000" />
+      <workItem from="1620287195043" duration="598000" />
+      <workItem from="1620374913198" duration="2196000" />
+      <workItem from="1620636639105" duration="5279000" />
+      <workItem from="1620985000839" duration="1189000" />
+      <workItem from="1621073195009" duration="678000" />
+      <workItem from="1621349687603" duration="1217000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -164,6 +255,18 @@
         <option value="1" />
       </list>
     </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>

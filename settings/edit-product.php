@@ -1,39 +1,40 @@
 <script>
-      function callEditAction<?php echo $prod['id'];?>(action,id) {
-
-         var catID = $("#catID<?php echo $prod['id'];?>").val();
-         var prodName = $("#prodName<?php echo $prod['id'];?>").val();
-         var prodCode = $("#prodCode<?php echo $prod['id'];?>").val();
-         var prodPrice = $("#prodPrice<?php echo $prod['id'];?>").val();
-          var unitID = $("#unitID<?php echo $prod['id'];?>").val();
-                  var queryString = 'action=edit&catID='+catID+'&prodName='+prodName+'&prodCode='+prodCode+'&prodPrice='+prodPrice+'&id='+id+'&unitID='+unitID;
-                //  alert(queryString);
-                  if(catID!= "" && prodName != "" && prodCode != "" && prodPrice != "" && id != "" ){
-                   if(confirm("Are you sure you want to edit this?")) {
-                  $("#loaderIcon<?php echo $prod['id'];?>").show();
-                  jQuery.ajax({
-                        url: "<?php echo $host;?>/settings/product-action.php",
-                        data:queryString,
-                        type: "POST",
-                        success:function(data){
-
-                          $("#responseFor-<?php echo $prod['id'];?>").fadeIn(2000);
-                          $("#responseFor-<?php echo $prod['id'];?>").fadeOut(2000);
-                          $("#loaderIcon<?php echo $prod['id'];?>").hide();
-                           location.reload(true);
-                        },
-                       error: function(xhr, status, error) {
-                            var err = eval("(" + xhr.responseText + ")");
-                            alert(err.Message);
-                          }
-                      });
-                  }
-              }else{
-                // alert("Url"+queryString);
-                         $("#responseFor2-<?php echo $prod['id'];?>").fadeIn(2000);
-                          $("#responseFor2-<?php echo $prod['id'];?>").fadeOut(2000);
-              }
-      }
+    function callEditAction<?php echo $prod['id'];?>(action,id) {
+        var catID = $("#catID<?php echo $prod['id'];?>").val();
+        var prodName = $("#prodName<?php echo $prod['id'];?>").val();
+        var prodCode = $("#prodCode<?php echo $prod['id'];?>").val();
+        var prodPrice = $("#prodPrice<?php echo $prod['id'];?>").val();
+        var unitID = $("#unitID<?php echo $prod['id'];?>").val();
+        var queryString = 'action=edit&catID='+catID+'&prodName='+prodName+'&prodCode='+prodCode+'&prodPrice='+prodPrice+'&id='+id+'&unitID='+unitID;
+            //  alert(queryString);
+        if(catID!= "" && prodName != "" && prodCode != "" && prodPrice != "" && id != "" )
+        {
+            if(confirm("Are you sure you want to edit this?")) {
+                $("#loaderIcon<?php echo $prod['id'];?>").show();
+                jQuery.ajax({
+                    url: "<?php echo $host;?>/settings/product-action.php",
+                    data:queryString,
+                    type: "POST",
+                    success:function(data){
+                        $("#responseFor-<?php echo $prod['id'];?>").fadeIn(2000);
+                        $("#responseFor-<?php echo $prod['id'];?>").fadeOut(2000);
+                        $("#loaderIcon<?php echo $prod['id'];?>").hide();
+                        location.reload(true);
+                    },
+                    error: function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                    }
+                });
+            }
+        }
+        else
+        {
+            // alert("Url"+queryString);
+                     $("#responseFor2-<?php echo $prod['id'];?>").fadeIn(2000);
+                      $("#responseFor2-<?php echo $prod['id'];?>").fadeOut(2000);
+        }
+    }
     </script>
 <div class="modal fade bs-example-modal-lg-2-<?php echo $prod['id'];?>" tabindex="-1" role="dialog" >
                                                     <div class="modal-dialog modal-lg" role="document">
@@ -51,7 +52,7 @@
                                                                        <label class="col-md-2">&nbsp;</label>
                                                                        <div class="col-md-6" style="text-align: center">
                                                                               <img src="<?php echo $host;?>img/LoaderIcon.gif" style="display:none" id="loaderIcon<?php echo $prod['id'];?>"  width="30" height="30" />
-                                                                              <label class="label label-success col-md-12" style="display:none" id="responseFor-<?php echo $prod['id'];?>">You have successfully editted this product</label>
+                                                                              <label class="label label-success col-md-12" style="display:none" id="responseFor-<?php echo $prod['id'];?>">You have successfully edited this product</label>
                                                                               <label class="label label-danger col-md-12" style="display:none" id="responseFor2-<?php echo $prod['id'];?>">Please all fields are required </label>
                                                                       </div>
                                                                     </div>

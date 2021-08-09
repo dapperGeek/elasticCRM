@@ -13,13 +13,10 @@ else{
     include '../data/DBConfig.php';
 }
 
-    $analytic = $database->mpsAnalytics();
-    $data = json_encode($analytic);
-
-//    echo $data;
-    if (!isset($_GET['id'])){
+    //    echo $data;
+    if (!isset($_GET['id']))
+    {
 ?>
-
         <div class="row col-lg-12" style="margin-top: 20px">
             <div class="row">
 <!--                MPS Machines Number Charts-->
@@ -36,7 +33,8 @@ else{
 
 <?php
     }
-    else{
+    else
+    {
         $account = $database->getSingleAccountInformation($_GET['id']);
         $billingInfo = $database->getMpsContracts($_GET['id']);
 ?>
@@ -53,26 +51,27 @@ else{
             </thead>
             <tbody>
 <?php
-                $billingInfo = $database->getMpsContracts($_GET['id']);
-                foreach ($billingInfo as $item){
-                    $machineID = $item->machineID;
-                    $contractID = $item->contractID;
-                    $machineCode = $item->machine_code;
-                    $rentalCharge = $item->RentalCharge;
-                    $minVolumeMono = $item->minVolMono;
-                    $minVolumeColor = $item->minVolColor;
-                    $excessMonoCharge = $item->excessCostMono;
-                    $excessColorCharge = $item->excessCostColor;
-                    $mReading = $database->getBillingFromMeterReading($contractID, $machineID, $machineCode, $rentalCharge, $minVolumeMono, $minVolumeColor, $excessMonoCharge, $excessColorCharge);
-                    $metrics[] = $mReading;
-                }
+        foreach ($billingInfo as $item)
+        {
+            $machineID = $item->machineID;
+            $contractID = $item->contractID;
+            $machineCode = $item->machine_code;
+            $rentalCharge = $item->RentalCharge;
+            $minVolumeMono = $item->minVolMono;
+            $minVolumeColor = $item->minVolColor;
+            $excessMonoCharge = $item->excessCostMono;
+            $excessColorCharge = $item->excessCostColor;
+            $mReading = $database->getBillingFromMeterReading($contractID, $machineID, $machineCode, $rentalCharge, $minVolumeMono, $minVolumeColor, $excessMonoCharge, $excessColorCharge);
+            $metrics[] = $mReading;
+        }
 
-                $n = 1;
-                foreach ($metrics as $met){
-//                    for ($x = 0; $x < count($met); $x++){
-                    echo '<pre>';
-                    print_r($met);
-                    echo '</pre>';
+        $n = 1;
+        foreach ($metrics as $met)
+        {
+//          for ($x = 0; $x < count($met); $x++){
+            echo '<pre>';
+            print_r($met);
+            echo '</pre>';
 ?>
                 <tr>
                     <td><?php echo $n ?></td>
@@ -81,9 +80,9 @@ else{
                     <td><?php echo '' ?></td>
                 </tr>
 <?php
-//                    }
-                    $n++;
-                }
+//           }
+            $n++;
+        }
 ?>
             </tbody>
             </table>

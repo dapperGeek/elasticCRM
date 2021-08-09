@@ -67,45 +67,36 @@
                 <div class="widgets-container">
                   <div class="table-responsive">
                       <table id="example7" class="display nowrap table  responsive nowrap table-bordered">
-                      <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Contract Ticket</th>
-                                                <th>Contract Type</th>
-                                                <th>Account</th>
-                                                <th>Number of Machines</th>
-                                                 <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                       <!-- <tfoot>
-                                            <tr>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Contract Ticket</th>
+                                <th>Contract Type</th>
+                                <th>Account</th>
+                                <th>Number of Machines</th>
+                                 <th>Value</th>
+                            </tr>
+                        </thead>
+                        <!-- <tfoot>
+                             <tr>
 
-                                            </tr>
-                                        </tfoot> -->
-                                        <tbody>
-                                        <?php
-                                            $machines = (array)$database->getAllCompanyContracts();
-                                            foreach ($machines as $machine) {
-
-                                        ?>
-                                            <tr>
-
-                                                <td><?php echo strtoupper($machine['id']);?></td>
-                                                <td><a href="<?php echo $host;?>contract-details/<?php echo $machine['id'];?>"><?php echo strtoupper($machine['contractTicket']);?></a></td>
-                                                 <td><?php echo strtoupper($machine['c_name']);?></td>
-                                                <td><a href="<?php  if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>account-info/<?php echo $machine['AccountID'];?>"><?php echo strtoupper($machine['Name']);?></a></td>
-                                                  <td><?php echo strtoupper($machine['machineNum']);?> machine(s)</td>
-                                                  <td></td>
-
-
-
-
-
-                                            </tr>
-
-                                        <?php }?>
-
-                                        </tbody>
+                             </tr>
+                         </tfoot> -->
+                        <tbody>
+                    <?php
+                        $machines = (array)$database->getAllCompanyContracts();
+                        foreach ($machines as $machine) {
+                    ?>
+                        <tr>
+                            <td><?php echo strtoupper($machine['id']);?></td>
+                            <td><a href="<?php echo $host;?>contract-details/<?php echo $machine['id'];?>"><?php echo strtoupper($machine['contractTicket']);?></a></td>
+                             <td><?php echo strtoupper($machine['c_name']);?></td>
+                            <td><a href="<?php  if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>account-info/<?php echo $machine['AccountID'];?>"><?php echo strtoupper($machine['Name']);?></a></td>
+                              <td><?php echo strtoupper($machine['machineNum']);?> machine(s)</td>
+                              <td></td>
+                        </tr>
+                    <?php }?>
+                        </tbody>
                     </table>
                   </div>
                 </div>
@@ -163,15 +154,9 @@
 
         $(document).ready(function() {
             // Flexible table
-
             $('#example').DataTable();
-
             // Scroll Horizontal example
-
-
-
             // Individual column searching
-
             // Setup - add a text input to each footer cell
             $('#example6 tfoot th').each(function() {
                 var title = $(this).text();
@@ -220,9 +205,6 @@
                     className: 'btn purple  btn-outline'
                 }]
             });
-
-
-
         });
     </script>
 </body>

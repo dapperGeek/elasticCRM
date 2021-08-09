@@ -10,6 +10,10 @@
 
 <!--        Graph div -->
 <div class="col-lg-6">
+    <?php    
+        $analytic = $database->mpsAnalytics();
+        $mpsChartsData = json_encode($analytic);
+    ?>
     <script>
         am4core.ready(function() {
 
@@ -20,7 +24,7 @@
             // Create chart instance
             var chart = am4core.create("chartdiv", am4charts.XYChart);
 
-            chart.data = <?php echo $data ?> ;
+            chart.data = <?php echo $mpsChartsData ?> ;
 
 // Create axes
             var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
@@ -35,7 +39,8 @@
             valueAxis.renderer.opposite = true;
 
 // Create series
-            function createSeries(field, name) {
+            function createSeries(field, name)
+            {
                 var series = chart.series.push(new am4charts.ColumnSeries());
                 series.dataFields.valueX = field;
                 series.dataFields.categoryY = "name";

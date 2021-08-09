@@ -3,16 +3,20 @@
     include("../includes/header_with_pageHeading.php");
     $engineers = $database->getAllEngineers();
 ?>
-<div class="row">
-
-<?php
-    $view = file_exists('../views/serviceCalls.php') 
-            ? '../views/serviceCalls.php' : 'views/serviceCalls.php';
-    include '../views/serviceCalls.php';
-?>
-
-</div>
-</div>
+    <div class="row">
+        <div class="row col-lg-12 margin-bottom-10">
+        <?php
+                    include('../views/serviceCallsFigures.php');
+        ?>
+        </div>
+        <?php
+            $view = file_exists('../views/serviceCalls.php')
+                    ? '../views/serviceCalls.php' : 'views/serviceCalls.php';
+            echo '<center><h2 class="margin-bottom-10">Service Calls</h2></center>';
+            include '../views/serviceCalls.php';
+        ?>
+        </div>
+    </div>
 </div>
 
 <!-- start footer -->
@@ -95,6 +99,7 @@
 
             "pageLength": 20
         });
+        
         $('#example6').DataTable({
 
             dom: 'Bfrtip',
@@ -130,7 +135,33 @@
                 { "width": "5px", "targets": 5 }
             ]
         });
-    });
+        
+        $('#supportCalls').DataTable({
+
+            dom: 'Bfrtip',
+            buttons: [{
+                text: 'copy',
+                extend: "copy",
+                className: 'btn dark btn-outline'
+            }, {
+                text: 'csv',
+                extend: "csv",
+                className: 'btn aqua btn-outline'
+            }, {
+                text: 'excel',
+                extend: "excel",
+                className: 'btn aqua btn-outline'
+            }, {
+                text: 'pdf',
+                extend: "pdf",
+                className: 'btn yellow  btn-outline'
+            }, {
+                text: 'print',
+                extend: "print",
+                className: 'btn purple  btn-outline'
+            }]
+        });
+        });
 </script>
 </body>
 

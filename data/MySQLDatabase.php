@@ -3,15 +3,16 @@
 //require_once "Mail.php"; // PEAR Mail package
 //require_once('Mail/mime.php'); // PEAR Mail_Mime package
 
-if (file_exists('../Utils/SendGrid.php'))
-{
-    require_once '../Utils/SendGrid.php';
-    require_once '../Utils/UtilFunctions.php';
-}
-else{
-    require_once 'Utils/SendGrid.php';
-    require_once 'Utils/UtilFunctions.php';
-}
+    if (file_exists('../Utils/SendGrid.php'))
+    {
+        require_once '../Utils/SendGrid.php';
+        require_once '../Utils/UtilFunctions.php';
+    }
+    else
+    {
+        require_once 'Utils/SendGrid.php';
+        require_once 'Utils/UtilFunctions.php';
+    }
 
 class MySQLDatabase
 {
@@ -68,7 +69,8 @@ class MySQLDatabase
 
     function returnSalesStageColor($stage)
     {
-        if ($stage < 30) {
+        if ($stage < 30)
+        {
             return "danger";
         } else if ($stage >= 30 && $stage <= 59) {
             return "warning";
@@ -84,18 +86,19 @@ class MySQLDatabase
     public function getDailySales($day, $month, $year)
     {
         $sql = "select SUM(lp.qty * lp.Amount) as Amount, ocDay,
-                 ld.ocMonth, ocYear from service_product lp
-                 join machine_demand ld on lp.leadDemandID = ld.id
-                 where ld.orderCollect = 1
+                ld.ocMonth, ocYear from service_product lp
+                join machine_demand ld on lp.leadDemandID = ld.id
+                where ld.orderCollect = 1
                 and ld.ocDay = ?
-                 and ld.ocMonth = ?
-                 and ocYear = ?";
+                and ld.ocMonth = ?
+                and ocYear = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $day);
         $handle->bindValue(2, $month);
         $handle->bindValue(3, $year);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
         }
     }
@@ -121,7 +124,6 @@ class MySQLDatabase
     public function purchaseListForMachineCollectedAllRange($from, $to)
     {
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount, ac.Name from `machine_demand` md
-
         join accounts ac on ac.id = md.accountID
         join service_product sp on md.id = sp.leadDemandID
         where md.orderCollect = 1 and (ocDMY between ? and ?) group by md.id ORDER BY md.id desc";
@@ -147,10 +149,13 @@ class MySQLDatabase
 
     function calculatePercentage($up, $down)
     {
-        if ($down > 0) {
+        if ($down > 0) 
+        {
             return round(($up / $down) * 100, 2);
 
-        } else {
+        } 
+        else 
+        {
             return 0;
         }
     }
@@ -365,127 +370,139 @@ class MySQLDatabase
     function createServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT)
     {
         $duplicate = $this->checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $user_id, $CaseStatus, $schD);
-        
+
         if ($duplicate == false)
-         {
-        $sql = "insert into `service_call` (ticketNo, account_id, machine_id, ReportedBy,engineer,cost,paymentStatus,issues,purchase,openedBy,openedDateTime,openedTimeStamp,closedBy,CaseStatus,schDate,schTime)
+        {
+            $sql = "insert into `service_call` (ticketNo, account_id, machine_id, ReportedBy,engineer,cost,paymentStatus,issues,purchase,openedBy,openedDateTime,openedTimeStamp,closedBy,CaseStatus,schDate,schTime)
             values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $purchase = 0;
+            $ticket = $this->createTicketNoNew();
+            $handle = $this->db->prepare($sql);
+            $handle->bindValue(1, $ticket);
+            $handle->bindValue(2, $accountID);
+            $handle->bindValue(3, $machineID);
+            $handle->bindValue(4, $reportedBy);
+            $handle->bindValue(5, $eng);
+            $handle->bindValue(6, $cost);
+            $handle->bindValue(7, $payStatus);
+            $handle->bindValue(8, $issues);
+            $handle->bindValue(9, $purchase);
+            $handle->bindValue(10, $user_id);
+            $handle->bindValue(11, date("l jS \of F Y h:i:s A"));
+            $handle->bindValue(12, time());
+            $handle->bindValue(13, 0);
+            $handle->bindValue(14, $CaseStatus);
+            $handle->bindValue(15, $schD);
+            $handle->bindValue(16, $schT);
+            $handle->execute();
+            $lasID = $this->db->lastInsertId();
+            $accountName = $this->getSingleAccountInformation($accountID)['Name'];
+            $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
+            $engineerName = $this->getSingleUserInformation($eng)['fullname'];
+            $engineerEmail = $this->getSingleUserInformation($eng)['email'];
+            $message = "added a new service call for   : <a href='" . $this->host . "machine-info/" . $machineID . "'></a>" . $machineName . "</a> assigned to <a href='" . $this->host . "account-info/" . $accountID . "'>" . $accountName . "</a>";
 
-        $purchase = 0;
-        $ticket = $this->createTicketNoNew();
-        $handle = $this->db->prepare($sql);
-        $handle->bindValue(1, $ticket);
-        $handle->bindValue(2, $accountID);
-        $handle->bindValue(3, $machineID);
-        $handle->bindValue(4, $reportedBy);
-        $handle->bindValue(5, $eng);
-        $handle->bindValue(6, $cost);
-        $handle->bindValue(7, $payStatus);
-        $handle->bindValue(8, $issues);
-        $handle->bindValue(9, $purchase);
-        $handle->bindValue(10, $user_id);
-        $handle->bindValue(11, date("l jS \of F Y h:i:s A"));
-        $handle->bindValue(12, time());
-        $handle->bindValue(13, 0);
-        $handle->bindValue(14, $CaseStatus);
-        $handle->bindValue(15, $schD);
-        $handle->bindValue(16, $schT);
-        $handle->execute();
-        $lasID = $this->db->lastInsertId();
-        $accountName = $this->getSingleAccountInformation($accountID)['Name'];
-        $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
-        $engineerName = $this->getSingleUserInformation($eng)['fullname'];
-        $engineerEmail = $this->getSingleUserInformation($eng)['email'];
-        $message = "added a new service call for   : <a href='" . $this->host . "machine-info/" . $machineID . "'></a>" . $machineName . "</a> assigned to <a href='" . $this->host . "account-info/" . $accountID . "'>" . $accountName . "</a>";
+            // use actual sendGrid username and password in this section
+            $url = SendGrid::$url;
+            $user = SendGrid::$username;
+            $password = SendGrid::$password;
+            $email = SendGrid::$supportEmail;
 
-        // use actual sendGrid username and password in this section
-        $url = SendGrid::$url;
-        $user = SendGrid::$username;
-        $password = SendGrid::$password;
-        $email = SendGrid::$supportEmail;
+            $subject = "Service Call For $accountName With Ticket No $ticket";
 
-        $subject = "Service Call For $accountName With Ticket No $ticket";
+            $message = "Dear engineer $engineerName,  \n<br> Please be informed that a service call has been assigned to you. You are to visit $accountName customer for service. \n<br> Kindly find details in the service ticket. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
 
-        $message = "Dear engineer $engineerName,  \n<br> Please be informed that a service call has been assigned to you. You are to visit $accountName customer for service. \n<br> Kindly find details in the service ticket. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
+            $cMessage = "Dear " . ucwords(strtolower($accountName)) . ", Thank you for getting in touch with us. Your call has been logged and our support engineer has been deputed to resolve it. He will be in touch with you shortly.<br>Thank you for the anticipated understanding.<br>Kind regards.";
+            $cEmail = $this->getSingleAccountInformation($accountID)['email1'];
+            $cSubject = "Your Call Has Been Logged";
+            $cJson_string = array(
+                'to' => array($cEmail, $email),
+                'category' => 'test_category'
+            );
 
-        $cMessage = "Dear " . ucwords(strtolower($accountName)) . ", Thank you for getting in touch with us. Your call has been logged and our support engineer has been deputed to resolve it. He will be in touch with you shortly.<br>Thank you for the anticipated understanding.<br>Kind regards.";
-        $cEmail = $this->getSingleAccountInformation($accountID)['email1'];
-        $cSubject = "Your Call Has Been Logged";
-        $cJson_string = array(
-            'to' => array($cEmail, $email),
-            'category' => 'test_category'
-        );
-
-        $cParams = array(
-            'api_user' => $user,
-            'api_key' => $password,
-            'x-smtpapi' => json_encode($cJson_string),
-            'to' => $cEmail,
-            'replyto' => "",
-            'subject' => "$cSubject", // Either give a subject for each submission, or set to $subject
-            'html' => "<html lang='en'><head><meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\"><title>Thank You For The Feedback</title></head><body>
+            $cParams = array(
+                'api_user' => $user,
+                'api_key' => $password,
+                'x-smtpapi' => json_encode($cJson_string),
+                'to' => $cEmail,
+                'replyto' => "",
+                'subject' => "$cSubject", // Either give a subject for each submission, or set to $subject
+                'html' => "<html lang='en'><head><meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\"><title>Thank You For The Feedback</title></head><body>
             $cMessage </body></html>", // Set HTML here.  Will still need to make sure to reference post data names
-            'text' => "$cMessage",
-            'from' => $email, // set from address here, it can really be anything
-        );
+                'text' => "$cMessage",
+                'from' => $email, // set from address here, it can really be anything
+            );
 
-        // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
-        // make the to email be your own address or where ever you would like the contact form info sent
+            // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
+            // make the to email be your own address or where ever you would like the contact form info sent
 
-        $json_string = array(
+            $json_string = array(
+                'to' => array($engineerEmail, 'talal@tenaui.com', 'elfarra@tenaui.com', 'sameh@tenaui.com'
+                ),
+                'category' => 'test_category'
+            );
 
-            'to' => array($engineerEmail, 'talal@tenaui.com', 'elfarra@tenaui.com', 'sameh@tenaui.com'
-            ),
-            'category' => 'test_category'
-        );
-
-        $params = array(
-            'api_user' => $user,
-            'api_key' => $password,
-            'x-smtpapi' => json_encode($json_string),
-            'to' => $email,
-            'replyto' => "",
-            'subject' => "$subject", // Either give a subject for each submission, or set to $subject
-            'html' => "<html lang='en'><head><title>Contact Form</title></head><body>
+            $params = array(
+                'api_user' => $user,
+                'api_key' => $password,
+                'x-smtpapi' => json_encode($json_string),
+                'to' => $email,
+                'replyto' => "",
+                'subject' => "$subject", // Either give a subject for each submission, or set to $subject
+                'html' => "<html lang='en'><head><title>Contact Form</title></head><body>
             $message </body></html>", // Set HTML here.  Will still need to make sure to reference post data names
             'text' => "$message",
             'from' => $email, // set from address here, it can really be anything
         );
 
-        $request = $url . 'api/mail.send.json';
-        // Generate curl request
-        $session = curl_init($request);
-        // set the curl SSL version
-        curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-        // Tell curl to use HTTP POST
-        curl_setopt($session, CURLOPT_POST, true);
-        // Tell curl that this is the body of the POST
-        curl_setopt($session, CURLOPT_POSTFIELDS, $params);
-        curl_setopt($session, CURLOPT_POSTFIELDS, $cParams);
-        // Tell curl not to return headers, but do return the response
-        curl_setopt($session, CURLOPT_HEADER, false);
-        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-        // obtain response
-        curl_exec($session);
-        curl_close($session);
-        // Redirect to thank you page upon successfull completion, will want to build one if you don't already have one available
+            $request = $url . 'api/mail.send.json';
+            // Generate curl request
+            $session = curl_init($request);
+            // set the curl SSL version
+            curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+            // Tell curl to use HTTP POST
+            curl_setopt($session, CURLOPT_POST, true);
+            // Tell curl that this is the body of the POST
+            curl_setopt($session, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($session, CURLOPT_POSTFIELDS, $cParams);
+            // Tell curl not to return headers, but do return the response
+            curl_setopt($session, CURLOPT_HEADER, false);
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+            // obtain response
+            curl_exec($session);
+            curl_close($session);
+            // Redirect to thank you page upon successful completion, will want to build one if you don't already have one available
 
-        $this->createActivityNotifications($message, $machineID, $accountID);
-        $ticketUrl = $this->host . 'ticket-info/' . $ticket;
+            $this->createActivityNotifications($message, $machineID, $accountID);
+            $ticketUrl = $this->host . 'ticket-info/' . $ticket;
 
-        return 'SERVICE CALL HAS BEEN LOGGED WITH TICKET NUMBER :<a href="' . $ticketUrl . '" class="btn btn-success">' . $ticket . '</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
+            return 'SERVICE CALL HAS BEEN LOGGED WITH TICKET NUMBER :<a href="' . $ticketUrl . '" class="btn btn-success">' . $ticket . '</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
 
-        // print everything out
-        // print_r($response);
-         }
+            // print everything out
+            // print_r($response);
+        }
     }
 
-    function updateServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT, $callID = 0)
+    function getServiceCall($callID)
     {
-        $sql = "update `service_call` set `account_id` = ?, `machine_id` = ?  , `ReportedBy` = ?, `engineer` = ?, `cost` = ?, `paymentStatus` = ?, `issues` = ?, `purchase` = ?, `openedBy` = ?, `openedDateTime` = ?, `openedTimeStamp` = ?, `closedBy` = ?, `CaseStatus` = ?, `schDate` = ?, `schTime` = ? where `id` = ?";
+        $myArray = [];
+        $sql = "SELECT * FROM `service_call` WHERE `id` = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $callID);
+        $handle->execute();
+        if ($handle->rowCount() > 0)
+        {
+           $row = $handle->fetch(PDO::FETCH_OBJ);
+           $myArray = $row;
+        }
+       return $myArray;
+    }
+
+    function updateServiceCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $issues, $user_id, $CaseStatus, $schD, $schT, $callID,$ticketNo)
+    {
+        $sql = "update `service_call` set `account_id` = ?, `machine_id` = ?  , `ReportedBy` = ?, `engineer` = ?, `cost` = ?, `paymentStatus` = ?, `issues` = ?, `openedBy` = ?,  `CaseStatus` = ?, `schDate` = ?, `schTime` = ? where `id` = ?";
 
         $purchase = 0;
-        $ticket = $this->createTicketNoNew();
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $accountID);
         $handle->bindValue(2, $machineID);
@@ -494,26 +511,19 @@ class MySQLDatabase
         $handle->bindValue(5, $cost);
         $handle->bindValue(6, $payStatus);
         $handle->bindValue(7, $issues);
-        $handle->bindValue(8, $purchase);
-        $handle->bindValue(9, $user_id);
-        $handle->bindValue(10, $user_id);
-        $handle->bindValue(11, date("l jS \of F Y h:i:s A"));
-        $handle->bindValue(12, time());
-        $handle->bindValue(13, 0);
-        $handle->bindValue(14, $CaseStatus);
-        $handle->bindValue(15, $schD);
-        $handle->bindValue(16, $schT);
+        $handle->bindValue(8, $user_id);
+        $handle->bindValue(9, $CaseStatus);
+        $handle->bindValue(10, $schD);
+        $handle->bindValue(11, $schT);
+        $handle->bindValue(12, $callID);
         $handle->execute();
         $accountName = $this->getSingleAccountInformation($accountID)['Name'];
         $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
-        $message = "added a new service call for   : <a href='" . $this->host . "machine-info/" . $machineID . "'></a>" . $machineName . "</a> assigned to <a href='" . $this->host . "account-info/" . $accountID . "'>" . $accountName . "</a>";
+        $message = "Updated service call for   : <a href='" . $this->host . "machine-info/" . $machineID . "'></a>" . $machineName . "</a> assigned to <a href='" . $this->host . "account-info/" . $accountID . "'>" . $accountName . "</a>";
 
-        $ticketUrl = $this->host . 'ticket-info/' . $ticket;
+        $ticketUrl = $this->host . 'ticket-info/' . $ticketNo;
 
-        return 'SERVICE CALL HAS BEEN LOGGED WITH TICKET NUMBER :<a href="' . $ticketUrl . '" class="btn btn-success">' . $ticket . '</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
-
-        // print everything out
-        // print_r($response);
+        return 'SERVICE CALL HAS BEEN UPDATED FOR TICKET NUMBER :<a href="' . $ticketUrl . '" class="btn btn-success">' . $ticketNo . '</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
     }
 
     function getLastServiceCall()
@@ -664,11 +674,11 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $inv_num);
         $handle->execute();
-        if ($handle->rowCount() > 0) 
+        if ($handle->rowCount() > 0)
         {
             return false;
-        } 
-        else 
+        }
+        else
         {
             return true;
         }
@@ -718,7 +728,7 @@ class MySQLDatabase
         $handle->execute();
         $row = $handle->fetch(PDO::FETCH_ASSOC);
 
-        if($row['supplierID'] == $supplier && $row['FileReference'] == $fileRef 
+        if($row['supplierID'] == $supplier && $row['FileReference'] == $fileRef
             && $row['invoiceNo'] == $invoiceNo
             && $row['storeID'] == $storeID && $row['doneBy'] == $userID
             && $row['invoiceDate'] == $invoiceDate && $row['transType'] == $transType)
@@ -1016,7 +1026,7 @@ class MySQLDatabase
         }
     }
 
-    function getAllStores()
+    function getAllStores() : array
     {
         $myArray = array();
         $handle = $this->db->prepare("select * from stores");
@@ -1342,7 +1352,7 @@ class MySQLDatabase
 
     }
 
-    function followUpCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $meterReading, $colour, $Mono, $st, $et, $wd2)
+    function followUpCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $meterReading, $colour, $Mono, $st, $et, $wd2= "")
     {
         $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ?, meterReading = ?,colour = ?, Mono = ? where id =?";
         $handle = $this->db->prepare($sql);
@@ -1362,7 +1372,7 @@ class MySQLDatabase
         $handle->bindValue(14, $id);
         $handle->execute();
         
-        $this->addFollowUp($id, $wd2, $st, $et, $engineer, $schD);
+        $this->addFollowUp($id, $workdone, $st, $et, $engineer, $schD, $meterReading, $colour, $Mono);
         
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
@@ -1376,11 +1386,9 @@ class MySQLDatabase
         $handle->bindValue(2, $this->getSingleMachineInformation($mID)['machine_code']);
         $handle->execute();
 
-
+        // Send Email
         $email = $engineerEmail;
-
         $subject = "Followed up call for $accountName With Ticket No $ticketNo";
-
         $message = "Dear Customer Care, \n<br> Please be informed that a service call has been followed up by engineer $engineerName for $accountName customer ticket No $ticketNo. \n<br> Kindly find details in the followed up call. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
         // use actual sendgrid username and password in this section
         $url = SendGrid::$url;
@@ -1433,9 +1441,9 @@ class MySQLDatabase
         print_r($response);
     }
     
-    function addFollowUp($callID, $workDone, $startTime, $stopTime, $engineer, $date)
+    function  addFollowUp($callID, $workDone, $startTime, $stopTime, $engineer, $date, $mReading, $colour, $mono)
     {
-         $followUpSql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
+        $followUpSql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`, `meter_reading`, `colour`, `mono`)values(?,?,?,?,?,?,?,?,?)";
         $followHandle = $this->db->prepare($followUpSql);
         $followHandle->bindValue(1, $callID);
         $followHandle->bindValue(2, $workDone);
@@ -1443,6 +1451,9 @@ class MySQLDatabase
         $followHandle->bindValue(4, $stopTime);
         $followHandle->bindValue(5, $engineer);
         $followHandle->bindValue(6, $date);        
+        $followHandle->bindValue(7, $mReading);        
+        $followHandle->bindValue(8, $colour);        
+        $followHandle->bindValue(9, $mono);        
         $followHandle->execute();
     }
     
@@ -1479,7 +1490,16 @@ class MySQLDatabase
         $message = "";
         $this->createActivityNotifications($message);
     }
-    
+
+    function deleteServiceCall($id)
+    {
+        $sql = "delete from service_call where id = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $id);
+        return $handle->execute();
+//        $message = 'Service call deleted successfully';
+    }
+
 //    function updateFollowUp($id, $work, $st, $et, $eng, $day)
 //    {
 //        $sql = "insert into `follow-ups`(`service-call`, `work-done`, `start-time`, `stop-time`, `engineer`, `date`)values(?,?,?,?,?,?)";
@@ -1567,7 +1587,7 @@ class MySQLDatabase
     function getAllServiceCall($month = null)
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as 
+        $sql = "select sc.*, sc.id as callID, mif.machine_code, mif.id as MachineID, mif.account_id as 
             accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
             mif.contactName1, mif.contactEmail1, mif.contactPhone1,
             mif.serialNo, mif.Address, ct.c_name as contract, 
@@ -1717,15 +1737,17 @@ class MySQLDatabase
             case 0:
                 $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state, mif.contactName1, mif.contactEmail1, mif.contactPhone1,
                     mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
-                    JOIN machine_in_field mif on mif.id = sc.machine_id
-                    JOIN accounts ac on ac.id = sc.account_id
-                    join contracts ct on ct.id = mif.contractID
-                    join products p on p.id = mif.machine_type
-                    join area_location al on al.id = mif.areaID
-                    join lga l on l.id = al.lgaID
-                    join states s on s.id = l.stateID
-                    left JOIN casestatus cs on cs.id = sc.CaseStatus order by sc.id desc";
+                JOIN machine_in_field mif on mif.id = sc.machine_id
+                JOIN accounts ac on ac.id = sc.account_id
+                join contracts ct on ct.id = mif.contractID
+                join products p on p.id = mif.machine_type
+                join area_location al on al.id = mif.areaID
+                join lga l on l.id = al.lgaID
+                join states s on s.id = l.stateID
+                left JOIN casestatus cs on cs.id = sc.CaseStatus 
+                where sc.active = ? order by sc.id desc";
                 $handle = $this->db->prepare($sql);
+                $handle->bindValue(1, 1);
                 break;
 
             default:
@@ -1738,9 +1760,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                     join area_location al on al.id = mif.areaID
                     join lga l on l.id = al.lgaID
                     join states s on s.id = l.stateID
-                    left JOIN casestatus cs on cs.id = sc.CaseStatus where sc.engineer = ? order by sc.id desc";
+                    left JOIN casestatus cs on cs.id = sc.CaseStatus 
+                    where sc.engineer = ? AND sc.active = ? order by sc.id desc";
                 $handle = $this->db->prepare($sql);
                 $handle->bindValue(1, $id);
+                $handle->bindValue(2, 1);
                 break;
         }
        
@@ -1795,7 +1819,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAdvancedServiceCallSearch($start, $end, $eng)
     {
         $myArray = array();
-        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+        $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -2248,7 +2272,6 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getPurchaseTicket2($sql, $ticket)
     {
-
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $ticket);
         $handle->execute();
@@ -2299,17 +2322,49 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function secondsToTime($seconds)
     {
+        $seconds = str_replace('-', '', $seconds);
+//        $weeks = floor($seconds / 604800);
+//        $seconds -= $weeks * 604800;
+//        $days = floor($seconds / 86400);
+//        $seconds -= $days * 86400;
         $hours = floor($seconds / 3600);
         $seconds -= $hours * 3600;
         $minutes = floor($seconds / 60);
         $seconds -= $minutes * 60;
+//        $dWeeks = $weeks != 0 ? "$weeks weeks, " : '';
+//        $dDays = $days != 0 ? "$days days, " : '';
+        $dHours = $hours != 0 ? "$hours hours, " : '';
+        $dSeconds = $seconds != 0 ? "$seconds seconds." : '';
 
-        return "<b>$hours hrs, $minutes mins </b>";
+        return "<b>$dHours $dSeconds</b>";
+    }
+    
+    function secondsToHours($seconds)
+    {
+        $seconds = str_replace('-', '', $seconds);
+        $hours = floor($seconds / 3600);
+        $seconds -= $hours * 3600;
+        $minutes = floor($seconds / 60);
+        $seconds -= $minutes * 60;
+        $dHours = $hours != 0 ? "$hours hours" : '';
 
-        // $dtF = new \DateTime('@0');
-        // $dtT = new \DateTime("@$seconds");
-        // return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
-        // return $dtF->diff($dtT)->format('%a days, %h hours');
+        return "<b>$dHours</b>";
+    }
+    
+    function secondsToDays($seconds)
+    {
+        $seconds = str_replace('-', '', $seconds);
+        $days = floor($seconds / 86400);
+        $seconds -= $days * 86400;
+        $hours = floor($seconds / 3600);
+        $seconds -= $hours * 3600;
+        $minutes = floor($seconds / 60);
+        $seconds -= $minutes * 60;
+//        $dWeeks = $weeks != 0 ? "$weeks weeks, " : '';
+        $dDays = $days == 0 ? '' : ($days == 1 ? "$days day" : "$days days");
+        $dHours = $hours == 0 ? '' : ($hours == 1 ? "$hours hour" : "$hours hours");
+
+        return $days >= 1 ? "<b>$dDays</b>" : "<b>$dHours</b>";
     }
 
     function getSecondsColor($secs)
@@ -3296,24 +3351,23 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getLeadMPSOrderOnLeadDemand($id)
     {
         $myArray = array();
-        $sql = "SELECT mps.id,mps.productID, p.productName, p.Code, p.color, p.ProductType, mps.product_qty, mps.rentalCharge,
-                    mps.cost_mono, mps.cost_color, mps.min_vol_mono, mps.min_vol_color,mps.contract_duration,mps.billingType,ld.ticketNo,
-                    ld.orderCollect, ld.orderCollectedDate, ld.ocDay, ld.ocMonth,ld.ocYear, st.salestype, st.st, ld.description, mps.accesories
-                    FROM mps_info mps
-                    JOIN products p ON mps.productID = p.id
-                    JOIN lead_demand ld on mps.lead_demand_id = ld.id
-                    JOIN sales_type st on ld.sales_type_id = st.id
-                    where mps.id = ?";
+        $sql = "SELECT mps.id,mps.productID, p.productName, p.Code, p.color, p.ProductType, mps.product_qty, mps.rentalCharge, mps.cost_mono, mps.cost_color, mps.min_vol_mono, mps.min_vol_color,mps.contract_duration,mps.billingType,ld.ticketNo, ld.orderCollect, ld.orderCollectedDate, ld.ocDay, ld.ocMonth,ld.ocYear, st.salestype, st.st, ld.description, mps.accesories
+        FROM mps_info mps
+        JOIN products p ON mps.productID = p.id
+        JOIN lead_demand ld on mps.lead_demand_id = ld.id
+        JOIN sales_type st on ld.sales_type_id = st.id
+        where mps.id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
         }
-
     }
 
     // function getContractValue($id){
@@ -3491,6 +3545,8 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     //$accID,$contractType,$costmono,$c_volmono,$costcolor,$c_volcolor,$c_exvolmono,$excostmono,$c_exvolcolor,$excostcolor,$duration,$billingType,$cs
     function createContractTicket($accID, $contractType, $costmono, $volmono, $costcolor, $volcolor, $exvolmono, $excostmono, $exvolcolor, $excostcolor, $duration, $billingType, $cs, $cummul)
     {
+        $csSplit = split(" ", $cs);
+        $cEnd = $csSplit[2] + $duration;
         $sql = "insert into contract_info(contractTicket,ContractTypeID,AccountID,conStart,conEnd,cummulative,cost_mono,min_vol_mono,cost_color,min_vol_color,excess_mono,excess_cost_mono,excess_color,excess_cost_color,contract_duration,billingType)
         values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $handle = $this->db->prepare($sql);
@@ -3498,7 +3554,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(2, $contractType);
         $handle->bindValue(3, $accID);
         $handle->bindValue(4, $cs);
-        $handle->bindValue(5, "");
+        $handle->bindValue(5, $cEnd);
         $handle->bindValue(6, $cummul);
         $handle->bindValue(7, $this->RemoveComma($costmono));
         $handle->bindValue(8, $this->RemoveComma($volmono));
@@ -3548,6 +3604,54 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
         return $row = $handle->fetch(PDO::FETCH_ASSOC);
     }
+    
+    function engineerRankings()
+    {
+        $myArray = [];
+        $dayOne = strtotime(date('Y') . '-01-01');
+        $resolved = 8;
+        $install = 17;
+        $toner = 12;
+        $preventive = 47;
+        
+        $sql = "SELECT st.id, st.fullname, "
+                . "(select SUM(closedTimeStamp-openedTimeStamp) from service_call "
+                . "where engineer = st.id and CaseStatus = ? "
+                . "and openedTimeStamp > $dayOne)as totalTimeDiff, "
+                . "(select COUNT(*) from service_call where engineer = st.id "
+                . "and openedTimeStamp > $dayOne)as totalCalls,"
+                . "(select COUNT(*) from service_call where engineer = st.id "
+                . "and issues LIKE '%$install%' and openedTimeStamp > $dayOne)as installCalls,"
+                . "(select COUNT(*) from service_call where engineer = st.id "
+                . "and issues LIKE '%$preventive%' "
+                . "and openedTimeStamp > $dayOne)as preventiveCalls,"
+                . "(select COUNT(*) from service_call where engineer = st.id "
+                . "and issues LIKE '%$toner' "
+                . "and openedTimeStamp > $dayOne)as tonerCalls,"
+                . "(select COUNT(*) from service_call "
+                . "where engineer = st.id and CaseStatus = ? "
+                . "and openedTimeStamp > $dayOne)as totalResolved "
+                . "from staff st "
+                . "join service_call sc on st.id = sc.engineer "
+                . "where sc.CaseStatus = ? and sc.openedTimeStamp > ?"
+                . "and st.active = ? group by st.id ORDER BY st.fullname ASC";
+        
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1, $resolved);
+        $handle->bindValue(2, $resolved);
+        $handle->bindValue(3, $resolved);
+        $handle->bindValue(4, $dayOne);
+        $handle->bindValue(5, 1);
+        $handle->execute();
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $myArray[] = $row;
+            }
+            return $myArray;
+        }
+    }
 
     function updateContract($id, $contractType, $cumulative, $rentalCharge, $volMono, $costMono, $exVolMono, $exCostMono, $costColor, $exVolColor, $exCostColor, $conStart, $contractDuration, $volColor, $billingType)
     {
@@ -3555,6 +3659,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         // update all contract machines
         $this->updateContractMachines($id, $contractType, $conStart, $contractDuration);
+
+        $sqlCv = "update `contractvalue` set `RentalCharge` = ? where AccID = ?";
+        $handle = $this->db->prepare($sqlCv);
+        $handle->bindValue(1, $rentalCharge);
+        $handle->bindValue(2, $id);
+        $handle->execute();
 
         $sql = "update `contract_info` set `ContractTypeID` = ?, `conStart` = ?, `cummulative` = ?, `cost_mono` = ?, `min_vol_mono` = ?, `excess_mono` = ?, `excess_cost_mono` = ?, `cost_color` = ?,`min_vol_color` = ?, `excess_color` = ?, `excess_cost_color` = ?, `contract_duration` = ?, `billingType` = ? where AccountID = ?";
         $handle = $this->db->prepare($sql);
@@ -3717,7 +3827,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         return $value;
     }
 
-    function inputMachineContract($contractID, $accID, $value, $rentalCharge, $costmono, $volmono, $costcolor, $volcolor, $exvolmono, $excostmono, $exvolcolor, $excostcolor, $duration, $billingType)
+    function inputMachineContract($contractID, $accID, $value, $rentalCharge, $costMono, $volMono, $costColor, $volColor, $exVolMono, $exCostMono, $exVolColor, $exCostColor, $duration, $billingType)
     {
         $sql = "insert into contractvalue(contractId,AccID,machineID,RentalCharge,cost_mono,min_vol_mono,cost_color,min_vol_color,excess_mono,excess_cost_mono,excess_color,excess_cost_color,contract_duration,billingType)
                 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -3726,14 +3836,14 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(2, $accID);
         $handle->bindValue(3, $value);
         $handle->bindValue(4, $this->RemoveComma($rentalCharge));
-        $handle->bindValue(5, $this->RemoveComma($costmono));
-        $handle->bindValue(6, $this->RemoveComma($volmono));
-        $handle->bindValue(7, $this->RemoveComma($costcolor));
-        $handle->bindValue(8, $this->RemoveComma($volcolor));
-        $handle->bindValue(9, $this->RemoveComma($exvolmono));
-        $handle->bindValue(10, $this->RemoveComma($excostmono));
-        $handle->bindValue(11, $this->RemoveComma($exvolcolor));
-        $handle->bindValue(12, $this->RemoveComma($excostcolor));
+        $handle->bindValue(5, $this->RemoveComma($costMono));
+        $handle->bindValue(6, $this->RemoveComma($volMono));
+        $handle->bindValue(7, $this->RemoveComma($costColor));
+        $handle->bindValue(8, $this->RemoveComma($volColor));
+        $handle->bindValue(9, $this->RemoveComma($exVolMono));
+        $handle->bindValue(10, $this->RemoveComma($exCostMono));
+        $handle->bindValue(11, $this->RemoveComma($exVolColor));
+        $handle->bindValue(12, $this->RemoveComma($exCostColor));
         $handle->bindValue(13, $duration);
         $handle->bindValue(14, $billingType);
         $handle->execute();
@@ -4195,16 +4305,10 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
 
                 $UpadteProduct = $this->db->query("UPDATE products SET store$GetStoreID=store$GetStoreID +$qty[$i] WHERE id=$product[$i]");
-
-
                 ///echo "<div class='alert alert-success'>
                 // <strong></strong>CREDIT NOTE HAS BEEN MADE SUCCESSFULLY</div>";
-
-
             }
-
         }
-
     }
 
 
@@ -4585,12 +4689,15 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4656,20 +4763,22 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function stockMonthlySummary($id, $month, $year)
     {
-
-
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id  AND `ocMonth` = $month AND `ocYear` = $year";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             // var_dump($row);
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4682,16 +4791,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0) 
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) 
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
-
     }
 
     function getGoodsLogAnalysis2($id)
@@ -4702,12 +4813,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -4786,16 +4901,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
-
     }
 
     function getGoodsLogAnalysis7($id)
@@ -4806,16 +4923,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
-
     }
 
     function getGoodsLogAnalysis8($id)
@@ -4866,16 +4985,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
-
     }
 
     function getGoodsLogAvgSold($id)
@@ -4886,16 +5007,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
-        if ($handle->rowCount() > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+        if ($handle->rowCount() > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
                 $myArray[] = $row;
             }
             return $myArray;
-        } else {
+        }
+        else
+        {
             return false;
         }
-
-
     }
 
     function getGoodsLogCurrentForstore1($id)
@@ -4942,10 +5065,10 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             return $handle->fetch(PDO::FETCH_ASSOC);
         }
-
     }
 
     function getAllContractsByNC()
@@ -4954,11 +5077,10 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $sql = "SELECT * FROM machine_in_field WHERE contractID = 1";
         $handle = $this->db->prepare($sql);
         $handle->execute();
-        if ($handle->rowCount() > 0) {
+        if ($handle->rowCount() > 0)
+        {
             echo $handle->rowCount();
         }
-
-
     }
 
     function getAllContractsByFMSA()
@@ -4994,7 +5116,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
-    function closeCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT)
+    function closeCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $mReading, $colour, $mono, $wd = '')
     {
         $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ? where id =?";
         $handle = $this->db->prepare($sql);
@@ -5011,7 +5133,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(11, $id);
         $handle->execute();
         
-        $this->addFollowUp($id, $workdone, $schT, $closetime, $engineer, $schD);
+        $this->addFollowUp($id, $workdone, $schT, $closetime, $engineer, $schD, $mReading, $colour, $mono);
         
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
@@ -5350,8 +5472,10 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($oldSchedule);
         $handle->execute();
         $pmsSchedules = $handle->rowCount();
-        if ($pmsSchedules > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_OBJ)) {
+        if ($pmsSchedules > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
                 $myArray[UtilFunctions::$oldSchedule][] = $row;
             }
         }
@@ -5359,8 +5483,10 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($newSchedule);
         $handle->execute();
         $pmsSchedules = $handle->rowCount();
-        if ($pmsSchedules > 0) {
-            while ($row = $handle->fetch(PDO::FETCH_OBJ)) {
+        if ($pmsSchedules > 0)
+        {
+            while ($row = $handle->fetch(PDO::FETCH_OBJ))
+            {
                 $myArray[UtilFunctions::$newSchedule][] = $row;
             }
         }
@@ -5386,8 +5512,6 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 $myArray[] = $row->productName . ' : ' . $row->Code;
             }
         }
-
         return $myArray;
     }
-
 }
