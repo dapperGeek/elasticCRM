@@ -652,10 +652,13 @@ space class
     margin-right:10px !important;
 }
 
+<<<<<<< HEAD
 .margin-left-10 {
     margin-left:10px !important;
 }
 
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 .no-margins {
     margin:0 !important;
 }
@@ -763,8 +766,12 @@ ibox class
     box-sizing: border-box;
     margin: 0 auto 0;
     padding: 15px;
+<<<<<<< HEAD
     width: 98%;
     /*overflow: auto;*/
+=======
+    width: 100%;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 }
 
 
@@ -1755,7 +1762,11 @@ Contact Page
     text-align: center;
     width: 100%;
     border: 1px solid #e7eaec;
+<<<<<<< HEAD
     border-top: 0;
+=======
+    border-top:0;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     margin-bottom: 20px;
 }
 
@@ -2413,7 +2424,11 @@ ul.clear-list:first-child {
     position:relative;
     border-radius: 3px;
     overflow: hidden;
+<<<<<<< HEAD
     padding: 22px;
+=======
+    padding: 15px;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 }
 
 .widget-stats .stats-info h4 {
@@ -3297,7 +3312,11 @@ Page Sidebar
 
 .page-sidebar-closed .page-sidebar .sidebar-search.open .input-group .input-group-btn .btn.submit {
     margin-bottom: 0;
+<<<<<<< HEAD
     margin-top: 2px;
+=======
+    margin-top: 1px;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 }
 
 .page-sidebar-closed .page-sidebar .sidebar-search .input-group .input-group-btn .btn.submit {
@@ -3738,7 +3757,11 @@ WIDGETS
 .widget {
   border-radius: 2px !important;
   padding: 15px 20px;
+<<<<<<< HEAD
   margin-bottom: 15px;
+=======
+  margin-bottom: 10px;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
   margin-top: 10px;
 }
 .widget.style1 h2 {

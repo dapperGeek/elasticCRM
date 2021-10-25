@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 Alternative sources of Hyphenation programs or TEX files:
 
 OpenOffice: http://wiki.services.openoffice.org/wiki/Dictionaries
 
+=======
+Alternative sources of Hyphenation programs or TEX files:
+
+OpenOffice: http://wiki.services.openoffice.org/wiki/Dictionaries
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 Hyphenator4PHP- alternative PHP hyphenator scripts: http://apps.sourceforge.net/trac/hyphenator4php/

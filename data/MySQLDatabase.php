@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
 //require_once "Mail.php"; // PEAR Mail package
 //require_once('Mail/mime.php'); // PEAR Mail_Mime package
@@ -20,6 +21,18 @@ class MySQLDatabase
     public $host;
 
     function __construct($DB_con, $Host)
+=======
+//require_once "Mail.php"; // PEAR Mail package
+//require_once('Mail/mime.php'); // PEAR Mail_Mime packge
+
+class MySQLDatabase
+{
+
+    private $db;
+    public $host;
+
+    function __construct($DB_con,$Host)
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     {
         $this->db = $DB_con;
         $this->host = $Host;
@@ -31,6 +44,7 @@ class MySQLDatabase
         return $this->showMsg("Error!", "A system error has occured, we will fix it<br/>" . $errorMessage, 1);
     }
 
+<<<<<<< HEAD
     public function redirect_to($host)
     {
         header("location:" . $host);
@@ -59,18 +73,54 @@ class MySQLDatabase
         else
         {
             return array(0, 0);
+=======
+    public function redirect_to($host){
+        header("location:".$host);
+    }
+
+    function authenticateStaff($username, $password){
+
+        $sql = "select * from staff where username =?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$username);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            $row = $handle->fetch(PDO::FETCH_ASSOC);
+            $pass = $row['password'];
+
+            if (password_verify($password, $pass)){
+                return array($row['id'],$row['active']);
+            }
+            else{
+                return array(1,1);
+            }
+        }
+        else{
+            return array(0,0);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         }
     }
 
     function test_input($data)
     {
+<<<<<<< HEAD
         return htmlspecialchars(stripslashes(trim($data)));
+=======
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 
     function returnSalesStageColor($stage)
     {
+<<<<<<< HEAD
         if ($stage < 30)
         {
+=======
+        if ($stage < 30) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return "danger";
         } else if ($stage >= 30 && $stage <= 59) {
             return "warning";
@@ -81,6 +131,7 @@ class MySQLDatabase
         } else {
             return "success";
         }
+<<<<<<< HEAD
     }
 
     public function getDailySales($day, $month, $year)
@@ -108,27 +159,71 @@ class MySQLDatabase
     {
         $sql = "select SUM(lp.qty * lp.Amount) as Amount,ld.ocMonth, ocYear 
                 from service_product lp
+=======
+
+    }
+
+    public function getDailySales($day,$month,$year){
+        $sql = "select SUM(lp.qty * lp.Amount) as Amount, ocDay,
+                 ld.ocMonth, ocYear from service_product lp
+                 join machine_demand ld on lp.leadDemandID = ld.id
+                 where ld.orderCollect = 1
+                and ld.ocDay = ?
+                 and ld.ocMonth = ?
+                 and ocYear = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$day);
+        $handle->bindValue(2,$month);
+        $handle->bindValue(3,$year);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            return $row = $handle->fetch(PDO::FETCH_ASSOC);
+        }
+
+
+    }
+
+    //GENERATE MONTHLY REPORT
+    public function getMonthlySales($month,$year){
+        $sql = "select SUM(lp.qty * lp.Amount) as Amount,ld.ocMonth, ocYear from service_product lp
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                  join machine_demand ld on lp.leadDemandID = ld.id
                  where ld.orderCollect = 1
                  and ld.ocMonth = ?
                  and ocYear = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $month);
         $handle->bindValue(2, $year);
+=======
+        $handle->bindValue(1,$month);
+        $handle->bindValue(2,$year);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
         }
+<<<<<<< HEAD
     }
 
     public function purchaseListForMachineCollectedAllRange($from, $to)
     {
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount, ac.Name from `machine_demand` md
+=======
+
+
+    }
+
+    public function purchaseListForMachineCollectedAllRange($from, $to){
+        $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount, ac.Name from `machine_demand` md
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         join accounts ac on ac.id = md.accountID
         join service_product sp on md.id = sp.leadDemandID
         where md.orderCollect = 1 and (ocDMY between ? and ?) group by md.id ORDER BY md.id desc";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $from);
         $handle->bindValue(2, $to);
 
@@ -136,19 +231,37 @@ class MySQLDatabase
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        $handle->bindValue(1,$from);
+        $handle->bindValue(2,$to);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
             return null;
         }
+=======
+        } else {
+            return null;
+        }
+
+
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 
     function calculatePercentage($up, $down)
     {
+<<<<<<< HEAD
         if ($down > 0) 
         {
             return round(($up / $down) * 100, 2);
@@ -156,13 +269,23 @@ class MySQLDatabase
         } 
         else 
         {
+=======
+        if ($down > 0) {
+            return round(($up / $down) * 100, 2);
+
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return 0;
         }
     }
 
     public function ValidateCompany($companyName)
     {
+<<<<<<< HEAD
         $sql = "select * from `accounts` where `Name` = ?";
+=======
+        $sql    = "select * from `accounts` where `Name` = ?";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $companyName);
         $handle->execute();
@@ -176,7 +299,12 @@ class MySQLDatabase
 
     public function createAccounts($leadID, $name, $address, $areaID, $contactName1, $contactName2, $contactName3, $phone1, $phone2, $phone3, $email1, $email2, $email3, $desig1, $desig2, $desig3, $ind)
     {
+<<<<<<< HEAD
         $sql = "insert into `accounts` (leadID,Name,Address,areaID,ContactName1,ContactName2,ContactName3,phone1,phone2,phone3,email1,email2,email3,desig1,desig2,desig3,`timestamp`,`dateTime`,industryID) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+=======
+
+        $sql    = "insert into `accounts` (leadID,Name,Address,areaID,ContactName1,ContactName2,ContactName3,phone1,phone2,phone3,email1,email2,email3,desig1,desig2,desig3,`timestamp`,`dateTime`,industryID) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $leadID);
         $handle->bindValue(2, $name);
@@ -198,10 +326,17 @@ class MySQLDatabase
         $handle->bindValue(18, date("l jS \of F Y h:i:s A"));
         $handle->bindValue(19, $ind);
         $handle->execute();
+<<<<<<< HEAD
     }
 
     public function updateAccountInfo($accID, $name, $address, $areaID, $contactName1, $contactName2, $contactName3, $phone1, $phone2, $phone3, $email1, $email2, $email3, $desig1, $desig2, $desig3, $ind)
     {
+=======
+
+    }
+
+    public function updateAccountInfo($accID, $name, $address, $areaID, $contactName1, $contactName2, $contactName3, $phone1, $phone2, $phone3, $email1, $email2, $email3, $desig1, $desig2, $desig3, $ind){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "update `accounts` set Name = ?,Address= ?,areaID= ?,ContactName1= ?,ContactName2= ?,ContactName3= ?,phone1= ?,phone2= ?,phone3= ?,email1= ?,email2= ?,email3= ?,desig1= ?,desig2= ?,desig3= ?,industryID= ? where id = ?";
         //17
         $handle = $this->db->prepare($sql);
@@ -224,12 +359,20 @@ class MySQLDatabase
         $handle->bindValue(17, $accID);
 
         $handle->execute();
+<<<<<<< HEAD
         $msg = "edited basic information about " . $name;
         $this->createActivityNotifications($msg, 0, $accID);
     }
 
     function generateRandomString($length = 10)
     {
+=======
+        $msg = "editted basic information about ".$name;
+        $this->createActivityNotifications($msg,0,$accID);
+    }
+
+    function generateRandomString($length = 10) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $characters = '3456789BCDGHIJKLMPQSUVWXY';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -239,6 +382,7 @@ class MySQLDatabase
         return $randomString;
     }
 
+<<<<<<< HEAD
     public function createTicketNo()
     {
         $leadName = "EL25-";
@@ -250,11 +394,22 @@ class MySQLDatabase
     {
         $leadName = strtoupper(date('M')) . "-";
         $suffix = '-' . date('y');
+=======
+    public function createTicketNo(){
+        $leadName = "EL25-";
+        $leadName.= $this->generateRandomString(5);
+        return $leadName;
+    }
+
+    public function createTicketNoNew(){
+        $leadName = strtoupper(date('M'))."-";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 //        var_dump($leadName);
         $lastTicketString = $this->getServiceCallDatabaseLastEntry()['ticketNo'];
         //$engineerName = $this->getSingleUserInformation($engineer)['fullname'];
         // $leadName.= $this->generateRandomString(5);
         //var_dump($lastTicketString);
+<<<<<<< HEAD
         $str_arr = explode("-", $lastTicketString);
         $leadFormer = $str_arr[0] . "-";
         // var_dump('0.'.$str_arr[1]);
@@ -265,10 +420,23 @@ class MySQLDatabase
         $floatValueString = explode(".", number_format($floatValue2, 5, '.', ''));
         // var_dump(number_format($floatValue2,5,'.',''));
         $ticketNumber = $leadName . $floatValueString[1] . $suffix;
+=======
+        $str_arr = explode ("-", $lastTicketString);
+        $leadFormer = $str_arr[0] . "-";
+        // var_dump('0.'.$str_arr[1]);
+        $floatValue = '0.'.$str_arr[1];
+//        var_dump((float)$floatValue);
+        $floatValue1 = (float)$floatValue;
+        $floatValue2 = $leadFormer == $leadName ? ($floatValue1 + 0.00001) : 0.00001;
+        $floatValueString = explode (".", number_format($floatValue2,5,'.',''));
+        // var_dump(number_format($floatValue2,5,'.',''));
+        $ticketNumber = $leadName.$floatValueString[1];
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 //        var_dump($ticketNumber);
         return $ticketNumber;
     }
 
+<<<<<<< HEAD
     public function createSerialNumber($officeID, $transType)
     {
         $officeTag = $officeID == 3 ? 'TENABJ' : 'TENLAG';
@@ -312,18 +480,26 @@ class MySQLDatabase
 
     function getServiceCallDatabaseLastEntry()
     {
+=======
+    function getServiceCallDatabaseLastEntry() {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $sql = "SELECT * FROM service_call ORDER BY id DESC LIMIT 1";
 
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$eng);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
+=======
+        if($handle->rowCount() > 0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
             //var_dump($handle->fetch(PDO::FETCH_ASSOC));
             return $handle->fetch(PDO::FETCH_ASSOC);
 
+<<<<<<< HEAD
         }
         else {
             return false;
@@ -343,10 +519,28 @@ class MySQLDatabase
         }
         else
         {
+=======
+        }else{
+            return false;
+        }
+
+    }
+
+    function getSingleUserInformation($eng){
+        $sql = "SELECT * FROM staff WHERE id = ?";
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$eng);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function checkDuplicateCall($accountID, $machineID, $reportedBy, $eng, $cost, $payStatus, $user_id, $CaseStatus, $schD)
     {
         $found = false;
@@ -528,18 +722,126 @@ class MySQLDatabase
 
     function getLastServiceCall()
     {
+=======
+    function createServiceCall($accountID,$machineID,$reportedBy,$eng,$cost,$paystatus,$issues,$user_id,$CaseStatus,$schD,$schT){
+        $sql = "insert into `service_call` (ticketNo, account_id, machine_id, ReportedBy,engineer,cost,paymentStatus,issues,purchase,openedBy,openedDateTime,openedTimeStamp,closedBy,CaseStatus,schDate,schTime)
+        values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        $purchase = 0;
+        // $ticket = $this->createTicketNo();
+        $ticket = $this->createTicketNoNew();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$ticket);
+        $handle->bindValue(2, $accountID);
+        $handle->bindValue(3, $machineID);
+        $handle->bindValue(4, $reportedBy);
+        $handle->bindValue(5, $eng);
+        $handle->bindValue(6, $cost);
+        $handle->bindValue(7, $paystatus);
+        $handle->bindValue(8, $issues);
+        $handle->bindValue(9, $purchase);
+        $handle->bindValue(10, $user_id);
+        $handle->bindValue(11, date("l jS \of F Y h:i:s A"));
+        $handle->bindValue(12, time());
+        $handle->bindValue(13, 0);
+        $handle->bindValue(14, $CaseStatus);
+        $handle->bindValue(15,$schD);
+        $handle->bindValue(16,$schT);
+        $handle->execute();
+        $lasID = $this->db->lastInsertId();
+        $accountName = $this->getSingleAccountInformation($accountID)['Name'];
+        $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
+        $engineerName = $this->getSingleUserInformation($eng)['fullname'];
+        $engineerEmail = $this->getSingleUserInformation($eng)['email'];
+        $message = "added a new service call for   : <a href='".$this->host."machine-info/".$machineID."'></a>".$machineName. "</a> assigned to <a href='".$this->host."account-info/".$accountID."'>".$accountName."</a>";
+
+        $email = "support.ng@tenaui.com";
+
+        $subject = "Service Call For $accountName With Ticket No $ticket";
+
+        $message = "Dear engineer $engineerName,  \n<br> Please be informed that a service call has been assigned to you. You are to visit $accountName custormer for service. \n<br> Kindly find details in the service ticket. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
+        // use actual sendgrid username and password in this section
+        $url = 'https://api.sendgrid.com/';
+        $user = 'elastic25'; // place SG username here
+        $pass = 'Bonke@4445'; // place SG password here
+
+        // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
+        // make the to email be your own address or where ever you would like the contact form info sent
+
+        $json_string = array(
+
+            'to' => array($engineerEmail,'talal@tenaui.com','kolade.bello@tenaui.com','elfarra@tenaui.com','sameh@tenaui.com'
+            ),
+            'category' => 'test_category'
+        );
+
+        $params = array(
+            'api_user'  => "$user",
+            'api_key'   => "$pass",
+            'x-smtpapi' => json_encode($json_string),
+            'to'        => "support.ng@tenaui.com",
+            'replyto'        => "",
+            'subject'   => "$subject", // Either give a subject for each submission, or set to $subject
+            'html'      => "<html><head><title>Contact Form</title><body>
+        $message <body></title></head></html>", // Set HTML here.  Will still need to make sure to reference post data names
+            'text'      => "
+       
+        $message",
+            'from'      => $email, // set from address here, it can really be anything
+        );
+
+        curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        $request =  $url.'api/mail.send.json';
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell curl to use HTTP POST
+        curl_setopt ($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+        // Tell curl not to return headers, but do return the response
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        // obtain response
+        $response = curl_exec($session);
+        curl_close($session);
+        // Redirect to thank you page upon successfull completion, will want to build one if you don't alreday have one available
+
+        $this->createActivityNotifications($message,$machineID,$accountID);
+
+        return 'SERVICE CALL HAS BEEN LOGGED WITH TICKET NUMBER :<a href="#" class="btn btn-success">'.$ticket.'</a>______TICKET HAS BEEN OPENED FOR PRINTING IN NEW TAB';
+
+        // print everything out
+        print_r($response);
+
+
+
+
+
+
+
+    }
+
+    function getLastServiceCall(){
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM `service_call` ORDER BY ID DESC LIMIT 1";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function createPreventiveMaintenanceCall($MIF_id, $accountID, $machineID, $eng, $nextSchDateTxt, $schD, $schT, $pmID, $meterReadingMono, $meterReadingColor)
@@ -555,24 +857,46 @@ class MySQLDatabase
 
         //$purchase = 0;
         $CaseStatus = 0;
+=======
+
+
+    }
+
+    function createPreventiveMaintenanceCall($MIF_id,$accountID,$machineID,$eng,$nextSchDateTxt,$schD,$schT,$pmID,$meterReadingMono,$meterReadingColor){
+        $sql = "insert into `preventive_maintenance_schedule` (machine_in_field_id,account_id, machine_id,engineer,NextScheduledDateTime,CaseStatus,scheduleDate,scheduleTime,meterReadingMono,meterReadingColour)
+        values (?,?,?,?,?,?,?,?,?,?)";
+
+        //$purchase = 0;
+        $CaseStatus = 1;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $MIF_id);
         $handle->bindValue(2, $accountID);
         $handle->bindValue(3, $machineID);
         $handle->bindValue(4, $eng);
         $handle->bindValue(5, $nextSchDateTxt);
+<<<<<<< HEAD
+=======
+        // $handle->bindValue(12, time());
+        // $handle->bindValue(13, 0);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(6, $CaseStatus);
         $handle->bindValue(7, $schD);
         $handle->bindValue(8, $schT);
         $handle->bindValue(9, $meterReadingMono);
+<<<<<<< HEAD
         $handle->bindValue(10, $meterReadingColor);
         $handle->bindValue(11, $nextSchedule);
+=======
+        $handle->bindValue(10,$meterReadingColor);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         $lastID = $this->db->lastInsertId();
         /*$accountName = $this->getSingleAccountInformation($accountID)['Name'];
         $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
         $engineerName = $this->getSingleUserInformation($eng)['fullname'];
          $engineerEmail = $this->getSingleUserInformation($eng)['email'];*/
+<<<<<<< HEAD
 
 //        if($pmID != false) {
 //            $CaseStatus = 0;
@@ -588,19 +912,41 @@ class MySQLDatabase
 
     function getLastSellProductStock()
     {
+=======
+        if($pmID != false) {
+            $CaseStatus = 0;
+            $sql = "update `preventive_maintenance_schedule` set CaseStatus = ? where id = ?";
+
+            $handle = $this->db->prepare($sql);
+            $handle->bindValue(1, $CaseStatus);
+            $handle->bindValue(2, $pmID);
+
+            $handle->execute();
+        }
+
+    }
+
+    function getLastSellProductStock(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $sql = "SELECT * FROM `goods_recieved` ORDER BY ID DESC LIMIT 1";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function getPaymentStatus()
@@ -612,6 +958,21 @@ class MySQLDatabase
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+
+
+    }
+
+    function getPaymentStatus(){
+        $sql = "select * from payment_status";
+        $myArray = array();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -620,6 +981,7 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     function getDeliveryStatus()
     {
         $sql = "select * from delivery_status";
@@ -629,6 +991,17 @@ class MySQLDatabase
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+    function getDeliveryStatus(){
+        $sql = "select * from delivery_status";
+        $myArray = array();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -637,6 +1010,7 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     function AddNewPurchase($product, $qty, $amount, $machineID, $accountID, $scID, $discount, $serviceCharge, $transportCharge, $salesType, $paymentMode)
     {
 
@@ -655,19 +1029,46 @@ class MySQLDatabase
         if (count($product) > 0)
         {
             $this->addNewStockToProduct($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate);
+=======
+    function AddNewPurchase($product,$qty,$amount,$machineID,$accountID, $scID,$discount,$salestype,$serviceCharge){
+        // var_dump($salestype);
+        $serviceCharge = 0;
+        if(count($product) > 0){
+            if($scID >0){
+                $this->updateFollowUpPurchase($scID);
+            }
+            $this->addMachineDemandProduct($scID,$product,$qty,$amount,$machineID,$accountID,$discount,$serviceCharge,         $salestype);
+        }
+    }
+
+    function AddNewProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate){
+        if(count($product) > 0){
+
+            $this->addNewStockToProduct($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate);
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             //  $this->addMachineDemandProduct($scID,$product,$qty,$amount,$machineID,$accountID,$discount);
         }
     }
 
+<<<<<<< HEAD
     function SellProductStock($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate, $sold, $receivingStoreId, $productAmounts = 0)
     {
         if (count($product) > 0) 
         {
             $this->SellNewStockToProduct($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate, $sold, $receivingStoreId, $productAmounts);
+=======
+    function SellProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,$sold,$receivingStoreId,$productInputTotalPrice){
+        if(count($product) > 0){
+
+            $this->SellNewStockToProduct($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,$sold,$receivingStoreId,$productInputTotalPrice);
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             //  $this->addMachineDemandProduct($scID,$product,$qty,$amount,$machineID,$accountID,$discount);
         }
     }
 
+<<<<<<< HEAD
     public function checkInvoiceNo($inv_num)
     {
         $sql = "select * from goods_recieved where invoiceNo = ?";
@@ -785,13 +1186,77 @@ class MySQLDatabase
         $sql = "select store" . $storeID . " as qty from products where id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $productID);
+=======
+    public function checkInvoiceNo($inv_num){
+        $sql = "select * from goods_recieved where invoiceNo = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$inv_num);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return false;
+        }else{return true;}
+    }
+
+    public function AddStockItems($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,$transType){
+        $sql = "INSERT INTO  goods_recieved (supplierID,invoiceNo,FileReference,storeID,doneBy,saved,TicketNo,invoiceDate,DateCreated,lastModified,transType)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $ticketGen = $this->createTicketNo();
+        $handle->bindValue(1, $supplier);
+        $handle->bindValue(2,$invoiceNo);
+        $handle->bindValue(3, $fileRef);
+        $handle->bindValue(4, $storeID);
+        $handle->bindValue(5,$_SESSION['user_id']);
+        $handle->bindValue(6, $save);
+        $handle->bindValue(7,"GRT-".$ticketGen);
+        $handle->bindValue(8, $invoiceDate);
+        $handle->bindValue(9,date("l jS \of F Y h:i:s A"));
+        $handle->bindValue(10, time());
+        $handle->bindValue(11,$transType);
+        $handle->execute();
+        $mainID = $this->db->lastInsertId();
+        return $mainID;
+    }
+
+    public function GoodsLog($product,$added,$transfered,$sold,$returned,$remain,$storeID,$invoiceNo){
+        $sql = "INSERT INTO  goodslog (productID,added,transfered,sold,returned,remain,ocDay,ocMonth,ocYear,ocDMY,dateTime,storeID,doneBy,InvoiceNo)
+            VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $ticketGen = $this->createTicketNo();
+        $handle->bindValue(1,$product);
+        $handle->bindValue(2, $added);
+        $handle->bindValue(3, $transfered);
+        $handle->bindValue(4,$sold);
+        $handle->bindValue(5,$returned);
+        $handle->bindValue(6,$remain);
+        $handle->bindValue(7,date('d'));
+        $handle->bindValue(8,date('m'));
+        $handle->bindValue(9,date('Y'));
+        $handle->bindValue(10,date('Y').date('m').date('d'));
+        $handle->bindValue(11,date("l jS \of F Y h:i:s A"));
+        $handle->bindValue(12, $storeID);
+        $handle->bindValue(13, $_SESSION['user_id']);
+        $handle->bindValue(14,$invoiceNo);
+        $handle->execute();
+
+    }
+
+    function getProductStoreQty($productID, $storeID){
+        $sql = "select store".$storeID." as qty from products where id = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$productID);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         $row = $handle->fetch(PDO::FETCH_ASSOC);
         return $row['qty'];
     }
 
+<<<<<<< HEAD
     public function getWarehouseIdfromName($storeName)
     {
+=======
+    public function getWarehouseIdfromName($storeName){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select id from stores where storeName = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $storeName);
@@ -800,6 +1265,7 @@ class MySQLDatabase
         return $row['id'];
     }
 
+<<<<<<< HEAD
     function UpdateStoreQty($productID, $storeID, $remain)
     {
         $sql = "update products set store" . $storeID . " = ? where id = ?";
@@ -836,6 +1302,39 @@ class MySQLDatabase
 
     public function getAllGoodsRecieved()
     {
+=======
+    function UpdateStoreQty($productID, $storeID,$remain){
+        $sql = "update products set store".$storeID." = ? where id = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$remain);
+        $handle->bindValue(2,$productID);
+        $handle->execute();
+    }
+
+    function addGoodsRecievedGoods($mainID,$productID,$currentQty,$addedQty,$TransferedQty,$SoldQty){
+        $sql = "INSERT INTO  goods_recieved_goods (goodRecievedID,productID,currentQty,AddedQty,TransferedQty,SoldQty)VALUES (?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$mainID);
+        $handle->bindValue(2, $productID);
+        $handle->bindValue(3, $currentQty);
+        $handle->bindValue(4,$addedQty);
+        $handle->bindValue(5,$TransferedQty);
+        $handle->bindValue(6,$SoldQty);
+        $handle->execute();
+    }
+
+    function updateGoodsTransferStatus($mainID,$storeID,$supplier,$invoiceNo){
+        $sql = "INSERT INTO  warehouse_transfer_tracking (goods_recieved_id,transfer_from_store_id,receiving_store_id,transfer_status)VALUES (?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$mainID);
+        $handle->bindValue(2, $storeID);
+        $handle->bindValue(3, $supplier);
+        $handle->bindValue(4,$invoiceNo);
+        $handle->execute();
+    }
+
+    public function getAllGoodsRecieved(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select gr.*, sp.supplierName, stf.fullname, st.storeName  from goods_recieved gr
        join stores st on st.id = gr.storeID
        join staff stf  on stf.id = gr.doneBy
@@ -845,7 +1344,12 @@ class MySQLDatabase
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -854,8 +1358,12 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function getAllGoodsInTransitForWareHouse($storeId)
     {
+=======
+    public function getAllGoodsInTransitForWareHouse($storeId){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select wh.*, gr.*, st.storeName, stf.fullname from warehouse_transfer_tracking wh
        join goods_recieved gr on gr.id = wh.goods_recieved_id
        join stores st on st.id = wh.transfer_from_store_id
@@ -863,10 +1371,18 @@ class MySQLDatabase
        where transfer_status = 'TRANSFER' and receiving_store_id=?";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $storeId);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$storeId);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -875,18 +1391,31 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function getAllGoodsLeft()
     {
         $sql = "select gr.*, stf.fullname, st.storeName  from goods_recieved gr
         join stores st on st.id = gr.storeID
         join staff stf  on stf.id = gr.doneBy
         where saved = 1 and transType != 'RECIEVED' ";
+=======
+    public function getAllGoodsLeft(){
+        $sql = "select gr.*, stf.fullname, st.storeName  from goods_recieved gr
+       join stores st on st.id = gr.storeID
+       join staff stf  on stf.id = gr.doneBy
+       where saved = 1 and transType != 'RECIEVED' ";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -895,8 +1424,12 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function getAllGoodsLeft2()
     {
+=======
+    public function getAllGoodsLeft2(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select gr.*, stf.fullname, st.storeName  from goods_recieved gr
        join stores st on st.id = gr.storeID
        join staff stf  on stf.id = gr.doneBy
@@ -906,7 +1439,12 @@ class MySQLDatabase
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -915,8 +1453,12 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function getAllGoodsLeft3()
     {
+=======
+    public function getAllGoodsLeft3(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select gr.*, stf.fullname, st.storeName, dt.deliveryStatus  from goods_recieved gr
        join stores st on st.id = gr.storeID
        join staff stf  on stf.id = gr.doneBy
@@ -927,7 +1469,12 @@ class MySQLDatabase
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -939,7 +1486,11 @@ class MySQLDatabase
     function getAllProductsForDropDown()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select p.*, pt.type from products p join producttype pt on pt.id = p.ProductType where p.active = 1 and p.ProductType > 1 order by p.ProductType asc, p.productName asc");
+=======
+        $handle  = $this->db->prepare("select p.*, pt.type from products p join producttype pt on pt.id = p.ProductType where p.active = 1 and p.ProductType > 1 order by p.ProductType asc, p.productName asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -955,7 +1506,11 @@ class MySQLDatabase
     function getAllProductsForDropDownSparePart()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select p.*, pt.type from products p join producttype pt on pt.id = p.ProductType where p.active = 1 and p.ProductType = 5 order by p.ProductType asc, p.productName asc");
+=======
+        $handle  = $this->db->prepare("select p.*, pt.type from products p join producttype pt on pt.id = p.ProductType where p.active = 1 and p.ProductType = 5 order by p.ProductType asc, p.productName asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -968,6 +1523,7 @@ class MySQLDatabase
 
     }
 
+<<<<<<< HEAD
     function getAllMachineProducts()
     {
         $myArray = array();
@@ -979,6 +1535,18 @@ class MySQLDatabase
             }
             return $myArray;
         } else {
+=======
+    function getAllMachineProducts(){
+        $myArray = array();
+        $handle = $this->db->prepare("SELECT * FROM products WHERE active = 1 ORDER BY productName");
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+                $myArray[] = $row;
+            }
+            return $myArray;
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
 
@@ -987,7 +1555,11 @@ class MySQLDatabase
     function getAllUnits()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from `units`");
+=======
+        $handle  = $this->db->prepare("select * from `units`");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -997,6 +1569,7 @@ class MySQLDatabase
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function getAllSupplier()
@@ -1005,6 +1578,16 @@ class MySQLDatabase
         $handle = $this->db->prepare("select * from suppliers");
         $handle->execute();
         if ($handle->rowCount() > 0) {
+=======
+
+    }
+
+    function getAllSupplier(){
+        $myArray = array();
+        $handle = $this->db->prepare("select * from suppliers");
+        $handle->execute();
+        if($handle->rowCount() >0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 $myArray[] = $row;
             }
@@ -1012,6 +1595,7 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     function getSingleTicketInformation($id)
     {
         $sql = "SELECT * FROM service_call WHERE id = ?";
@@ -1022,16 +1606,35 @@ class MySQLDatabase
         if ($handle->rowCount() > 0) {
             return $handle->fetch(PDO::FETCH_ASSOC);
         } else {
+=======
+    function getSingleTicketInformation($id){
+        $sql = "SELECT * FROM service_call WHERE id = ?";
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getAllStores() : array
     {
         $myArray = array();
         $handle = $this->db->prepare("select * from stores");
         $handle->execute();
         if ($handle->rowCount() > 0) {
+=======
+    function getAllStores(){
+        $myArray = array();
+        $handle = $this->db->prepare("select * from stores");
+        $handle->execute();
+        if($handle->rowCount() >0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 $myArray[] = $row;
             }
@@ -1042,7 +1645,11 @@ class MySQLDatabase
     function getAllProductsForDropDownWareHouse()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select p.*, u.unitName, pt.type from products p
+=======
+        $handle  = $this->db->prepare("select p.*, u.unitName, pt.type from products p
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         join producttype pt on pt.id = p.ProductType
         left join units u on u.id = p.unitID
         where p.active = 1 order by p.ProductType asc, p.productName asc");
@@ -1058,6 +1665,7 @@ class MySQLDatabase
 
     }
 
+<<<<<<< HEAD
     public function getIndGoodsRecieved($id)
     {
         $sql = "select gr.*, sp.supplierName, stf.fullname, st.storeName 
@@ -1075,18 +1683,38 @@ class MySQLDatabase
         } 
         else 
         {
+=======
+    public function getIndGoodsRecieved($id){
+        $sql = "select gr.*, sp.supplierName, stf.fullname, st.storeName from goods_recieved gr
+       join stores st on st.id = gr.storeID
+       join staff stf  on stf.id = gr.doneBy
+       join suppliers sp on sp.id = gr.supplierID where saved = 1 and gr.id = ?";
+        // $myArray = array();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            return $row = $handle->fetch(PDO::FETCH_ASSOC);
+
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     public function getIndGoodsRemoved($id)
     {
+=======
+    public function getIndGoodsRemoved($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select gr.*, stf.fullname, st.storeName from goods_recieved gr
        join stores st on st.id = gr.storeID
        join staff stf  on stf.id = gr.doneBy
        where saved = 1 and gr.id = ?";
         // $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0)
@@ -1095,12 +1723,24 @@ class MySQLDatabase
         }
         else
         {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            return $row = $handle->fetch(PDO::FETCH_ASSOC);
+
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     public function getIndGoodsRemovedDeliveryUpdate($id)
     {
+=======
+    public function getIndGoodsRemovedDeliveryUpdate($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select gr.*, stf.fullname, st.storeName, dt.deliveryStatus, dt.deliveryMode, dt.driverName, dt.driverNumber, dt.vehicleNumber, dt.logisticCompanyName, dt.deliveryWayBillNumber1, dt.logisticCoyPhoneNum, dt.contactNameAir, dt.wayBillNumberAir, dt.phoneNumberAir, dt.driverName2, dt.driverNumber2, dt.departureLocation, dt.senderName, dt.InHouseCustomerName, dt.InHouseCustomerNumber, dt.InHouseCustomerAddress from goods_recieved gr
        join stores st on st.id = gr.storeID
        join delivery_tracking dt on dt.order_id = gr.id
@@ -1108,7 +1748,11 @@ class MySQLDatabase
        where saved = 1 and gr.id = ?";
         // $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
+=======
+        $handle->bindValue(1,$id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
@@ -1118,8 +1762,12 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function getAllGoodsAddedForRecieve($id)
     {
+=======
+    public function getAllGoodsAddedForRecieve($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select  grg.*, p.productName, p.Code, u.unitName from goods_recieved_goods grg
        join products p on p.id = grg.productID
        left join units u on u.id = p.unitID
@@ -1127,10 +1775,18 @@ class MySQLDatabase
       where grg.goodRecievedID = ?";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -1139,8 +1795,12 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function getAllGoodsAddedForRecieve2($id)
     {
+=======
+    public function getAllGoodsAddedForRecieve2($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select  grg.*, p.productName, p.Code, u.unitName from goods_recieved_goods grg
        join products p on p.id = grg.productID
        left join units u on u.id = p.unitID
@@ -1150,10 +1810,18 @@ class MySQLDatabase
       where grg.goodRecievedID = ?";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -1162,6 +1830,7 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     public function addNewStockToProduct($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate)
     {
         $mainID = $this->AddStockItems($supplier, $invoiceNo, $fileRef, $storeID, $product, $qty, $save, $invoiceDate, "RECIEVED");
@@ -1173,11 +1842,19 @@ class MySQLDatabase
         {
             for ($i = 0; $i < $count; $i++)
             {
+=======
+    public function addNewStockToProduct($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate){
+        $mainID = $this->AddStockItems($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,"RECIEVED");
+        $count = count($product);
+        if ($count >0 && !empty($product)) {
+            for ($i=0; $i< $count; $i++) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $productID = $product[$i];
                 $added = $qty[$i];
                 $currentQty = $this->getProductStoreQty($productID, $storeID);
                 $remain = $currentQty + $added;
                 //$this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added);
+<<<<<<< HEAD
                 $this->addGoodsRecievedGoods($mainID, $productID, $currentQty, $added, 0, 0);
                 
                 if ($save == 1)
@@ -1248,11 +1925,59 @@ class MySQLDatabase
                 }
             }
             $this->showMsg('Success', 'This transaction has been made on this ticket <a href="' . $this->host . 'goods-sold-ticket/' . $mainID . '"class="btn btn-success" target="_blank">CLICK HERE TO OPEN WAY BILL</a>  <a href="' . $this->host . 'goods-sold-invoice/' . $mainID . '"class="btn btn-success" target="_blank">CLICK HERE TO OPEN SOF</a>', 2);
+=======
+                $this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added,0,0);
+                if($save == 1){
+                    //$this->GoodsLog($productID,$added,0,0,0,$remain,$storeID,$invoiceNo);
+                    $this->GoodsLog($productID,$added,0,0,0,$remain,$storeID,"RECIEVED");
+                    $this->UpdateStoreQty($productID, $storeID,$remain);
+                }
+            }
+            $this->showMsg('Success', 'This transaction has been made on this ticket <a href="'.$this->host.'goods-recieved-ticket/'.$mainID.'"class="btn btn-success">CLICK HERE TO OPEN TICKET</a>',2);
             //$accountName = $this->getSingleAccountInformation($accountID)['Name'];
             //$machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
             //$message = "added a new purchase for a machine : ".$machineName. " assigned to ".$accountName;
             //$this->createActivityNotifications($message);
         }
+
+
+    }
+
+    public function SellNewStockToProduct($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,$sold,$receivingStoreId,$productInputTotalPrice){
+        $sold_ = "SOLD";
+        if($sold == 1){$sold_="SOLD";}elseif($sold == 2){$sold_ = "TRANSFERED";}
+        /*var_dump($sold);
+        var_dump($sold_);
+        exit;*/
+        $mainID = $this->AddStockItems($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate,$sold_);
+        $count = count($product);
+        if ($count >0 && !empty($product)) {
+            for ($i=0; $i< $count; $i++) {
+                $productID = $product[$i];
+                $added = $qty[$i];
+                $currentQty = $this->getProductStoreQty($productID, $storeID);
+                $remain = $currentQty - $added;
+                if($sold == 1){$this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added,0,0);}
+                else if($sold == 2){$this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added,0,0);
+                    $this->updateGoodsTransferStatus($mainID,$storeID,$receivingStoreId,$invoiceNo);
+                }
+                // $this->addGoodsRecievedGoods($mainID,$productID,$currentQty,$added);
+                if($save == 1){
+                    // $product,$added,$transfered,$sold,$returned,$remain,$storeID
+                    if($sold == 1){$this->GoodsLog($productID,0,0,$added,0,$remain,$storeID,$invoiceNo);}
+                    else if($sold == 2){$this->GoodsLog($productID,0,$added,0,0,$remain,$storeID,$invoiceNo);}
+
+                    $this->UpdateStoreQty($productID, $storeID,$remain);
+                }
+            }
+            $this->showMsg('Success', 'This transaction has been made on this ticket <a href="'.$this->host.'goods-sold-ticket/'.$mainID.'"class="btn btn-success" target="_blank">CLICK HERE TO OPEN WAY BILL</a>  <a href="'.$this->host.'goods-sold-invoice/'.$mainID.'"class="btn btn-success" target="_blank">CLICK HERE TO OPEN SOF</a>',2);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
+            //$accountName = $this->getSingleAccountInformation($accountID)['Name'];
+            //$machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
+            //$message = "added a new purchase for a machine : ".$machineName. " assigned to ".$accountName;
+            //$this->createActivityNotifications($message);
+        }
+<<<<<<< HEAD
         
         // Get transaction details
         $grt = $this->getIndGoodsRemoved($mainID);
@@ -1268,6 +1993,16 @@ class MySQLDatabase
         $info = array();
         $handle = $this->db->prepare("select * from stores where id = ?");
         $handle->bindValue(1, $id);
+=======
+
+
+    }
+
+    function getStoreIDInfo($id){
+        $info = array();
+        $handle = $this->db->prepare("select * from stores where id = ?");
+        $handle->bindValue(1,$id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             $row = $handle->fetch(PDO::FETCH_ASSOC);
@@ -1275,7 +2010,11 @@ class MySQLDatabase
             $info[1] = $row['storeName'];
             $info[2] = $row['StoreDescription'];
 
+<<<<<<< HEAD
         } else {
+=======
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $info[0] = 0;
             $info[1] = "NO STORE";
             $info[2] = "NO DESCRIPTION";
@@ -1283,34 +2022,54 @@ class MySQLDatabase
         return $info;
     }
 
+<<<<<<< HEAD
     function updateFollowUpPurchase($scID)
     {
+=======
+    function updateFollowUpPurchase($scID){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "update service_call set purchase = 1 where id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $scID);
         $handle->execute();
     }
 
+<<<<<<< HEAD
     function createDeliveryTracking($orderID, $ticketNo, $deliveryStatus, $deliveryMode, $DriversName1, $DriversNumber1, $tenauiDriversVehicleNumber, $logisticCompanyName, $deliveryWayBillNumber1, $logisticCoyPhoneNum, $contactNameAir, $wayBillNumberAir, $phoneNumberAir, $driverName2, $driverNumber2, $departureLocation, $senderName, $inHouseCustomerName, $inHouseCustomerNumber, $inHouseCustomerAddress)
     {
+=======
+    function createDeliveryTracking($orderID,$ticketNo,$deliveryStatus,$deliveryMode,$DriversName1,$DriversNumber1,$tenauiDriversVehicleNumber,$logisticCompanyName,$deliveryWayBillNumber1,$logisticCoyPhoneNum,$contactNameAir,$wayBillNumberAir,$phoneNumberAir,$driverName2,$driverNumber2,$departureLocation,$senderName,$inHouseCustomerName,$inHouseCustomerNumber,$inHouseCustomerAddress){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "insert into `delivery_tracking` (order_id, ticketNumber, deliveryStatus, deliveryMode, driverName, driverNumber, vehicleNumber, logisticCompanyName, deliveryWayBillNumber1, logisticCoyPhoneNum, contactNameAir, wayBillNumberAir, phoneNumberAir, driverName2, driverNumber2, departureLocation, senderName, inHouseCustomerName, inHouseCustomerNumber, inHouseCustomerAddress)
         values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $orderID);
+=======
+        $handle->bindValue(1,$orderID);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(2, $ticketNo);
         $handle->bindValue(3, $deliveryStatus);
         $handle->bindValue(4, $deliveryMode);
         $handle->bindValue(5, $DriversName1);
         $handle->bindValue(6, $DriversNumber1);
+<<<<<<< HEAD
         $handle->bindValue(7, $tenauiDriversVehicleNumber);
+=======
+        $handle->bindValue(7,$tenauiDriversVehicleNumber);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(8, $logisticCompanyName);
         $handle->bindValue(9, $deliveryWayBillNumber1);
         $handle->bindValue(10, $logisticCoyPhoneNum);
         $handle->bindValue(11, $contactNameAir);
         $handle->bindValue(12, $wayBillNumberAir);
+<<<<<<< HEAD
         $handle->bindValue(13, $phoneNumberAir);
+=======
+        $handle->bindValue(13,$phoneNumberAir);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(14, $driverName2);
         $handle->bindValue(15, $driverNumber2);
         $handle->bindValue(16, $departureLocation);
@@ -1323,14 +2082,22 @@ class MySQLDatabase
 
     }
 
+<<<<<<< HEAD
     function updateDeliveryTracking($orderID, $ticketNo, $deliveryStatus, $deliveryMode, $DriversName1, $DriversNumber1, $tenauiDriversVehicleNumber, $logisticCompanyName, $deliveryWayBillNumber1, $logisticCoyPhoneNum, $contactNameAir, $wayBillNumberAir, $phoneNumberAir, $driverName2, $driverNumber2, $departureLocation, $senderName, $inHouseCustomerName, $inHouseCustomerNumber, $inHouseCustomerAddress)
     {
+=======
+    function updateDeliveryTracking($orderID,$ticketNo,$deliveryStatus,$deliveryMode,$DriversName1,$DriversNumber1,$tenauiDriversVehicleNumber,$logisticCompanyName,$deliveryWayBillNumber1,$logisticCoyPhoneNum,$contactNameAir,$wayBillNumberAir,$phoneNumberAir,$driverName2,$driverNumber2,$departureLocation, $senderName,$inHouseCustomerName,$inHouseCustomerNumber,$inHouseCustomerAddress){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $sql = "update delivery_tracking set deliveryStatus=?, deliveryMode =?, driverName =?, driverNumber =?, vehicleNumber  =?, logisticCompanyName  =?, deliveryWayBillNumber1  =?, logisticCoyPhoneNum  =?, contactNameAir =?, wayBillNumberAir =?, phoneNumberAir =?, driverName2 =?, driverNumber2 =?, departureLocation =?, senderName =?, inHouseCustomerName =?, inHouseCustomerNumber =?, inHouseCustomerAddress =? where order_id =?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $deliveryStatus);
         $handle->bindValue(2, $deliveryMode);
+<<<<<<< HEAD
         $handle->bindValue(3, $DriversName1);
+=======
+        $handle->bindValue(3, $DriversName1 );
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(4, $DriversNumber1);
         $handle->bindValue(5, $tenauiDriversVehicleNumber);
         $handle->bindValue(6, $logisticCompanyName);
@@ -1352,13 +2119,21 @@ class MySQLDatabase
 
     }
 
+<<<<<<< HEAD
     function followUpCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $meterReading, $colour, $Mono, $st, $et, $wd2= "")
     {
+=======
+    function followUpCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT,$meterReading,$colour,$Mono){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ?, meterReading = ?,colour = ?, Mono = ? where id =?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $paystatus);
         $handle->bindValue(2, $closeby);
+<<<<<<< HEAD
         $handle->bindValue(3, $closedate);
+=======
+        $handle->bindValue(3, $closedate );
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(4, $closetime);
         $handle->bindValue(5, $casestatus);
         $handle->bindValue(6, $workdone);
@@ -1371,10 +2146,14 @@ class MySQLDatabase
         $handle->bindValue(13, $Mono);
         $handle->bindValue(14, $id);
         $handle->execute();
+<<<<<<< HEAD
         
         $this->addFollowUp($id, $workdone, $st, $et, $engineer, $schD, $meterReading, $colour, $Mono);
         
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
+=======
+        $message = "followed up a service call for ".$this->getSingleAccountInformation($aID)['Name']." Machine : ".$this->getSingleMachineInformation($mID)['machine_code'];
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
         $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
         $engineerEmail = $this->getSingleUserInformation($engineer)['email'];
@@ -1382,6 +2161,7 @@ class MySQLDatabase
         $ticketNo = $this->getSingleTicketInformation($id)['ticketNo'];
         $sql = "UPDATE machine_in_field SET meterReading = ? WHERE machine_code = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $meterReading);
         $handle->bindValue(2, $this->getSingleMachineInformation($mID)['machine_code']);
         $handle->execute();
@@ -1394,17 +2174,38 @@ class MySQLDatabase
         $url = SendGrid::$url;
         $user = SendGrid::$username; // place SG username here
         $pass = SendGrid::$password; // place SG password here
+=======
+        $handle->bindValue(1,$meterReading);
+        $handle->bindValue(2,$this->getSingleMachineInformation($mID)['machine_code']);
+        $handle->execute();
+
+
+        $email = $engineerEmail;
+
+        $subject = "Followed up call for $accountName With Ticket No $ticketNo";
+
+        $message = "Dear Customer Care, \n<br> Please be informed that a service call has been followed up by engineer $engineerName for $accountName custormer ticket No $ticketNo. \n<br> Kindly find details in the followed up call. \n<br> \n<br> Please do not reply to this email, this address is not monitored. Please Contact customer care.";
+        // use actual sendgrid username and password in this section
+        $url = 'https://api.sendgrid.com/';
+        $user = 'elastic25'; // place SG username here
+        $pass = 'Bonke@4445'; // place SG password here
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
         // make the to email be your own address or where ever you would like the contact form info sent
 
         $json_string = array(
 
+<<<<<<< HEAD
             'to' => array('support.ng@tenaui.com', 'talal@tenaui.com', 'elfarra@tenaui.com'),
+=======
+            'to' => array('support.ng@tenaui.com','talal@tenaui.com','kolade.bello@tenaui.com','elfarra@tenaui.com'),
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             'category' => 'test_category'
         );
 
         $params = array(
+<<<<<<< HEAD
             'api_user' => "$user",
             'api_key' => "$pass",
             'x-smtpapi' => json_encode($json_string),
@@ -1428,6 +2229,30 @@ class MySQLDatabase
 //        curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
         // Tell curl that this is the body of the POST
         curl_setopt($session, CURLOPT_POSTFIELDS, $params);
+=======
+            'api_user'  => "$user",
+            'api_key'   => "$pass",
+            'x-smtpapi' => json_encode($json_string),
+            'to'        => "$email",
+            'replyto'        => "$email",
+            'subject'   => "$subject", // Either give a subject for each submission, or set to $subject
+            'html'      => "<html><head><title>Contact Form</title><body>
+        $message <body></title></head></html>", // Set HTML here.  Will still need to make sure to reference post data names
+            'text'      => "
+       
+        $message",
+            'from'      => $email, // set from address here, it can really be anything
+        );
+
+        curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+        $request =  $url.'api/mail.send.json';
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell curl to use HTTP POST
+        curl_setopt ($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         // Tell curl not to return headers, but do return the response
         curl_setopt($session, CURLOPT_HEADER, false);
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
@@ -1435,6 +2260,7 @@ class MySQLDatabase
         $response = curl_exec($session);
         curl_close($session);
         // Redirect to thank you page upon successfull completion, will want to build one if you don't alreday have one available
+<<<<<<< HEAD
         $this->createActivityNotifications($message, $mID, $aID);
 
         // print everything out
@@ -1486,11 +2312,26 @@ class MySQLDatabase
         $sql = "delete from service_product where id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
+=======
+        $this->createActivityNotifications($message,$mID,$aID);
+
+        // print everything out
+        print_r($response);
+
+
+    }
+
+    function deleteMachineProduct($id){
+        $sql = "delete from service_product where id =?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         $message = "";
         $this->createActivityNotifications($message);
     }
 
+<<<<<<< HEAD
     function deleteServiceCall($id)
     {
         $sql = "delete from service_call where id = ?";
@@ -1524,10 +2365,21 @@ class MySQLDatabase
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+    function getMachineActivities($id){
+        $myArray = array();
+        $sql = "select * from `activities` where accountID = ? order by timeStamp desc";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -1544,12 +2396,31 @@ class MySQLDatabase
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function getCaseStatus(){
+        $sql = "select * from casestatus order by `range`";
+        $myArray = array();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function getMachineServiceCall($id)
@@ -1564,10 +2435,25 @@ class MySQLDatabase
         JOIN machine_in_field mif on mif.id = sc.machine_id
         JOIN accounts ac on ac.id = sc.account_id
         join contracts ct on ct.id = mif.contractID
+=======
+
+    }
+
+    function getMachineServiceCall($id){
+        $myArray = array();
+
+        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+      mif.contactName1, mif.contactEmail1, mif.contactPhone1,
+        mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
+      JOIN machine_in_field mif on mif.id = sc.machine_id
+      JOIN accounts ac on ac.id = sc.account_id
+      join contracts ct on ct.id = mif.contractID
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         join products p on p.id = mif.machine_type
         join area_location al on al.id = mif.areaID
         join lga l on l.id = al.lgaID
         join states s on s.id = l.stateID
+<<<<<<< HEAD
         left JOIN casestatus cs on cs.id = sc.CaseStatus
         where sc.machine_id = ? order by sc.id desc";
 
@@ -1576,12 +2462,24 @@ class MySQLDatabase
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+      left JOIN casestatus cs on cs.id = sc.CaseStatus
+       where sc.machine_id = ? order by sc.id desc";
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return null;
         }
+<<<<<<< HEAD
     }
 
     function getAllServiceCall($month = null)
@@ -1601,10 +2499,31 @@ class MySQLDatabase
             join lga l on l.id = al.lgaID
             join states s on s.id = l.stateID
             left JOIN casestatus cs on cs.id = sc.CaseStatus order by sc.id desc";
+=======
+
+
+    }
+
+    function getAllServiceCall(){
+        $myArray = array();
+        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+      mif.contactName1, mif.contactEmail1, mif.contactPhone1,
+        mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
+      JOIN machine_in_field mif on mif.id = sc.machine_id
+      JOIN accounts ac on ac.id = sc.account_id
+      join contracts ct on ct.id = mif.contractID
+        join products p on p.id = mif.machine_type
+        join area_location al on al.id = mif.areaID
+        join lga l on l.id = al.lgaID
+        join states s on s.id = l.stateID
+      left JOIN casestatus cs on cs.id = sc.CaseStatus
+       order by sc.id desc";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 if ($month != null) {
                     if (date('F-Y', $row['openedTimeStamp']) == $month . '-' . date('Y')) {
@@ -1615,6 +2534,11 @@ class MySQLDatabase
                 } else {
                     $myArray[] = $row;
                 }
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $myArray[] = $row;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             }
             return $myArray;
         } else {
@@ -1622,8 +2546,12 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     function getAllResolvedServiceCall($month = null)
     {
+=======
+    function getAllResolvedServiceCall(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
@@ -1642,6 +2570,7 @@ class MySQLDatabase
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 if ($month != null) {
                     if (date('F-Y', $row['openedTimeStamp']) == $month . '-' . date('Y')) {
@@ -1652,6 +2581,11 @@ class MySQLDatabase
                 } else {
                     $myArray[] = $row;
                 }
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $myArray[] = $row;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             }
             return $myArray;
         } else {
@@ -1659,6 +2593,7 @@ class MySQLDatabase
         }
     }
 
+<<<<<<< HEAD
     function dateDiff($time1, $time2, $precision = 6)
     {
         // If not numeric then convert texts to unix timestamps
@@ -1668,20 +2603,36 @@ class MySQLDatabase
         }
         if (!is_int($time2))
         {
+=======
+    function dateDiff($time1, $time2, $precision = 6) {
+        // If not numeric then convert texts to unix timestamps
+        if (!is_int($time1)) {
+            $time1 = strtotime($time1);
+        }
+        if (!is_int($time2)) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $time2 = strtotime($time2);
         }
 
         // If time1 is bigger than time2
         // Then swap time1 and time2
+<<<<<<< HEAD
         if ($time1 > $time2)
         {
+=======
+        if ($time1 > $time2) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $ttime = $time1;
             $time1 = $time2;
             $time2 = $ttime;
         }
 
         // Set up intervals and diffs arrays
+<<<<<<< HEAD
         $intervals = array('year', 'month', 'day', 'hour', 'minute', 'second');
+=======
+        $intervals = array('year','month','day','hour','minute','second');
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $diffs = array();
 
         // Loop thru all intervals
@@ -1727,6 +2678,7 @@ class MySQLDatabase
         return implode(", ", $times);
     }
 
+<<<<<<< HEAD
     function getAllServiceCallForFollowUp($id = 0)
     {
         $myArray = array();
@@ -1787,6 +2739,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     {
         $myArray = array();
         $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+=======
+    function getAllServiceCallForFollowUp(){
+        $myArray = array();
+        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -1796,6 +2753,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         join area_location al on al.id = mif.areaID
         join lga l on l.id = al.lgaID
         join states s on s.id = l.stateID
+<<<<<<< HEAD
       left JOIN casestatus cs on cs.id = sc.CaseStatus 
       where mif.account_id = 265
        order by sc.id desc";
@@ -1805,21 +2763,39 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+      left JOIN casestatus cs on cs.id = sc.CaseStatus order by sc.id asc";
+
+        $handle = $this->db->prepare($sql);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     function getAdvancedServiceCallSearch($start, $end, $eng)
     {
         $myArray = array();
         $sql = "select sc.*, sc.id as callID, mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+=======
+    function getAdvancedServiceCallSearch($start, $end, $eng){
+        $myArray = array();
+        $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
       JOIN machine_in_field mif on mif.id = sc.machine_id
@@ -1836,7 +2812,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -1845,6 +2826,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getAccountServiceCall($id)
     {
         $myArray = array();
@@ -1859,10 +2841,25 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) 
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+    function getAccountServiceCall($id){
+        $myArray = array();
+        $sql = "select sc.*,mif.machine_code,cs.caseName from `service_call` sc
+      JOIN machine_in_field mif on mif.id = sc.machine_id
+      JOIN casestatus cs on cs.id = sc.CaseStatus
+
+       where sc.account_id = ? order by sc.id desc";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -1913,17 +2910,77 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     public function purchaseListForMachineCollected($id, $oc)
     {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function createActivityNotifications($message,$machineID=0,$accountID=0){
+        $user_id = $_SESSION['user_id'];
+        $sql = "insert into `activities` (user_id,activities,timeStamp, dateTime,accountID,machineID,Ymd) values (?,?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$user_id);
+        $handle->bindValue(2,$message);
+        $handle->bindValue(3,time());
+        $handle->bindValue(4,date("l jS \of F Y h:i:s A"));
+        $handle->bindValue(5,$machineID);
+        $handle->bindValue(6,$accountID);
+        $handle->bindValue(7, date('Y').date('m').date('d'));
+        $handle->execute();
+    }
+
+    public function addMachineDemandProduct($lasID,$product,$qty,$amount,$machineID,$accountID,$discount,$serviceCharge,$salestype){
+        //var_dump($lasID);
+        //var_dump($salestype);
+
+        $leadDemandID = $this->enterProductDemand($lasID,$salestype,"",$machineID,$accountID,$discount,$serviceCharge);
+        $count = count($product);
+        if ($count >0 && !empty($product)) {
+            for ($i=0; $i< $count; $i++) {
+                $productID = $product[$i];
+                $qty1 = $qty[$i];
+                $amount1 = $this->RemoveComma($amount[$i]);
+                $this->insertLeadProducts($lasID,$product[$i],$qty[$i],$amount1,$leadDemandID,$machineID);
+            }
+            $accountName = $this->getSingleAccountInformation($accountID)['Name'];
+            $machineName = $this->getSingleMachineInformation($machineID)['machine_code'];
+            $message = "added a new purchase for a machine : ".$machineName. " assigned to ".$accountName;
+            $this->createActivityNotifications($message);
+        }
+
+
+    }
+
+    public function RemoveComma($amount){
+        return str_replace(',','',$amount);
+    }
+
+    public function purchaseListForMachineCollected($id,$oc){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount from `machine_demand` md
         join service_product sp on md.id = sp.leadDemandID
         where md.machineID = ? and md.orderCollect = ? group by md.id";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->bindValue(2, $oc);
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->bindValue(2,$oc);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -1932,21 +2989,38 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
 
 
+<<<<<<< HEAD
     }
 
     public function purchaseListForAccountCollected($id, $oc)
     {
+=======
+
+    }
+
+    public function purchaseListForAccountCollected($id,$oc){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount from `machine_demand` md
         join service_product sp on md.id = sp.leadDemandID
         where md.accountID = ? and md.orderCollect = ? group by md.id";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->bindValue(2, $oc);
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->bindValue(2,$oc);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -1955,10 +3029,17 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
 
 
+<<<<<<< HEAD
     }
 
     public function purchaseListForMachineCollectedAll($oc)
     {
+=======
+
+    }
+
+    public function purchaseListForMachineCollectedAll($oc){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount, mif.machine_code, ac.Name from `machine_demand` md
         join machine_in_field mif on mif.id = md.machineID
         join accounts ac on ac.id = md.accountID
@@ -1967,43 +3048,76 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
+<<<<<<< HEAD
         $handle->bindValue(1, $oc);
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$oc);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return null;
         }
+<<<<<<< HEAD
     }
 
     public function test()
     {
+=======
+
+
+
+    }
+
+    public function test(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "show COLUMNS from machine_demand";
         $myArray = array();
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return null;
         }
+<<<<<<< HEAD
     }
 
     public function purchaseListForMachineCollectedToday($ocDay, $ocMonth, $ocYear)
     {
+=======
+
+
+
+    }
+
+    public function purchaseListForMachineCollectedToday($ocDay,$ocMonth,$ocYear){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount from `machine_demand` md
         join service_product sp on md.id = sp.leadDemandID
         where md.ocDay = ? and md.ocMonth=? and md.ocYear =? and md.orderCollect = 1 group by md.id";
         $myArray = array();
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $ocDay);
         $handle->bindValue(2, $ocMonth);
         $handle->bindValue(3, $ocYear);
@@ -2011,16 +3125,35 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$ocDay);
+        $handle->bindValue(2,$ocMonth);
+        $handle->bindValue(3,$ocYear);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return null;
         }
+<<<<<<< HEAD
     }
 
     public function purchaseListForMachineCollectedDaily($ocDay, $ocMonth, $ocYear)
     {
+=======
+
+
+
+    }
+
+    public function purchaseListForMachineCollectedDaily($ocDay,$ocMonth,$ocYear){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount from `machine_demand` md
         join service_product sp on md.id = sp.leadDemandID
         where md.ocDay = ? and md.ocMonth=? and md.ocYear =? and md.orderCollect = 1 group by md.id";
@@ -2029,6 +3162,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $totalToday = 0;
 
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $ocDay);
         $handle->bindValue(2, $ocMonth);
         $handle->bindValue(3, $ocYear);
@@ -2042,6 +3176,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 }
                 $added = $row['myAmount'] + $vat;
                 $discount = ($row['discount'] / 100) * $added;
+=======
+        $handle->bindValue(1,$ocDay);
+        $handle->bindValue(2,$ocMonth);
+        $handle->bindValue(3,$ocYear);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $vat = 0;
+                if($row['vat'] == 1){$vat = 0.05 *$row['myAmount'];}
+                $added = $row['myAmount'] + $vat;
+                $discount = ($row['discount']/100) * $added;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $finalAmount = $added - $discount;
                 $totalToday = $totalToday + $finalAmount;
                 // $myArray[] = $row;
@@ -2051,12 +3199,22 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else {
             return 0;
         }
+<<<<<<< HEAD
     }
 
     public function purchaseListForMachineCollectedMonthly($ocMonth, $ocYear)
     {
         $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount 
         from `machine_demand` md
+=======
+
+
+
+    }
+
+    public function purchaseListForMachineCollectedMonthly($ocMonth,$ocYear){
+        $sql = "select md.*, sum(sp.qty * sp.Amount) as myAmount from `machine_demand` md
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         join service_product sp on md.id = sp.leadDemandID
         where md.ocMonth=? and md.ocYear =? and md.orderCollect = 1 group by md.id";
         $myArray = array();
@@ -2065,6 +3223,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle = $this->db->prepare($sql);
 
+<<<<<<< HEAD
         $handle->bindValue(1, $ocMonth);
         $handle->bindValue(2, $ocYear);
 
@@ -2077,6 +3236,19 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 }
                 $added = $row['myAmount'] + $vat;
                 $discount = ($row['discount'] / 100) * $added;
+=======
+        $handle->bindValue(1,$ocMonth);
+        $handle->bindValue(2,$ocYear);
+
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+                $vat = 0;
+                if($row['vat'] == 1){$vat = 0.05 *$row['myAmount'];}
+                $added = $row['myAmount'] + $vat;
+                $discount = ($row['discount']/100) * $added;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $finalAmount = $added - $discount;
                 $totalToday = $totalToday + $finalAmount;
                 // $myArray[] = $row;
@@ -2086,6 +3258,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else {
             return 0;
         }
+<<<<<<< HEAD
     }
 
     function time_elapsed_string($ptime)
@@ -2103,12 +3276,37 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             if ($d >= 1) {
                 $r = round($d);
                 return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+=======
+
+
+
+    }
+
+    function time_elapsed_string($ptime){
+        $etime = time() - $ptime;
+        if($etime <1){
+            return 'a moment ago';
+        }
+
+        $a = array( 365*24*60*60=>'year', 30*24*60*60=>'month', 7*24*60*60=>'week', 24*60*60=>'day', 60*60=>'hr', 60=>'min',1=>'second');
+        $a_plural = array('year'=>'years', 'month'=>'months','week'=>'weeks', 'day'=>'days','hr'=>'hrs','min'=>'mins','second'=>'seconds');
+
+        foreach($a as $secs=>$str){
+            $d = $etime/$secs;
+            if($d>=1){
+                $r =  round($d);
+                return $r.' '.($r >1 ? $a_plural[$str] : $str).' ago';
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             }
         }
     }
 
+<<<<<<< HEAD
     function getServiceProductOrderOnLeadDemand($machineID, $serviceDemandID)
     {
+=======
+    function getServiceProductOrderOnLeadDemand($machineID,$serviceDemandID){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "SELECT sp.id,sp.productID, p.productName, p.Code, p.color, p.ProductType, sp.qty, sp.Amount, sd.ticketNo,
                     sd.orderCollect, sd.orderCollectedDate, sd.ocDay, sd.ocMonth,sd.ocYear, st.salestype, st.st, sd.description
@@ -2118,19 +3316,34 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                     JOIN sales_type st on sd.sales_type_id = st.id
                     where sp.machineID = ? and sd.id = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $machineID);
         $handle->bindValue(2, $serviceDemandID);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$machineID);
+        $handle->bindValue(2,$serviceDemandID);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
+<<<<<<< HEAD
     }
 
     function getServiceProductOrderCall($id)
     {
+=======
+
+    }
+
+    function getServiceProductOrderCall($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "SELECT sp.id,sp.productID, p.productName, p.Code, p.color, p.ProductType, sp.qty, sp.Amount, sd.ticketNo,
                     sd.orderCollect, sd.orderCollectedDate, sd.ocDay, sd.ocMonth,sd.ocYear, st.salestype, st.st, sd.description
@@ -2140,14 +3353,22 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                     JOIN sales_type st on sd.sales_type_id = st.id
                     where sp.serviceCallID = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
+<<<<<<< HEAD
     }
 
     function getPurchaseTicketForServiceCall($serviceCallID)
@@ -2161,15 +3382,33 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
             {
+=======
+
+    }
+
+    function getPurchaseTicketForServiceCall($serviceCallID){
+        $myArray =array();
+        $sql = "select * from machine_demand where serviceCallID = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$serviceCallID);
+        $handle->execute();
+        if($handle->rowCount() >0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
     }
 
+<<<<<<< HEAD
     function getServiceTicket($ticket)
     {
         $sql = "select sc.*, sc.id as callID, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
+=======
+    function getServiceTicket($ticket){
+        $sql = "select sc.*, ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand
         from service_call sc
         right join accounts ac on ac.id = sc.account_id
@@ -2181,6 +3420,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         right join states s on s.id = l.stateID
         where sc.ticketNo = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $ticket);
         $handle->execute();
         if ($handle->rowCount() > 0)
@@ -2189,10 +3429,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
         else
         {
+=======
+        $handle->bindValue(1,$ticket);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     function getBillingType($id = "")
     {
         $myArray = array();
@@ -2200,15 +3448,31 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($id == "") {
             $sql = "select * from billingtype";
         } else {
+=======
+    function getBillingType($id=""){
+        $myArray = array();
+        $sql = "";
+        if($id==""){
+            $sql = "select * from billingtype";
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $sql = "select * from billingtype where `value` = {$id}";
         }
         $handle = $this->db->prepare($sql);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
             if ($id != "") {
                 return $handle->fetch(PDO::FETCH_ASSOC);
             } else {
                 while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        if($handle->rowCount()>0){
+            if($id!= ""){
+                return $handle->fetch(PDO::FETCH_ASSOC);
+            }else{
+                while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                     $myArray[] = $row;
                 }
                 return $myArray;
@@ -2218,6 +3482,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getIssueWithId($id)
     {
         $sql = "select issues from call_issues where id =?";
@@ -2226,10 +3491,19 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
         if ($handle->rowCount() > 0)
         {
+=======
+    function getIssueWithId($id){
+        $sql = "select issues from call_issues where id =?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return $handle->fetch(PDO::FETCH_ASSOC);
         }
     }
 
+<<<<<<< HEAD
     function getPurchaseTicket($ticket)
     {
         $sql = "select * from machine_demand where ticketNo = ?";
@@ -2240,6 +3514,17 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             $row = $handle->fetch(PDO::FETCH_ASSOC);
             if ($row['machineID'] == 0) {
+=======
+    function getPurchaseTicket($ticket){
+        $sql = "select * from machine_demand where ticketNo = ?";
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$ticket);
+        $handle->execute();
+        if($handle->rowCount() >0){
+            $row = $handle->fetch(PDO::FETCH_ASSOC);
+            if($row['machineID'] == 0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $sql = "select md.*,ac.Name as AccountName, 'NONE' as machine_code, al.areaname, l.lga, s.state,
                                 mif.serialNo, ac.Address, ct.c_name as contract, '' as machineBrand from machine_demand md
                                 join accounts ac on ac.id = md.accountID
@@ -2249,10 +3534,17 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                                 join lga l on l.id = al.lgaID
                                 join states s on s.id = l.stateID
                                 where md.ticketNo = ?";
+<<<<<<< HEAD
                 return $this->getPurchaseTicket2($sql, $ticket);
 
             } else {
                 $sql = "select md.*,ac.Name as AccountName, ac.id as accountID, mif.machine_code, al.areaname, l.lga, s.state,
+=======
+                return $this->getPurchaseTicket2($sql,$ticket);
+
+            }else{
+                $sql = "select md.*,ac.Name as AccountName, mif.machine_code, al.areaname, l.lga, s.state,
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                             mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from machine_demand md
                             join accounts ac on ac.id = md.accountID
                             right join machine_in_field mif on mif.id = md.machineID
@@ -2262,6 +3554,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                             join lga l on l.id = al.lgaID
                             join states s on s.id = l.stateID
                             where md.ticketNo = ?";
+<<<<<<< HEAD
                 return $this->getPurchaseTicket2($sql, $ticket);
 
             }
@@ -2278,12 +3571,36 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return $handle->fetch(PDO::FETCH_ASSOC);
         } else {
+=======
+                return $this->getPurchaseTicket2($sql,$ticket);
+
+            }
+        }else{
+            return null;
+        }
+
+
+    }
+
+    function getPurchaseTicket2($sql,$ticket){
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$ticket);
+        $handle->execute();
+        if($handle->rowCount() >0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     function getPurchaseProductOrderCall($id)
     {
+=======
+    function getPurchaseProductOrderCall($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "SELECT sp.id,sp.productID, p.productName, p.Code, p.color, p.ProductType, sp.qty, sp.Amount, sd.ticketNo,
                     sd.orderCollect, sd.orderCollectedDate, sd.ocDay, sd.ocMonth,sd.ocYear,sd.vat, st.salestype, st.st, sd.description
@@ -2293,10 +3610,17 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                     JOIN sales_type st on sd.sales_type_id = st.id
                     where sp.leadDemandID = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -2304,6 +3628,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function convertToMoney($amount)
     {
         return '₦' . number_format($amount, 2);
@@ -2316,10 +3641,22 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function returnTimeDiff($time1, $time2)
     {
+=======
+    function convertToMoney($amount){
+        return '₦'.number_format($amount,2);
+    }
+
+    function convertToMoney2($amount){
+        return 'N '.number_format($amount,2);
+    }
+
+    function returnTimeDiff($time1,$time2){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $etime = $time1 - $time2;
         return $etime;
     }
 
+<<<<<<< HEAD
     function secondsToTime($seconds)
     {
         $seconds = str_replace('-', '', $seconds);
@@ -2342,10 +3679,14 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function secondsToHours($seconds)
     {
         $seconds = str_replace('-', '', $seconds);
+=======
+    function secondsToTime($seconds) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $hours = floor($seconds / 3600);
         $seconds -= $hours * 3600;
         $minutes = floor($seconds / 60);
         $seconds -= $minutes * 60;
+<<<<<<< HEAD
         $dHours = $hours != 0 ? "$hours hours" : '';
 
         return "<b>$dHours</b>";
@@ -2374,10 +3715,28 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else if ($secs > 172800 && $secs < 432000) {
             return "warning";
         } else if ($secs > 432000) {
+=======
+
+        return "<b>$hours hrs, $minutes mins </b>";
+
+        // $dtF = new \DateTime('@0');
+        // $dtT = new \DateTime("@$seconds");
+        // return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
+        // return $dtF->diff($dtT)->format('%a days, %h hours');
+    }
+
+    function getSecondsColor($secs){
+        if($secs < 172800){
+            return "success";
+        }else if($secs > 172800 && $secs < 432000){
+            return "warning";
+        }else if ($secs >432000){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return "danger";
         }
     }
 
+<<<<<<< HEAD
     function getPercentage($secs)
     {
         $extime = ($secs / 1036800) * 100;
@@ -2405,10 +3764,36 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             {
                 $r = round($d);
                 return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str);
+=======
+    function getPercentage($secs){
+        $extime = ($secs /1036800) * 100;
+        return $extime;
+    }
+
+    function time_space($time1, $time2){
+        $etime = $time1 - $time2;
+
+        if($time1 == ""){
+            return '';
+        }
+        if($etime <1){
+            return 'a moment ago';
+        }
+
+        $a = array( 365*24*60*60=>'year', 30*24*60*60=>'month', 7*24*60*60=>'week', 24*60*60=>'day', 60*60=>'hr', 60=>'min',1=>'second');
+        $a_plural = array('year'=>'years', 'month'=>'months','week'=>'weeks', 'day'=>'days','hr'=>'hrs','min'=>'mins','second'=>'seconds');
+
+        foreach($a as $secs=>$str){
+            $d = $etime/$secs;
+            if($d>=1){
+                $r =  round($d);
+                return $r.' '.($r >1 ? $a_plural[$str] : $str);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             }
         }
     }
 
+<<<<<<< HEAD
     function updateOrderCollected($id, $ocDay, $ocMonth, $ocYear, $vat, $machineID, $accID, $paymentMode)
     {
         $sql = "update machine_demand set orderCollect = 1, orderCollectedDate = ?, ocDay = ?, ocMonth = ?, ocYear = ?,ocDMY= ?,
@@ -2426,11 +3811,30 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(9, $paymentMode);
         $handle->bindValue(10, date("W", strtotime($ocYear . "-" . $ocMonth . "-" . $ocDay)));
         $handle->bindValue(11, $id, PDO::PARAM_INT);
+=======
+    function updateOrderCollected($id,$ocDay,$ocMonth,$ocYear,$vat,$machineID,$accID,$paymentmode){
+        $sql = "update machine_demand set orderCollect = 1, orderCollectedDate = ?, ocDay = ?, ocMonth = ?, ocYear = ?,ocDMY= ?,
+         dateTime = ?, vat = ?, collectedBy=?, paymentmode = ?, ocWeek = ? where id = ?";
+        $person = $this->getMyUserInformation($_SESSION['user_id'])['fullname'];
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,date("l jS \of F Y h:i:s A"));
+        $handle->bindValue(2,$ocDay,PDO::PARAM_INT);
+        $handle->bindValue(3,$ocMonth,PDO::PARAM_INT);
+        $handle->bindValue(4,$ocYear,PDO::PARAM_INT);
+        $handle->bindValue(5,$ocYear. str_pad($ocMonth,2,"0",STR_PAD_LEFT).str_pad($ocDay,2,"0",STR_PAD_LEFT));
+        $handle->bindValue(6,time());
+        $handle->bindValue(7,$vat,PDO::PARAM_INT);
+        $handle->bindValue(8,$_SESSION['user_id']);
+        $handle->bindValue(9, $paymentmode);
+        $handle->bindValue(10, date("W", strtotime($ocYear."-".$ocMonth."-".$ocDay)));
+        $handle->bindValue(11,$id,PDO::PARAM_INT);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $handle->execute();
 
         $accountName = $this->getSingleAccountInformation($accID)['Name'];
         //$mac_name = $this->getSingleMachineInformation($machineID)['machine_code'];
+<<<<<<< HEAD
         $msg = " successfully collected an order from " . $accountName;
         $this->createActivityNotifications($msg, $machineID, $accID);
 
@@ -2456,10 +3860,34 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(12, $userID);
         $handle->execute();
         $this->showMsg('Success', 'This purchase has been made on this ticket <a href="' . $this->host . 'purchase-invoice/S-' . $ticketGen . '">S-' . $ticketGen . '</a>', 2);
+=======
+        $msg = " successfully collected an order from ".$accountName;
+        $this->createActivityNotifications($msg,$machineID,$accID);
+
+    }
+
+    public function enterProductDemand($serviceCallID,$salestypeID,$description="",$machineID,$accountID,$discount,$serviceCharge){
+        $serviceCharge = 0;
+        $sql = "insert into machine_demand (adminID,serviceCallID,ticketNo,sales_type_id,description,machineID,accountID,discount,  svc) values(?,?,?,?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $ticketGen = $this->createTicketNo();
+        $handle->bindValue(1,$_SESSION['user_id']);
+        $handle->bindValue(2,$serviceCallID);
+        $handle->bindValue(3, "S-".$ticketGen);
+        $handle->bindValue(4,$salestypeID);
+        $handle->bindValue(5,$description);
+        $handle->bindValue(6,$machineID,PDO::PARAM_INT);
+        $handle->bindValue(7,$accountID,PDO::PARAM_INT);
+        $handle->bindValue(8,$discount);
+        $handle->bindValue(9,$serviceCharge);
+        $handle->execute();
+        $this->showMsg('Success', 'This purchase has been made on this ticket <a href="'.$this->host.'purchase-invoice/S-'.$ticketGen.'">S-'.$ticketGen.'</a>',2);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         return $this->db->lastInsertId();
     }
 
+<<<<<<< HEAD
     function insertLeadProducts($leadID, $productID, $qty, $amount, $leadDemandID, $machineID)
     {
         $handle = $this->db->prepare("insert into service_product(serviceCallID,leadDemandID,productID,qty,`Amount`,machineID) values(?,?,?,?,?,?)");
@@ -2469,16 +3897,31 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(4, $qty, PDO::PARAM_INT);
         $handle->bindValue(5, $this->RemoveComma($amount), PDO::PARAM_INT);
         $handle->bindValue(6, $machineID, PDO::PARAM_INT);
+=======
+    function insertLeadProducts($leadID,$productID,$qty,$amount,$leadDemandID,$machineID){
+        $handle = $this->db->prepare("insert into service_product(serviceCallID,leadDemandID,productID,qty,`Amount`,machineID) values(?,?,?,?,?,?)");
+        $handle->bindValue(1,$leadID,PDO::PARAM_INT);
+        $handle->bindValue(2,$leadDemandID,PDO::PARAM_INT);
+        $handle->bindValue(3,$productID,PDO::PARAM_INT);
+        $handle->bindValue(4,$qty,PDO::PARAM_INT);
+        $handle->bindValue(5,$this->RemoveComma($amount),PDO::PARAM_INT);
+        $handle->bindValue(6,$machineID,PDO::PARAM_INT);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
     }
 
     public function ValidateCompanyAgainst($companyName, $companyID)
     {
+<<<<<<< HEAD
         $sql = "select * from leads where companyName = ? and id != ?";
+=======
+        $sql    = "select * from leads where companyName = ? and id != ?";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $companyName);
         $handle->bindValue(2, $companyID);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             $row = $handle->fetch(PDO::FETCH_ASSOC);
@@ -2488,12 +3931,27 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         {
             return false;
         }
+=======
+        if ($handle->rowCount() > 0) {
+            $row = $handle->fetch(PDO::FETCH_ASSOC);
+            return true;
+        } else {
+            return false;
+        }
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 
     public function getMyUserInformation($id)
     {
+<<<<<<< HEAD
         $sql = "select st.*,
         ds.dptID,ds.dptaccessLevel as AccessLevel,ds.designation,d.Department
+=======
+        $sql    = "select st.*,
+        ds.dptID,ds.dptaccessLevel,ds.designation,d.Department
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         from staff st
         join dpt_designation ds on st.designationID = ds.id
         join department d on st.DepartmentID = d.id
@@ -2502,6 +3960,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(1, $id);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             return $row = $handle->fetch(PDO::FETCH_ASSOC);
@@ -2510,12 +3969,24 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         {
             return false;
         }
+=======
+        if ($handle->rowCount() > 0) {
+            return $row = $handle->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 
     function getArrayStates()
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from states order by id asc");
+=======
+        $handle   = $this->db->prepare("select * from states order by id asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2531,7 +4002,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getLGAofStates()
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from states order by id asc");
+=======
+        $handle   = $this->db->prepare("select * from states order by id asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2547,7 +4022,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAreasofLGA()
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from states order by id asc");
+=======
+        $handle   = $this->db->prepare("select * from states order by id asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2563,7 +4042,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getLgaByID($id)
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from lga where stateID = ? order by lga asc");
+=======
+        $handle   = $this->db->prepare("select * from lga where stateID = ? order by lga asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
@@ -2581,7 +4064,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAreaByID($id)
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from area_location where stateID = ? order by areaname asc");
+=======
+        $handle   = $this->db->prepare("select * from area_location where stateID = ? order by areaname asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
@@ -2598,15 +4085,26 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     public function showMsg($header, $msg, $num)
     {
+<<<<<<< HEAD
         if ($num == 1) 
         {
+=======
+        if ($num == 1) {
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             echo '<div class="alert alert-danger alert-transparent no-margin">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="icon-cross2"></i>
                 <strong>' . $header . '</strong> ' . $msg . '.
             </div>';
+<<<<<<< HEAD
         } 
         else if ($num == 2) 
         {
+=======
+
+
+        } else if ($num == 2) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             echo '<div class="alert alert-success alert-transparent no-margin">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-"></i></button><i class="icon-cross2"></i>
                 <strong>' . $header . '</strong> ' . $msg . '.
@@ -2617,7 +4115,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAllAcounts()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from `accounts`  order by `Name` asc");
+=======
+        $handle  = $this->db->prepare("select * from `accounts`  order by `Name` asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2633,7 +4135,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getArrayAllAccounts()
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from `accounts` order by Name asc");
+=======
+        $handle   = $this->db->prepare("select * from `accounts` order by Name asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2649,7 +4155,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAllIndustries()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from industries  order by `sector` asc");
+=======
+        $handle  = $this->db->prepare("select * from industries  order by `sector` asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2665,7 +4175,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAllContracts()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from `contracts`");
+=======
+        $handle  = $this->db->prepare("select * from `contracts`");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2675,6 +4189,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function getProductsByCategory($id)
@@ -2710,6 +4225,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
        and p.$store != 0 
        order by p.ProductType asc, p.productName asc, p.color asc";
         $handle = $this->db->prepare($sql);
+=======
+
+    }
+
+    function getProductsByCategory($id){
+        $myArray = array();
+        $sql = "SELECT p.*,pt.type,u.unitName, cost FROM `products` p 
+       join `producttype` pt on p.productType = pt.id 
+       left join units u on u.id = p.unitID 
+       where p.ProductType = ? 
+       order by p.ProductType asc, p.productName asc, p.color asc";
+        $handle  = $this->db->prepare($sql);
+        $handle->bindValue(1, $id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2721,6 +4250,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function checkCodeExist($code)
     {
         $sql = "select * from products where Code = ?";
@@ -2730,14 +4260,30 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return false;
         } else {
+=======
+    function checkCodeExist($code){
+        $sql = "select * from products where Code = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$code);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return false;
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return true;
         }
     }
 
+<<<<<<< HEAD
     function addNewProducts($catID, $prodName, $prodCode, $prodPrice, $active = 1, $unitID)
     {
 
         if ($this->checkCodeExist($prodCode)) {
+=======
+    function addNewProducts($catID, $prodName, $prodCode, $prodPrice,$active=1,$unitID){
+
+        if($this->checkCodeExist($prodCode)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
             $sql = "insert into products (productName, Code,price,ProductType, active,unitID) values (?,?,?,?,?,?)";
             $handle = $this->db->prepare($sql);
@@ -2748,13 +4294,21 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             $handle->bindValue(5, $active);
             $handle->bindValue(6, $unitID);
             $handle->execute();
+<<<<<<< HEAD
         } else {
+=======
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         }
     }
 
+<<<<<<< HEAD
     function EditProducts($id, $catID, $prodName, $prodCode, $prodPrice, $active = 1, $unitID)
     {
+=======
+    function EditProducts($id, $catID, $prodName, $prodCode, $prodPrice,$active=1,$unitID){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare("update products set ProductType = ?, productName = ?, Code = ?, price = ?, active = ?,unitID = ? where id = ?");
         $handle->bindValue(1, $catID);
         $handle->bindValue(2, $prodName);
@@ -2766,10 +4320,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
     }
 
+<<<<<<< HEAD
     function getProductsCategory()
     {
         $myArray = array();
         $handle = $this->db->prepare("SELECT *  from `producttype`  order by type asc");
+=======
+    function getProductsCategory(){
+        $myArray = array();
+        $handle  = $this->db->prepare("SELECT *  from `producttype`  order by type asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2781,6 +4341,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getCategoryById($id)
     {
         $sql = "select * from producttype where id = ?";
@@ -2798,6 +4359,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     {
         $myArray = array();
         $handle = $this->db->prepare("SELECT *  from `units`  order by unitName asc");
+=======
+    function getProductsUnits(){
+        $myArray = array();
+        $handle  = $this->db->prepare("SELECT *  from `units`  order by unitName asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2812,7 +4378,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAllProducts()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from products where active = 1 order by ProductType asc, productName asc, color asc");
+=======
+        $handle  = $this->db->prepare("select * from products where active = 1 order by ProductType asc, productName asc, color asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2825,36 +4395,60 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getProductInformationWithID($id)
     {
+=======
+    function getProductInformationWithID($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select * from products where id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
+=======
+        if($handle->rowCount() > 0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return $handle->fetch(PDO::FETCH_ASSOC);
         }
     }
 
+<<<<<<< HEAD
     function getGoodsLog($id)
     {
+=======
+    function getGoodsLog($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select gl.*,p.productName,p.Code,s.storeName,st.fullname from goodslog gl
       join products p on p.id = gl.productID
       join stores s on s.id = gl.storeID
       join staff st on st.id = gl.doneBy
+<<<<<<< HEAD
       where gl.productID = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+
+      where gl.productID = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function updateStock($id, $newMain, $newOffice, $newDamaged, $newAbj, $mainEdit, $officeEdit, $abjEdit, $dmgEdit, $mainSwitch, $officeSwitch, $abjSwitch, $dmgSwitch, $remarks)
@@ -2887,12 +4481,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             $note = $dmgSwitch === true ? 'Increased' : 'Reduced';
             $this->GoodsLog($id, 0, 0, 0, 0, $dmgEdit, $newDamaged, 4, $note, $remarks);
         }
+=======
+
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 
     function getAllProductsWithCode()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from products where active = 1 and Code!='' order by ProductType asc, productName asc, color asc");
+=======
+        $handle  = $this->db->prepare("select * from products where active = 1 and Code!='' order by ProductType asc, productName asc, color asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -2905,7 +4507,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function createPOC($name, $machineCode, $machineModel, $machineSerialNo, $contractType, $installationDate, $pocStartDate, $pocEndDate, $workDone, $industry, $address, $area, $state, $dpt, $contactN1, $contactP1, $contactE1, $contactD1, $contactN2, $contactP2, $contactE2, $contactD2, $contactN3, $contactP3, $contactE3, $contactD3, $meterReading)
+=======
+    function createPOC($name,$machineCode,$machineModel,$machineSerialNo,$contractType,$installationDate,$pocStartDate,$pocEndDate,$workDone,$industry,$address,$area,$state,$dpt,$contactN1,$contactP1,$contactE1,$contactD1,$contactN2,$contactP2,$contactE2,$contactD2,$contactN3,$contactP3,$contactE3,$contactD3,$meterReading)
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     {
 
         $sql = "insert into poc_accounts (poc_account_name,machine_code,machine_type,serialNo,contract_type,doi,contractStart,contractEnds,workDone,industry,Address,areaID,state,department,contactName1,contactEmail1,contactPhone1,contactDesig1,contactName2,contactEmail2,contactPhone2,contactDesig2,contactName3,contactEmail3,contactPhone3,contactDesig3,`timestamp`,`dateTime`,meterReading)
@@ -2950,7 +4556,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function checkMachineAvailable($machineCode)
     {
+<<<<<<< HEAD
         $sql = "select * from machine_in_field where machine_code = ?";
+=======
+        $sql    = "select * from machine_in_field where machine_code = ?";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $machineCode);
         $handle->execute();
@@ -2964,7 +4574,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function checkMachineAvailableCompare($machineCode, $id)
     {
+<<<<<<< HEAD
         $sql = "select * from machine_in_field where machine_code = ? and id != ?";
+=======
+        $sql    = "select * from machine_in_field where machine_code = ? and id != ?";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $machineCode);
         $handle->bindValue(2, $id);
@@ -2974,10 +4588,19 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function createAMachine($acc, $machineCode, $machineModel, $machineSerialNo, $contractType, $doi, $cstart, $cend, $address, $area, $contactN1, $contactP1, $contactE1, $contactD1, $contactN2, $contactP2, $contactE2, $contactD2, $contactN3, $contactP3, $contactE3, $contactD3, $dpt, $meterReading)
     {
+=======
+
+    }
+
+    function createAMachine($acc, $machineCode, $machineModel, $machineSerialNo, $contractType, $doi, $cstart, $cend, $address, $area, $contactN1, $contactP1, $contactE1, $contactD1, $contactN2, $contactP2, $contactE2, $contactD2, $contactN3, $contactP3, $contactE3, $contactD3, $dpt,$meterReading)
+    {
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "insert into machine_in_field (account_id, machine_code,machine_type,serialNo,doi,contractStart,contractEnds,contractID,Address,areaID,department,contactName1,contactEmail1,contactPhone1,contactDesig1,contactName2,contactEmail2,contactPhone2,contactDesig2,contactName3,contactEmail3,contactPhone3,contactDesig3,`timestamp`,`dateTime`,meterReading)
                 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $handle = $this->db->prepare($sql);
@@ -3011,9 +4634,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(25, date("d-m-Y h:i:s A"));
         $handle->bindValue(26, $meterReading);
         $handle->execute();
+<<<<<<< HEAD
     }
 
     function EditAMachine($acc, $machineCode, $machineModel, $machineSerialNo, $contractType, $doi, $cstart, $cend, $address, $area, $contactN1, $contactP1, $contactE1, $contactD1, $contactN2, $contactP2, $contactE2, $contactD2, $contactN3, $contactP3, $contactE3, $contactD3, $dpt, $id)
+=======
+
+    }
+
+    function EditAMachine($acc, $machineCode, $machineModel, $machineSerialNo, $contractType, $doi, $cstart, $cend, $address, $area, $contactN1, $contactP1, $contactE1, $contactD1, $contactN2, $contactP2, $contactE2, $contactD2, $contactN3, $contactP3, $contactE3, $contactD3, $dpt,$id)
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     {
 
         $sql = "update machine_in_field set account_id =?, machine_code =?,machine_type = ?,serialNo =?,doi =?,contractStart =?,contractEnds =?,contractID =?,
@@ -3052,6 +4682,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         // $handle->bindValue(25, date("d-m-Y h:i:s A"));
 
         $handle->execute();
+<<<<<<< HEAD
     }
 
 
@@ -3063,6 +4694,19 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             LEFT JOIN area_location al on acc.areaID = al.id
             LEFT JOIN `states` st on al.stateID = st.id
             LEFT JOIN `industries` ind on ind.id = acc.industryID";
+=======
+
+
+    }
+
+
+    function getAllAccountInformation(){
+        $myArray = array();
+        $sql = "select acc.*,al.areaname,al.stateID,st.state,ind.sector from `accounts` acc
+         LEFT JOIN area_location al on acc.areaID = al.id
+         LEFT JOIN `states` st on al.stateID = st.id
+         LEFT JOIN `industries` ind on ind.id = acc.industryID";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
@@ -3079,12 +4723,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getMachineByIDArray($id)
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select mif.*,c.c_name from `machine_in_field` mif JOIN `contracts` c on mif.contractID = c.id where account_id = ? ");
+=======
+        $handle   = $this->db->prepare("select mif.*,c.c_name from `machine_in_field` mif JOIN `contracts` c on mif.contractID = c.id where account_id = ? ");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+<<<<<<< HEAD
                 $mystring .= "[" . $row['id'] . ",'" . $row['machine_code'] . " - " . $row['c_name'] . "'],";
+=======
+                $mystring .= "[" . $row['id'] . ",'" . $row['machine_code']." - ".$row['c_name'] . "'],";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 //$mystring .= "[" . $row['id'] . ",'" . $row['machine_code'] . ",'" . $row['c_name'] . "'],";
             }
 
@@ -3098,7 +4750,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getArrayOfMachines()
     {
         $mystring = "";
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from `accounts` order by Name asc");
+=======
+        $handle   = $this->db->prepare("select * from `accounts` order by Name asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -3111,10 +4767,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getAllEngineers()
     {
         $myArray = array();
         $handle = $this->db->prepare("select * from `staff` 
+=======
+    function getAllEngineers(){
+        $myArray = array();
+        $handle  = $this->db->prepare("select * from `staff` 
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         where `engineer` =1 and `active` = 1");
         $handle->execute();
         if ($handle->rowCount() > 0) {
@@ -3127,10 +4789,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getAllIssues()
     {
         $myArray = array();
         $handle = $this->db->prepare("select * from `call_issues` order by issues asc");
+=======
+    function getAllIssues(){
+        $myArray = array();
+        $handle  = $this->db->prepare("select * from `call_issues` order by issues asc");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -3140,6 +4808,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function getAllMachineInformation()
@@ -3153,6 +4822,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             JOIN `states` st on al.stateID = st.id
             JOIN  contracts c on mif.contractID = c.id
             WHERE mif.active = 1 order by mif.machine_code ASC";
+=======
+
+    }
+
+    function getAllMachineInformation(){
+        $myArray = array();
+        $sql = "select mif.*,a.Name, p.productName,al.areaname,al.stateID, st.state, c.c_name from `machine_in_field` mif
+        JOIN `accounts` a on mif.account_id = a.id
+        JOIN products p on mif.machine_type = p.id
+        JOIN area_location al on mif.areaID = al.id
+        JOIN `states` st on al.stateID = st.id
+        JOIN  contracts c on mif.contractID = c.id
+        WHERE mif.active = 1 order by mif.machine_code ASC";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
@@ -3167,8 +4850,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getAllMachineForAccount($id)
     {
+=======
+    function getAllMachineForAccount($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mif.*, p.productName,al.areaname,al.stateID, st.state, c.c_name from `machine_in_field` mif
         JOIN products p on mif.machine_type = p.id
@@ -3177,7 +4864,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         JOIN  contracts c on mif.contractID = c.id
         WHERE mif.active = 1 and account_id = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
+=======
+        $handle->bindValue(1,$id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -3190,8 +4881,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getSingleAccountInformation($id)
     {
+=======
+    function getSingleAccountInformation($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select ac.*, al.stateID, al.areaname, st.state, ind.sector from `accounts` ac
                 JOIN `area_location` al on ac.areaID = al.id
                 JOIN `states` st on al.stateID = st.id
@@ -3199,15 +4894,24 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 WHERE ac.id = ?";
 
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             return $handle->fetch(PDO::FETCH_ASSOC);
         } else {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getAllMachineForAccountPM($id, $mifid)
     {
         $myArray = array();
@@ -3228,6 +4932,32 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->bindValue(2, $mifid);
+=======
+    function getAllMachineForAccountPM($id, $mifid){
+        $myArray = array();
+        /*$sql = "select mif.*, p.productName,al.areaname,al.stateID, st.state, c.c_name, pm.scheduleDate from `machine_in_field` mif
+        JOIN products p on mif.machine_type = p.id
+        JOIN area_location al on mif.areaID = al.id
+        JOIN `states` st on al.stateID = st.id
+        JOIN  contracts c on mif.contractID = c.id
+        JOIN preventive_maintenance_schedule pm on mif.id = pm.machine_in_field_id
+
+        WHERE mif.active = 1 and account_id = ?";
+        $sql = "select pm.*, mif.Address, mif.machine_code, mif.machine_type, mif.serialNo  from `preventive_maintenance_schedule` pm
+        JOIN machine_in_field mif on pm.id = mif.machine_in_field_id
+        WHERE mif.active = 1 and account_id = ?";*/
+
+        $sql = "select ac.*, mif.Address, mif.machine_code, mif.machine_type, mif.serialNo, mif.doi, mif.id AS machine_in_field_id, pm.NextScheduledDateTime, pm.scheduleDate, pm.meterReadingMono, pm.meterReadingColour  from `accounts` ac
+                JOIN `machine_in_field` mif on ac.id = mif.account_id
+                JOIN preventive_maintenance_schedule pm on mif.id = pm.machine_in_field_id
+                WHERE ac.id = ? and mif.id = ? and pm.CaseStatus = 1";
+
+
+
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->bindValue(2,$mifid);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -3240,6 +4970,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function verifyPreventiveMaintenanceEntryForMachine($id)
     {
 
@@ -3250,13 +4981,28 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return 1;
         } else {
+=======
+    function verifyPreventiveMaintenanceEntryForMachine($id){
+
+        $sql = "select pm.* from `preventive_maintenance_schedule` pm WHERE  machine_in_field_id = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            return 1;
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return 0;
         }
 
     }
 
+<<<<<<< HEAD
     function getSingleMachineInformationPM($id)
     {
+=======
+    function getSingleMachineInformationPM($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mif.*, p.productName,al.areaname,al.stateID, st.state, c.c_name, ac.Name, pm.NextScheduledDateTime, pm.scheduleDate, pm.meterReadingMono, pm.meterReadingColour, pm.id AS pm_id from `machine_in_field` mif
         JOIN products p on mif.machine_type = p.id
@@ -3267,7 +5013,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         JOIN preventive_maintenance_schedule pm on mif.id = pm.machine_in_field_id
         WHERE mif.active = 1 and pm.CaseStatus = 1 and mif.id = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
+=======
+        $handle->bindValue(1,$id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -3279,8 +5029,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getSingleMachineInformationEmptyPM($id)
     {
+=======
+    function getSingleMachineInformationEmptyPM($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mif.*, p.productName,al.areaname,al.stateID, st.state, c.c_name, ac.Name from `machine_in_field` mif
         JOIN products p on mif.machine_type = p.id
@@ -3290,7 +5044,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         JOIN  accounts ac on mif.account_id = ac.id
         WHERE mif.active = 1 and mif.id = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
+=======
+        $handle->bindValue(1,$id);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -3302,8 +5060,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getTeamAllOrderCollected()
     {
+=======
+    function getTeamAllOrderCollected(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         /* $sql = "select service_product sp join machine_demand md on mp.
 
@@ -3335,6 +5097,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function validateExistingMachineContract($id)
     {
         $sql = "select * from contractvalue where machineID = ?";
@@ -3344,10 +5107,21 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return 1;
         } else {
+=======
+    function validateExistingMachineContract($id){
+        $sql = "select * from contractvalue where machineID = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            return 1;
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return 0;
         }
     }
 
+<<<<<<< HEAD
     function getLeadMPSOrderOnLeadDemand($id)
     {
         $myArray = array();
@@ -3364,10 +5138,28 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
             {
+=======
+    function getLeadMPSOrderOnLeadDemand($id){
+        $myArray = array();
+        $sql = "SELECT mps.id,mps.productID, p.productName, p.Code, p.color, p.ProductType, mps.product_qty, mps.rentalCharge,
+                    mps.cost_mono, mps.cost_color, mps.min_vol_mono, mps.min_vol_color,mps.contract_duration,mps.billingType,ld.ticketNo,
+                    ld.orderCollect, ld.orderCollectedDate, ld.ocDay, ld.ocMonth,ld.ocYear, st.salestype, st.st, ld.description, mps.accesories
+                    FROM mps_info mps
+                    JOIN products p ON mps.productID = p.id
+                    JOIN lead_demand ld on mps.lead_demand_id = ld.id
+                    JOIN sales_type st on ld.sales_type_id = st.id
+                    where mps.id = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
+<<<<<<< HEAD
     }
 
     // function getContractValue($id){
@@ -3400,10 +5192,26 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
             {
+=======
+
+    }
+
+    function getContractValue($id){
+        $myArray = array();
+        $sql = "select cv.*, mif.machine_code, mif.serialNo from contractvalue cv
+                join machine_in_field mif on mif.id = cv.machineID
+                where cv.contractID = ?";
+        $handle=$this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
+<<<<<<< HEAD
     }
 
 
@@ -3417,6 +5225,21 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+
+
+    }
+
+    function getSumOfContractValue($id, $mid){
+        $myArray = array();
+        $sql = "SELECT SUM(`excess_cost_mono`) as mi1 FROM `contractvalue` WHERE `contractID` = ? AND`machineID`= ?";
+        $handle=$this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->bindValue(2,$mid);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            while ($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -3425,6 +5248,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function checkM_reading($contractID, $moment)
     {
         $sql = "select * from m_reading where contractID = ? and moment = ?";
@@ -3435,11 +5259,23 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return false;
         } else {
+=======
+    function checkM_reading($contractID, $moment){
+        $sql = "select * from m_reading where contractID = ? and moment = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$contractID);
+        $handle->bindValue(2,$moment);
+        $handle->execute();
+        if($handle->rowCount()>0){
+            return false;
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return true;
         }
 
     }
 
+<<<<<<< HEAD
     function createM_reading($contractID, $moment, $nextmoment, $generatedBy, $generatedDate)
     {
         $sql = "INSERT INTO `m_reading` (`contractID`, `moment`, `generatedBy`, `generatedDate`, `collected`, `collectedBy`, `collectedDate`, `timestamp`,nextmoment)
@@ -3461,11 +5297,35 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function InputBillingInformation($readingID, $contractID, $accID, $machineID, $month, $year, $currentMono, $currentColor, $moment, $copyMono, $copyColor
         , $previousMono, $previousColor, $amountMono, $amountColor, $amountRental)
     {
+=======
+    function createM_reading($contractID, $moment, $nextmoment, $generatedBy, $generatedDate){
+        $sql = "INSERT INTO `m_reading` (`contractID`, `moment`, `generatedBy`, `generatedDate`, `collected`, `collectedBy`, `collectedDate`, `timestamp`,nextmoment)
+        VALUES ( ?,?,?,?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$contractID);
+        $handle->bindValue(2,$moment);
+        $handle->bindValue(3,$generatedBy);
+        $handle->bindValue(4,$generatedDate);
+        $handle->bindValue(5,0);
+        $handle->bindValue(6,0);
+        $handle->bindValue(7,"");
+        $handle->bindValue(8,"");
+        $handle->bindValue(9,$nextmoment);
+        $handle->execute();
+        return $this->db->lastInsertId();
+
+
+    }
+
+    function InputBillingInformation($readingID,$contractID,$accID,$machineID,$month,$year,$currentMono,$currentColor,$moment,$copyMono,$copyColor
+        ,$previousMono,$previousColor,$amountMono,$amountColor,$amountRental){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "INSERT INTO meter_reading (readingID, contractID, accID, machineID, `month`, `year`, `mono`, `color`, `moment`,
         `copyMono`, `copyColor`,`previousMono`, `previousColor`, `AmountMono`, `AmountColor`, `AmountRental`)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $readingID);
+<<<<<<< HEAD
         $handle->bindValue(2, $contractID);
         $handle->bindValue(3, $accID);
         $handle->bindValue(4, $machineID);
@@ -3492,6 +5352,33 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(1, $contractID);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+=======
+        $handle->bindValue(2,$contractID);
+        $handle->bindValue(3,$accID);
+        $handle->bindValue(4,$machineID);
+        $handle->bindValue(5,$month);
+        $handle->bindValue(6,$year);
+        $handle->bindValue(7,$currentMono);
+        $handle->bindValue(8,$currentColor);
+        $handle->bindValue(9,$moment);
+        $handle->bindValue(10,$copyMono);
+        $handle->bindValue(11,$copyColor);
+        $handle->bindValue(12,$previousMono);
+        $handle->bindValue(13,$previousColor);
+        $handle->bindValue(14,$amountMono);
+        $handle->bindValue(15,$amountColor);
+        $handle->bindValue(16,$amountRental);
+        $handle->execute();
+    }
+
+    function getLastContractMoment($contractID){
+        $val = 0;
+        $sql = "select id, moment as mo from m_reading where contractID = ?  order by moment desc ";
+        $handle =$this->db->prepare($sql);
+        $handle->bindValue(1,$contractID);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $row = $handle->fetch(PDO::FETCH_ASSOC);
             $val = $row['id'];
         }
@@ -3499,6 +5386,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getPreviousMeterReading($contractID, $machineID, $reading, $color)
     {
         $val = 0;
@@ -3513,6 +5401,21 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             if ($color == 1) {
                 $val = $row['mono'];
             } else {
+=======
+    function getPreviousMeterReading($contractID,$machineID,$reading,$color){
+        $val = 0;
+        $sql = "select * from meter_reading where contractID = ? and machineID = ? and readingID = ?  ";
+        $handle =$this->db->prepare($sql);
+        $handle->bindValue(1,$contractID);
+        $handle->bindValue(2,$machineID);
+        $handle->bindValue(3,$reading);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            $row = $handle->fetch(PDO::FETCH_ASSOC);
+            if($color == 1){
+                $val = $row['mono'];
+            }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $val = $row['color'];
             }
         }
@@ -3520,8 +5423,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         return $val;
     }
 
+<<<<<<< HEAD
     function getContractBillingMeterReading($rID, $cID, $moment)
     {
+=======
+    function getContractBillingMeterReading($rID,$cID,$moment){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mr.*, mif.machine_code, mif.serialNo,mif.doi,mif.department,p.productName as Model from meter_reading mr
                 join machine_in_field mif on mr.machineID = mif.id
@@ -3532,8 +5439,13 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         //$handle->bindValue(2, $cID);
         //  $handle->bindValue(2, $moment);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -3543,6 +5455,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
 
     //$accID,$contractType,$costmono,$c_volmono,$costcolor,$c_volcolor,$c_exvolmono,$excostmono,$c_exvolcolor,$excostcolor,$duration,$billingType,$cs
+<<<<<<< HEAD
     function createContractTicket($accID, $contractType, $costmono, $volmono, $costcolor, $volcolor, $exvolmono, $excostmono, $exvolcolor, $excostcolor, $duration, $billingType, $cs, $cummul)
     {
         $csSplit = split(" ", $cs);
@@ -3566,13 +5479,39 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(14, $this->RemoveComma($excostcolor));
         $handle->bindValue(15, $duration);
         $handle->bindValue(16, $billingType);
+=======
+    function createContractTicket($accID,$contractType,$costmono,$volmono,$costcolor,$volcolor,$exvolmono,$excostmono,$exvolcolor,$excostcolor,$duration,$billingType,$cs,$cummul){
+        $sql = "insert into contract_info(contractTicket,ContractTypeID,AccountID,conStart,conEnd,cummulative,cost_mono,min_vol_mono,cost_color,min_vol_color,excess_mono,excess_cost_mono,excess_color,excess_cost_color,contract_duration,billingType)
+        values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $handle =$this->db->prepare($sql);
+        $handle->bindValue(1,"C-".$this->createTicketNo());
+        $handle->bindValue(2,$contractType);
+        $handle->bindValue(3,$accID);
+        $handle->bindValue(4, $cs);
+        $handle->bindValue(5,"");
+        $handle->bindValue(6,$cummul);
+        $handle->bindValue(7,$this->RemoveComma($costmono));
+        $handle->bindValue(8,$this->RemoveComma($volmono));
+        $handle->bindValue(9,$this->RemoveComma($costcolor));
+        $handle->bindValue(10,$this->RemoveComma($volcolor));
+        $handle->bindValue(11,$this->RemoveComma($exvolmono));
+        $handle->bindValue(12,$this->RemoveComma($excostmono));
+        $handle->bindValue(13,$this->RemoveComma($exvolcolor));
+        $handle->bindValue(14,$this->RemoveComma($excostcolor));
+        $handle->bindValue(15,$duration);
+        $handle->bindValue(16,$billingType);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
         $handle->execute();
         return $this->db->lastInsertId();
     }
 
+<<<<<<< HEAD
     function selectFromContractInfo($id)
     {
+=======
+    function selectFromContractInfo($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select ci.*, ac.Name,(select COUNT(*) from contractvalue where contractID = ci.id) as machineNum,
         ac.Address, al.stateID, al.areaname, st.state, ind.sector, c.c_name, c.contractName
           from contract_info ci
@@ -3580,6 +5519,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
           JOIN `area_location` al on ac.areaID = al.id
             JOIN `states` st on al.stateID = st.id
             JOIN `industries` ind on ac.industryID = ind.id
+<<<<<<< HEAD
           join contracts c on ci.ContractTypeID = c.id where ci.id = ?";
 
         $handle = $this->db->prepare($sql);
@@ -3709,6 +5649,19 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getAllCompanyContracts()
     {
+=======
+
+
+          join contracts c on ci.ContractTypeID = c.id where ci.id = ?";
+        $handle =$this->db->prepare($sql);
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        return $row = $handle->fetch(PDO::FETCH_ASSOC);
+
+    }
+
+    function getAllCompanyContracts(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select ci.*, ac.Name,(select COUNT(*) from contractvalue where contractID = ci.id) as machineNum, c.c_name
           from contract_info ci
@@ -3716,18 +5669,29 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
           join contracts c on ci.ContractTypeID = c.id
 
           ";
+<<<<<<< HEAD
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle =$this->db->prepare($sql);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
     }
 
+<<<<<<< HEAD
     function getContractBillingValues()
     {
+=======
+    function getContractBillingValues(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mr.*,a.Name,ci.contractTicket,ci.AccountID,ci.ContractTypeID,
         ci.conStart,ci.conEnd,ci.cummulative,ci.contract_duration,ci.billingType,
@@ -3738,16 +5702,25 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         join contracts c on c.id = ci.ContractTypeID";
         $handle = $this->db->prepare($sql);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
     }
+<<<<<<< HEAD
 
     function getContractBillingValuesPerContractID($id)
     {
+=======
+    function getContractBillingValuesPerContractID($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mr.*,a.Name,ci.contractTicket,ci.AccountID,ci.ContractTypeID,
         ci.conStart,ci.conEnd,ci.cummulative,ci.contract_duration,ci.billingType,
@@ -3757,10 +5730,17 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         join accounts a on ci.AccountID = a.id
         join contracts c on c.id = ci.ContractTypeID where mr.contractID = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -3768,8 +5748,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     function getContractBillingValuesaLL()
     {
+=======
+    function getContractBillingValuesaLL(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select mr.*,a.Name,ci.contractTicket,ci.AccountID,ci.ContractTypeID,
         ci.conStart,ci.conEnd,ci.cummulative,ci.contract_duration,ci.billingType,
@@ -3781,16 +5765,25 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
         // $handle->bindValue(1,$id);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        if($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
     }
 
+<<<<<<< HEAD
     function getContractBillingValuesPerReadingID($id)
     {
+=======
+    function getContractBillingValuesPerReadingID($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         //$myArray = array();
         $sql = "select mr.*,a.Name,a.Address,al.areaname,lg.lga,st.state,ci.contractTicket,ci.AccountID,ci.ContractTypeID,
         ci.conStart,ci.conEnd,ci.cummulative,ci.contract_duration,ci.billingType, ci.cost_mono,ci.cost_color,
@@ -3804,6 +5797,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         join states st on st.id = al.stateID 
         join contracts c on c.id = ci.ContractTypeID where mr.id = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
@@ -3813,20 +5807,37 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getGeneratedAmountOfContract($id)
     {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return  $handle->fetch(PDO::FETCH_ASSOC);
+        }
+    }
+
+    function getGeneratedAmountOfContract($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $value = 0;
         $sql = "select AmountMono,AmountColor,AmountRental from meter_reading where readingID = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 $cal = $row['AmountMono'] + $row['AmountColor'] + $row['AmountRental'];
+=======
+        if($handle->rowCount() >0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+                $cal = $row['AmountMono']+$row['AmountColor']+$row['AmountRental'];
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $value = $value + $cal;
             }
         }
         return $value;
     }
 
+<<<<<<< HEAD
     function inputMachineContract($contractID, $accID, $value, $rentalCharge, $costMono, $volMono, $costColor, $volColor, $exVolMono, $exCostMono, $exVolColor, $exCostColor, $duration, $billingType)
     {
         $sql = "insert into contractvalue(contractId,AccID,machineID,RentalCharge,cost_mono,min_vol_mono,cost_color,min_vol_color,excess_mono,excess_cost_mono,excess_color,excess_cost_color,contract_duration,billingType)
@@ -3851,6 +5862,30 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getSingleMachineInformation($id)
     {
+=======
+    function inputMachineContract($contractID,$accID,$value,$rentalCharge,$costmono,$volmono,$costcolor,$volcolor,$exvolmono,$excostmono,$exvolcolor,$excostcolor,$duration,$billingType){
+        $sql = "insert into contractvalue(contractId,AccID,machineID,RentalCharge,cost_mono,min_vol_mono,cost_color,min_vol_color,excess_mono,excess_cost_mono,excess_color,excess_cost_color,contract_duration,billingType)
+                values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$contractID);
+        $handle->bindValue(2,$accID);
+        $handle->bindValue(3,$value);
+        $handle->bindValue(4,$this->RemoveComma($rentalCharge));
+        $handle->bindValue(5,$this->RemoveComma($costmono));
+        $handle->bindValue(6,$this->RemoveComma($volmono));
+        $handle->bindValue(7,$this->RemoveComma($costcolor));
+        $handle->bindValue(8,$this->RemoveComma($volcolor));
+        $handle->bindValue(9,$this->RemoveComma($exvolmono));
+        $handle->bindValue(10,$this->RemoveComma($excostmono));
+        $handle->bindValue(11,$this->RemoveComma($exvolcolor));
+        $handle->bindValue(12,$this->RemoveComma($excostcolor));
+        $handle->bindValue(13,$duration);
+        $handle->bindValue(14,$billingType);
+        $handle->execute();
+    }
+
+    function getSingleMachineInformation($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         //$myArray = array();
         $sql = "select mif.*,a.Name, p.productName,al.areaname,al.stateID, st.state, c.c_name from `machine_in_field` mif
         left JOIN `accounts` a on mif.account_id = a.id
@@ -3873,6 +5908,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     public function convert_number_to_words($number)
     {
 
@@ -3916,6 +5952,50 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             1000000000 => 'billion',
             1000000000000 => 'trillion',
             1000000000000000 => 'quadrillion',
+=======
+    public function convert_number_to_words($number) {
+
+        $hyphen      = '-';
+        $conjunction = ' and ';
+        $separator   = ', ';
+        $negative    = 'negative ';
+        $decimal     = ' point ';
+        $dictionary  = array(
+            0                   => 'zero',
+            1                   => 'one',
+            2                   => 'two',
+            3                   => 'three',
+            4                   => 'four',
+            5                   => 'five',
+            6                   => 'six',
+            7                   => 'seven',
+            8                   => 'eight',
+            9                   => 'nine',
+            10                  => 'ten',
+            11                  => 'eleven',
+            12                  => 'twelve',
+            13                  => 'thirteen',
+            14                  => 'fourteen',
+            15                  => 'fifteen',
+            16                  => 'sixteen',
+            17                  => 'seventeen',
+            18                  => 'eighteen',
+            19                  => 'nineteen',
+            20                  => 'twenty',
+            30                  => 'thirty',
+            40                  => 'fourty',
+            50                  => 'fifty',
+            60                  => 'sixty',
+            70                  => 'seventy',
+            80                  => 'eighty',
+            90                  => 'ninety',
+            100                 => 'hundred',
+            1000                => 'thousand',
+            1000000             => 'million',
+            1000000000          => 'billion',
+            1000000000000       => 'trillion',
+            1000000000000000    => 'quadrillion',
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             1000000000000000000 => 'quintillion'
         );
 
@@ -3923,7 +6003,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             return false;
         }
 
+<<<<<<< HEAD
         if (($number >= 0 && (int)$number < 0) || (int)$number < 0 - PHP_INT_MAX) {
+=======
+        if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             // overflow
             trigger_error(
                 'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
@@ -3947,15 +6031,24 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 $string = $dictionary[$number];
                 break;
             case $number < 100:
+<<<<<<< HEAD
                 $tens = ((int)($number / 10)) * 10;
                 $units = $number % 10;
+=======
+                $tens   = ((int) ($number / 10)) * 10;
+                $units  = $number % 10;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $string = $dictionary[$tens];
                 if ($units) {
                     $string .= $hyphen . $dictionary[$units];
                 }
                 break;
             case $number < 1000:
+<<<<<<< HEAD
                 $hundreds = $number / 100;
+=======
+                $hundreds  = $number / 100;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $remainder = $number % 100;
                 $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
                 if ($remainder) {
@@ -3964,7 +6057,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 break;
             default:
                 $baseUnit = pow(1000, floor(log($number, 1000)));
+<<<<<<< HEAD
                 $numBaseUnits = (int)($number / $baseUnit);
+=======
+                $numBaseUnits = (int) ($number / $baseUnit);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $remainder = $number % $baseUnit;
                 $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
                 if ($remainder) {
@@ -3977,7 +6074,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if (null !== $fraction && is_numeric($fraction)) {
             $string .= $decimal;
             $words = array();
+<<<<<<< HEAD
             foreach (str_split((string)$fraction) as $number) {
+=======
+            foreach (str_split((string) $fraction) as $number) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $words[] = $dictionary[$number];
             }
             $string .= implode(' ', $words);
@@ -3987,7 +6088,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function ForgetPassword($change_pass)
+=======
+
+    public function ForgetPasswor($change_pass)
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     {
 
 
@@ -3996,12 +6102,23 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if (empty($change_pass)) {
             echo "<div class='alert alert-danger'>
                                <strong>Failed!</strong>  Please fill in the required field</div>";
+<<<<<<< HEAD
         } elseif (!filter_var($change_pass, FILTER_VALIDATE_EMAIL)) {
+=======
+        }
+
+        elseif (!filter_var($change_pass, FILTER_VALIDATE_EMAIL)) {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
             echo "Please a valid email address";
 
 
+<<<<<<< HEAD
         } else {
+=======
+        }
+        else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
             $select = $this->db->query("SELECT * FROM staff WHERE email='$change_pass'");
 
@@ -4013,18 +6130,37 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 $userPassword = $email['password'];
 
 // use actual sendgrid username and password in this section
+<<<<<<< HEAD
                 $url = SendGrid::$url;
                 $user = SendGrid::$username; // place SG username here
                 $pass = SendGrid::$password; // place SG password here
+=======
+                $url = 'https://api.sendgrid.com/';
+                $user = 'elastic25'; // place SG username here
+                $pass = 'Bonke@4445'; // place SG password here
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 
                 $token = rand();
 
+<<<<<<< HEAD
                 $link = 'https://www.elastic25.com/forgot-password-recovery.php?email=' . $usermail . '&token=' . $token;
+=======
+                $link = 'https://www.elastic25.com/forgot-password-recovery.php?email='.$usermail.'&token='.$token;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
                 $message = "<p>You have requested for your password recovery. <a href='$link' target='_blank'>Click here</a> to reset your password.</p> 
 <p>If you are unable to click the link then copy the below link and paste in your browser to reset your password<br><i>$link</i></p> ";
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 // note the above parameters now referenced in the 'subject', 'html', and 'text' sections
                 // make the to email be your own address or where ever you would like the contact form info sent
 
@@ -4035,6 +6171,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 );
 
                 $params = array(
+<<<<<<< HEAD
                     'api_user' => "$user",
                     'api_key' => "$pass",
                     'x-smtpapi' => json_encode($json_string),
@@ -4059,6 +6196,32 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 curl_setopt($session, CURLOPT_POST, true);
                 // Tell curl that this is the body of the POST
                 curl_setopt($session, CURLOPT_POSTFIELDS, $params);
+=======
+                    'api_user'  => "$user",
+                    'api_key'   => "$pass",
+                    'x-smtpapi' => json_encode($json_string),
+                    'to'        => "$usermail",
+                    'replyto'        => "$usermail",
+                    'subject'   => "Password Reset Request for $fullname", // Either give a subject for each submission, or set to $subject
+                    'html'      => "<html><head><title>Contact Form</title><body>
+      Dear $fullname ,\n
+       $message <body></title></head></html>", // Set HTML here.  Will still need to make sure to reference post data names
+                    'text'      => "
+     
+      Dear, $fullname\n
+      $message",
+                    'from'      => $usermail, // set from address here, it can really be anything
+                );
+
+                curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+                $request =  $url.'api/mail.send.json';
+                // Generate curl request
+                $session = curl_init($request);
+                // Tell curl to use HTTP POST
+                curl_setopt ($session, CURLOPT_POST, true);
+                // Tell curl that this is the body of the POST
+                curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 // Tell curl not to return headers, but do return the response
                 curl_setopt($session, CURLOPT_HEADER, false);
                 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
@@ -4071,9 +6234,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
                 exit();
                 // print everything out
                 print_r($response);
+<<<<<<< HEAD
             }
 
             if ($email == '') {
+=======
+
+
+
+
+
+            }
+
+            if ($email=='')  {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
                 echo "<div class='alert alert-danger'>
                   <strong></strong>This email provided doesn't exist in our database. </div>";
@@ -4084,6 +6258,10 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 
 
@@ -4110,22 +6288,47 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             }
 
 
+<<<<<<< HEAD
         } else {
+=======
+        }
+        else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             echo "<div class='alert alert-success'>
             <strong></strong>Password doesn't match</div>";
 
         }
+<<<<<<< HEAD
     }
 
     public function getStaffDepartment()
     {
+=======
+
+
+
+
+
+
+
+    }
+
+
+
+    public function getStaffDepartment(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select * from department";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4136,15 +6339,26 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function getStaffDesignation()
     {
+=======
+
+
+    public function getStaffDesignation(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM dpt_designation";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4155,8 +6369,13 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function getAllGoodsTranfer()
     {
+=======
+
+    public function getAllGoodsTranfer(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select gr.*, stf.fullname, st.storeName  from goods_recieved gr
        join stores st on st.id = gr.storeID
        join staff stf  on stf.id = gr.doneBy
@@ -4166,7 +6385,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4175,21 +6399,33 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     public function getStoreName()
     {
+=======
+
+
+    public function getStoreName(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM stores";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     public function getStore($id)
@@ -4214,6 +6450,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+
+    }
+
+    public function getStoreNameTransferOption($storeID){
+        $sql = "SELECT * FROM stores where id != $storeID";
+        $myArray = array();
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$storeID);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4235,23 +6485,47 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function changeUserPass($user_currentPass, $old_pass, $new_pass, $confirm_pass, $username)
     {
 
 
+=======
+
+    public function changeUserPass($user_currentPass,$old_pass,$new_pass,$confirm_pass,$username)
+    {
+
+
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         if ($user_currentPass != $old_pass) {
 
             echo "<div class='alert alert-danger'>
             <strong></strong>Your old password is Wrong</div>";
+<<<<<<< HEAD
         } elseif ($new_pass == $confirm_pass) {
+=======
+        }
+
+
+        elseif($new_pass==$confirm_pass){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
             $update_pass = $this->db->query("UPDATE staff SET password='$new_pass' WHERE username='$username'");
 
 
+<<<<<<< HEAD
             echo "<div class='alert alert-success'>
             <strong></strong>Password Update Sucessfully. Please Login With Your New Passowrd.</div>";
 
         } else {
+=======
+
+            echo "<div class='alert alert-success'>
+            <strong></strong>Password Update Sucessfully. Please Login With Your New Passowrd.</div>";
+
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             echo "<div class='alert alert-danger'>
             <strong></strong>Your New Password and Confirm Password is not Match</div>";
 
@@ -4260,15 +6534,25 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function getProductName($Product)
     {
+=======
+
+    public function getProductName($Product){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM products WHERE id='$Product'";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4279,10 +6563,19 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function getProductsUnitsName($unitID)
     {
         $myArray = array();
         $handle = $this->db->prepare("SELECT * FROM units WHERE id='$unitID'");
+=======
+
+
+
+    public function getProductsUnitsName($unitID){
+        $myArray = array();
+        $handle  = $this->db->prepare("SELECT * FROM units WHERE id='$unitID'");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -4295,15 +6588,29 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function UpdateCreditNote($qty, $invoiceNo, $product, $GetStoreID)
     {
         for ($i = 0; $i < count($product); $i++) {
             if ($product[$i] != "" && $qty[$i] != "") {
+=======
+    public function UpdateCreditNote($qty,$invoiceNo,$product,$GetStoreID)
+    {
+        for($i=0;$i<count($product);$i++)
+        {
+            if($product[$i]!="" && $qty[$i]!="")
+            {
+
+
+
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 
                 $update_UpdateCreditNote = $this->db->query("UPDATE goodslog SET returned= returned +$qty[$i] ,remain= remain +$qty[$i] WHERE InvoiceNo='$invoiceNo' AND productID='$product[$i]'");
 
 
+<<<<<<< HEAD
                 $UpadteProduct = $this->db->query("UPDATE products SET store$GetStoreID=store$GetStoreID +$qty[$i] WHERE id=$product[$i]");
                 ///echo "<div class='alert alert-success'>
                 // <strong></strong>CREDIT NOTE HAS BEEN MADE SUCCESSFULLY</div>";
@@ -4314,13 +6621,45 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     public function getProductId1($productName1)
     {
+=======
+
+
+                $UpadteProduct=$this->db->query("UPDATE products SET store$GetStoreID=store$GetStoreID +$qty[$i] WHERE id=$product[$i]");
+
+
+                ///echo "<div class='alert alert-success'>
+                // <strong></strong>CREDIT NOTE HAS BEEN MADE SUCCESSFULLY</div>";
+
+
+
+
+
+
+
+
+
+            }
+
+        }
+
+    }
+
+
+
+    public function getProductId1($productName1){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM products WHERE productName ='$productName1'";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4330,6 +6669,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     public function checkAllInvoiceNo($invoiceNo)
     {
         $sql = "select * from goodslog where InvoiceNo = ?";
@@ -4345,6 +6685,22 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
 
     public function InsertReturnticket($supplier, $invoiceNo, $productName1, $GetId, $nQty, $storeID, $invoiceReturnDate, $invoiceDate)
+=======
+
+    public function checkAllInvoiceNo($invoiceNo){
+        $sql = "select * from goodslog where InvoiceNo = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$invoiceNo);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return true;
+        }else{return false;}
+    }
+
+
+
+    public function InsertReturnticket($supplier,$invoiceNo,$productName1,$GetId,$nQty,$storeID,$invoiceReturnDate,$invoiceDate)
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     {
 
         // $returnedDate = date('d-m-Y');
@@ -4354,23 +6710,41 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
         $ticketGen = $this->createTicketNo();
         $handle->bindValue(1, $GetId);
+<<<<<<< HEAD
         $handle->bindValue(2, $productName1);
+=======
+        $handle->bindValue(2,$productName1);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(3, $invoiceNo);
         $handle->bindValue(4, $supplier);
         $handle->bindValue(5, $invoiceReturnDate);
         // $handle->bindValue(5,$_SESSION['user_id']);
 
+<<<<<<< HEAD
         $handle->bindValue(6, "GRT-" . $ticketGen);
+=======
+        $handle->bindValue(6,"GRT-".$ticketGen);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(7, $invoiceDate);
 
         // $handle->bindValue(8,$transType);
         $handle->execute();
         $mainID = $this->db->lastInsertId();
         return $mainID;
+<<<<<<< HEAD
     }
 
     public function getAllReturnTicket()
     {
+=======
+
+    }
+
+
+
+
+    public function getAllReturnTicket(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         // $sql = "SELECT * FROM products INNER JOIN creditnote ON products.id = creditnote.productName";
         $sql = "SELECT creditnote.productId,  creditnote.id,products.productName,products.Code,creditnote.returned,creditnote.invoiceNo,creditnote.custormerName,creditnote.invoiceDate,creditnote.returnDate,creditnote.store,creditnote.unit,creditnote.ticketGen FROM creditnote INNER JOIN products ON products.id = creditnote.productId WHERE creditnote.returned>0 ORDER BY products.id DESC";
         $myArray = array();
@@ -4378,7 +6752,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4387,15 +6766,26 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     public function getAllReturnTicketId($id)
     {
+=======
+
+
+    public function getAllReturnTicketId($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM creditnote WHERE ticketGen='$id'";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         //$handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4404,15 +6794,24 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getProductsBelowThreeQuantity($id)
     {
+=======
+
+    function getProductsBelowThreeQuantity($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "SELECT p.*,pt.type,u.unitName FROM `products` p 
        join `producttype` pt on p.productType = pt.id 
        left join units u on u.id = p.unitID 
        where p.store1 < ? OR p.store1 < ?
        order by p.ProductType asc, p.productName asc, p.color asc";
+<<<<<<< HEAD
         $handle = $this->db->prepare($sql);
+=======
+        $handle  = $this->db->prepare($sql);
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(1, $id);
         $handle->bindValue(2, $id);
         $handle->execute();
@@ -4426,15 +6825,25 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     public function getStoreNameByLogin($GetStoreID)
     {
+=======
+
+    public function getStoreNameByLogin($GetStoreID){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT * FROM stores WHERE id = $GetStoreID";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         // $handle->bindValue(1,$id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4444,6 +6853,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     //CHECK IF FILE REFERENCE ALREADY EXIST OR NOT
     public function checkFileRef($fileRef)
     {
@@ -4467,16 +6877,51 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+
+    //CHECK IF FILEREFFERENCE ALREADY EXIT OR NOT
+
+    public function checkFileRef($fileRef){
+        $sql = "select * from goods_recieved where FileReference = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$fileRef);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return false;
+        }else{return true;}
+    }
+
+
+
+
+    function getServiceCallTickectNo($supplyTicket){
+        $myArray = array();
+        $sql = "SELECT * FROM service_call WHERE ticketNo = ? ";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$supplyTicket);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return false;
         }
+<<<<<<< HEAD
     }
 
     function updateBackdatedCall($supplyTicket, $openedDateTime, $closedDateTime)
     {
+=======
+
+
+    }
+
+    function updateBackdatedCall($supplyTicket,$openedDateTime,$closedDateTime){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "update service_call set openedDateTime = ?, closedDateTime = ? where ticketNo = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $openedDateTime);
@@ -4488,6 +6933,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             <strong></strong>This Ticket has been backdated</div>";
     }
 
+<<<<<<< HEAD
     function getAllServiceCallForengineeridFollowUp($id, $engineerid)
     {
         $myArray = array();
@@ -4497,6 +6943,13 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         } else {
             $str = " > 0 ";
         }
+=======
+
+    function getAllServiceCallForengineeridFollowUp($id,$engineerid){
+        $myArray = array();
+        $str = " = 0";
+        if($id== 0){$str = " = 0";}else{ $str = " > 0 ";}
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select sc.*,mif.machine_code,mif.id as MachineID, mif.account_id as accountID, cs.caseName, ac.Name as AccountName, al.areaname, l.lga, s.state,
       mif.contactName1, mif.contactEmail1, mif.contactPhone1,
         mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand from `service_call` sc
@@ -4508,19 +6961,29 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         join lga l on l.id = al.lgaID
         join states s on s.id = l.stateID
       left JOIN casestatus cs on cs.id = sc.CaseStatus
+<<<<<<< HEAD
       where closedBy " . $str . " AND engineer = " . $engineerid . "
+=======
+      where closedBy ".$str." AND engineer = ".$engineerid."
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
        order by sc.id desc";
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         } else {
             return null;
         }
+<<<<<<< HEAD
     }
 
     function UpdateProductCost($product, $cost)
@@ -4542,13 +7005,53 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     {
         for ($i = 0; $i < count($product); $i++) {
             if ($product[$i] != "") {
+=======
+
+
+    }
+
+
+    function UpdateProductCost($product, $cost){
+
+        for($i=0;$i<count($product);$i++)
+        {
+            if($product[$i]!="" && $cost[$i]!="")
+            {
+
+                $sql = "update products set cost = ? where id = ?";
+                $handle = $this->db->prepare($sql);
+                $handle->bindValue(1,$cost[$i]);
+                $handle->bindValue(2,$product[$i]);
+                $handle->execute();
+            }
+
+
+
+
+        }
+
+    }
+
+
+
+    public function getProductNameByProduction($product){
+        for($i=0;$i<count($product);$i++)
+        {
+            if($product[$i]!="")
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $sql = "SELECT * FROM products WHERE id='$product[$i]'";
                 $myArray = array();
                 $handle = $this->db->prepare($sql);
                 //$handle->bindValue(1,$id);
                 $handle->execute();
                 if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
                     while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+                    while($row = $handle->fetch(PDO::FETCH_ASSOC))
+                    {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                         $myArray[] = $row;
                     }
                     return $myArray;
@@ -4564,8 +7067,13 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     }
 
 
+<<<<<<< HEAD
     function getProductslist($id)
     {
+=======
+
+    function getProductslist($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select gl.*,p.productName,p.Code,s.storeName,st.fullname from goodslog gl
       join products p on p.id = gl.productID
@@ -4574,10 +7082,18 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
       where gl.productID = ?";
         $handle = $this->db->prepare($sql);
+<<<<<<< HEAD
         $handle->bindValue(1, $id);
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        $handle->bindValue(1,$id);
+        $handle->execute();
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4594,7 +7110,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function getAllWorkshopCategories()
     {
         $myArray = array();
+<<<<<<< HEAD
         $handle = $this->db->prepare("select * from `workshop_categories`");
+=======
+        $handle  = $this->db->prepare("select * from `workshop_categories`");
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->execute();
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -4610,6 +7130,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function checkMachineAvailableInworkshop($machineCode)
     {
+<<<<<<< HEAD
         $sql = "select * from workshop where machine_code = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $machineCode);
@@ -4625,6 +7146,9 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
     function checkMachineAvailableInShowroom($machineCode)
     {
         $sql = "select * from showroom where machine_code = ?";
+=======
+        $sql    = "select * from workshop where machine_code = ?";
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $machineCode);
         $handle->execute();
@@ -4636,7 +7160,11 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function createAWorkshopMachine($acc, $machineCode, $machineModel, $machineSerialNo, $category, $meterReading, $engineer, $doi, $reportedBy)
+=======
+    function createAWorkshopMachine($acc,$machineCode,$machineModel,$machineSerialNo,$category,$meterReading,$engineer,$doi,$reportedBy)
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     {
 
         $sql = "insert into workshop (account_name,machine_name,machine_code,serialNo,doi,category,assign_engineer,meterReading,date_out,timestamp,dateTime,ticketGen,reportedby)
@@ -4659,6 +7187,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
     }
 
+<<<<<<< HEAD
     function createShowroomMachine($acc, $machineCode, $machineModel, $machineSerialNo, $category, $meterReading, $engineer, $doi, $reportedBy)
     {
 
@@ -4684,11 +7213,15 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getAllMachineWorkshopInformation()
     {
+=======
+    function getAllMachineWorkshopInformation(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "SELECT * FROM workshop";
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
@@ -4709,6 +7242,8 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle = $this->db->prepare($sql);
         $handle->execute();
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
                 $myArray[] = $row;
@@ -4719,6 +7254,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getWorkshopTicket($ticket)
     {
         $sql = "SELECT * FROM workshop WHERE ticketGen = ?";
@@ -4728,10 +7264,21 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return $handle->fetch(PDO::FETCH_ASSOC);
         } else {
+=======
+    function getWorkshopTicket($ticket){
+        $sql = "SELECT * FROM workshop WHERE ticketGen = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$ticket);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     function getAccountNameInfo($Name)
     {
         $sql = "SELECT * FROM accounts WHERE Name = ?";
@@ -4741,12 +7288,26 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0) {
             return $handle->fetch(PDO::FETCH_ASSOC);
         } else {
+=======
+    function getAccountNameInfo($Name){
+        $sql = "SELECT * FROM accounts WHERE Name = ?";
+        $handle = $this->db->prepare($sql);
+        $handle->bindValue(1,$Name);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }else{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     function workshopFollowUp($serviceID, $closeDate, $workDone, $engineer, $st, $et, $meterReading, $colour, $Mono)
     {
+=======
+    function workshopFollowUp($serviceID,$closeDate,$workDone,$engineer,$st,$et,$meterReading,$colour,$Mono){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "UPDATE workshop SET Machine_fault = ?, assign_engineer = ?, date_out = ?, schDate = ?, schTime = ?,  meterReading = ?, colour = ?, Mono = ? WHERE id =?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $workDone);
@@ -4761,43 +7322,68 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->execute();
     }
 
+<<<<<<< HEAD
     function stockMonthlySummary($id, $month, $year)
     {
+=======
+    function stockMonthlySummary($id, $month, $year) {
+
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id  AND `ocMonth` = $month AND `ocYear` = $year";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             // var_dump($row);
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis1($id)
     {
+=======
+    function getGoodsLogAnalysis1($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` = 1 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) 
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) 
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -4807,107 +7393,175 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getGoodsLogAnalysis2($id)
     {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function getGoodsLogAnalysis2($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` = 2 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis3($id)
     {
+=======
+    function getGoodsLogAnalysis3($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` = 3 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis4($id)
     {
+=======
+    function getGoodsLogAnalysis4($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =4 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis5($id)
     {
+=======
+    function getGoodsLogAnalysis5($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =5 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return false;
         }
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis6($id)
     {
+=======
+    function getGoodsLogAnalysis6($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =6 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -4917,19 +7571,35 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getGoodsLogAnalysis7($id)
     {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function getGoodsLogAnalysis7($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =7 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -4939,6 +7609,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getGoodsLogAnalysis8($id)
     {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function getGoodsLogAnalysis8($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =8 AND `ocYear` = $yr ";
@@ -4946,7 +7626,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4957,8 +7642,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis9($id)
     {
+=======
+    function getGoodsLogAnalysis9($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =9 AND `ocYear` = $yr ";
@@ -4966,7 +7655,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -4977,21 +7671,31 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getGoodsLogAnalysis10($id)
     {
+=======
+    function getGoodsLogAnalysis10($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT SUM(sold) AS totalsold FROM `goodslog` WHERE `productID`= $id AND `ocMonth` =10 AND `ocYear` = $yr ";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0) {
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -5001,19 +7705,35 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getGoodsLogAvgSold($id)
     {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function getGoodsLogAvgSold($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT AVG(case sold when null then 0 else sold end ) AS totalsold FROM `goodslog` WHERE sold !=0 AND `productID`= $id AND `ocMonth`> 0 AND `ocYear` = $yr";
         $handle = $this->db->prepare($sql);
 
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC))
+=======
+        if ($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $myArray[] = $row;
             }
             return $myArray;
+<<<<<<< HEAD
         }
         else
         {
@@ -5023,6 +7743,16 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function getGoodsLogCurrentForstore1($id)
     {
+=======
+        } else {
+            return false;
+        }
+
+
+    }
+
+    function getGoodsLogCurrentForstore1($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT `remain` FROM `goodslog` WHERE `productID` = $id AND `storeID` = 1 ORDER by id DESC LIMIT 1";
@@ -5030,7 +7760,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -5041,8 +7776,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     }
 
+<<<<<<< HEAD
     function getGoodsLogCurrentForstore2($id)
     {
+=======
+    function getGoodsLogCurrentForstore2($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $yr = date('Y');
         $myArray = array();
         $sql = "SELECT `remain` FROM `goodslog` WHERE `productID` = $id AND `storeID` = 2 ORDER by id DESC LIMIT 1";
@@ -5050,7 +7789,12 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
         $handle->execute();
         if ($handle->rowCount() > 0) {
+<<<<<<< HEAD
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+            while($row = $handle->fetch(PDO::FETCH_ASSOC))
+            {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
@@ -5059,12 +7803,17 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
     }
 
+<<<<<<< HEAD
     function getProductNameByProductType($id)
     {
+=======
+    function getProductNameByProductType($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "select * from products where ProductType = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $id);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             return $handle->fetch(PDO::FETCH_ASSOC);
@@ -5118,11 +7867,72 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     function closeCall($id, $paystatus, $closeby, $closedate, $closetime, $casestatus, $workdone, $mID, $aID, $engineer, $issues, $schD, $schT, $mReading, $colour, $mono, $wd = '')
     {
+=======
+        if($handle->rowCount() > 0){
+            return $handle->fetch(PDO::FETCH_ASSOC);
+        }
+
+    }
+
+    function getAllContractsByNC(){
+        $myArray = array();
+        $sql = "SELECT * FROM machine_in_field WHERE contractID = 1";
+        $handle =$this->db->prepare($sql);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            echo $handle->rowCount();
+        }
+
+
+    }
+
+    function getAllContractsByFMSA(){
+        $myArray = array();
+        $sql = "SELECT * FROM machine_in_field WHERE contractID = 2";
+        $handle =$this->db->prepare($sql);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            echo $handle->rowCount();
+        }
+
+
+    }
+
+    function getAllContractsByAMC(){
+        $myArray = array();
+        $sql = "SELECT * FROM machine_in_field WHERE contractID = 3";
+        $handle =$this->db->prepare($sql);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            echo $handle->rowCount();
+        }
+
+
+    }
+
+    function getAllContractsByMPS(){
+        $myArray = array();
+        $sql = "SELECT * FROM machine_in_field WHERE contractID = 4";
+        $handle =$this->db->prepare($sql);
+        $handle->execute();
+        if($handle->rowCount() > 0){
+            echo $handle->rowCount();
+        }
+
+
+    }
+
+    function closeCall($id,$paystatus,$closeby,$closedate,$closetime,$casestatus,$workdone,$mID, $aID,$engineer,$issues,$schD,$schT){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "update service_call set paymentStatus=?, closedBy =?, closedDateTime =?, closedTimeStamp =?,CaseStatus=?, workDone =?,engineer =?,issues =?, schDate =?, schTime = ? where id =?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $paystatus);
         $handle->bindValue(2, $closeby);
+<<<<<<< HEAD
         $handle->bindValue(3, $closedate);
+=======
+        $handle->bindValue(3, $closedate );
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $handle->bindValue(4, $closetime);
         $handle->bindValue(5, $casestatus);
         $handle->bindValue(6, $workdone);
@@ -5132,15 +7942,20 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle->bindValue(10, $schT);
         $handle->bindValue(11, $id);
         $handle->execute();
+<<<<<<< HEAD
         
         $this->addFollowUp($id, $workdone, $schT, $closetime, $engineer, $schD, $mReading, $colour, $mono);
         
         $message = "followed up a service call for " . $this->getSingleAccountInformation($aID)['Name'] . " Machine : " . $this->getSingleMachineInformation($mID)['machine_code'];
+=======
+        $message = "followed up a service call for ".$this->getSingleAccountInformation($aID)['Name']." Machine : ".$this->getSingleMachineInformation($mID)['machine_code'];
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $accountName = $this->getSingleAccountInformation($aID)['Name'];
         $engineerName = $this->getSingleUserInformation($engineer)['fullname'];
         $engineerEmail = $this->getSingleUserInformation($engineer)['email'];
 
         $ticketNo = $this->getSingleTicketInformation($id)['ticketNo'];
+<<<<<<< HEAD
     }
 
     public function getAllUsers()
@@ -5158,19 +7973,49 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         if ($handle->rowCount() > 0)
         {
             while ($row = $handle->fetch(PDO::FETCH_OBJ))
+=======
+
+
+
+
+
+    }
+
+    public function getAllUsers(){
+        $allUsers = array();
+        $sql = "SELECT s.id, s.fullname, s.email, s.phoneNo, d.Department, dd.designation
+ from staff s, department d, dpt_designation dd
+where s.DepartmentID = d.id 
+and s.designationID = dd.id
+and s.active = 1
+order by s.fullname";
+        $handle = $this->db->prepare($sql);
+        $handle->execute();
+
+        if ($handle->rowCount() > 0){
+            while($row = $handle->fetch(PDO::FETCH_OBJ))
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             {
                 $allUsers[] = $row;
             }
             return $allUsers;
+<<<<<<< HEAD
         }
         else
         {
+=======
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     public function getUser($id)
     {
+=======
+    public function getUser($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $sql = "SELECT s.id, s.fullname, s.email, s.phoneNo, 
         d.Department, dd.designation
         from staff s, department d, dpt_designation dd
@@ -5181,6 +8026,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         $handle = $this->db->prepare($sql);
         $handle->execute();
 
+<<<<<<< HEAD
         if ($handle->rowCount() > 0)
         {
             $row = $handle->fetch(PDO::FETCH_OBJ);
@@ -5188,28 +8034,71 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
         else
         {
+=======
+        if ($handle->rowCount() > 0){
+            $row = $handle->fetch(PDO::FETCH_OBJ);
+            return $row;
+        } else {
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return null;
         }
     }
 
+<<<<<<< HEAD
     // IT Admin update staff password
     public function updatePassword($id, $password)
     {
+=======
+//  public function updatePasswords(){
+//
+//      $sql = "select * from staff where id != null";
+//      $handle = $this->db->prepare($sql);
+//      $handle->execute();
+//      $rows = $handle->rowCount();
+//
+//      for ($i = 1; $i < 100; $i++){
+//          $sql = "select * from staff where id = $i";
+//          $handle = $this->db->prepare($sql);
+//          $handle->execute();
+//
+//          if ($handle->rowCount() > 0){
+//              $row = $handle->fetch(PDO::FETCH_OBJ);
+//              $id = $row->id;
+//              $pass = password_hash($row->password, PASSWORD_BCRYPT);
+//              $sql1 = "update staff set `password` = '$pass' where id = $id";
+//          $handle = $this->db->prepare($sql1);
+//          $handle->execute();
+//          }
+//      }
+//  }
+
+    // IT Admin update staff password
+    public function updatePassword($id, $password){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $msg = null;
         $sql = "update staff set password = ? where id = ?";
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $password);
         $handle->bindValue(2, $id);
+<<<<<<< HEAD
         if ($handle->execute()) {
+=======
+        if ($handle->execute()){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $msg = 'User password updated successfully';
         }
         return $msg;
     }
 
     // User password self update
+<<<<<<< HEAD
     public function updateStaffUserPassword($id, $password)
     {
         try {
+=======
+    public function updateStaffUserPassword($id, $password){
+        try{
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             $sql = "UPDATE staff SET password = ?, changePass = 1 where id = ?";
             $handle = $this->db->prepare($sql);
 
@@ -5217,40 +8106,62 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
             $handle->bindValue(2, $id);
             $handle->execute();
 
+<<<<<<< HEAD
         } catch (PDOException $exp) {
+=======
+        }catch(PDOException $exp){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             echo $this->getException($exp->getMessage());
         }
     }
 
+<<<<<<< HEAD
     public function getAllAdmins()
     {
+=======
+    public function getAllAdmins(){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select st.*, dpd.designation from staff st 
                 join dpt_designation dpd on dpd.id = st.designationID 
                 order by fullname asc";
         $handle = $this->db->prepare($sql);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
             while ($row = $handle->fetch(PDO::FETCH_ASSOC)) {
+=======
+        if($handle->rowCount() >0){
+            while($row = $handle->fetch(PDO::FETCH_ASSOC)){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 $myArray[] = $row;
             }
             return $myArray;
         }
     }
 
+<<<<<<< HEAD
     public function getAdmin($id)
     {
+=======
+    public function getAdmin($id){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $myArray = array();
         $sql = "select st.*, dpd.designation from staff st 
                 join dpt_designation dpd on dpd.id = st.designationID 
                 where st.id = $id";
         $handle = $this->db->prepare($sql);
         $handle->execute();
+<<<<<<< HEAD
         if ($handle->rowCount() > 0) {
+=======
+        if($handle->rowCount() >0){
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
             return $row = $handle->fetch(PDO::FETCH_OBJ);
         }
     }
 
+<<<<<<< HEAD
     public function getIssues($issues)
     {
         // remove first comma of string
@@ -5514,4 +8425,6 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
         }
         return $myArray;
     }
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 }

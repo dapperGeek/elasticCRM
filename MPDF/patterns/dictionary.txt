@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 dis/es/tab/lish/men/tar/i/an/ism
+=======
+dis/es/tab/lish/men/tar/i/an/ism
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592

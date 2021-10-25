@@ -14,9 +14,20 @@
 <!-- start footer -->
 <div class="footer">
     <div class="pull-right">
+<<<<<<< HEAD
         <span>We Speak By Image</span>
     </div>
     <div> <strong>Copyright</strong> Elastic 25  &copy; <?php echo date('Y');?> </div>
+=======
+        <ul class="list-inline">
+            <li><a title="" href="index-2.html">Dashboard</a></li>
+            <li><a title="" href="mailbox.html"> Inbox </a></li>
+            <li><a title="" href="blog.html">Blog</a></li>
+            <li><a title="" href="contacts.html">Contacts</a></li>
+        </ul>
+    </div>
+    <div> <strong>Copyright</strong> Elastic 25  &copy; <?php echo ("Y");?> </div>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 </div>
 <!--- end footer -->
 
@@ -28,6 +39,7 @@
 
 <!-- Go top -->
 <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+<<<<<<< HEAD
 <!-- Go top -->
 <!-- Flot -->
 
@@ -101,10 +113,14 @@
 </div>
 <!-- end theme config -->
 
+=======
+<!-- Flot -->
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <script src="<?php echo $host;?>assets/js/vendor/flotCart/jquery.flot.js"></script>
 <script src="<?php echo $host;?>assets/js/vendor/flotCart/jquery.flot.tooltip.min.js"></script>
 <script src="<?php echo $host;?>assets/js/vendor/flotCart/jquery.flot.resize.js"></script>
 
+<<<<<<< HEAD
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?php echo $host;?>assets/js/vendor/jquery.min.js"></script>
 
@@ -189,11 +205,22 @@
 
 <script src="<?php echo $host;?>assets/js/vendor/select2.min.js"></script>
 <script src="<?php echo $host;?>assets/js/vendor/bootstrap-select.min.js"></script>
+=======
+<!-- Go top -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="<?php echo $host;?>assets/js/vendor/jquery.min.js"></script>
+<!-- bootstrap js -->
+<script src="<?php echo $host;?>assets/js/vendor/bootstrap.min.js"></script>
+<!--  morris Charts  -->
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 <!-- dataTables-->
 <script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/dataTables.bootstrap.min.js"></script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <!-- js for print and download -->
 <script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/buttons.flash.min.js"></script>
@@ -207,6 +234,7 @@
 
 <script src="<?php echo $host;?>assets/js/vendor/chartJs/Chart.bundle.js"></script>
 <script src="<?php echo $host;?>assets/js/dashboard1.js"></script>
+<<<<<<< HEAD
 
 <!-- DataTables script-->
 <script>
@@ -361,6 +389,18 @@
 <?php include('footerJS.php') ?>
 
 <!--    FlotChart Script-->
+=======
+<!-- slimscroll js -->
+<script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/jquery.slimscroll.js"></script>
+<!-- pace js -->
+<script src="<?php echo $host;?>assets/js/vendor/pace/pace.min.js"></script>
+<!-- Sparkline -->
+<script src="<?php echo $host;?>assets/js/vendor/jquery.sparkline.min.js"></script>
+<!-- main js -->
+<script src="<?php echo $host;?>assets/js/main.js"></script>
+<!-- AdminUI demo js-->
+<script src="<?php echo $host;?>assets/js/adminUIdemo.js"></script>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <script>
     $(document).ready(function(){
         var data2 = [
@@ -434,6 +474,7 @@
     });
 
 </script>
+<<<<<<< HEAD
 <script>
     $(function () {
         $('#myForm').validator();
@@ -524,5 +565,74 @@
     });
 
 </script>
+=======
+<!-- start theme config -->
+<div class="theme-config">
+    <div class="theme-config-box">
+        <div class="spin-icon"> <i class="fa fa-cogs fa-spin"></i> </div>
+        <div class="skin-setttings">
+            <div class="title">Configuration</div>
+            <div class="setings-item"> <span> Collapse menu </span>
+                <div class="switch">
+                    <div class="onoffswitch">
+                        <input name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu" type="checkbox">
+                        <label class="onoffswitch-label" for="collapsemenu">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="setings-item"> <span> Fixed sidebar </span>
+                <div class="switch">
+                    <div class="onoffswitch">
+                        <input name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar" type="checkbox">
+                        <label class="onoffswitch-label" for="fixedsidebar">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="setings-item"> <span> Header Fixed </span>
+                <div class="switch">
+                    <div class="onoffswitch">
+                        <input name="headerfixed" class="onoffswitch-checkbox" id="headerfixed" type="checkbox" checked>
+                        <label class="onoffswitch-label" for="headerfixed">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="setings-item"> <span> Boxed layout </span>
+                <div class="switch">
+                    <div class="onoffswitch">
+                        <input name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout" type="checkbox">
+                        <label class="onoffswitch-label" for="boxedlayout">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="setings-item"> <span> Fixed footer </span>
+                <div class="switch">
+                    <div class="onoffswitch">
+                        <input name="fixedfooter" class="onoffswitch-checkbox" id="fixedfooter" type="checkbox">
+                        <label class="onoffswitch-label" for="fixedfooter">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end theme config -->
+
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 </body>
 </html>

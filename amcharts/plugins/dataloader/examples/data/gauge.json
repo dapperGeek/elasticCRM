@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [ {
   "innerRadius": 70,
   "nailRadius": 0,
@@ -22,4 +23,30 @@
   "endWidth": 6,
   "alpha": 1,
   "value": 11
+=======
+[ {
+  "innerRadius": 70,
+  "nailRadius": 0,
+  "radius": "80%",
+  "startWidth": 10,
+  "endWidth": 10,
+  "value": 4
+}, {
+  "innerRadius": 70,
+  "nailRadius": 0,
+  "radius": "100%",
+  "startWidth": 6,
+  "endWidth": 6,
+  "value": 8
+}, {
+  "axis": "axis2",
+  "color": "#CC0000",
+  "innerRadius": 50,
+  "nailRadius": 0,
+  "radius": "100%",
+  "startWidth": 6,
+  "endWidth": 6,
+  "alpha": 1,
+  "value": 11
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 } ]

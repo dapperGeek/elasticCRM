@@ -1918,6 +1918,7 @@
 [15-Aug-2019 10:28:02 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/purchase/purchase-collected.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
 [16-Sep-2019 13:41:54 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/purchase/purchase-collected.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
 [16-Sep-2019 13:41:54 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/purchase/purchase-collected.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
+<<<<<<< HEAD
 [16-Sep-2019 17:07:46 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/purchase/purchase-collected.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
 [16-Sep-2019 17:07:46 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/purchase/purchase-collected.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
 [18-Sep-2019 11:26:25 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/purchase/purchase-collected.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
@@ -4894,3 +4895,5 @@
 [06-Oct-2020 12:32:27 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/purchase/purchase-collected.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
 [06-Oct-2020 16:00:51 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
 [06-Oct-2020 16:00:51 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/purchase/purchase-collected.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592

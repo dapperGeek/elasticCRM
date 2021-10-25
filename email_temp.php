@@ -10,7 +10,11 @@ $url = 'https://api.sendgrid.com/';
 	
                                       $token = 123;
 
+<<<<<<< HEAD
     $link = 'http://demos.eggslab.net/forgot-password-recovery-script/forget.php?email='.$email.'&token='.$token;
+=======
+                            $link = 'http://demos.eggslab.net/forgot-password-recovery-script/forget.php?email='.$email.'&token='.$token;
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 $message = "<p>You have requested for your password recovery. <a href='$link' target='_blank'>Click here</a> to reset your password.</p> 
 <p>If you are unable to click the link then copy the below link and paste in your browser to reset your password<br><i>$link</i></p> ";

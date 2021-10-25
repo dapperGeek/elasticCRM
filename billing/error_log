@@ -1577,6 +1577,7 @@
 [16-Sep-2019 13:42:12 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/billing/view-contract.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
 [16-Sep-2019 13:42:24 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/billing/view-contract-billing.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
 [16-Sep-2019 13:42:24 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/billing/view-contract-billing.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
+<<<<<<< HEAD
 [18-Sep-2019 11:38:42 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/billing/view-contract.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
 [18-Sep-2019 11:38:42 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/billing/view-contract.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
 [18-Sep-2019 11:59:32 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/billing/view-contract.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
@@ -2011,3 +2012,5 @@
 [03-Oct-2020 10:09:19 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/billing/view-contract.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
 [03-Oct-2020 11:29:26 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
 [03-Oct-2020 11:29:26 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/billing/view-contract.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592

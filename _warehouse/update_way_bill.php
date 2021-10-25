@@ -26,7 +26,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
 <title>Receive Goods Ticket</title>
+=======
+<title>Recieve Goods Ticket</title>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <!-- Bootstrap -->
     <link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
     <!-- Bootstrap -->

@@ -9,6 +9,7 @@
 [27-Jul-2019 12:28:23 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
 [29-Jul-2019 08:45:54 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
 [29-Jul-2019 09:47:11 Africa/Lagos] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+<<<<<<< HEAD
 [21-Nov-2019 13:13:39 Africa/Lagos] PHP Parse error:  syntax error, unexpected 'Content' (T_STRING), expecting ')' in /home/elastic2/public_html/data/MySQLDatabase.php on line 344
 [21-Nov-2019 13:13:42 Africa/Lagos] PHP Parse error:  syntax error, unexpected 'Content' (T_STRING), expecting ')' in /home/elastic2/public_html/data/MySQLDatabase.php on line 344
 [21-Nov-2019 13:17:02 Africa/Lagos] PHP Parse error:  syntax error, unexpected 'Content' (T_STRING), expecting ')' in /home/elastic2/public_html/data/MySQLDatabase.php on line 344
@@ -33,3 +34,5 @@
 [27-May-2020 09:58:55 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
 [27-May-2020 10:41:44 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
 [27-May-2020 10:42:14 UTC] PHP Warning:  Module 'imagick' already loaded in Unknown on line 0
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592

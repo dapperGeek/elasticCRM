@@ -150,8 +150,12 @@
                               <th> <i class="fa fa-shopping-cart"></i> tran. </th>
                               <th> <i class="fa fa-shopping-cart"></i>  sold </th>
                                <th> <i class="fa fa-hand-peace-o"></i> returned </th>
+<<<<<<< HEAD
                                <th> <i class="fa fa-edit"></i> correction </th>
                               <th> <i class="fa fa-archive"></i> remain </th>
+=======
+                              <th> <i class="fa fa-hand-peace-o"></i> remain </th>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 
                                <th> <i class="fa fa-shopping-cart"></i> INVOICE NO </th>
                               <th> <i class="fa fa-shopping-cart"></i> STORE </th>
@@ -169,7 +173,10 @@
                                  <td><?php echo $gl['transfered'];?></td>
                                  <td><?php echo $gl['sold'];?></td>
                                   <td><?php echo $gl['returned'];?></td>
+<<<<<<< HEAD
                                   <td><?php echo $gl['edited'];?></td>
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                                  <td><?php echo $gl['remain'];?></td>
 
                                  

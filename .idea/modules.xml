@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
@@ -5,4 +6,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/elastic25.com.iml" filepath="$PROJECT_DIR$/.idea/elastic25.com.iml" />
     </modules>
   </component>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/elastic25.com.iml" filepath="$PROJECT_DIR$/.idea/elastic25.com.iml" />
+    </modules>
+  </component>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 </project>

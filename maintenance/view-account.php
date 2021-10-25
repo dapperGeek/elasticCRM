@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     $pageHeader = 'viewPmAccounts';
     $title = 'View Accounts';
@@ -117,6 +118,77 @@
                 <li ><a href="#tab-3" data-toggle="tab" >FSMA</a></li>
               </ul>
                   <div class="tab-content">
+=======
+ <?php
+  include("../data/DBConfig.php");
+  include_once("../data/sessioncheck.php");
+  ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>View Accounts</title>
+<!-- dataTables -->
+<link href="<?php echo $host;?>assets/css/buttons.dataTables.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo $host;?>assets/css/jasny-bootstrap.min.css">
+<!-- slimscroll -->
+<link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
+<!-- Fontes -->
+<link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
+<link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
+<!-- animate css -->
+<link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
+<!-- top nev css -->
+<link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
+<!-- adminui main css -->
+<link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
+<!-- aqua black theme css -->
+<link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
+<!-- media css for responsive  -->
+<link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<?php include("../includes/header_.php");?>
+  <div class="page-content-wrapper animated fadeInRight">
+    <div class="page-content">
+      <div class="row wrapper border-bottom page-heading">
+        <div class="col-lg-12">
+          <h2>View All Customer Accounts for Preventive Maintenance </h2>
+          <ol class="breadcrumb">
+            <li> <a href="index-2.html">Home</a> </li>
+            <li> <a>Preventive</a> </li>
+            <li> <a>Accounts</a> </li>
+            <li class="active"> <strong>View Accounts</strong> </li>
+          </ol>
+        </div>
+        <div class="col-lg-12"> </div>
+      </div>
+      <div class="wrapper-content ">
+
+     <div class="row">
+          <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+              
+              <div class="ibox-content collapse in">
+                <div class="widgets-container"><ul class="nav nav-tabs">
+                <li class="active"><a href="#tab-1" data-toggle="tab" > MPS <!--<span class="label label-warning">NEW</span>--></a></li>
+                <li ><a href="#tab-2" data-toggle="tab" >AMC </a></li>
+                <li ><a href="#tab-3" data-toggle="tab" >FSMA</a></li>
+              </ul> <div class="tab-content">
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 <div class="tab-pane active" id="tab-1">
                   <div class="panel-body">
 
@@ -242,7 +314,11 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
+<<<<<<< HEAD
 
+=======
+                                        
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
                                         </tbody>
                     </table>
@@ -298,10 +374,17 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
+<<<<<<< HEAD
 
 
                                         </tbody>
                     </table id="example9" class="display nowrap table  responsive nowrap table-bordered">
+=======
+                                        
+
+                                        </tbody>
+                    </table>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                 </div>
               </div>
             </div>
@@ -309,7 +392,13 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
   </div>
+=======
+          </div>
+        </div>
+      </div>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 <!-- start footer -->
 <div class="footer">
@@ -474,6 +563,7 @@
                 "pageLength": 20
             });
 
+<<<<<<< HEAD
              $('#example10').DataTable({
 
                 dom: 'Bfrtip',
@@ -530,6 +620,8 @@
                 "pageLength": 20
             });
 
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 
         });

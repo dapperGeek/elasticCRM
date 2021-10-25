@@ -4,8 +4,13 @@
   ?>
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
+=======
+<head>
+<meta charset="utf-8">
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Goods Recieved </title>
@@ -84,7 +89,11 @@
                                                 <th>Ticket#</th>
                                                 <th>Supplier</th>
                                                 <th>InvoiceNo</th>
+<<<<<<< HEAD
                                                 <th>Container Offloaded Date</th>
+=======
+                                                <th>Invoice Date</th>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                                                 <th>FileReference</th>
                                                 <th>Store</th>
                                                 <th>DoneBy</th>
@@ -99,7 +108,11 @@
                                                 <th>Ticket#</th>
                                                 <th>Supplier</th>
                                                 <th>InvoiceNo</th>
+<<<<<<< HEAD
                                                 <th>Container Shipped Date</th>
+=======
+                                                <th>Invoice Date</th>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                                                 <th>FileReference</th>
                                                 <th>Store</th>
                                                 <th>DoneBy</th>
@@ -122,7 +135,11 @@
                                                 <td><?php echo $mo['TicketNo'];?></td>
                                                 <td><?php echo $mo['supplierName'];?></td>
                                                 <td><?php echo $mo['invoiceNo'];?></td>
+<<<<<<< HEAD
                                                 <td><?php echo date('F j, Y', strtotime(str_ireplace('/', '-', $mo['invoiceDate'])));?></td>
+=======
+                                                <td><?php echo $mo['invoiceDate'];?></td>
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                                                 <td><?php echo $mo['FileReference'];?></td>
                                                 <td><?php echo $mo['storeName'];?></td>
                                                 <td><?php echo $mo['fullname'];?></td>

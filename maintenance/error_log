@@ -142,6 +142,7 @@ Stack trace:
 [13-Sep-2019 12:53:00 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/maintenance/pm-account-info.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
 [16-Sep-2019 13:44:36 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/maintenance/view-account.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
 [16-Sep-2019 13:44:36 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/maintenance/view-account.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
+<<<<<<< HEAD
 [17-Sep-2019 15:21:38 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/maintenance/view-account.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
 [17-Sep-2019 15:21:38 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elasticc/public_html/elastic25.com/maintenance/view-account.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 21
 [17-Sep-2019 15:22:05 Africa/Lagos] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/elasticc/public_html/elastic25.com/maintenance/pm-account-info.php:1) in /home/elasticc/public_html/elastic25.com/data/DBConfig.php on line 3
@@ -569,3 +570,5 @@ Stack trace:
 [27-Jul-2020 11:34:29 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/maintenance/pm-account-info.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
 [24-Sep-2020 08:18:49 Africa/Lagos] PHP Warning:  session_start(): Cannot start session when headers already sent in /home/elastic2/public_html/data/DBConfig.php on line 3
 [24-Sep-2020 08:18:50 Africa/Lagos] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/elastic2/public_html/maintenance/pm-account-info.php:1) in /home/elastic2/public_html/data/DBConfig.php on line 21
+=======
+>>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
