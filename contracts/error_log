@@ -124,3 +124,122 @@ Stack trace:
 #2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
 #3 {main}
   thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 4715
+[05-Jan-2021 10:33:46 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5055
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5055): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('245')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5055
+[17-Feb-2021 17:45:10 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5225
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5225): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5225
+[17-Feb-2021 17:45:30 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5225
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5225): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5225
+[09-Mar-2021 12:06:03 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5288
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5288): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('220')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5288
+[09-Mar-2021 12:10:12 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5288
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5288): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('220')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5288
+[09-Mar-2021 12:10:32 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5288
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5288): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('220')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5288
+[09-Mar-2021 12:11:26 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5288
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5288): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('220')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5288
+[10-Mar-2021 10:46:53 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5288
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5288): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('245')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5288
+[12-Mar-2021 16:52:44 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5291
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5291): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('223')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5291
+[16-Jun-2021 18:09:30 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[16-Jun-2021 18:10:01 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[16-Jun-2021 18:10:49 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[16-Jun-2021 18:38:54 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[16-Jun-2021 18:41:11 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[16-Jun-2021 18:41:39 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[16-Jun-2021 19:43:12 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306
+[06-Jul-2021 19:17:54 Africa/Lagos] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elastic2_25.contractValue' doesn't exist in /home/elastic2/public_html/data/MySQLDatabase.php:5306
+Stack trace:
+#0 /home/elastic2/public_html/data/MySQLDatabase.php(5306): PDOStatement->execute()
+#1 /home/elastic2/public_html/views/sales.php(41): MySQLDatabase->getMpsContracts('275')
+#2 /home/elastic2/public_html/contracts/contracts.php(12): include('/home/elastic2/...')
+#3 {main}
+  thrown in /home/elastic2/public_html/data/MySQLDatabase.php on line 5306

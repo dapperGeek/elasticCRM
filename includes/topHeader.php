@@ -26,7 +26,7 @@
 
 //        Get MPS Accounts details
     $analytic = $database->mpsAnalytics();
-    $mpsChartsData = json_encode($analytic);
+    $data = json_encode($analytic);
 
     $getPmsSchedules = $database->pmsSchedules();
     $upcomingSchedules = isset($getPmsSchedules[UtilFunctions::$newSchedule])
@@ -35,6 +35,9 @@
     $pendingSchedules =  isset($getPmsSchedules[UtilFunctions::$oldSchedule])
                         ? sizeof($getPmsSchedules[UtilFunctions::$oldSchedule])
                         : 0;
+
+    $stockEdits = $database->getStockEdits();
+    $pendingEdits = isset($stockEdits[0]['pendingEdits']) && $stockEdits[0]['pendingEdits'] > 0 ? $stockEdits[0]['pendingEdits'] : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +45,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-    <title><?php  echo isset($pageHeader) ? PageHeaders::getTitle($pageHeader) : 'Elastic-25+'; ?></title>
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title><?php  echo isset($pageTitle) ? "Elastic-25+|| $pageTitle" : ( isset($pageHeader) ? PageHeaders::getTitle($pageHeader) : 'Elastic-25+'); ?></title>
     <!-- morris -->
     <link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -95,8 +98,8 @@
     <link rel="stylesheet" href="<?php echo $host;?>assets/css/ion.rangeSlider.css" />
     <link rel="stylesheet" href="<?php echo $host;?>assets/css/ion.rangeSlider.skinFlat.css" />
 
-<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
-<!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 
     <!-- Header JavaScripts -->
     <?php include('headerJS.php') ?>
@@ -111,7 +114,7 @@
     <script src="<?php echo $host . 'assets/js/ajax.js' ?>"></script>
 
 
-<!--    <script src="jquery-1.12.4.min.js"></script>-->
+    <!--    <script src="jquery-1.12.4.min.js"></script>-->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -126,7 +129,7 @@
     <script src="https://amcharts.com/lib/4/themes/kelly.js"></script>
     <!--end amCharts JS-->
 
-<!--    JQuery JS-->
+    <!--    JQuery JS-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 

@@ -140,11 +140,7 @@
 		 * rows - as such, the jQuery selector used should match TR row nodes or TD/TH cell nodes
 		 * rather than any descendants, so the data can be obtained for the row/cell. If matching
 		 * rows are found, the data returned is the original data array/object that was used to
-<<<<<<< HEAD
 		 * create the row (or a generated array if from a DOM source).
-=======
-		 * create the row (or  a generated array if from a DOM source).
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 		 *
 		 * This method is often useful in-combination with $ where both functions are given the
 		 * same parameters and the array indexes will match identically.
@@ -4335,11 +4331,7 @@
 	 *  @param {bool} bCaseInsensitive Do case insenstive matching or not
 	 *  @memberof DataTable#oApi
 	 */
-<<<<<<< HEAD
 	function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
-=======
-	function _fnFilterColumn (settings, searchStr, colIdx, regex, smart, caseInsensitive )
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 	{
 		if ( searchStr === '' ) {
 			return;

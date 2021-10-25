@@ -115,15 +115,13 @@
         let dmgSwitch = document.getElementById("dmg_switch" + id).checked;
         let dmgEdit =$('input[name="dmg_update<?php echo $prod['id'];?>"]').val();
 
-        let remarks =$('#remarks<?php echo $prod['id'] ?>').val();
-        
-//        console.log(remarks);
+        let remarks =$('input[name="remarks<?php echo $prod['id'];?>"]').val();
 
-        if(confirm("Are you sure you want to edit this?"))
-        {
+        if(confirm("Are you sure you want to edit this?")){
             // send to controller if no error occurs
+            // $('.savepass').hide();
             //show loading animation
-            // $('.loading-gif').show();3
+            // $('.loading-gif').show();
 
             let newMain = upOrDown(mainStore, mainEdit, mainSwitch);
             let newAbj = upOrDown(abjStore, abjEdit, abjSwitch);
@@ -147,23 +145,22 @@
                     'officeSwitch': officeSwitch,
                     'abjSwitch': abjSwitch,
                     'dmgSwitch': dmgSwitch,
-                    'remarks': remarks
-                },
-                success: function(response)
-                {
+                    'remarks': remarks},
+                success: function(response){
 
                     // $('.loading-gif').hide();
                     var success = response['success'];
                     var msg = response['msg'];
 
-                    if(success)
-                    {// if server side update succeeds
+                    if(success){// if server side update succeeds
+
                         statusMsg = 'Product stock info updated successfully';
                         msg_class = 'sxs-msg';
+
                         $('#modal-msg').html(statusMsg).addClass(msg_class).show();
                     }
-                    else
-                    {// if server side error occurs
+                    else{// if server side error occurs
+
                         statusMsg = msg;
                         msg_class = 'err-msg';
                         // $('.savepass').show();
@@ -176,7 +173,7 @@
 
     function upOrDown(store, update, sign) {
         let result = 0;
-        switch (sign)   {
+        switch (sign) {
             case true :
                 result = parseInt(store) + parseInt(update);
                 break;
@@ -186,7 +183,7 @@
                 break;
 
             default:
-                result = parseInt(store) - 20;
+                result = parseInt(store);
                 break;
         }
         return result;
@@ -329,7 +326,7 @@
                             <label class="col-md-2">&nbsp;</label>
                             <label class="col-md-2">&nbsp;</label>
                             <div class="col-md-6">
-                                <button class="btn btn-warning col-md-12" onclick="callEditStock<?php echo $prod['id'];?>('<?php echo $prod['id'] ?>')" id="remarks<?php echo $prod['id'] ?>" >EDIT STOCK INFO</button>
+                                <button class="btn btn-warning col-md-12" onclick="callEditStock<?php echo $prod['id'];?>('<?php echo $prod['id'] ?>')" >EDIT STOCK INFO</button>
                             </div>
                         </div>
 

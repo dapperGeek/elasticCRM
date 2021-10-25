@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUndefinedVariableInspection */
+<?php
 /**
  * Created by PhpStorm.
  * User: OLUYEMI

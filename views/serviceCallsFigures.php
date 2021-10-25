@@ -15,7 +15,7 @@
         include ("../includes/mains.php");
     }
     
-    if ($_SESSION['access'] >= 8 || ($_SESSION['dptID'] == 3 && $_SESSION['access'] >= 8))
+    if ($myData['AccessLevel'] >= 8 || $myData['dptID'] == 3)
     {
 ?>
 <div class="col-lg-6">
@@ -26,7 +26,7 @@
         </h2>
     </centre>
     <div class="row col-lg-12">
-        <table class="table table-bordered" id="engCalls">
+        <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Engineer</th>
@@ -36,7 +36,7 @@
                 <th>Prev.</th>
                 <th>Toner</th>
                 <th>Corrective</th>
-                <th>Average Resolution Time (Days)</th>
+                <th>Average Reso. Time (Hours/Days)</th>
             </tr>
         </thead>
         <tfoot style="background-color: #49b6d6">
@@ -48,13 +48,13 @@
                 <th>Prev.</th>
                 <th>Toner</th>
                 <th>Corrective</th>
-                <th>Average Resolution Time (Days)</th>
+                <th>Average Reso. Time (Hours/Days)</th>
             </tr>
         </tfoot>
         <tbody>
     <?php
         $engineerRankings = $database->engineerRankings();
-         
+
         foreach ($engineerRankings as $engRank)
         {
             if ($engRank['id'] == 82)
@@ -76,7 +76,7 @@
                 <td><?php echo $engRank['preventiveCalls']; ?></td>
             
                 <td><?php echo $engRank['tonerCalls']; ?></td>
-
+            
                 <td><?php echo $corrective ; ?></td>
             
                 <td>
@@ -103,7 +103,11 @@
 <?php
         $serviceCalls = $database->getAllServiceCall(date('F'));
         $delayedCalls = UtilFunctions::getDelayedCalls($serviceCalls);
-?>
+    //                echo '<pre>';
+    //                echo time();
+    //                print_r($times);
+    //                echo  '</pre>';
+    ?>
     <!--            Total monthly calls logged -->
     <div class="col-md-6 col-sm-6">
         <div class="widget widget-stats orange-bg">
@@ -140,7 +144,7 @@
 
     <!-- Monthly calls delayed -->
     <div class="col-md-6 col-sm-6">
-        <div class="widget widget-stats aqua-bg">
+        <div class="widget widget-stats aqua-bg ">
             <div class="stats-icon stats-icon-lg"><i class="fa fa-tags fa-fw"></i></div>
             <div class="stats-title">DELAYED CALLS</div>
             <div class="stats-number">
@@ -213,4 +217,3 @@
     </div>
 
 </div>
-

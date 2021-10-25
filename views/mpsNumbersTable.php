@@ -5,6 +5,9 @@
  * Date: 23-Dec-19
  * Time: 9:55 AM
  */
+
+        $analytic = $database->mpsAnalytics();
+//        $mpsChartsData = json_encode($analytic);
 ?>
 
 <div class="col-lg-6 table-responsive">

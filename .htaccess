@@ -8,11 +8,8 @@ RewriteEngine On
 # Make all PHP code look like HTML  --- Rule 1
 #  AddType application/x-httpd-php .htm .html    # USE TO MAKE HTML WORK AS PHP FILE
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^login/*$ login.php [NC,L,QSA] #login
 RewriteRule ^logout/*$ logout.php [NC,L,QSA] #logout
 
@@ -20,7 +17,6 @@ RewriteRule ^reports/*$ reports.php [NC,L,QSA] #login
 
 RewriteRule ^change-password/*$ userprofile/change-password.php [NC,L,QSA] #Change Password
 
-<<<<<<< HEAD
 RewriteRule ^add-machine/*$ serviceapp/add-machine.php [NC,L,QSA] #Add Machines 
 RewriteRule ^view-machine/*$ serviceapp/view-machine.php [NC,L,QSA] #view Machines
 
@@ -28,16 +24,7 @@ RewriteRule ^add-machine-to-workshop/*$ serviceapp/add-machine-to-workshop.php [
 RewriteRule ^view-workshop-machine/*$ serviceapp/view-workshop-machine.php [NC,L,QSA] #view Workshop Machines
 
 RewriteRule ^add-machine-to-showroom/*$ serviceapp/add-machine-to-showroom.php [NC,L,QSA] #Add Showroom Machines
-RewriteRule ^view-showroom-machine/*$ serviceapp/view-showroom-machine.php [NC,L,QSA] #view Workshop Machines
-=======
-RewriteRule ^add-machine/*$ serviceapp/add-machine.php [NC,L,QSA] #Add Machines
-RewriteRule ^view-machine/*$ serviceapp/view-machine.php [NC,L,QSA] #view Machines
-
-RewriteRule ^add-machine-to-workshop/*$ serviceapp/add-machine-to-workshop.php [NC,L,QSA] #Add Workshop Machines  
-
-RewriteRule ^view-workshop-machine/*$ serviceapp/view-workshop-machine.php [NC,L,QSA] #view Workshop Machines
-
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
+RewriteRule ^view-showroom-machine/*$ serviceapp/view-showroom-machine.php [NC,L,QSA] #view Showroom Machines
 
 RewriteRule ^add-account/*$ serviceapp/add-account.php [NC,L,QSA] #Add Acocunt
 RewriteRule ^add-poc/*$ serviceapp/add-poc.php [NC,L,QSA] #Add Acocunt
@@ -47,28 +34,18 @@ RewriteRule ^view-poc/*$ serviceapp/view-poc.php [NC,L,QSA] #Add Account
 
 RewriteRule ^view-service-call/*$ serviceapp/view-service-call.php [NC,L,QSA] #Add Account
 RewriteRule ^engineer-view-service-call/*$ serviceapp/engineer-view-service-call.php [NC,L,QSA] #Add Account
-<<<<<<< HEAD
 RewriteRule ^service-call/*$ serviceapp/service-call.php [NC,L,QSA] #Add Service Call
-RewriteRule ^service-call/([0-9]+)/*$ serviceapp/service-call.php?id=$1 [NC,L,QSA] #Edit Service Call
-=======
-RewriteRule ^service-call/*$ serviceapp/service-call.php [NC,L,QSA] #Add Account
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
+RewriteRule ^service-call/([0-9]+)/*$ serviceapp/service-call.php?id=$1 [NC,L,QSA] #Update Service Call
 
 RewriteRule ^ticket-info/([A-Za-z0-9-_]+)/*$ tickets/service-ticket.php?id=$1 [NC,L,QSA] #view ticket Information
 
 RewriteRule ^workshop-ticket-info/([A-Za-z0-9-_]+)/*$ tickets/workshop-ticket.php?id=$1 [NC,L,QSA] #view ticket Information
 
-<<<<<<< HEAD
-RewriteRule ^purchase-invoice/([A-Za-z0-9-_]+)/*$ tickets/purchase-invoice.php?id=$1 [NC,L,QSA] #view Purchase Invoice
-RewriteRule ^ticket-pop/([A-Za-z0-9-_]+)/*$ tickets/ticket-pop.php?id=$1 [NC,L,QSA] #view Purchase Invoice
-
-=======
 
 RewriteRule ^purchase-invoice/([A-Za-z0-9-_]+)/*$ tickets/purchase-invoice.php?id=$1 [NC,L,QSA] #view Purchase Invoice
 RewriteRule ^ticket-pop/([A-Za-z0-9-_]+)/*$ tickets/ticket-pop.php?id=$1 [NC,L,QSA] #view Purchase Invoice
 
 
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^machine-info/([0-9]+)/*$ serviceapp/machine-info.php?id=$1 [NC,L,QSA] #view machine Information
 RewriteRule ^account-info/([0-9]+)/*$ serviceapp/account-info.php?id=$1 [NC,L,QSA] #view account Information
 RewriteRule ^purchase-item/([0-9]+)/*$ serviceapp/purchase-item.php?id=$1 [NC,L,QSA] #view account Information
@@ -83,12 +60,8 @@ RewriteRule ^generate-billing/([0-9]+)/*$ billing/generate-billing.php?id=$1 [NC
 RewriteRule ^mps-billing/([0-9]+)/*$ billing/mps-billing.php?id=$1 [NC,L,QSA] #start generating billing
 
 RewriteRule ^add-mps/*$ contracts/add-mps-info.php [NC,L,QSA] #View Contract Information
-<<<<<<< HEAD
 RewriteRule ^contracts/([A-Za-z-_]+)/([0-9]+)/*$ contracts/contracts.php?type=$1&id=$2 [NC,L,QSA] #start generating billing
 RewriteRule ^contracts/([A-Za-z-_]+)/*$ contracts/contracts.php?type=$1 [NC,L,QSA]
-=======
-
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^follow-up/([A-Za-z0-9-_]+)/*$ serviceapp/follow-up-call.php?id=$1 [NC,L,QSA] #view Purchase Invoice
 
 RewriteRule ^workshop-follow-up/([A-Za-z0-9-_]+)/*$ serviceapp/workshop-follow-up.php?id=$1 [NC,L,QSA] #view workshop-follow-up
@@ -101,29 +74,22 @@ RewriteRule ^purchase-uncollected/*$ purchase/purchase-uncollected.php [NC,L,QSA
 
 RewriteRule ^add-contract/*$ billing/add-contract.php [NC,L,QSA] #Create New Contract
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^view-products/([0-9]+)/*$ settings/products.php?id=$1 [NC,L,QSA] #View Products
 RewriteRule ^add-product-to-stock/*$ _warehouse/recieve-goods.php [NC,L,QSA] #Add Product Stocks
 RewriteRule ^receive-goods-warehouse/*$ _warehouse/recieve-goods-warehouse.php [NC,L,QSA] #Receive goodd from other warehouse.
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^view-goods-recieve-ticket/*$ _warehouse/view-recieve-tickets.php [NC,L,QSA] #Add Product Stocks
 RewriteRule ^view-sold-ticket/*$ _warehouse/view-sold-tickets.php [NC,L,QSA] #Add Product Stocks
 
 RewriteRule ^return-ticket/*$ _warehouse/return-ticket.php [NC,L,QSA] #return-ticket
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^view-bim/*$ _warehouse/view-bim.php [NC,L,QSA] #Add Product Stocks
+RewriteRule ^stock-edit/*$ _warehouse/stock-edit.php [NC,L,QSA] #edit store stock
+RewriteRule ^stock-edit-details/([0-9]+)/([0-9]+)/*$ _warehouse/stock-edit-details.php?id=$1&store=$2 [NC,L,QSA] #view stock edit details
 RewriteRule ^sell-goods/*$ _warehouse/sell-goods.php [NC,L,QSA] #sell goods
 RewriteRule ^add-product-cost/*$ _warehouse/add-product-cost.php [NC,L,QSA] #add product cost
 RewriteRule ^transfer-goods/*$ _warehouse/transfer-goods.php [NC,L,QSA] #sell goods
@@ -151,42 +117,26 @@ RewriteRule ^update-way-bill/([0-9]+)/*$ _warehouse/update_way_bill.php?id=$1 [N
 
 RewriteRule ^test/*$ _warehouse/test_page.php [NC,L,QSA] #Test Page
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 RewriteRule ^pm-view-account/*$ maintenance/view-account.php [NC,L,QSA] #View Account
 RewriteRule ^pm-view-account-details/([0-9]+)/*$ maintenance/pm-account-info.php?id=$1 [NC,L,QSA] #view Preventive Maintenance account Information
 RewriteRule ^update-new-pm-visit/([0-9]+)/*$ maintenance/pm-update.php?id=$1 [NC,L,QSA] #Update new PM visit
 
-<<<<<<< HEAD
-=======
-
-
-RewriteRule ^ticket/([A-Za-z0-9-_]+)/([0-9]+)/*$ _warehouse/downloads.php?id=$1&vat=$2 [NC,L,QSA] #PDF version of invoice
-
-
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 #Software developer urls
 RewriteRule ^users/*$ userprofile/users.php [NC,L,QSA] #View all users and update user by id
 RewriteRule ^users/([0-9]+)/*$ userprofile/users.php?id=$1 [NC,L,QSA] #View all users and update user by id
 RewriteRule ^users/db/ops*$ userprofile/users.php?db=ops [NC,L,QSA] #View all users and update user by id
 
-<<<<<<< HEAD
+
 RewriteRule ^ticket/([A-Za-z0-9-_]+)/([0-9]+)/*$ _warehouse/downloads.php?id=$1&vat=$2 [NC,L,QSA] #PDF version of invoice
 
 # php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php72” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php72 .php .php7 .phtml
+<IfModule fcgid_module>
+    <IfModule mime_module>
+        AddHandler fcgid-script .php .php7 .phtml
+        FcgidWrapper /usr/local/cpanel/cgi-sys/ea-php73 .php
+        FcgidWrapper /usr/local/cpanel/cgi-sys/ea-php73 .php7
+        FcgidWrapper /usr/local/cpanel/cgi-sys/ea-php73 .phtml
+    </IfModule>
 </IfModule>
-# php -- END cPanel-generated handler, do not edit
-=======
 
-# php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php56” package as the default “PHP” programming language.
-<IfModule mime_module>
-  AddHandler application/x-httpd-ea-php56 .php .php5 .phtml
-</IfModule>
 # php -- END cPanel-generated handler, do not edit
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592

@@ -70,12 +70,12 @@
         </li>
 
 
-<?php
+        <?php
     }
 
-//    Show workshop menus for engineers and customer care personnel
-    if(($myData['serviceCall'] > 0 OR $myData['engineer'] > 0) AND $myData['typeID'] == 0){
-?>
+    //    Show workshop menus for engineers and customer care personnel
+            if(($myData['serviceCall'] > 0 OR $myData['engineer'] > 0) AND $myData['typeID'] == 0){
+        ?>
         <li class="heading">
             <h3 class="uppercase">Workshop Inventory</h3>
         </li>
@@ -85,9 +85,16 @@
             <ul class="sub-menu">
 
 
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $host;?>add-machine-to-workshop"> <span class="title">Add Machine to Workshop</span> </a>
-                </li>
+                <?php
+                    if($myData['DepartmentID']==3)
+                    {
+                ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $host;?>add-machine-to-workshop"> <span class="title">Add Machine to Workshop</span> </a>
+                        </li>
+                <?php
+                    }
+                ?>
 
 
                 <li class="nav-item">
@@ -105,10 +112,16 @@
             <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cubes"></i><span class="title">Showroom</span> <span class="arrow"></span> </a>
             <ul class="sub-menu">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo $host;?>add-machine-to-showroom"> <span class="title">Add Machine to Showroom</span> </a>
-                </li>
-
+                <?php
+                    if($myData['DepartmentID']==3)
+                    {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host;?>add-machine-to-showroom"> <span class="title">Add Machine to Showroom</span> </a>
+                    </li>
+                <?php
+                    }
+                ?>
 
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $host;?>view-showroom-machine"> <span class="title">View Showroom</span> </a>
@@ -121,7 +134,7 @@
     }
 ?>
 
-    <?php if($myData['serviceCall'] > 0){?>
+    <?php if($myData['DepartmentID'] == 3 OR $myData['AccessLevel'] >= 6){?>
         <li class="heading">
             <h3 class="uppercase">Service Call</h3>
         </li>
@@ -139,14 +152,7 @@
 ?>
                 </span> <span class="arrow"></span> </a>
             <ul class="sub-menu">
-                <?php  if($myData['AccessLevel'] == 12){ ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> <span class="title">Make a Call</span> </a>
-                    </li>
-                <?php }?>
-
-
-                <?php  if($myData['AccessLevel'] < 12 AND $myData['typeID'] == 0){ ?>
+                <?php  if($myData['DepartmentID'] == 3 AND $myData['AccessLevel'] >= 6){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $host;?>service-call"> <span class="title">Make a Call</span> </a>
                     </li>
@@ -165,16 +171,17 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $host;?>pm-view-account"> <span class="title">PM Call
-<?php
-if ($upcomingSchedules > 0){
-
-?>
-<span class="label badge-info pull-right">
-                    <?php echo  $upcomingSchedules ?>
-                </span>
-<?php
-}
-?>                    </span> </a>
+                <?php
+                    if ($upcomingSchedules > 0)
+                    {
+                ?>
+                    <span class="label badge-info pull-right">
+                        <?php echo  $upcomingSchedules ?>
+                    </span>
+                <?php
+                    }
+                ?>
+                            </span> </a>
                     </li>
                 <?php
                     }
@@ -328,145 +335,172 @@ if ($upcomingSchedules > 0){
                     <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cart-arrow-down"></i> <span class="title">Supplier</span> <span class="arrow"></span> </a>
                     <ul class="sub-menu">
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-contract"> <span class="title">View</span> </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- Goods Transactions Link-->
+            <li class="nav-item">
+                <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cubes"></i> <span class="title">Goods Transactions</span>
+                    <span class="arrow"></span> </a>
+                <ul class="sub-menu">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host; ?>view-sold-ticket"> <span class="title">Electronic Waybill</span>
+                        </a>
+                    </li>
+
+                    <?php if ($myData['DepartmentID'] == 5) { ?>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php if($myData['AccessLevel'] == 12){echo '#';}else{echo $host;}?>add-contract"> <span class="title">View</span> </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <!-- Goods Transactions Link-->
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-cubes"></i> <span class="title">Goods Transactions</span>
-                        <span class="arrow"></span> </a>
-                    <ul class="sub-menu">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $host; ?>view-sold-ticket"> <span class="title">Electronic Waybill</span>
+                            <a class="nav-link" href="<?php echo $host; ?>return-ticket-view"> <span class="title">Credit Note</span>
                             </a>
                         </li>
-
-                        <?php if ($myData['DepartmentID'] == 5) { ?>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo $host; ?>return-ticket-view"> <span class="title">Credit Note</span>
-                                </a>
-                            </li>
 
                         <?php
                                 }
                                 else{
                         ?>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo $host; ?>return-ticket"> <span class="title">Credit Note</span>
-                                </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $host; ?>return-ticket"> <span class="title">Credit Note</span>
+                            </a>
 
-                            </li>
-                        <?php } ?>
+                        </li>
+                    <?php } ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host; ?>view-goods-recieve-ticket"> <span
+                                    class="title">Receive</span> </a>
+                    </li>
+
+
+                    <?php if ($myData['DepartmentID'] == 5) { ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $host; ?>view-goods-recieve-ticket"> <span
-                                        class="title">Receive</span> </a>
+                            <a class="nav-link" href="<?php echo $host; ?>transfer-goods-account"> <span
+                                        class="title">Transfer</span> </a>
                         </li>
 
+                    <?php } else { ?>
 
-                        <?php if ($myData['DepartmentID'] == 5) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $host; ?>transfer-goods"> <span class="title">Transfer</span>
+                            </a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo $host; ?>transfer-goods-account"> <span
-                                            class="title">Transfer</span> </a>
-                            </li>
+                    <?php } ?>
 
-                        <?php } else { ?>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo $host; ?>transfer-goods"> <span class="title">Transfer</span>
-                                </a>
-                            </li>
-
-                        <?php } ?>
-
-                        <!--<li class="nav-item">
+                    <!--<li class="nav-item">
                                                                 <a class="nav-link" href="<?php //echo $host;
-                        ?>view-goods-recieve-ticket"> <span class="title">Returned</span> </a>
+                    ?>view-goods-recieve-ticket"> <span class="title">Returned</span> </a>
                                                         </li>-->
-                        <!--<li class="nav-item">
+                    <!--<li class="nav-item">
                                                                 <a class="nav-link" href="<?php //echo $host;
-                        ?>add-product-stock"> <span class="title">Add</span> </a>
+                    ?>add-product-stock"> <span class="title">Add</span> </a>
                                                         </li> -->
 
 
-                    </ul>
+                </ul>
 
-                </li>
+            </li>
 
-                <!-- E-Bin Card Link-->
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-calendar-o"></i> <span
-                                class="title">E-BIN Card</span> <span class="arrow"></span> </a>
-                    <ul class="sub-menu">
+            <!-- E-Bin Card Link-->
+            <li class="nav-item">
+                <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-calendar-o"></i> <span
+                            class="title">E-BIN Card</span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $host; ?>view-bim"> <span class="title">View BIN</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host; ?>view-bim"> <span class="title">View BIN</span>
+                        </a>
+                    </li>
+                </ul>
 
-                </li>
+            </li>
 
-                <!--Delivery Tracker-->
-                <li class="nav-item">
-                    <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-calendar-o"></i> <span
-                                class="title">DELIVERY TRACKER</span> <span class="arrow"></span> </a>
-                    <ul class="sub-menu">
+            <!--Delivery Tracker-->
+            <li class="nav-item">
+                <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-calendar-o"></i> <span
+                            class="title">DELIVERY TRACKER</span> <span class="arrow"></span> </a>
+                <ul class="sub-menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $host; ?>track-a-delivery"> <span class="title">MANAGE TRACKING</span>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $host; ?>track-a-delivery"> <span class="title">MANAGE TRACKING</span>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
                                                                 <a class="nav-link" href="<?php echo $host; ?>view-bim"> <span class="title">VIEW DELEIVERY STATUS</span> </a>
                                                         </li>-->
-                    </ul>
+                </ul>
 
-                </li>
+            </li>
 
         <?php
                 }
-
         ?>
-        <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-warehouse"></i><span class="title">Stocks</span> <span class="arrow"></span> </a>
+        <li class="nav-item"> <a class="nav-link nav-toggle" href="javascript:;"> <i class="fa fa-warehouse"></i><span class="title">Stocks
+                <?php
+                    if ($pendingEdits > 0)
+                    {
+                        ?>
+                        <span style="margin-right: 20px"sidebar-menu.php class="label badge-info pull-right">
+                                <?php echo  $pendingEdits ?>
+                            </span>
+                        <?php
+                    }
+                ?>
+                </span>
+
+                <span class="arrow"></span> </a>
             <ul class="sub-menu">
                 <?php
                     // Show links for staff users
                     if($myData['typeID'] == 0){
                 ?>
-                <!-- Link to display all products-->
+                <!-- Link to edit products stock-->
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $host.'view-products/0' ?>">
-                                View All</a>
+                            <a class="nav-link" href="<?php echo $host.'stock-edit/' ?>">
+                                Stock Edits
+                                <?php
+                                    if ($pendingEdits > 0)
+                                    {
+                                ?>
+                                        <span class="label badge-info pull-right">
+                                            <?php echo  $pendingEdits ?>
+                                        </span>
+                                <?php
+                                    }
+                                ?>
+                            </a>
                         </li>
 
-                <!--      Link to list products by categories -->
-                        <li class="nav-item"> <a class="nav-link" href="javascript:;"> View By Categories <span class="arrow nav-toggle"></span> </a>
+                <!-- Link to display all products-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="--><?php //echo $host.'view-products/0' ?><!--">-->
+<!--                                View All</a>-->
+<!--                        </li>-->
 
-                            <ul class="sub-menu">
-                                <?php
+                    <!--      Link to list products by categories -->
+                    <li class="nav-item"> <a class="nav-link" href="javascript:;"> View By Categories <span class="arrow nav-toggle"></span> </a>
+
+                        <ul class="sub-menu">
+                            <?php
                                 $cati = (array)$database->getProductsCategory();
                                 foreach($cati as $catii){
-                                    ?>
-                                    <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
-                                <?php }?>
+                            ?>
+                                <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catii['id'];?>"><?php echo ucfirst($catii['type']);?></a> </li>
+                            <?php }?>
 
-                            </ul>
-                        </li>
+                        </ul>
+                    </li>
 
                 <?php
                     }
-
-                    // show links for users representing clients
-                    else {
+                    else { // show links for users representing clients
                         $catInfo = (array)$database->getCategoryById($myData['typeID'])
                 ?>
                         <li class="nav-item"> <a class="nav-link" href="<?php echo $host;?>view-products/<?php echo $catInfo['id'];?>"><?php echo ucfirst($catInfo['type']);?></a> </li>
@@ -476,7 +510,8 @@ if ($upcomingSchedules > 0){
 
                 <?php
                     // Display links for adding product costs for account dept users
-                    if ($myData['DepartmentID']== 5) { ?>
+                    if ($myData['DepartmentID'] == 5) {
+                ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $host;?>add-product-cost"> <span class="title">Add Cost</span> </a>
                     </li>

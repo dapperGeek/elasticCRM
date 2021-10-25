@@ -1,16 +1,9 @@
 <?php
-<<<<<<< HEAD
     $pageHeader = 'contractAccountInfo';
     include("../includes/header_with_pageHeading.php");
     $stores = $database->getAllStores();
 
     $id = 0;
-=======
-    include("../data/DBConfig.php");
-    include_once("../data/sessioncheck.php");
-    $id = 0;
-
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     if(!isset($_GET['id']) || $_GET['id'] == ""){
        $database->redirect_to($host."view-machine");
     }else{
@@ -20,8 +13,9 @@
             $database->redirect_to($host."view-machine");
         }
     }
-<<<<<<< HEAD
+
 ?>
+
         <div class="row wrapper border-bottom page-heading">
             <div class="col-lg-12">
                 <h2><?php echo $machineInfo['Name'];?> </h2>
@@ -44,63 +38,6 @@
         </div>
 
         <div class="wrapper-content ">
-=======
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $machineInfo['Name']; ?></title>
-    <!-- Bootstrap -->
-    <link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <!-- slimscroll -->
-    <link href="<?php echo $host;?>assets/css/jquery.slimscroll.css" rel="stylesheet">
-    <!-- Fontes -->
-    <link href="<?php echo $host;?>assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?php echo $host;?>assets/css/simple-line-icons.css" rel="stylesheet">
-    <!-- all buttons css -->
-    <link href="<?php echo $host;?>assets/css/buttons.css" rel="stylesheet">
-    <!-- animate css -->
-<link href="<?php echo $host;?>assets/css/animate.css" rel="stylesheet">
-<!-- top nev css -->
-<link href="<?php echo $host;?>assets/css/page-header.css" rel="stylesheet">
-<!-- adminui main css -->
-    <link href="<?php echo $host;?>assets/css/main.css" rel="stylesheet">
-    <!-- aqua black theme css -->
-    <link href="<?php echo $host;?>assets/css/aqua-black.css" rel="stylesheet">
-    <!-- media css for responsive  -->
-    <link href="<?php echo $host;?>assets/css/main.media.css" rel="stylesheet">
-    <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
-    <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
-</head>
-
-<?php include("../includes/header_.php");?>
-        <!-- End page sidebar wrapper -->
-        <!-- Start page content wrapper -->
-        <div class="page-content-wrapper">
-            <div class="page-content">
-                <div class="row wrapper border-bottom page-heading">
-                    <div class="col-lg-12">
-                        <h2><?php echo $machineInfo['Name'];?> </h2>
-                        <ol class="breadcrumb">
-                            <li> <a><?php echo $machineInfo['Address']; ?></a> </li>
-
-                            <li class="active"> <strong><?php echo $machineInfo['areaname']; ?></strong> </li>
-                            <li> <a><?php echo $machineInfo['state']; ?> </a> </li>
-
-
-                            <li>.</li>
-                            <a href="<?php echo $host;?>edit-account/<?php echo $machineInfo['id'];?>" class="btn btn-warning">Edit Account</a>
-
-                        </ol>
-                    </div>
-                </div>
-                <div class="wrapper-content ">
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                      <!-- tabs -->
           <div class="col-lg-8 top20">
             <div class="tabs-container">
@@ -121,7 +58,6 @@
                   <h2><?php echo $machineInfo['Name']; ?></h2>
 
                   <div class="row">
-<<<<<<< HEAD
                         <div class="col-md-2"><b>ACCOUNT</b></div>
                         <div class="col-md-4"><?php echo $machineInfo['Name']; ?></div>
 
@@ -195,81 +131,6 @@
                         </div>
 
                     </div>
-=======
-                                        <div class="col-md-2"><b>ACCOUNT</b></div>
-                                        <div class="col-md-4"><?php echo $machineInfo['Name']; ?></div>
-
-
-                                </div>
-                                <br/>
-                                <div class="row">
-                                        <div class="col-md-2"><b>INDUSTRY</b></div>
-                                        <div class="col-md-4"><?php echo $machineInfo['sector']; ?></div>
-
-
-                                </div>
-                                 <br/>
-
-                                 <div class="row">
-                                        <div class="col-md-2"><b>ADDRESS</b></div>
-                                        <div class="col-md-4"><?php echo $machineInfo['Address']; ?></div>
-                                </div>
-                                <br/>
-
-                                 <div class="row">
-                                        <div class="col-md-2"><b>AREA</b></div>
-                                        <div class="col-md-4"><?php echo $machineInfo['areaname']; ?></div>
-                                        <div class="col-md-2"><b>STATE</b></div>
-                                        <div class="col-md-4"><?php echo $machineInfo['state']; ?></div>
-
-                                </div>
-                                 <br/>
-                                 <hr/>
-
-                                    <div class="row">
-                                        <div class="col-md-1"><b>C 1:</b></div>
-                                        <div class="col-md-3"><?php echo $machineInfo['ContactName1']; ?></div>
-                                         <div class="col-md-1"><b>C 2:</b></div>
-                                        <div class="col-md-3"><?php echo $machineInfo['ContactName2']; ?></div>
-                                         <div class="col-md-1"><b>C 3:</b></div>
-                                        <div class="col-md-3"><?php echo $machineInfo['ContactName3']; ?></div>
-
-
-                                    </div>
-                                    <br/>
-                                     <div class="row">
-                                        <div class="col-md-1"><b>P 1:</b></div>
-                                        <div class="col-md-3"><?php echo $machineInfo['phone1']; ?></div>
-                                         <div class="col-md-1"><b>P 2:</b></div>
-                                        <div class="col-md-3"><?php echo $machineInfo['phone2']; ?></div>
-                                         <div class="col-md-1"><b>P 3:</b></div>
-                                        <div class="col-md-3"><?php echo $machineInfo['phone3']; ?></div>
-
-
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-md-1"><b>E 1:</b></div>
-                                         <div class="col-md-3 labels-inline"><span class="label-light label label-warning">
-                                             <?php echo wordwrap($machineInfo['email1'],15,"<br>\n");  ?>
-                                         </span>
-
-                                        </div>
-                                         <div class="col-md-1"><b>E 2:</b></div>
-                                          <div class="col-md-3 labels-inline"><span class="label-light label label-warning">
-                                             <?php echo wordwrap($machineInfo['email2'],15,"<br>\n");  ?>
-                                         </span>
-
-                                        </div>
-                                           <div class="col-md-1"><b>E 3:</b></div>
-                                       <div class="col-md-3 labels-inline"><span class="label-light label label-warning">
-                                             <?php echo wordwrap($machineInfo['email3'],15,"<br>\n");  ?>
-                                         </span>
-
-                                        </div>
-
-                                    </div>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 
 
                     </div>
@@ -343,11 +204,8 @@
                                     </table>
 
                                     </div>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
                     </div>
                 </div>
                 <div class="tab-pane" id="tab-3">
@@ -498,40 +356,8 @@
 												</div>
 									<?php }?>
 
-<<<<<<< HEAD
                 </div>
 
             </div>
 
 <?php include('../includes/footer.php') ;
-=======
-                      </div>
-                    </div>
-                  </div>
-
-
-                </div>
-
-
-            </div>
-            
-        </div>
-    </div>
-    <!-- Go top -->
-    <a href="#" class="scrollup"><i class="fa fa-chevron-up"></i></a>
-    <!-- Go top -->
- <script src="<?php echo $host;?>assets/js/vendor/jquery.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="<?php echo $host;?>assets/js/vendor/bootstrap.min.js"></script>
-    <!-- slimscroll js -->
-    <script type="<?php echo $host;?>text/javascript" src="assets/js/vendor/jquery.slimscroll.js"></script>
-    <!-- pace js -->
-<script src="<?php echo $host;?>assets/js/vendor/pace/pace.min.js"></script>
-<!-- Sparkline -->
-<script src="<?php echo $host;?>assets/js/vendor/jquery.sparkline.min.js"></script>
-<!-- main js -->
-    <script src="<?php echo $host;?>assets/js/main.js"></script>
-</body>
-</body>
-</html>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592

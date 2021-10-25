@@ -41,6 +41,7 @@
                                             }
                                         }
                                     </script>
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>

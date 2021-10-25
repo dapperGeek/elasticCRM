@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php 
     include("data/DBConfig.php");
     $url = "";
@@ -15,19 +14,6 @@
     {
         $database->redirect_to($url);
     }
-=======
-<?php include("data/DBConfig.php");?>
-<?php
-$url = "";
-        if(isset($_GET['url'])){
-                $url = $_GET['url'];
-        }else{
-                $url = $host;
-        }
-if(isset($_SESSION['user_id'])){
-                $database->redirect_to($url);
-            }
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,11 +21,7 @@ if(isset($_SESSION['user_id'])){
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
 <title>Elastic 250</title>
-=======
-<title>Elastic 25</title>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <!-- Bootstrap -->
 <link href="<?php echo $host;?>assets/css/bootstrap.min.css" rel="stylesheet">
 <!-- slimscroll -->
@@ -62,7 +44,6 @@ if(isset($_SESSION['user_id'])){
 <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 <!--[if lt IE 9]> <script src="dist/html5shiv.js"></script> <![endif]-->
 <?php
-<<<<<<< HEAD
     $err = "";
 
     if(isset($_POST['btnLogin']))
@@ -98,9 +79,8 @@ if(isset($_SESSION['user_id'])){
                     $_SESSION['access'] = $data['AccessLevel'];
                     $_SESSION['storeID'] = $data['storeID'];
                     $_SESSION['dptID'] = $data['DepartmentID'];
-
-                    $sessionDuration = time() + (60 * 60 * 24 * 5);
-                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], $sessionDuration, "/");
+                    
+                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
                     $database->redirect_to($url);
                 }
             }
@@ -110,62 +90,19 @@ if(isset($_SESSION['user_id'])){
              if($username == ""){$err.= "enter username<br/>";}
              if($password == ""){$err.= "enter password";}
         }
-=======
-                        $err = "";
-
-    if(isset($_POST['btnLogin'])){
-           $username = $database->test_input($_POST['txtUsername']);
-           $password = $database->test_input($_POST['txtPassword']);
-
-           if($username != "" && $password != ""){
-                $login = (array)$database->authenticateStaff($username,$password);
-                if($login[0] == 0){
-                        $err = 'invalid username or password';
-                    }
-                elseif($login[0] > 0){
-                            // no password error passed
-                            if($login[1] == 0){
-                                $err = "your account is not yet activated";
-                            }
-                            // invalid password error passed
-                            elseif($login[1] === 1){
-                                $err = "Your password is invalid";
-                            }
-                            else {
-                                    $_SESSION['user_id'] = $login[0];
-                                    setcookie("i_am2309384384304302349438933", $_SESSION['user_id'], time() + (86400),"/");
-                                    $database->redirect_to($url);
-                            }
-                    }
-           }
-           else{
-                if($username == ""){$err.= "enter username<br/>";}
-                if($password == ""){$err.= "enter password";}
-           }
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
     }
 ?>
 </head>
 <body class="login-layout-full login">
 <div class="page-brand-info">
     <div class="brand"> <img class="brand-img" src="assets/images/w-logo.png" alt="..."> </div>
-<<<<<<< HEAD
-    <p class="font-size-20">Elastic250 is a service application that helps monitor customer service progress and stores proper information of burchases and billing. Log in to have a feel</p>
+    <p class="font-size-20">Elastic250 is a service application that helps monitor customer service progress and stores proper information of purchases and billing. Log in to have a feel</p>
 </div>
 <div class="loginColumns ">
     <div>
         <h1 class="logo-name">E!-250</h1>
     </div>
     <h3>Welcome to Elastic250</h3>
-=======
-    <p class="font-size-20">Elastic25 is a service application that helps monitor customer service progress and stores proper information of purchases and billing. Log in to have a feel</p>
-</div>
-<div class="loginColumns ">
-    <div>
-        <h1 class="logo-name">E!-25</h1>
-    </div>
-    <h3>Welcome to Elastic25</h3>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
    <!-- <p>fully responsive admin dashboard template built with Bootstrap Framework, HTML5 and CSS3, Media query. </p>  -->
     <p>Login in. To see it in action.</p>
     <form  class="top15" method="post">
@@ -182,11 +119,7 @@ if(isset($_SESSION['user_id'])){
          <p style="text-align: center;"><a href="forgot_password.php"> Forgot password?</a></p>
        
     </form>
-<<<<<<< HEAD
     <p class=" copyR"> <small>Elastic250 is easy to use &copy; 2017-2018</small> </p>
-=======
-    <p class=" copyR"> <small>Elastic25 is easy to use &copy; 2017-2018</small> </p>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 </div>
 </body>
 

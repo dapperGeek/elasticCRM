@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 This is just a placeholder file so that the folder is created on install.
-=======
-This is just a placeholder file so that the folder is created on install.
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 It can be deleted once installed.

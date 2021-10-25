@@ -5,7 +5,6 @@
    
 
      $scID = 0;
-<<<<<<< HEAD
     if(isset($_GET['servicecallID']))
     {
         $scID = $database->test_input($_GET['servicecallID']);
@@ -13,12 +12,6 @@
     
     if($myData['storeID']== 0)
     {
-=======
-    if(isset($_GET['servicecallID'])){
-        $scID = $database->test_input($_GET['servicecallID']);
-    }
-    if($myData['storeID']== 0){
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
         $database->redirect_to($host);
     }
 ?>
@@ -28,11 +21,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
 <title>Recieve Goods Ticket</title>
-=======
-<title>Received Goods Ticket</title>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <!-- Bootstrap -->
     <link href="<?php echo $host;?>assets/css/morris.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -68,16 +57,12 @@
 </head>
 <?php include("../includes/header_.php");?>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
 <div class="page-content-wrapper animated fadeInRight">
   <div class="page-content" >
     <div class="row wrapper border-bottom page-heading">
       <div class="col-lg-12">
 
-<<<<<<< HEAD
 <?php
    
     if(isset($_POST['btnSubmitNewProduct']))
@@ -148,79 +133,6 @@
 
 
         <h2 style="text-align: center"><span class="btn btn-success">RECEIVE GOODS TICKET FOR WAREHOUSE   -   <?php echo strtoupper($store[1]);?></span></h2>
-=======
-      <?php
-                            if(isset($_POST['btnSubmitNewProduct'])){
-
-                               /* $accountID = $machineInfo['account_id'];
-                                $machineID = $id;
-                                $discount = $database->test_input($_POST['range']);
-
-                                */
-
-                                $supplier = $database->test_input($_POST['txtSupplier']);
-                                $invoiceNo = $database->test_input($_POST['txtInvoiceNo']);
-                                $fileRefSelect = $database->test_input($_POST['txtFileReference']);
-                                $fileRefNum = $database->test_input($_POST['txtFileReferenceNumber']);
-                                //$fileRefNum ="null";
-                                $fileRef = $fileRefSelect.' '.$fileRefNum;
-                                
-
-                                $storeID = $database->test_input($_POST['txtStore']);
-                                $save = 1;
-                                $invoiceDate = str_pad($_POST['txtDay'],2,"0",STR_PAD_LEFT)."/".str_pad($_POST['txtMonth'],2,"0",STR_PAD_LEFT)."/".$_POST['txtYear'];
-                                   $product=$qty=$amount=array();
-                                        if(isset($_POST['txtProduct'])){
-                                            $product = $_POST['txtProduct'];
-                                            $qty = $_POST['txtProductQty'];
-                                   } 
-
-                                   var_dump($qty);
-                                    
-                                    if (empty($fileRefNum)) {
-                                      
-                                    }
-
-                                  if(isset($_POST['txtProduct']) && !empty($_POST['txtProduct']) &&     $invoiceNo != "" && $fileRef !=""){
-                                  if($myData['storeID']== 1){
-                                  if($database->checkFileRef($fileRef)){
-                                   $myValue = $database->AddNewProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate);
-                                        unset($_POST);
-                                        $database->showMsg('', "PURCHASE HAS BEEN MADE SUCCESSFULLY", 2);
-                                  }else{$database->showMsg('', "FILE REFERENCE ALREADY EXIST", 1);}
-
-                                }elseif ($myData['storeID']== 2) {
-                                    $myValue = $database->AddNewProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate);
-                                        unset($_POST);
-                                        $database->showMsg('', "PURCHASE HAS BEEN MADE SUCCESSFULLY", 2);
-                                  }
-                                  elseif ($myData['storeID']== 3) {
-                                    $myValue = $database->AddNewProductStock($supplier,$invoiceNo,$fileRef,$storeID,$product,$qty,$save,$invoiceDate);
-                                        unset($_POST);
-                                        $database->showMsg('', "PURCHASE HAS BEEN MADE SUCCESSFULLY", 2);
-                                  }
-
-                                  
-                                     
-
-
-                                  }else{
-
-                                        $database->showMsg('', 'All fields are required to create a supply ticket', 1);
-                                    }
-
-
-
-                            }
-
-
-
-                        ?>
-
-
-
-        <h2 style="text-align: center"><span class="btn btn-success">RECIEVE GOODS TICKET FOR WARE HOUSE   -   <?php echo strtoupper($store[1]);?></span></h2>
->>>>>>> 48136f1b63a2e7fb659fed72c5bf93f60ec79592
          <h4 style="text-align: center">GOODS BEEN RECORDED BY <?php echo strtoupper($myData['fullname']); ?></h4>
 
       </div>

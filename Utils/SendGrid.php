@@ -25,12 +25,14 @@ class SendGrid
                 $footNote = 'Received By';
                 $customer = 'SUPPLIER NAME';
                 break;
+            
             case 'TRANSFERED':
                 $subject = "Transferred Goods Ticket No. ". $grt['TicketNo'];
                 $header = 'TRANSFER TICKET';
                 $footNote = 'Prepared By';
                 $customer = 'RECEIVING STORE';
                 break;
+           
             default:
                 $subject = "Goods Sold Ticket No. ". $grt['TicketNo'];
                 $header = 'SALES INVOICE';
@@ -39,8 +41,13 @@ class SendGrid
                 break;
         }
         //Send Emails
+//        $subject = "Received Goods Ticket No. ". $grt['TicketNo'];
         $N = 1;
         $j =0;
+
+//            $html ="<p name='mydata'> good \n";
+        //$html.= htmlspecialchars($data)."\n";
+//            $html.= "</p>";
 
         $table = "<table width='80%' align='center'  border=0>
         <tr>

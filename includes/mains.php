@@ -24,4 +24,3 @@ else
     include_once ('../Utils/PageHeaders.php');
     include_once ('../Utils/ViewLoader.php');
 }
-
