@@ -123,6 +123,8 @@
 <script src="<?php echo $host;?>assets/js/vendor/ion.rangeSlider.js"></script>
 
 <script src="<?php echo $host;?>assets/js/main.js"></script>
+<script src="<?php echo $host;?>assets/js/vendor/daterangepicker.js"></script>
+<script src="<?php echo $host;?>assets/js/vendor/select2.min.js"></script>
 <script type="text/javascript">
 
     $(function() {
@@ -187,8 +189,8 @@
     });
 </script>
 
-<script src="<?php echo $host;?>assets/js/vendor/select2.min.js"></script>
-<script src="<?php echo $host;?>assets/js/vendor/bootstrap-select.min.js"></script>
+<!--<script src="--><?php //echo $host;?><!--assets/js/vendor/select2.min.js"></script>-->
+<!--<script src="--><?php //echo $host;?><!--assets/js/vendor/bootstrap-select.min.js"></script>-->
 
 <!-- dataTables-->
 <script type="text/javascript" src="<?php echo $host;?>assets/js/vendor/jquery.dataTables.js"></script>

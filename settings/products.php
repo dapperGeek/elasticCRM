@@ -21,7 +21,7 @@ if(!isset($_GET['id'])){
 
                     <div class="row col-lg-12">
                         <?php
-                        if($myData['superAdmin'] > 0 || ($_SESSION['dptID'] == 4 && $_SESSION['access'] >= 8))
+                        if($myData['superAdmin'] > 0 || ($myData['DepartmentID'] == 4 && $myData['AccessLevel'] >= 8))
                         {
                             if($myData['AccessLevel'] == 12){
                                 echo '';}

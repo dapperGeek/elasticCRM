@@ -98,8 +98,8 @@
     <link rel="stylesheet" href="<?php echo $host;?>assets/css/ion.rangeSlider.css" />
     <link rel="stylesheet" href="<?php echo $host;?>assets/css/ion.rangeSlider.skinFlat.css" />
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
 
     <!-- Header JavaScripts -->
     <?php include('headerJS.php') ?>
@@ -110,7 +110,7 @@
         }
 
     </style>
-    <script src="<?php echo $host . 'assets/js/tables.js' ?>"></script>
+<!--    <script src="--><?php //echo $host . 'assets/js/tables.js' ?><!--"></script>-->
     <script src="<?php echo $host . 'assets/js/ajax.js' ?>"></script>
 
 

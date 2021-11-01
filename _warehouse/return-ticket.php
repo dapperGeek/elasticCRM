@@ -719,9 +719,5 @@ $storeID = $myData['storeID'];
 
             });
         </script>
-
-
-
-
         </body>
 </html>

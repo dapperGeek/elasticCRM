@@ -245,19 +245,19 @@ $Department = $myData['Department'];
 
                                         "data": [
                                             <?php
-                                            $yr = date('Y');
-                                            for($i = 1; $i < 13; $i++)
-                                            {
-                                            $jd=gregoriantojd($i,1,$yr);
-                                            $monthly = jdmonthname($jd,0);
-                                            $r = $database->getMonthlySales($i,$yr);
+                                                $yr = date('Y');
+                                                for($i = 1; $i < 13; $i++)
+                                                {
+                                                $jd=gregoriantojd($i,1,$yr);
+                                                $monthly = jdmonthname($jd,0);
+                                                $r = $database->getMonthlySales($i,$yr);
                                             ?>
-                                            {
-                                                "label": "<?php echo $monthly; ?>",
-                                                "value": <?php if($r['Amount'] ==''){echo 0;}else{echo $r['Amount'];}?>
-                                            },
+                                                {
+                                                    "label": "<?php echo $monthly; ?>",
+                                                    "value": <?php if($r['Amount'] ==''){echo 0;}else{echo $r['Amount'];}?>
+                                                },
                                             <?php
-                                            }
+                                                }
                                             ?>
                                         ]
                                     }

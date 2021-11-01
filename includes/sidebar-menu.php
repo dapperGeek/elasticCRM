@@ -152,7 +152,7 @@
 ?>
                 </span> <span class="arrow"></span> </a>
             <ul class="sub-menu">
-                <?php  if($myData['DepartmentID'] == 3 AND $myData['AccessLevel'] >= 6){ ?>
+                <?php  if(($myData['DepartmentID'] == 3 AND $myData['AccessLevel'] >= 6) OR $myData['DepartmentID'] == 2 ){ ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $host;?>service-call"> <span class="title">Make a Call</span> </a>
                     </li>
