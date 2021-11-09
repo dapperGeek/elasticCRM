@@ -247,7 +247,7 @@
             if ($setCallID > 0)
             {
                 $ticketNo = $_POST['ticketNo'];
-                $msg = $database->updateServiceCall($accountID,$machineID,$reportedBy,$eng,$cost,$paystatus,$issues,$user_id,$CaseStatus,$schD[0],$schD[1],$callID,$ticketNo);
+                $msg = $database->updateServiceCall($accountID,$machineID,$reportedBy,$eng,$cost,$paystatus,$issues,$user_id,$CaseStatus,$schD[0],$schD[1],$setCallID,$ticketNo);
             }
             else
             {
@@ -268,72 +268,5 @@
         else
         {
             $err = 'All fields are required to create a case';
-        }
-    }
-
-    // Implementation of Add machine
-    if(isset($_POST['btnAddMachine']))
-    {
-        $acc = $database->test_input($_POST['txtAccount']);
-        $machineCode = $database->test_input($_POST['txtMachineCode']);
-        $machineModel = $database->test_input($_POST['txtMachineType']);
-        $machineSerialNo = $database->test_input($_POST['txtMachineSerialNo']);
-
-        $meterReading = $database->test_input($_POST['txtMeterReading']);
-
-        $contractType = $database->test_input($_POST['txtContractType']);
-
-        $address = $database->test_input($_POST['txtAddress']);
-        $state = $database->test_input($_POST['txtState']);
-        $area = $database->test_input($_POST['txtAreaID']);
-        $dpt = $database->test_input($_POST['txtDpt']);
-
-        $contactN1 = $database->test_input($_POST['txtContactName1']);
-        $contactP1 = $database->test_input($_POST['txtPhone1']);
-        $contactE1 = $database->test_input($_POST['txtEmail1']);
-        $contactD1 = $database->test_input($_POST['txtDesig1']);
-
-        $contactN2 = $database->test_input($_POST['txtContactName2']);
-        $contactP2 = $database->test_input($_POST['txtPhone2']);
-        $contactE2 = $database->test_input($_POST['txtEmail2']);
-        $contactD2 = $database->test_input($_POST['txtDesig2']);
-
-        $contactN3 = $database->test_input($_POST['txtContactName3']);
-        $contactP3 = $database->test_input($_POST['txtPhone3']);
-        $contactE3 = $database->test_input($_POST['txtEmail3']);
-        $contactD3 = $database->test_input($_POST['txtDesig3']);
-
-        $doi = $database->test_input($_POST['txtInD']);
-        $cstart = $database->test_input($_POST['txtCS']);
-        $cend = $database->test_input($_POST['txtCE']);
-
-        if($acc != "" && $machineCode != "" && $machineModel != ""  && $contractType != "")
-        {
-            if($database->checkMachineAvailable($machineCode)){
-                $err = "This Machine code has been registered previously";
-            }else{
-                $database->createAMachine($acc,$machineCode,$machineModel,$machineSerialNo,$contractType,$doi,$cstart,$cend,$address,$area,$contactN1,$contactP1,$contactE1,$contactD1,$contactN2,$contactP2,$contactE2,$contactD2,$contactN3,$contactP3,$contactE3,$contactD3,$dpt,$meterReading);
-                unset($_POST);
-                $msg= "MACHINE HAS BEEN SUCCESSFULLY ADDED";
-
-                //echo $database->showMsg("SUCCESS",$msg,2);
-            }
-        }
-        else{
-            if($acc == ""){$err .="<li>Please select an account</li>";}
-            if($machineCode == ""){$err .="<li>Please enter machine code</li>";}
-            if($machineModel == ""){$err .="<li>Please Select machine model</li>";}
-            if($machineSerialNo == ""){$err .="<li>Please enter machine serial No.</li>";}
-            if($contractType == ""){$err .="<li>Please select contract Type</li>";}
-            if($address == ""){$err.="<li>Please enter machine address</li>";}
-            if($state == ""){$err .="<li>Please select machine state</li>";}
-            if($area == ""){$err .="<li>Please select area of the machine</li>";}
-            if($inD == ""){$err .="<li>Please select Installation day</li>";}
-            if($inM == ""){$err .="<li>Please select Installation month</li>";}
-            if($inY == ""){$err .="<li>Please select Installation year</li>";}
-            if($contactN1 == ""){$err .="<li>Please enter first contact person name</li>";}
-            if($contactP1 == ""){$err .="<li>Please enter first contact person phone no.</li>";}
-            if($contactE1 == ""){$err .="<li>Please enter first contact person email</li>";}
-            if($contactD1 == ""){$err .="<li>Please enter first contact person designation</li>";}
         }
     }

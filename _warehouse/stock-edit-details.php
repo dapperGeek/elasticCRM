@@ -8,7 +8,6 @@
     if($myData['storeID']== 0){
         $database->redirect_to($host);
     }
-
 ?>
             <div class="col-lg-12">
 

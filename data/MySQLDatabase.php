@@ -4305,7 +4305,7 @@ mif.serialNo, mif.Address, ct.c_name as contract, p.productName as machineBrand 
 
     public function getStoreNameTransferOption($storeID)
     {
-        $sql = "SELECT * FROM stores where id != $storeID";
+        $sql = "SELECT * FROM stores where id != ?";
         $myArray = array();
         $handle = $this->db->prepare($sql);
         $handle->bindValue(1, $storeID);
